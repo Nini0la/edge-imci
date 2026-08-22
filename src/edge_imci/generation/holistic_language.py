@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from textwrap import dedent
 from typing import Any
@@ -53,7 +54,7 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-008-resp-age-2-rate-50": _draft(
         """
-        This child is 2 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 50 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
+        This child is 2 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 50 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
         """,
         """
         Classification: Pneumonia.
@@ -63,27 +64,27 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-014-resp-chest-hiv-positive": _draft(
         """
-        This child is 18 months old and is HIV-exposed or HIV-infected. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. Chest indrawing is present, with no stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
+        This child is 18 months old and is HIV-exposed or HIV-infected. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. Chest indrawing is present, with no stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
         """,
         """
         Classification: Pneumonia.
 
-        Give the first dose of amoxicillin, then refer the child. This is a referral pathway; do not label it as an urgent referral unless another finding independently requires urgent referral.
+        Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral, not urgent referral.
         """,
     ),
     "hpg-016-resp-oximeter-89-9": _draft(
         """
-        This child is 18 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. Pulse oximetry is available and the oxygen saturation is 89.9%. There is no diarrhoea, fever, or ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. Pulse oximetry is available and the oxygen saturation is 89.9%. There is no diarrhoea, fever, or ear problem.
         """,
         """
         Classification: Cough or cold.
 
-        Refer the child because the oxygen saturation is below 90%. This referral is not marked urgent by this finding alone. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
+        Refer the child because the oxygen saturation is below 90%. This finding alone calls for referral, not urgent referral. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
         """,
     ),
     "hpg-020-resp-post-bronchodilator-improved": _draft(
         """
-        This child is 18 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. Initially, while calm and counted for one full minute, the respiratory rate was 45 breaths per minute. Wheeze was present, with no chest indrawing, stridor, or recurrent wheeze. A pulse oximeter was not available. A rapid-acting inhaled bronchodilator trial was completed. On reassessment, while calm and counted for one full minute, the respiratory rate was 35 breaths per minute and there was no chest indrawing. There is no diarrhoea, fever, or ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. Initially, while calm and counted for one full minute, the respiratory rate was 45 breaths per minute. Wheeze was present, with no chest indrawing, stridor, or recurrent wheeze. A pulse oximeter was not available. A rapid-acting inhaled bronchodilator trial was completed. On reassessment, while calm and counted for one full minute, the respiratory rate was 35 breaths per minute and there was no chest indrawing. There is no diarrhoea, fever, or ear problem.
         """,
         """
         The bronchodilator trial and breathing reassessment are complete, so use the post-treatment findings for classification.
@@ -95,7 +96,7 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-028-diarrhoea-some-dehydration": _draft(
         """
-        This child is 18 months old. There are no general danger signs. The child has had diarrhoea for 3 days, with no blood in the stool. The child is restless or irritable and has sunken eyes, drinks normally when offered fluid, and the abdominal skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is restless or irritable and has sunken eyes, drinks normally when offered fluid, and the abdominal skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
         """,
         """
         Classification: Some dehydration.
@@ -105,27 +106,27 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-031-diarrhoea-severe-age-24-cholera": _draft(
         """
-        This child is 24 months old. There are no general danger signs. The child has had diarrhoea for 3 days, with no blood in the stool. The child is not restless or irritable, has sunken eyes, drinks poorly when offered fluid, and the abdominal skin pinch returns normally. Cholera is present in the area. There is no cough or difficult breathing, fever, or ear problem.
+        This child is 24 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is not restless or irritable, has sunken eyes, drinks poorly when offered fluid, and the abdominal skin pinch returns normally. Cholera is present in the area. There is no cough or difficult breathing, fever, or ear problem.
         """,
         """
         Classification: Severe dehydration.
 
-        Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol; do not invent a drug or regimen.
+        Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol.
         """,
     ),
     "hpg-052-fever-identified-bacterial-cause": _draft(
         """
-        This child is 18 months old. There are no general danger signs. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious cause of fever, generalized rash, measles in the last 3 months, measles-associated cough, or red eyes. A bacterial cause of fever has been identified. There is no cough or difficult breathing, diarrhoea, or ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious cause of fever, generalized rash, measles in the last 3 months, measles-associated cough, or red eyes. A bacterial cause of fever has been identified. There is no cough or difficult breathing, diarrhoea, or ear problem.
         """,
         """
         Classification: Fever—no malaria.
 
-        Give appropriate antibiotic treatment for the identified bacterial cause. Do not invent a drug or regimen that is not supplied by the applicable protocol. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
+        Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
         """,
     ),
     "hpg-055-fever-severe-measles-cornea": _draft(
         """
-        This child is 18 months old. There are no general danger signs. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious or identified bacterial cause of fever, or measles in the last 3 months. The child has a generalized rash, red eyes, and clouding of the cornea, with no mouth ulcers or pus draining from the eye. There is no cough or difficult breathing, diarrhoea, or ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious or identified bacterial cause of fever, or measles in the last 3 months. The child has a generalized rash, red eyes, and clouding of the cornea, with no mouth ulcers or pus draining from the eye. There is no cough or difficult breathing, diarrhoea, or ear problem.
         """,
         """
         URGENT: Arrange urgent referral.
@@ -137,12 +138,12 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-068-cross-four-pathways": _draft(
         """
-        This child is 18 months old and has no general danger signs. Cough or difficult breathing has been present for 3 days. While calm, the respiratory rate counted for one full minute is 42 breaths per minute, with no chest indrawing, stridor, wheeze, or recurrent wheeze; a pulse oximeter is not available. Diarrhoea has been present for 3 days with blood in the stool; the child is not restless, has no sunken eyes, drinks normally, and the skin pinch returns normally. Fever has been present for 2 days at 38.0°C in a high-malaria-risk area; the malaria test is positive. There is no stiff neck, runny nose, obvious or identified bacterial cause, or measles in the last 3 months. There is a generalized rash with cough, but no red eyes, mouth ulcers, eye pus, or corneal clouding. The child has ear pain, with no reported discharge, no pus draining, and no tender swelling behind the ear.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Cough or difficult breathing has been present for 3 days. While calm, the respiratory rate counted for one full minute is 42 breaths per minute, with no chest indrawing, stridor, wheeze, or recurrent wheeze; a pulse oximeter is not available. Diarrhoea has been present for 3 days with blood in the stool; the child is not restless, has no sunken eyes, drinks normally, and the skin pinch returns normally. Fever has been present for 2 days at 38.0°C in a high-malaria-risk area; the malaria test is positive. There is no stiff neck, runny nose, obvious or identified bacterial cause, or measles in the last 3 months. There is a generalized rash with cough, but no red eyes, mouth ulcers, eye pus, or corneal clouding. The child has ear pain, with no reported discharge, no pus draining, and no tender swelling behind the ear.
         """,
         """
         Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear infection.
 
-        Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists and in 5 days if the child is not improving. Advise the caregiver when to return immediately.
+        Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and give vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists, and follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
         """,
     ),
     "hpg-070-cross-multiple-urgent": _draft(
@@ -154,15 +155,15 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
 
         Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile disease; mastoiditis.
 
-        Because the child is convulsing now, give diazepam. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
+        Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
         """,
     ),
     "hpg-071-incomplete-entry-unknown": _draft(
         """
-        This child is 18 months old. There are no general danger signs. There is no cough or difficult breathing, no fever, and no ear problem.
+        This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. There is no cough or difficult breathing, no fever, and no ear problem.
         """,
         """
-        The supported assessment is incomplete, so I cannot provide the final classifications or management plan yet.
+        I need one more finding before I can provide the final classifications and management plan.
 
         Ask the caregiver whether the child has diarrhoea and report the answer. An unmentioned answer cannot be treated as no.
         """,
@@ -173,7 +174,7 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
         This child is 18 months old. The child can drink or breastfeed, has had no convulsions, is not lethargic or unconscious, and is not convulsing now. Cough or difficult breathing has been present for 3 days; the child is calm, there is no chest indrawing, stridor, or wheeze, and breaths were counted for one full minute, but the respiratory-rate value was not recorded. A pulse oximeter is not available. There is no diarrhoea. Fever has been present for 2 days at 38.0°C; the malaria test is available and negative. There is no stiff neck, runny nose, obvious or identified bacterial cause, recent measles, generalized rash, measles-associated cough, or red eyes.
         """,
         """
-        The supported assessment is incomplete, so I cannot provide the final classifications or management plan yet. Please complete these items together:
+        I need the following assessment findings before I can provide the final classifications and management plan. Please complete them together:
 
         - Ask the caregiver whether the child vomits everything.
         - Count the respiratory rate for one full minute while the child is calm and report the breaths per minute.
@@ -194,7 +195,7 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
         """
         URGENT: Give diazepam because the child is convulsing now. Give the indicated pre-referral treatment immediately, prevent low blood sugar, keep the child warm, and arrange urgent referral. Do not delay referral.
 
-        The supported assessment is still incomplete, so the final classifications and management synthesis are withheld. While urgent treatment and referral are being arranged, complete the remaining assessment quickly:
+        A complete set of classifications and management actions still requires the remaining findings. While urgent treatment and referral are being arranged, complete the assessment quickly:
 
         - Ask the caregiver whether the child vomits everything.
         - Confirm the child's age in completed months from the caregiver or record.
@@ -211,12 +212,12 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
     ),
     "hpg-075-contradiction-drinking": _draft(
         """
-        This child is 18 months old. The general danger-sign assessment recorded that the child is able to drink or breastfeed. The child has had diarrhoea for 3 days with no blood in the stool. During the diarrhoea assessment, the child was recorded as unable to drink when offered fluid. The child is not restless, has no sunken eyes, and the skin pinch returns normally. There are no other general danger signs, cough or difficult breathing, fever, or ear problem.
+        This child is 18 months old. The general danger-sign assessment recorded that the child is able to drink or breastfeed. The child does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days with no blood in the stool. During the diarrhoea assessment, the child was recorded as unable to drink when offered fluid. The child is not restless, has no sunken eyes, and the skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
         """,
         """
         These findings conflict: the general danger-sign assessment says the child can drink or breastfeed, while the diarrhoea assessment records that the child is unable to drink. Do not choose one result or issue a final classification yet.
 
-        The health worker should clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
+        Clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
         """,
         acquisitions=(
             ("danger_signs.unable_to_drink_or_breastfeed", "CLINICIAN_OBSERVATION"),
@@ -236,6 +237,101 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
         """,
     ),
 }
+
+_CLASSIFICATION_MARKERS = {
+    "ACUTE_EAR_INFECTION": r"\bacute ear infection\b",
+    "COUGH_OR_COLD": r"\bcough or cold\b",
+    "DYSENTERY": r"\bdysentery\b",
+    "FEVER_NO_MALARIA": r"\bfever[— -]+no malaria\b",
+    "MALARIA": r"\bmalaria\b",
+    "MASTOIDITIS": r"\bmastoiditis\b",
+    "MEASLES": r"\bmeasles\b",
+    "NO_DEHYDRATION": r"\bno dehydration\b",
+    "PNEUMONIA": r"\bpneumonia\b",
+    "SEVERE_COMPLICATED_MEASLES": r"\bsevere complicated measles\b",
+    "SEVERE_DEHYDRATION": r"\bsevere dehydration\b",
+    "SEVERE_PNEUMONIA_OR_VERY_SEVERE_DISEASE": r"\bsevere pneumonia or very severe disease\b",
+    "SOME_DEHYDRATION": r"\bsome dehydration\b",
+    "VERY_SEVERE_DISEASE": r"\bvery severe disease\b",
+    "VERY_SEVERE_FEBRILE_DISEASE": r"\bvery severe febrile disease\b",
+}
+
+_ACTION_MARKERS = {
+    "ADVISE_WHEN_TO_RETURN_IMMEDIATELY": r"\badvise\b.{0,40}\breturn immediately\b",
+    "APPLY_TETRACYCLINE_EYE_OINTMENT": r"\bapply tetracycline eye ointment\b",
+    "COMPLETE_ASSESSMENT_QUICKLY": r"\bcomplete\b.{0,30}\bassessment quickly\b",
+    "DRY_EAR_BY_WICKING": r"\bdry the ear by wicking\b",
+    "FOLLOW_UP_3_DAYS": r"\bfollow up in 3 days\b",
+    "FOLLOW_UP_3_DAYS_IF_FEVER_PERSISTS": r"\bfollow up in 3 days if (?:the )?fever persists\b",
+    "FOLLOW_UP_5_DAYS": r"\bfollow up in 5 days\b",
+    "FOLLOW_UP_5_DAYS_IF_NOT_IMPROVING": r"\bfollow up in 5 days if the child is not improving\b",
+    "GIVE_ANTIBIOTIC_5_DAYS": r"\bgive\b.{0,35}\bantibiotic for 5 days\b",
+    "GIVE_APPROPRIATE_ANTIBIOTIC_FOR_IDENTIFIED_BACTERIAL_CAUSE": r"\bappropriate antibiotic treatment\b.{0,80}\bidentified bacterial cause\b",
+    "GIVE_CHOLERA_ANTIBIOTIC_PER_LOCAL_PROTOCOL": r"\bantibiotic for cholera\b.{0,60}\b(?:local|applicable) protocol\b",
+    "GIVE_CIPROFLOXACIN_3_DAYS": r"\bgive ciprofloxacin for 3 days\b",
+    "GIVE_DIAZEPAM_IF_CONVULSING_NOW": r"\bgive diazepam\b.{0,50}\bconvulsing now\b",
+    "GIVE_FIRST_DOSE_AMOXICILLIN_AND_REFER": r"\bfirst dose of amoxicillin\b.{0,40}\brefer\b",
+    "GIVE_FIRST_DOSE_APPROPRIATE_ANTIBIOTIC": r"\bfirst dose of an appropriate antibiotic\b",
+    "GIVE_FIRST_DOSE_SEVERE_MALARIA_TREATMENT": r"\bfirst dose of severe[- ]malaria treatment\b",
+    "GIVE_FIRST_LINE_ORAL_ANTIMALARIAL": r"\bfirst-line oral antimalarial\b",
+    "GIVE_FLUID_FOR_SEVERE_DEHYDRATION_PLAN_C": r"\bfluid for severe dehydration according to plan c\b",
+    "GIVE_FLUID_ZINC_AND_FOOD_PLAN_A": r"\bplan a fluid, zinc, and food\b",
+    "GIVE_FLUID_ZINC_AND_FOOD_PLAN_B": r"\bfluid, zinc, and food according to plan b\b",
+    "GIVE_INHALED_BRONCHODILATOR_5_DAYS": r"\binhaled bronchodilator for 5 days\b",
+    "GIVE_ORAL_AMOXICILLIN_5_DAYS": r"\boral amoxicillin for 5 days\b",
+    "GIVE_PARACETAMOL_FOR_EAR_PAIN": r"\bgive paracetamol for ear pain\b",
+    "GIVE_PRE_REFERRAL_TREATMENT_IMMEDIATELY": r"\bpre-referral treatment immediately\b",
+    "GIVE_RAPID_ACTING_INHALED_BRONCHODILATOR_TRIAL": r"\bbronchodilator trial\b",
+    "GIVE_VITAMIN_A_TREATMENT": r"\bgive vitamin a treatment\b",
+    "KEEP_WARM": r"\bkeep the child warm\b",
+    "PREVENT_LOW_BLOOD_SUGAR": r"\bprevent low blood sugar\b",
+    "REASSESS_BREATHING_AFTER_BRONCHODILATOR": r"\bbreathing reassessment\b",
+    "REASSESS_DEHYDRATION_AFTER_PLAN_B": r"\breassess and reclassify dehydration after plan b\b",
+    "REASSESS_DEHYDRATION_AFTER_PLAN_C": r"\breassess and reclassify dehydration after plan c\b",
+    "REFER_FOR_OXYGEN_SATURATION_BELOW_90": r"\brefer\b.{0,50}\boxygen saturation is below 90%",
+    "SOOTHE_THROAT_AND_RELIEVE_COUGH": r"\bsoothe the throat and relieve the cough\b.{0,30}\bsafe remedy\b",
+    "URGENT_REFERRAL": r"\barrange urgent referral\b",
+}
+
+_ACQUISITION_MARKERS = {
+    "danger_signs.unable_to_drink_or_breastfeed": r"\bability to drink or breastfeed\b",
+    "danger_signs.vomits_everything": r"\bvomits everything\b",
+    "diarrhoea.dehydration.drinking_status": r"\bdiarrhoea-specific drinking response\b",
+    "fever.malaria_risk": r"\bmalaria-risk category of the area\b",
+    "patient_facts.age_months": r"\bage in completed months\b",
+    "patient_facts.has_cough_or_difficult_breathing": r"\bcough or difficult breathing\b",
+    "patient_facts.has_diarrhoea": r"\bdiarrhoea\b",
+    "patient_facts.has_ear_problem": r"\bear problem\b",
+    "patient_facts.has_fever": r"\bfever\b",
+    "respiratory.respiratory_rate": r"\brespiratory rate\b.{0,60}\bone full minute\b|\bone full minute\b.{0,60}\brespiratory rate\b",
+}
+
+
+def missing_language_markers(record: dict[str, Any]) -> list[str]:
+    """Return expected semantic concepts not explicitly visible in the response."""
+
+    assistant = record["conversation"][1]["content"].lower()
+    alignment = record["alignment"]
+    missing: list[str] = []
+    for classification in alignment["classifications_covered"]:
+        if not re.search(_CLASSIFICATION_MARKERS[classification], assistant, re.DOTALL):
+            missing.append(f"classification:{classification}")
+    for action in alignment["actions_covered"]:
+        if not re.search(_ACTION_MARKERS[action], assistant, re.DOTALL):
+            missing.append(f"action:{action}")
+    for request in alignment["acquisition_requests"]:
+        observation_id = request["observation_id"]
+        if not re.search(_ACQUISITION_MARKERS[observation_id], assistant, re.DOTALL):
+            missing.append(f"acquisition:{observation_id}")
+    if alignment["deferred_actions_acknowledged"] and not re.search(
+        r"\broutine\b.{0,80}\b(?:follow-up|home-care)\b.{0,80}\b(?:delay|compete)\b",
+        assistant,
+        re.DOTALL,
+    ):
+        missing.append("deferred-actions:urgent-workflow")
+    if alignment["contradictions_covered"] and "conflict" not in assistant:
+        missing.append("contradiction:explicit")
+    return missing
 
 
 def _semantic_records() -> dict[str, dict[str, Any]]:
@@ -332,12 +428,18 @@ def validate_language_record(record: dict[str, Any], semantic_record: dict[str, 
     if "IMCI-MSC-" in assistant or any(action in assistant for action in record["alignment"]["actions_covered"]):
         raise ValueError("user-facing rendering leaks internal rule or action identifiers")
     alignment = record["alignment"]
-    if alignment["expected_state"] == "INCOMPLETE" and "final classification" not in assistant.lower():
+    if alignment["expected_state"] == "INCOMPLETE" and not re.search(
+        r"\bfinal classifications?\b|\bcomplete set of classifications\b",
+        assistant.lower(),
+    ):
         raise ValueError("incomplete rendering must explicitly withhold final classification")
     if alignment["urgent_action_required"] is True and not assistant.startswith("URGENT:"):
         raise ValueError("urgent rendering must lead with urgency")
     if alignment["expected_state"] == "SCHEMA_REJECTION" and "outside" not in assistant.lower():
         raise ValueError("schema rejection must state that the encounter is outside scope")
+    missing_markers = missing_language_markers(record)
+    if missing_markers:
+        raise ValueError(f"language rendering omits semantic concepts: {missing_markers}")
     missing = set(alignment["missing_elements_covered"])
     requested = {item["observation_id"] for item in alignment["acquisition_requests"]}
     if alignment["clarification_targets"]:
@@ -381,6 +483,12 @@ def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any
         },
         "language_calibration_sha256": content_hash,
         "review_status": "PENDING_HUMAN_LANGUAGE_REVIEW",
+        "technical_editorial_review": {
+            "record": "docs/product_holistic_golden_language_technical_review_v1.md",
+            "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW",
+            "same_agent_review": True,
+            "language_calibration_sha256": content_hash,
+        },
         "eligibility": {
             "DOMAIN_REVIEW": True,
             "COMPONENT_VALIDATION": True,

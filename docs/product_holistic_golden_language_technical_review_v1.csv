@@ -1,0 +1,17 @@
+golden_case_id,state,technical_alignment,human_language_review,notes
+hpg-001-all-negative,COMPLETE,PASS,PENDING,
+hpg-008-resp-age-2-rate-50,COMPLETE,PASS,PENDING,
+hpg-014-resp-chest-hiv-positive,COMPLETE_REFERRAL,PASS,PENDING,Non-urgent referral wording preserved
+hpg-016-resp-oximeter-89-9,COMPLETE_REFERRAL,PASS,PENDING,Non-urgent oxygen referral wording preserved
+hpg-020-resp-post-bronchodilator-improved,COMPLETE_POST_REASSESSMENT,PASS,PENDING,Pre/post findings kept distinct
+hpg-028-diarrhoea-some-dehydration,COMPLETE_PLAN_B,PASS,PENDING,
+hpg-031-diarrhoea-severe-age-24-cholera,COMPLETE_PLAN_C,PASS,PENDING,Generic local protocol preserved
+hpg-052-fever-identified-bacterial-cause,COMPLETE_GENERIC_ANTIBIOTIC,PASS,PENDING,No drug or regimen invented
+hpg-055-fever-severe-measles-cornea,COMPLETE_URGENT,PASS,PENDING,Urgent actions lead and routine actions deferred
+hpg-068-cross-four-pathways,COMPLETE_INTEGRATED,PASS,PENDING,Prioritize human review of response length and integration
+hpg-070-cross-multiple-urgent,COMPLETE_MULTIPLE_URGENT,PASS,PENDING,Prioritize human review of frozen mastoiditis action wording
+hpg-071-incomplete-entry-unknown,INCOMPLETE,PASS,PENDING,Unknown not treated as negative
+hpg-072-incomplete-multiple-groups,INCOMPLETE_BATCHED,PASS,PENDING,Acquisition modes preserved
+hpg-073-incomplete-known-urgent,INCOMPLETE_URGENT,PASS,PENDING,Urgent actions lead while final answer remains unavailable
+hpg-075-contradiction-drinking,INCOMPLETE_CONTRADICTION,PASS,PENDING,Clinician reassessment requested
+hpg-077-out-of-scope-age-1,SCHEMA_REJECTION,PASS,PENDING,No unsupported synthesis

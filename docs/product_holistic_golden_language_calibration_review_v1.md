@@ -49,7 +49,7 @@ The supported assessment is complete. None of the currently supported IMCI class
 
 ### PHC-worker submission
 
-This child is 2 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 50 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
+This child is 2 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 50 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
@@ -79,13 +79,13 @@ Give oral amoxicillin for 5 days. Soothe the throat and relieve the cough with a
 
 ### PHC-worker submission
 
-This child is 18 months old and is HIV-exposed or HIV-infected. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. Chest indrawing is present, with no stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
+This child is 18 months old and is HIV-exposed or HIV-infected. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. Chest indrawing is present, with no stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
 Classification: Pneumonia.
 
-Give the first dose of amoxicillin, then refer the child. This is a referral pathway; do not label it as an urgent referral unless another finding independently requires urgent referral.
+Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral, not urgent referral.
 
 ### Review disposition
 
@@ -109,13 +109,13 @@ Give the first dose of amoxicillin, then refer the child. This is a referral pat
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. Pulse oximetry is available and the oxygen saturation is 89.9%. There is no diarrhoea, fever, or ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate counted for one full minute is 35 breaths per minute. There is no chest indrawing, stridor, wheeze, or recurrent wheeze. Pulse oximetry is available and the oxygen saturation is 89.9%. There is no diarrhoea, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
 Classification: Cough or cold.
 
-Refer the child because the oxygen saturation is below 90%. This referral is not marked urgent by this finding alone. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
+Refer the child because the oxygen saturation is below 90%. This finding alone calls for referral, not urgent referral. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
 
 ### Review disposition
 
@@ -139,7 +139,7 @@ Refer the child because the oxygen saturation is below 90%. This referral is not
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. The child has had cough or difficult breathing for 3 days. Initially, while calm and counted for one full minute, the respiratory rate was 45 breaths per minute. Wheeze was present, with no chest indrawing, stridor, or recurrent wheeze. A pulse oximeter was not available. A rapid-acting inhaled bronchodilator trial was completed. On reassessment, while calm and counted for one full minute, the respiratory rate was 35 breaths per minute and there was no chest indrawing. There is no diarrhoea, fever, or ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had cough or difficult breathing for 3 days. Initially, while calm and counted for one full minute, the respiratory rate was 45 breaths per minute. Wheeze was present, with no chest indrawing, stridor, or recurrent wheeze. A pulse oximeter was not available. A rapid-acting inhaled bronchodilator trial was completed. On reassessment, while calm and counted for one full minute, the respiratory rate was 35 breaths per minute and there was no chest indrawing. There is no diarrhoea, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
@@ -171,7 +171,7 @@ Give an inhaled bronchodilator for 5 days. Soothe the throat and relieve the cou
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. The child has had diarrhoea for 3 days, with no blood in the stool. The child is restless or irritable and has sunken eyes, drinks normally when offered fluid, and the abdominal skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is restless or irritable and has sunken eyes, drinks normally when offered fluid, and the abdominal skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
@@ -201,13 +201,13 @@ Give fluid, zinc, and food according to Plan B, then reassess and reclassify deh
 
 ### PHC-worker submission
 
-This child is 24 months old. There are no general danger signs. The child has had diarrhoea for 3 days, with no blood in the stool. The child is not restless or irritable, has sunken eyes, drinks poorly when offered fluid, and the abdominal skin pinch returns normally. Cholera is present in the area. There is no cough or difficult breathing, fever, or ear problem.
+This child is 24 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is not restless or irritable, has sunken eyes, drinks poorly when offered fluid, and the abdominal skin pinch returns normally. Cholera is present in the area. There is no cough or difficult breathing, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
 Classification: Severe dehydration.
 
-Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol; do not invent a drug or regimen.
+Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol.
 
 ### Review disposition
 
@@ -231,13 +231,13 @@ Give fluid for severe dehydration according to Plan C, then reassess and reclass
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious cause of fever, generalized rash, measles in the last 3 months, measles-associated cough, or red eyes. A bacterial cause of fever has been identified. There is no cough or difficult breathing, diarrhoea, or ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious cause of fever, generalized rash, measles in the last 3 months, measles-associated cough, or red eyes. A bacterial cause of fever has been identified. There is no cough or difficult breathing, diarrhoea, or ear problem.
 
 ### Proposed EdgeIMCI response
 
 Classification: Fever—no malaria.
 
-Give appropriate antibiotic treatment for the identified bacterial cause. Do not invent a drug or regimen that is not supplied by the applicable protocol. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
+Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
 
 ### Review disposition
 
@@ -261,7 +261,7 @@ Give appropriate antibiotic treatment for the identified bacterial cause. Do not
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious or identified bacterial cause of fever, or measles in the last 3 months. The child has a generalized rash, red eyes, and clouding of the cornea, with no mouth ulcers or pus draining from the eye. There is no cough or difficult breathing, diarrhoea, or ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk area; testing is available and the malaria test is negative. There is no stiff neck, runny nose, obvious or identified bacterial cause of fever, or measles in the last 3 months. The child has a generalized rash, red eyes, and clouding of the cornea, with no mouth ulcers or pus draining from the eye. There is no cough or difficult breathing, diarrhoea, or ear problem.
 
 ### Proposed EdgeIMCI response
 
@@ -293,13 +293,13 @@ Before referral, give vitamin A treatment and the first dose of an appropriate a
 
 ### PHC-worker submission
 
-This child is 18 months old and has no general danger signs. Cough or difficult breathing has been present for 3 days. While calm, the respiratory rate counted for one full minute is 42 breaths per minute, with no chest indrawing, stridor, wheeze, or recurrent wheeze; a pulse oximeter is not available. Diarrhoea has been present for 3 days with blood in the stool; the child is not restless, has no sunken eyes, drinks normally, and the skin pinch returns normally. Fever has been present for 2 days at 38.0°C in a high-malaria-risk area; the malaria test is positive. There is no stiff neck, runny nose, obvious or identified bacterial cause, or measles in the last 3 months. There is a generalized rash with cough, but no red eyes, mouth ulcers, eye pus, or corneal clouding. The child has ear pain, with no reported discharge, no pus draining, and no tender swelling behind the ear.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. Cough or difficult breathing has been present for 3 days. While calm, the respiratory rate counted for one full minute is 42 breaths per minute, with no chest indrawing, stridor, wheeze, or recurrent wheeze; a pulse oximeter is not available. Diarrhoea has been present for 3 days with blood in the stool; the child is not restless, has no sunken eyes, drinks normally, and the skin pinch returns normally. Fever has been present for 2 days at 38.0°C in a high-malaria-risk area; the malaria test is positive. There is no stiff neck, runny nose, obvious or identified bacterial cause, or measles in the last 3 months. There is a generalized rash with cough, but no red eyes, mouth ulcers, eye pus, or corneal clouding. The child has ear pain, with no reported discharge, no pus draining, and no tender swelling behind the ear.
 
 ### Proposed EdgeIMCI response
 
 Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear infection.
 
-Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists and in 5 days if the child is not improving. Advise the caregiver when to return immediately.
+Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and give vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists, and follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
 
 ### Review disposition
 
@@ -331,7 +331,7 @@ URGENT: Give the indicated pre-referral treatment immediately and arrange urgent
 
 Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile disease; mastoiditis.
 
-Because the child is convulsing now, give diazepam. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
+Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
 
 ### Review disposition
 
@@ -355,11 +355,11 @@ Because the child is convulsing now, give diazepam. Give the first dose of an ap
 
 ### PHC-worker submission
 
-This child is 18 months old. There are no general danger signs. There is no cough or difficult breathing, no fever, and no ear problem.
+This child is 18 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. There is no cough or difficult breathing, no fever, and no ear problem.
 
 ### Proposed EdgeIMCI response
 
-The supported assessment is incomplete, so I cannot provide the final classifications or management plan yet.
+I need one more finding before I can provide the final classifications and management plan.
 
 Ask the caregiver whether the child has diarrhoea and report the answer. An unmentioned answer cannot be treated as no.
 
@@ -389,7 +389,7 @@ This child is 18 months old. The child can drink or breastfeed, has had no convu
 
 ### Proposed EdgeIMCI response
 
-The supported assessment is incomplete, so I cannot provide the final classifications or management plan yet. Please complete these items together:
+I need the following assessment findings before I can provide the final classifications and management plan. Please complete them together:
 
 - Ask the caregiver whether the child vomits everything.
 - Count the respiratory rate for one full minute while the child is calm and report the breaths per minute.
@@ -424,7 +424,7 @@ The child is convulsing now. The child can drink or breastfeed, has had no earli
 
 URGENT: Give diazepam because the child is convulsing now. Give the indicated pre-referral treatment immediately, prevent low blood sugar, keep the child warm, and arrange urgent referral. Do not delay referral.
 
-The supported assessment is still incomplete, so the final classifications and management synthesis are withheld. While urgent treatment and referral are being arranged, complete the remaining assessment quickly:
+A complete set of classifications and management actions still requires the remaining findings. While urgent treatment and referral are being arranged, complete the assessment quickly:
 
 - Ask the caregiver whether the child vomits everything.
 - Confirm the child's age in completed months from the caregiver or record.
@@ -452,13 +452,13 @@ The supported assessment is still incomplete, so the final classifications and m
 
 ### PHC-worker submission
 
-This child is 18 months old. The general danger-sign assessment recorded that the child is able to drink or breastfeed. The child has had diarrhoea for 3 days with no blood in the stool. During the diarrhoea assessment, the child was recorded as unable to drink when offered fluid. The child is not restless, has no sunken eyes, and the skin pinch returns normally. There are no other general danger signs, cough or difficult breathing, fever, or ear problem.
+This child is 18 months old. The general danger-sign assessment recorded that the child is able to drink or breastfeed. The child does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea for 3 days with no blood in the stool. During the diarrhoea assessment, the child was recorded as unable to drink when offered fluid. The child is not restless, has no sunken eyes, and the skin pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
 
 ### Proposed EdgeIMCI response
 
 These findings conflict: the general danger-sign assessment says the child can drink or breastfeed, while the diarrhoea assessment records that the child is unable to drink. Do not choose one result or issue a final classification yet.
 
-The health worker should clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
+Clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
 
 ### Review disposition
 

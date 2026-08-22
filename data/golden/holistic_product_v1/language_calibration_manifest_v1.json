@@ -17,7 +17,7 @@
     "TEACHER_BAKEOFF": false,
     "TRAINING": false
   },
-  "language_calibration_sha256": "89ac0f4a8f5366b3ce352cfa3a441a4ce47077b45511003c87b89022fc47d388",
+  "language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
   "lifecycle_status": "PROPOSED_FOR_REVIEW",
   "production_clinical_use_authorized": false,
   "review_status": "PENDING_HUMAN_LANGUAGE_REVIEW",
@@ -26,5 +26,11 @@
     "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
     "suite_id": "edge-imci-holistic-product-golden-v1"
   },
-  "suite_id": "edge-imci-holistic-golden-language-calibration-v1"
+  "suite_id": "edge-imci-holistic-golden-language-calibration-v1",
+  "technical_editorial_review": {
+    "language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
+    "record": "docs/product_holistic_golden_language_technical_review_v1.md",
+    "same_agent_review": true,
+    "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW"
+  }
 }

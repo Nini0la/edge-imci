@@ -19,6 +19,7 @@ from edge_imci.generation.holistic_language import (
     SEMANTIC_CASES_SHA256,
     build_language_calibration,
     load_language_calibration,
+    missing_language_markers,
 )
 
 
@@ -67,6 +68,12 @@ def test_manifest_hash_scope_and_noneligibility_are_explicit(records: list[dict]
         DEFAULT_CALIBRATION_PATH.read_bytes()
     ).hexdigest()
     assert manifest["review_status"] == "PENDING_HUMAN_LANGUAGE_REVIEW"
+    assert manifest["technical_editorial_review"] == {
+        "record": "docs/product_holistic_golden_language_technical_review_v1.md",
+        "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW",
+        "same_agent_review": True,
+        "language_calibration_sha256": manifest["language_calibration_sha256"],
+    }
     assert manifest["eligibility"] == {
         "COMPONENT_VALIDATION": True,
         "DOMAIN_REVIEW": True,
@@ -131,9 +138,9 @@ def test_urgent_and_nonurgent_referral_language_remain_distinct(records: list[di
     oxygen = by_id["hpg-016-resp-oximeter-89-9"]["conversation"][1]["content"]
     urgent = by_id["hpg-070-cross-multiple-urgent"]["conversation"][1]["content"]
     assert not hiv.startswith("URGENT:")
-    assert "do not label it as an urgent referral" in hiv.lower()
+    assert "referral, not urgent referral" in hiv.lower()
     assert not oxygen.startswith("URGENT:")
-    assert "not marked urgent" in oxygen.lower()
+    assert "referral, not urgent referral" in oxygen.lower()
     assert urgent.startswith("URGENT:")
 
 
@@ -146,9 +153,11 @@ def test_generic_treatment_renderings_do_not_invent_drugs(records: list[dict]) -
         "content"
     ]
     assert "applicable local protocol" in cholera
-    assert "do not invent a drug or regimen" in cholera.lower()
     assert "appropriate antibiotic treatment" in bacterial
-    assert "do not invent a drug or regimen" in bacterial.lower()
+    assert "applicable protocol" in bacterial
+    for unencoded_drug in ("amoxicillin", "ciprofloxacin", "erythromycin", "tetracycline"):
+        assert unencoded_drug not in cholera.lower()
+        assert unencoded_drug not in bacterial.lower()
 
 
 def test_user_facing_text_does_not_leak_internal_identifiers(records: list[dict]) -> None:
@@ -159,6 +168,12 @@ def test_user_facing_text_does_not_leak_internal_identifiers(records: list[dict]
             assert not any(
                 action in turn["content"] for action in record["alignment"]["actions_covered"]
             )
+        assert "no general danger signs" not in record["conversation"][0]["content"].lower()
+
+
+def test_every_response_explicitly_covers_its_semantic_targets(records: list[dict]) -> None:
+    for record in records:
+        assert missing_language_markers(record) == []
 
 
 def test_review_package_contains_all_drafts_and_pending_fields(records: list[dict]) -> None:
@@ -172,3 +187,14 @@ def test_review_package_contains_all_drafts_and_pending_fields(records: list[dic
     assert review.count("Interaction quality: `PENDING`") == len(records)
     assert review.count("PHC suitability: `PENDING`") == len(records)
     assert not Path("data/train").exists()
+
+
+def test_technical_editorial_review_is_hash_pinned_without_claiming_human_approval() -> None:
+    review = Path("docs/product_holistic_golden_language_technical_review_v1.md").read_text(
+        encoding="utf-8"
+    )
+    digest = hashlib.sha256(DEFAULT_CALIBRATION_PATH.read_bytes()).hexdigest()
+    assert digest in review
+    assert "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW" in review
+    assert "not human/domain or PHC-worker approval" in review
+    assert "same coding agent authored and performed" in review.lower()
