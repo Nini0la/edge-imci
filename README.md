@@ -242,6 +242,7 @@ Documentation authority and lifecycle are defined in [`docs/README.md`](docs/REA
 - [`data/golden/holistic_product_v1/language_calibration_v1.jsonl`](data/golden/holistic_product_v1/language_calibration_v1.jsonl): canonical 16-case language calibration draft; review-only and not training-eligible.
 - [`docs/product_holistic_golden_language_calibration_review_v1.md`](docs/product_holistic_golden_language_calibration_review_v1.md): reviewer-facing presentation of the 16 draft conversations.
 - [`docs/product_holistic_golden_language_technical_review_v1.md`](docs/product_holistic_golden_language_technical_review_v1.md): same-agent alignment/editorial review and remediated findings; human language review remains pending.
+- [`docs/holistic_golden_language_independent_review_agent_instructions.md`](docs/holistic_golden_language_independent_review_agent_instructions.md): constrained review-only instructions for the next independent language reviewer.
 - [`docs/product_holistic_golden_suite_requirements_v1.md`](docs/product_holistic_golden_suite_requirements_v1.md): product-level semantic-suite contract.
 - [`configs/golden/holistic_product_golden_scope_dispositions_v1.json`](configs/golden/holistic_product_golden_scope_dispositions_v1.json): versioned product-scope resolution for later Plan B/C treatment-stage execution.
 - [`docs/product_holistic_golden_review_v1.md`](docs/product_holistic_golden_review_v1.md): case index, pinned substrate, review instructions, and resolved scope disposition.
