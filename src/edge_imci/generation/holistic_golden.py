@@ -41,15 +41,19 @@ from edge_imci.schemas.trajectory import CorpusRole
 
 ROOT = Path(__file__).resolve().parents[3]
 SUITE_ID = "edge-imci-holistic-product-golden-v1"
-RECORD_SCHEMA_ID = "edge-imci-holistic-golden-semantic-record-v3"
-GENERATOR_VERSION = "edge-imci-holistic-golden-generator-v3"
-VALIDATOR_ID = "edge-imci-holistic-golden-validator-v3"
+RECORD_SCHEMA_ID = "edge-imci-holistic-golden-semantic-record-v4"
+GENERATOR_VERSION = "edge-imci-holistic-golden-generator-v4"
+VALIDATOR_ID = "edge-imci-holistic-golden-validator-v4"
 DECISION_SET_ID = "imci-major-sick-child-review-decisions-v1"
 OXYGEN_REFERRAL_DISPOSITION_ID = "imci-major-sick-child-oxygen-referral-disposition-v1"
 SCOPE_DISPOSITION_SET_ID = "edge-imci-holistic-golden-scope-dispositions-v1"
+APPROVAL_ID = "edge-imci-holistic-product-golden-approval-v1"
+APPROVED_REVIEWED_SEMANTIC_SHA256 = "e8c538ac7a82b8faae7b7e36644eb3c44751c88380621e87625d1f703c5a70a1"
 GENERATION_SEED = 20260822
 DEFAULT_SCOPE_DISPOSITIONS_PATH = ROOT / "configs" / "golden" / "holistic_product_golden_scope_dispositions_v1.json"
 DEFAULT_SCOPE_DISPOSITIONS_YAML_PATH = DEFAULT_SCOPE_DISPOSITIONS_PATH.with_suffix(".yaml")
+DEFAULT_APPROVAL_PATH = ROOT / "configs" / "golden" / "holistic_product_golden_approval_v1.json"
+DEFAULT_APPROVAL_YAML_PATH = DEFAULT_APPROVAL_PATH.with_suffix(".yaml")
 DEFAULT_SUITE_DIR = ROOT / "data" / "golden" / "holistic_product_v1"
 DEFAULT_JSONL_PATH = DEFAULT_SUITE_DIR / "semantic_cases.jsonl"
 DEFAULT_YAML_PATH = DEFAULT_SUITE_DIR / "semantic_cases.yaml"
@@ -105,6 +109,46 @@ def load_scope_dispositions() -> dict[str, Any]:
         raise ValueError("scope disposition set must resolve exactly HPG-GAP-REASSESS-001")
     if dispositions[0].get("status") != "RESOLVED_BY_PRODUCT_SCOPE":
         raise ValueError("HPG-GAP-REASSESS-001 must remain resolved by product scope")
+    return artifact
+
+
+def load_golden_approval() -> dict[str, Any]:
+    artifact = json.loads(DEFAULT_APPROVAL_PATH.read_text(encoding="utf-8"))
+    expected = {
+        "approval_id": APPROVAL_ID,
+        "status": "APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE",
+        "suite_id": SUITE_ID,
+        "reviewed_semantic_cases_sha256": APPROVED_REVIEWED_SEMANTIC_SHA256,
+        "rule_set_id": HOLISTIC_RULE_SET_ID,
+        "completeness_policy_id": HOLISTIC_COMPLETENESS_POLICY_ID,
+        "review_decision_set_id": DECISION_SET_ID,
+        "oxygen_referral_disposition_id": OXYGEN_REFERRAL_DISPOSITION_ID,
+        "scope_disposition_set_id": SCOPE_DISPOSITION_SET_ID,
+        "oracle_id": HOLISTIC_ORACLE_ID,
+        "frozen_record_schema_id": RECORD_SCHEMA_ID,
+        "frozen_generator_version": GENERATOR_VERSION,
+        "frozen_validator_id": VALIDATOR_ID,
+        "production_clinical_use_authorized": False,
+    }
+    for key, value in expected.items():
+        if artifact.get(key) != value:
+            raise ValueError(f"incorrect holistic golden approval {key}")
+    if artifact.get("eligibility_authorized") != {
+        "HOLISTIC_GENERATION": True,
+        "PRODUCT_EVALUATION": True,
+        "TEACHER_BAKEOFF": True,
+        "TRAINING": False,
+    }:
+        raise ValueError("incorrect post-freeze corpus eligibility approval")
+    basis = artifact.get("approval_basis", {})
+    if basis.get("explicit_human_domain_disposition") != "APPROVED":
+        raise ValueError("holistic golden suite lacks explicit human/domain approval")
+    transformation = artifact.get("freeze_transformation", {})
+    if transformation.get("semantic_expectations_changed") is not False:
+        raise ValueError("freeze approval must record an unchanged semantic target")
+    frozen_hash = artifact.get("frozen_semantic_cases_sha256")
+    if not isinstance(frozen_hash, str) or len(frozen_hash) != 64:
+        raise ValueError("approval must pin the frozen semantic corpus hash")
     return artifact
 
 
@@ -649,7 +693,7 @@ def build_holistic_golden_suite() -> list[dict[str, Any]]:
                 "record_schema_id": RECORD_SCHEMA_ID,
                 "suite_id": SUITE_ID,
                 "golden_case_id": spec.case_id,
-                "status": "PROPOSED_FOR_DOMAIN_REVIEW",
+                "status": "FROZEN",
                 "corpus_role": CorpusRole.HOLISTIC_PRODUCT_GOLDEN.value,
                 "why": spec.why,
                 "coverage": list(spec.coverage),
@@ -687,12 +731,13 @@ def build_holistic_golden_suite() -> list[dict[str, Any]]:
                     "oracle_id": HOLISTIC_ORACLE_ID,
                     "validator_id": VALIDATOR_ID,
                     "generator_version": GENERATOR_VERSION,
+                    "approval_id": APPROVAL_ID,
                     "generation_seed": GENERATION_SEED,
                     "logic_signature": hashlib.sha256(
                         json.dumps(signature_source, sort_keys=True, separators=(",", ":")).encode()
                     ).hexdigest(),
                 },
-                "review_flags": ["DOMAIN_REVIEW_REQUIRED", "NOT_FROZEN"],
+                "review_flags": ["HUMAN_DOMAIN_APPROVED", "SEMANTICS_FROZEN"],
             }
         )
     return records
@@ -711,10 +756,15 @@ def validate_holistic_golden_record(record: dict[str, Any]) -> None:
         "scope_disposition_set_id": SCOPE_DISPOSITION_SET_ID,
         "oracle_id": HOLISTIC_ORACLE_ID,
         "validator_id": VALIDATOR_ID,
+        "approval_id": APPROVAL_ID,
     }
     for key, expected in expected_pins.items():
         if metadata.get(key) != expected:
             raise ValueError(f"incorrect {key} pin")
+    if record.get("status") != "FROZEN":
+        raise ValueError("golden record must retain frozen lifecycle status")
+    if record.get("review_flags") != ["HUMAN_DOMAIN_APPROVED", "SEMANTICS_FROZEN"]:
+        raise ValueError("golden record must retain approval and freeze flags")
     payload = record["input"]["encounter"]
     expected = record["expected"]
     signature_source = expected if expected["kind"] == "SCHEMA_REJECTION" else expected["evaluation"]
@@ -785,11 +835,15 @@ def validate_holistic_golden_record(record: dict[str, Any]) -> None:
 
 def write_holistic_golden_suite() -> list[dict[str, Any]]:
     scope_dispositions = load_scope_dispositions()
+    approval = load_golden_approval()
     records = build_holistic_golden_suite()
     for record in records:
         validate_holistic_golden_record(record)
     DEFAULT_SUITE_DIR.mkdir(parents=True, exist_ok=True)
     jsonl_content = "".join(json.dumps(record, sort_keys=True) + "\n" for record in records)
+    frozen_hash = hashlib.sha256(jsonl_content.encode()).hexdigest()
+    if frozen_hash != approval["frozen_semantic_cases_sha256"]:
+        raise ValueError("generated frozen semantic corpus does not match the approved hash")
     DEFAULT_JSONL_PATH.write_text(jsonl_content, encoding="utf-8")
     DEFAULT_YAML_PATH.write_text(
         yaml.safe_dump(records, allow_unicode=True, sort_keys=False, width=100),
@@ -800,9 +854,14 @@ def write_holistic_golden_suite() -> list[dict[str, Any]]:
         + yaml.safe_dump(scope_dispositions, allow_unicode=True, sort_keys=False, width=100),
         encoding="utf-8",
     )
+    DEFAULT_APPROVAL_YAML_PATH.write_text(
+        "# Generated from the canonical JSON; do not edit this mirror.\n"
+        + yaml.safe_dump(approval, allow_unicode=True, sort_keys=False, width=100),
+        encoding="utf-8",
+    )
     DEFAULT_MANIFEST_PATH.write_text(
         json.dumps(
-            _manifest(records, semantic_cases_sha256=hashlib.sha256(jsonl_content.encode()).hexdigest()),
+            _manifest(records, semantic_cases_sha256=frozen_hash),
             indent=2,
             sort_keys=True,
         )
@@ -834,7 +893,7 @@ def _manifest(
     )
     return {
         "suite_id": SUITE_ID,
-        "lifecycle_status": "PROPOSED_FOR_DOMAIN_REVIEW",
+        "lifecycle_status": "FROZEN",
         "corpus_role": CorpusRole.HOLISTIC_PRODUCT_GOLDEN.value,
         "case_count": len(records),
         "complete_case_count": complete,
@@ -851,6 +910,7 @@ def _manifest(
                 "oracle_id",
                 "validator_id",
                 "generator_version",
+                "approval_id",
                 "generation_seed",
             )
         },
@@ -863,15 +923,21 @@ def _manifest(
         "eligibility": {
             "DOMAIN_REVIEW": True,
             "COMPONENT_VALIDATION": True,
-            "HOLISTIC_GENERATION": False,
-            "PRODUCT_EVALUATION": False,
-            "TEACHER_BAKEOFF": False,
+            "HOLISTIC_GENERATION": True,
+            "PRODUCT_EVALUATION": True,
+            "TEACHER_BAKEOFF": True,
             "TRAINING": False,
         },
         "known_coverage_gaps": [],
         "scope_dispositions": load_scope_dispositions()["dispositions"],
-        "freeze_blockers": ["DOMAIN_REVIEW_PENDING"],
-        "review_required_before_freeze": True,
+        "freeze_blockers": [],
+        "review_required_before_freeze": False,
+        "approval": {
+            "approval_id": APPROVAL_ID,
+            "reviewed_semantic_cases_sha256": APPROVED_REVIEWED_SEMANTIC_SHA256,
+            "frozen_semantic_cases_sha256": semantic_cases_sha256,
+            "approved_for_hackathon_scope": True,
+        },
         "production_clinical_use_authorized": False,
         "unknown_semantics": {
             "omitted_is_unknown": True,
@@ -885,15 +951,15 @@ def render_holistic_golden_review(records: list[dict[str, Any]]) -> str:
     lines = [
         "# Product-level holistic golden semantic suite v1 — review package",
         "",
-        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Generated semantic-review surface; not frozen product authority.",
+        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Generated review surface for the approved and frozen hackathon semantic suite.",
         "",
-        "**Status:** `PROPOSED_FOR_DOMAIN_REVIEW` — not frozen, not training data, and not yet eligible for product evaluation or teacher selection.",
+        "**Status:** `FROZEN` — human/domain approved for the bounded hackathon scope; eligible for golden-language work, teacher bake-off, and product evaluation, but not training data.",
         "",
         f"**Cases:** {len(records)}. **Corpus role:** `{CorpusRole.HOLISTIC_PRODUCT_GOLDEN.value}`.",
         "",
         f"**Pinned substrate:** `{HOLISTIC_RULE_SET_ID}` / `{HOLISTIC_COMPLETENESS_POLICY_ID}` / `{DECISION_SET_ID}` / `{OXYGEN_REFERRAL_DISPOSITION_ID}` / `{SCOPE_DISPOSITION_SET_ID}` / `{HOLISTIC_ORACLE_ID}`.",
         "",
-        "Every evaluable record is deterministically recomputed. The expected output is a review proposal, not independent clinical approval.",
+        f"Every evaluable record is deterministically recomputed. Approval is pinned by `{APPROVAL_ID}`; production clinical use remains unauthorized.",
         "",
         "## Resolved product-scope disposition",
         "",
@@ -1015,9 +1081,9 @@ def render_holistic_golden_review(records: list[dict[str, Any]]) -> str:
             "",
             "## Review instructions",
             "",
-            "For each case, confirm the input facts, completeness state, internal and final classifications, urgent/intermediate/deferred/final actions, missing-element groups, exact rule trace, provenance, and applicable review decisions. Record any semantic defect before changing `NOT_FROZEN` status.",
+            "Treat these semantic targets as immutable. If a genuine semantic defect is discovered, open change control and create a new reviewed version rather than silently editing the frozen suite.",
             "",
-            "Do not create language renderings, bulk synthetic examples, dataset splits, or training artifacts from this proposed suite until domain review approves and freezes it.",
+            "Golden-language rendering and controlled teacher/prompt evaluation are now authorized. Bulk synthetic generation and training remain separate gated stages.",
         ]
     )
     return "\n".join(lines) + "\n"

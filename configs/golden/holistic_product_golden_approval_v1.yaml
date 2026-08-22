@@ -1,0 +1,37 @@
+# Generated from the canonical JSON; do not edit this mirror.
+approval_id: edge-imci-holistic-product-golden-approval-v1
+status: APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE
+approved_date: '2026-08-22'
+approval_authority: PROJECT_DOMAIN_OWNER
+approval_basis:
+  technical_review_record: docs/product_holistic_golden_domain_re_review_v2.md
+  technical_review_recommendation: READY_FOR_HUMAN_DOMAIN_APPROVAL
+  explicit_human_domain_disposition: APPROVED
+  reviewed_semantic_cases_sha256: e8c538ac7a82b8faae7b7e36644eb3c44751c88380621e87625d1f703c5a70a1
+suite_id: edge-imci-holistic-product-golden-v1
+reviewed_semantic_cases_sha256: e8c538ac7a82b8faae7b7e36644eb3c44751c88380621e87625d1f703c5a70a1
+frozen_semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+freeze_transformation:
+  semantic_expectations_changed: false
+  changes:
+  - SET_RECORD_STATUS_FROZEN
+  - SET_HUMAN_DOMAIN_APPROVED_AND_SEMANTICS_FROZEN_FLAGS
+  - PIN_APPROVAL_ID
+  - ADVANCE_GENERATOR_AND_VALIDATOR_LIFECYCLE_VERSIONS
+rule_set_id: imci-major-sick-child-v1
+completeness_policy_id: imci-major-sick-child-holistic-completeness-v2
+review_decision_set_id: imci-major-sick-child-review-decisions-v1
+oxygen_referral_disposition_id: imci-major-sick-child-oxygen-referral-disposition-v1
+scope_disposition_set_id: edge-imci-holistic-golden-scope-dispositions-v1
+oracle_id: edge-imci-holistic-deterministic-oracle-v3
+frozen_record_schema_id: edge-imci-holistic-golden-semantic-record-v4
+frozen_generator_version: edge-imci-holistic-golden-generator-v4
+frozen_validator_id: edge-imci-holistic-golden-validator-v4
+eligibility_authorized:
+  HOLISTIC_GENERATION: true
+  PRODUCT_EVALUATION: true
+  TEACHER_BAKEOFF: true
+  TRAINING: false
+production_clinical_use_authorized: false
+scope_note: Approval and freeze apply only to the bounded EdgeIMCI hackathon semantic target. The frozen
+  semantic suite is not itself training data and does not authorize production clinical use.

@@ -1,14 +1,14 @@
 # Product-level holistic golden semantic suite v1 — review package
 
-> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Generated semantic-review surface; not frozen product authority.
+> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Generated review surface for the approved and frozen hackathon semantic suite.
 
-**Status:** `PROPOSED_FOR_DOMAIN_REVIEW` — not frozen, not training data, and not yet eligible for product evaluation or teacher selection.
+**Status:** `FROZEN` — human/domain approved for the bounded hackathon scope; eligible for golden-language work, teacher bake-off, and product evaluation, but not training data.
 
 **Cases:** 78. **Corpus role:** `HOLISTIC_PRODUCT_GOLDEN`.
 
 **Pinned substrate:** `imci-major-sick-child-v1` / `imci-major-sick-child-holistic-completeness-v2` / `imci-major-sick-child-review-decisions-v1` / `imci-major-sick-child-oxygen-referral-disposition-v1` / `edge-imci-holistic-golden-scope-dispositions-v1` / `edge-imci-holistic-deterministic-oracle-v3`.
 
-Every evaluable record is deterministically recomputed. The expected output is a review proposal, not independent clinical approval.
+Every evaluable record is deterministically recomputed. Approval is pinned by `edge-imci-holistic-product-golden-approval-v1`; production clinical use remains unauthorized.
 
 ## Resolved product-scope disposition
 
@@ -7480,6 +7480,6 @@ Every evaluable record is deterministically recomputed. The expected output is a
 
 ## Review instructions
 
-For each case, confirm the input facts, completeness state, internal and final classifications, urgent/intermediate/deferred/final actions, missing-element groups, exact rule trace, provenance, and applicable review decisions. Record any semantic defect before changing `NOT_FROZEN` status.
+Treat these semantic targets as immutable. If a genuine semantic defect is discovered, open change control and create a new reviewed version rather than silently editing the frozen suite.
 
-Do not create language renderings, bulk synthetic examples, dataset splits, or training artifacts from this proposed suite until domain review approves and freezes it.
+Golden-language rendering and controlled teacher/prompt evaluation are now authorized. Bulk synthetic generation and training remain separate gated stages.

@@ -19,7 +19,7 @@ This repository is research software. It is **not** a production medical device,
 
 ## Current status
 
-The clinical-semantic foundation for the bounded hackathon scope is implemented. A 78-case product-level holistic semantic suite has undergone two technical/source review cycles and oracle-v3 remediation. The current same-agent technical/source verification passes all 78 cases and recommends proceeding to human/domain approval; the suite is not yet approved or frozen.
+The clinical-semantic foundation for the bounded hackathon scope is implemented. The 78-case product-level holistic semantic suite has undergone two technical/source review cycles, oracle-v3 remediation, explicit human/domain approval, and a controlled semantic freeze. Its exact approved content is hash-pinned; the current gate is to establish and review the golden language renderings without changing those semantics.
 
 | Area | Status |
 | --- | --- |
@@ -30,8 +30,8 @@ The clinical-semantic foundation for the bounded hackathon scope is implemented.
 | Clinical/policy review | All 13 original questions plus the source-literal oxygen-referral disposition are resolved and versioned |
 | Automated verification | Full deterministic suite maintained in `tests/` |
 | Archived selected-v0 14-case component slice | Frozen historical/component-regression artifact; product-ineligible |
-| Product-level holistic golden semantic set | 78 proposed cases pass current technical/source verification; human/domain approval and freeze remain |
-| Golden language renderings | Not yet frozen |
+| Product-level holistic golden semantic set | 78 cases approved and hash-frozen for bounded hackathon use; never direct training data |
+| Golden language renderings | Contract proposed for review; renderings not yet authored or frozen |
 | Experiment/run registry infrastructure | Implemented with versioned registry, immutable run sidecars, accounting, and profiling support |
 | Bulk corpus generation | Not started |
 | SFT/model training | Not started |
@@ -127,9 +127,9 @@ python scripts/sync_holistic_artifacts.py
 
 Tests reject JSON/YAML drift, unknown evaluator rule IDs, invalid scope pins, incomplete decision sets, and relevant clinical/completeness regressions.
 
-## Immediate next gate: human/domain approval and controlled semantic freeze
+## Immediate next gate: golden language calibration and review
 
-The proposed `edge-imci-holistic-product-golden-v1` suite contains 78 structured cases using `corpus_role=HOLISTIC_PRODUCT_GOLDEN`. It is canonical as JSONL with a YAML mirror, pins the approved clinical/policy/oracle identities, and is mechanically recomputed by `edge-imci-holistic-golden-validator-v3`.
+The frozen `edge-imci-holistic-product-golden-v1` suite contains 78 structured cases using `corpus_role=HOLISTIC_PRODUCT_GOLDEN`. It is canonical as JSONL with a YAML mirror, pins the approved clinical/policy/oracle identities, and is mechanically recomputed by `edge-imci-holistic-golden-validator-v4`.
 
 Each structured golden case should pin:
 
@@ -145,21 +145,24 @@ The proposed set includes complete encounters, every encoded classification fami
 
 `HPG-GAP-REASSESS-001` is resolved by the versioned product-scope disposition `edge-imci-holistic-golden-scope-dispositions-v1`. Holistic golden v1 covers the initial dehydration classification, Plan B/C action, and timed-reassessment instruction. It does not execute longitudinal treatment state or automatic plan loops; a later full updated assessment may be submitted and evaluated afresh. This is an interaction/product-scope decision, not a new clinical rule.
 
-The first review’s four findings and the second review’s three respiratory findings are closed in oracle/generator/validator v3. The current technical/source verification gives all 78 cases `PASS_SOURCE_ALIGNED` and recommends `READY_FOR_HUMAN_DOMAIN_APPROVAL`, while explicitly noting that the implementing agent performed that verification. The suite remains eligible only for domain review and component validation until a human/domain approver accepts the current hash and authorizes freeze. See the [requirements](docs/product_holistic_golden_suite_requirements_v1.md), [generated review package](docs/product_holistic_golden_review_v1.md), [second finding record](docs/product_holistic_golden_domain_re_review_v1.md), and [current v3 verification](docs/product_holistic_golden_domain_re_review_v2.md).
+The first review’s four findings and the second review’s three respiratory findings are closed in oracle v3. The reviewed semantic hash was explicitly accepted by the project domain owner and transformed into a frozen v4 record envelope without changing any clinical expectations. The approval record preserves both hashes and authorizes the frozen suite for golden-language generation, product evaluation, and teacher bake-off—not direct training or production clinical use.
+
+The next controlled step is a small language calibration set. Candidate responses must faithfully render the frozen classifications, actions, urgency, incompleteness, and missing-element acquisitions. After the rendering contract and calibration examples are reviewed, all 78 cases can receive reviewed golden language renderings. Only then should teacher/prompt bake-offs and variant generation begin. See the [approval record](docs/product_holistic_golden_approval_v1.md), [language rendering contract](docs/golden_language_rendering_contract_v1.md), [requirements](docs/product_holistic_golden_suite_requirements_v1.md), [generated review package](docs/product_holistic_golden_review_v1.md), and [technical/source verification](docs/product_holistic_golden_domain_re_review_v2.md).
 
 ## Experimental campaign
 
 The hackathon critical path is evidence-driven:
 
-1. freeze the holistic golden semantic set and validator;
-2. run 4–6 teacher/prompt bake-off runs over the same 50–100 cases;
-3. select a stable generation recipe with high semantic acceptance and no systematic corruption;
-4. generate a fast corpus of approximately 500–1,000 accepted examples;
-5. start Qwen3-1.7B SFT-v1 on Modal;
-6. launch the larger Azure Batch data lane in parallel when justified;
-7. run holistic classification, integrated-management, completeness, and urgent-incomplete evaluations;
-8. profile the selected deployable artifact on ASUS/target hardware; and
-9. select/submit or take only the branch justified by the measured bottleneck.
+1. approve the golden-language rendering contract and a small manually reviewed calibration set;
+2. render and review the complete 78-case golden language layer;
+3. run 4–6 teacher/prompt bake-off runs over the same frozen semantic cases;
+4. select a stable generation recipe with high semantic acceptance and no systematic corruption;
+5. generate a fast corpus of approximately 500–1,000 accepted examples;
+6. start Qwen3-1.7B SFT-v1 on Modal;
+7. launch the larger Azure Batch data lane in parallel when justified;
+8. run holistic classification, integrated-management, completeness, and urgent-incomplete evaluations;
+9. profile the selected deployable artifact on ASUS/target hardware; and
+10. select/submit or take only the branch justified by the measured bottleneck.
 
 SFT-v2, Qwen3-4B, Qwen3.5/Tinker, preference optimization or RL, SVD/compression, expanded quantization comparisons, and Lundin evaluation are conditional branches. They are not prerequisites for the first submission.
 
@@ -232,13 +235,16 @@ Documentation authority and lifecycle are defined in [`docs/README.md`](docs/REA
 
 ### Golden semantics and language work
 
-- [`data/golden/holistic_product_v1/`](data/golden/holistic_product_v1): proposed 78-case product-level holistic semantic suite, canonical manifest, and YAML mirror.
+- [`data/golden/holistic_product_v1/`](data/golden/holistic_product_v1): approved, hash-frozen 78-case product-level holistic semantic suite, canonical manifest, and YAML mirror.
+- [`configs/golden/holistic_product_golden_approval_v1.json`](configs/golden/holistic_product_golden_approval_v1.json): canonical approval/freeze record, including reviewed and frozen hashes and bounded-use permissions.
+- [`docs/product_holistic_golden_approval_v1.md`](docs/product_holistic_golden_approval_v1.md): human-readable approval, freeze, and change-control record.
+- [`docs/golden_language_rendering_contract_v1.md`](docs/golden_language_rendering_contract_v1.md): proposed contract and review gate for the language layer derived from frozen semantics.
 - [`docs/product_holistic_golden_suite_requirements_v1.md`](docs/product_holistic_golden_suite_requirements_v1.md): product-level semantic-suite contract.
 - [`configs/golden/holistic_product_golden_scope_dispositions_v1.json`](configs/golden/holistic_product_golden_scope_dispositions_v1.json): versioned product-scope resolution for later Plan B/C treatment-stage execution.
 - [`docs/product_holistic_golden_review_v1.md`](docs/product_holistic_golden_review_v1.md): case index, pinned substrate, review instructions, and resolved scope disposition.
 - [`docs/product_holistic_golden_domain_review_v1.md`](docs/product_holistic_golden_domain_review_v1.md): superseded technical/source review of the pre-remediation hash and its four findings.
 - [`docs/product_holistic_golden_domain_re_review_v1.md`](docs/product_holistic_golden_domain_re_review_v1.md): superseded oracle-v2 independent review and respiratory finding record.
-- [`docs/product_holistic_golden_domain_re_review_v2.md`](docs/product_holistic_golden_domain_re_review_v2.md): current oracle-v3 technical/source verification and human/domain-approval recommendation.
+- [`docs/product_holistic_golden_domain_re_review_v2.md`](docs/product_holistic_golden_domain_re_review_v2.md): oracle-v3 technical/source verification used as the basis for human/domain approval.
 - [`docs/interaction_design_retrieval_assessment_bundles.md`](docs/interaction_design_retrieval_assessment_bundles.md): current holistic interaction framing.
 - [`docs/synthetic_data_generation_experiment_notes.md`](docs/synthetic_data_generation_experiment_notes.md): structured-first language-generation hypotheses and experiments.
 - [`data/archive/selected_v0/`](data/archive/selected_v0): quarantined historical 14-case selected-v0 component semantics and proposed renderings; lifecycle restrictions are machine-readable in its archive manifest.

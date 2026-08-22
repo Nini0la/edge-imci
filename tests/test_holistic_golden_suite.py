@@ -11,11 +11,15 @@ from edge_imci.corpus_policy import CorpusUse
 from edge_imci.generation.holistic_golden import (
     DEFAULT_JSONL_PATH,
     DEFAULT_MANIFEST_PATH,
+    DEFAULT_APPROVAL_PATH,
+    DEFAULT_APPROVAL_YAML_PATH,
     DEFAULT_REVIEW_PATH,
     DEFAULT_SCOPE_DISPOSITIONS_PATH,
     DEFAULT_SCOPE_DISPOSITIONS_YAML_PATH,
     DEFAULT_YAML_PATH,
     DECISION_SET_ID,
+    APPROVAL_ID,
+    APPROVED_REVIEWED_SEMANTIC_SHA256,
     OXYGEN_REFERRAL_DISPOSITION_ID,
     RECORD_SCHEMA_ID,
     SUITE_ID,
@@ -23,6 +27,7 @@ from edge_imci.generation.holistic_golden import (
     VALIDATOR_ID,
     build_holistic_golden_suite,
     load_holistic_golden_suite,
+    load_golden_approval,
     load_scope_dispositions,
     validate_holistic_golden_record,
 )
@@ -47,8 +52,11 @@ def test_suite_is_review_sized_unique_and_product_specific(records: list[dict]) 
     assert all(record["suite_id"] == SUITE_ID for record in records)
     assert all(record["record_schema_id"] == RECORD_SCHEMA_ID for record in records)
     assert all(record["corpus_role"] == CorpusRole.HOLISTIC_PRODUCT_GOLDEN.value for record in records)
-    assert all(record["status"] == "PROPOSED_FOR_DOMAIN_REVIEW" for record in records)
-    assert all("DOMAIN_REVIEW_REQUIRED" in record["review_flags"] for record in records)
+    assert all(record["status"] == "FROZEN" for record in records)
+    assert all(
+        record["review_flags"] == ["HUMAN_DOMAIN_APPROVED", "SEMANTICS_FROZEN"]
+        for record in records
+    )
 
 
 def test_committed_jsonl_and_yaml_are_deterministic_mirrors(records: list[dict]) -> None:
@@ -207,10 +215,10 @@ def test_non_firing_requirement_and_scope_provenance_is_explicit(records: list[d
     ]
 
 
-def test_manifest_pins_lifecycle_hash_and_noneligibility(records: list[dict]) -> None:
+def test_manifest_pins_approval_lifecycle_hash_and_eligibility(records: list[dict]) -> None:
     manifest = json.loads(DEFAULT_MANIFEST_PATH.read_text(encoding="utf-8"))
     assert manifest["suite_id"] == SUITE_ID
-    assert manifest["lifecycle_status"] == "PROPOSED_FOR_DOMAIN_REVIEW"
+    assert manifest["lifecycle_status"] == "FROZEN"
     assert manifest["case_count"] == len(records)
     assert manifest["artifact_pins"]["review_decision_set_id"] == DECISION_SET_ID
     assert (
@@ -219,33 +227,43 @@ def test_manifest_pins_lifecycle_hash_and_noneligibility(records: list[dict]) ->
     )
     assert manifest["artifact_pins"]["scope_disposition_set_id"] == SCOPE_DISPOSITION_SET_ID
     assert manifest["artifact_pins"]["validator_id"] == VALIDATOR_ID
+    assert manifest["artifact_pins"]["approval_id"] == APPROVAL_ID
     assert manifest["semantic_cases_sha256"] == hashlib.sha256(DEFAULT_JSONL_PATH.read_bytes()).hexdigest()
     assert manifest["unknown_semantics"] == {
         "omitted_is_unknown": True,
         "unknown_is_negative": False,
     }
     assert manifest["eligibility"]["DOMAIN_REVIEW"] is True
-    for use in ("HOLISTIC_GENERATION", "PRODUCT_EVALUATION", "TEACHER_BAKEOFF", "TRAINING"):
-        assert manifest["eligibility"][use] is False
+    for use in ("HOLISTIC_GENERATION", "PRODUCT_EVALUATION", "TEACHER_BAKEOFF"):
+        assert manifest["eligibility"][use] is True
+    assert manifest["eligibility"]["TRAINING"] is False
+    assert manifest["freeze_blockers"] == []
+    assert manifest["review_required_before_freeze"] is False
+    assert manifest["approval"] == {
+        "approval_id": APPROVAL_ID,
+        "reviewed_semantic_cases_sha256": APPROVED_REVIEWED_SEMANTIC_SHA256,
+        "frozen_semantic_cases_sha256": manifest["semantic_cases_sha256"],
+        "approved_for_hackathon_scope": True,
+    }
+
+
+def test_frozen_suite_loader_still_rejects_direct_training_use() -> None:
+    with pytest.raises(ValueError, match="is not eligible"):
+        load_holistic_golden_suite(corpus_use=CorpusUse.TRAINING)
 
 
 @pytest.mark.parametrize(
     "use",
     [
+        CorpusUse.DOMAIN_REVIEW,
+        CorpusUse.COMPONENT_VALIDATION,
         CorpusUse.HOLISTIC_GENERATION,
         CorpusUse.PRODUCT_EVALUATION,
         CorpusUse.TEACHER_BAKEOFF,
-        CorpusUse.TRAINING,
     ],
 )
-def test_proposed_suite_loader_rejects_premature_uses(use: CorpusUse) -> None:
-    with pytest.raises(ValueError, match="is not eligible"):
-        load_holistic_golden_suite(corpus_use=use)
-
-
-def test_proposed_suite_loader_allows_review_and_component_validation() -> None:
-    assert load_holistic_golden_suite(corpus_use=CorpusUse.DOMAIN_REVIEW)
-    assert load_holistic_golden_suite(corpus_use=CorpusUse.COMPONENT_VALIDATION)
+def test_frozen_suite_loader_allows_approved_uses(use: CorpusUse) -> None:
+    assert load_holistic_golden_suite(corpus_use=use)
 
 
 def test_every_encoded_classification_family_has_a_review_case(records: list[dict]) -> None:
@@ -331,7 +349,7 @@ def test_later_plan_reassessment_gap_is_resolved_by_versioned_product_scope() ->
     manifest = json.loads(DEFAULT_MANIFEST_PATH.read_text(encoding="utf-8"))
     artifact = load_scope_dispositions()
     assert manifest["known_coverage_gaps"] == []
-    assert manifest["freeze_blockers"] == ["DOMAIN_REVIEW_PENDING"]
+    assert manifest["freeze_blockers"] == []
     assert manifest["scope_dispositions"] == artifact["dispositions"]
     disposition = artifact["dispositions"][0]
     assert disposition["gap_id"] == "HPG-GAP-REASSESS-001"
@@ -340,6 +358,20 @@ def test_later_plan_reassessment_gap_is_resolved_by_versioned_product_scope() ->
     assert artifact["clinical_rule_change"] is False
     yaml_mirror = yaml.safe_load(DEFAULT_SCOPE_DISPOSITIONS_YAML_PATH.read_text(encoding="utf-8"))
     assert yaml_mirror == json.loads(DEFAULT_SCOPE_DISPOSITIONS_PATH.read_text(encoding="utf-8"))
+
+
+def test_human_domain_approval_is_versioned_and_mirrored() -> None:
+    approval = load_golden_approval()
+    manifest = json.loads(DEFAULT_MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert approval["approval_id"] == APPROVAL_ID
+    assert approval["reviewed_semantic_cases_sha256"] == APPROVED_REVIEWED_SEMANTIC_SHA256
+    assert approval["frozen_semantic_cases_sha256"] == manifest["semantic_cases_sha256"]
+    assert approval["approval_basis"]["explicit_human_domain_disposition"] == "APPROVED"
+    assert approval["freeze_transformation"]["semantic_expectations_changed"] is False
+    assert approval["frozen_record_schema_id"] == RECORD_SCHEMA_ID
+    assert approval["frozen_validator_id"] == VALIDATOR_ID
+    assert yaml.safe_load(DEFAULT_APPROVAL_YAML_PATH.read_text(encoding="utf-8")) == approval
+    assert approval == json.loads(DEFAULT_APPROVAL_PATH.read_text(encoding="utf-8"))
 
 
 def test_suite_contains_semantics_only_and_review_package_is_complete(records: list[dict]) -> None:

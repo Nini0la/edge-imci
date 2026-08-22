@@ -2,6 +2,7 @@
 """Regenerate the proposed product-level holistic golden semantic suite."""
 
 from edge_imci.generation.holistic_golden import (
+    DEFAULT_APPROVAL_YAML_PATH,
     DEFAULT_JSONL_PATH,
     DEFAULT_MANIFEST_PATH,
     DEFAULT_REVIEW_PATH,
@@ -17,4 +18,5 @@ if __name__ == "__main__":
     print(f"wrote YAML mirror to {DEFAULT_YAML_PATH}")
     print(f"wrote suite manifest to {DEFAULT_MANIFEST_PATH}")
     print(f"wrote scope-disposition YAML mirror to {DEFAULT_SCOPE_DISPOSITIONS_YAML_PATH}")
+    print(f"wrote approval YAML mirror to {DEFAULT_APPROVAL_YAML_PATH}")
     print(f"wrote review package to {DEFAULT_REVIEW_PATH}")

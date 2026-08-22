@@ -1,15 +1,22 @@
 {
+  "approval": {
+    "approval_id": "edge-imci-holistic-product-golden-approval-v1",
+    "approved_for_hackathon_scope": true,
+    "frozen_semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "reviewed_semantic_cases_sha256": "e8c538ac7a82b8faae7b7e36644eb3c44751c88380621e87625d1f703c5a70a1"
+  },
   "artifact_pins": {
+    "approval_id": "edge-imci-holistic-product-golden-approval-v1",
     "completeness_policy_id": "imci-major-sick-child-holistic-completeness-v2",
     "generation_seed": 20260822,
-    "generator_version": "edge-imci-holistic-golden-generator-v3",
+    "generator_version": "edge-imci-holistic-golden-generator-v4",
     "holistic_schema_version": "edge-imci-major-sick-child-encounter-v1",
     "oracle_id": "edge-imci-holistic-deterministic-oracle-v3",
     "oxygen_referral_disposition_id": "imci-major-sick-child-oxygen-referral-disposition-v1",
     "review_decision_set_id": "imci-major-sick-child-review-decisions-v1",
     "rule_set_id": "imci-major-sick-child-v1",
     "scope_disposition_set_id": "edge-imci-holistic-golden-scope-dispositions-v1",
-    "validator_id": "edge-imci-holistic-golden-validator-v3"
+    "validator_id": "edge-imci-holistic-golden-validator-v4"
   },
   "assets": [
     "data/golden/holistic_product_v1/semantic_cases.jsonl",
@@ -125,19 +132,17 @@
   "eligibility": {
     "COMPONENT_VALIDATION": true,
     "DOMAIN_REVIEW": true,
-    "HOLISTIC_GENERATION": false,
-    "PRODUCT_EVALUATION": false,
-    "TEACHER_BAKEOFF": false,
+    "HOLISTIC_GENERATION": true,
+    "PRODUCT_EVALUATION": true,
+    "TEACHER_BAKEOFF": true,
     "TRAINING": false
   },
-  "freeze_blockers": [
-    "DOMAIN_REVIEW_PENDING"
-  ],
+  "freeze_blockers": [],
   "incomplete_or_rejected_case_count": 18,
   "known_coverage_gaps": [],
-  "lifecycle_status": "PROPOSED_FOR_DOMAIN_REVIEW",
+  "lifecycle_status": "FROZEN",
   "production_clinical_use_authorized": false,
-  "review_required_before_freeze": true,
+  "review_required_before_freeze": false,
   "scope_dispositions": [
     {
       "decision": "Separate longitudinal Plan B/Plan C treatment-stage execution is outside holistic golden v1. The initial holistic semantic answer must include the source-backed dehydration classification, Plan B or Plan C, and the timed-reassessment instruction. A later full updated assessment may be submitted and evaluated afresh; EdgeIMCI v1 does not maintain treatment state, infer reassessment findings, or automatically repeat a rehydration plan.",
@@ -161,7 +166,7 @@
       ]
     }
   ],
-  "semantic_cases_sha256": "e8c538ac7a82b8faae7b7e36644eb3c44751c88380621e87625d1f703c5a70a1",
+  "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
   "suite_id": "edge-imci-holistic-product-golden-v1",
   "unknown_semantics": {
     "omitted_is_unknown": true,

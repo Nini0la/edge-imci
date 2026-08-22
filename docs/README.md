@@ -32,7 +32,7 @@ When JSON and YAML represent the same artifact, the relationship is about editin
 | `HISTORICAL_ARCHIVE` | Reproducibility record that is ineligible to govern current product work. |
 | `DOCUMENT_CONTROL` | Repository documentation-governance metadata. |
 
-Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `SUPERSEDED`, and `ARCHIVED`.
+Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, and `ARCHIVED`.
 
 ## Canonical structured authority
 
@@ -43,10 +43,11 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `SUPERSEDED`, and `ARCHIV
 | `configs/information_policy/imci_major_sick_child_review_decisions_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
 | `configs/information_policy/imci_major_sick_child_oxygen_referral_disposition_v1.json` | `.yaml` sibling | `APPROVED_PRODUCT_POLICY` | `CURRENT` |
 | `configs/golden/holistic_product_golden_scope_dispositions_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
-| `data/golden/holistic_product_v1/semantic_cases.jsonl` | `semantic_cases.yaml` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` |
+| `configs/golden/holistic_product_golden_approval_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
+| `data/golden/holistic_product_v1/semantic_cases.jsonl` | `semantic_cases.yaml` | `REVIEW_RECORD` | `FROZEN` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
 
-The proposed holistic golden suite does not become frozen product authority until domain review is complete and its lifecycle is changed explicitly.
+The frozen holistic golden suite is the approved semantic target for the bounded hackathon scope. Its approval artifact authorizes specified research uses but explicitly excludes direct training and production clinical use.
 
 ## Markdown document register
 
@@ -59,13 +60,15 @@ The proposed holistic golden suite does not become frozen product authority unti
 | `major_sick_child_domain_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Hackathon-scope domain-review record. |
 | `system_level_clinical_audit_v2.md` | `REVIEW_RECORD` | `SUPERSEDED` | Pre-oracle-v3 substrate audit retained for history. |
 | `product_holistic_golden_suite_requirements_v1.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Approved construction/review contract for product semantics. |
-| `product_holistic_golden_review_v1.md` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` | Generated domain-review surface; not frozen semantics. |
+| `product_holistic_golden_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Generated review surface for the approved and frozen semantics. |
+| `product_holistic_golden_approval_v1.md` | `REVIEW_RECORD` | `CURRENT` | Human-readable approval, hash transition, permissions, and freeze/change-control record. |
+| `golden_language_rendering_contract_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed language-layer contract and calibration/review gate; does not alter frozen semantics. |
 | `holistic_golden_domain_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Original review-only protocol retained for audit history. |
 | `product_holistic_golden_domain_review_v1.md` | `REVIEW_RECORD` | `SUPERSEDED` | Technical/source review of the pre-remediation corpus hash; records four findings and no approval. |
 | `holistic_golden_remediation_re_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Completed oracle-v2 re-review protocol retained for history. |
 | `product_holistic_golden_domain_re_review_v1.md` | `REVIEW_RECORD` | `SUPERSEDED` | Independent review of corpus hash `bba39ee0...`; records the three respiratory findings remediated in v3. |
 | `holistic_golden_respiratory_remediation_re_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Completed oracle-v3 verification protocol retained for audit history. |
-| `product_holistic_golden_domain_re_review_v2.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent technical/source verification of oracle-v3; recommends human/domain approval while explicitly recording its independence limitation. |
+| `product_holistic_golden_domain_re_review_v2.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent technical/source verification of oracle-v3 used as the basis for explicit human/domain approval; retains its independence limitation. |
 | `interaction_design_retrieval_assessment_bundles.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Current interaction framing; cannot override clinical artifacts. |
 | `experiment_operations_and_tracking_plan.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
 | `experimental_campaign_map.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
