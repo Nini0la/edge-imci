@@ -23,7 +23,9 @@ ROOT = Path(__file__).resolve().parents[3]
 LANGUAGE_RECORD_SCHEMA_ID = "edge-imci-holistic-golden-language-record-v1"
 LANGUAGE_CALIBRATION_ID = "edge-imci-holistic-golden-language-calibration-v1"
 LANGUAGE_BUILDER_ID = "edge-imci-holistic-golden-language-calibration-builder-v1"
+LANGUAGE_APPROVAL_ID = "edge-imci-holistic-golden-language-approval-v1"
 SEMANTIC_CASES_SHA256 = "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f"
+APPROVED_REVIEWED_LANGUAGE_SHA256 = "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9"
 
 DEFAULT_SCHEMA_PATH = ROOT / "configs" / "rendering" / "holistic_golden_language_record_v1.schema.json"
 DEFAULT_CALIBRATION_PATH = ROOT / "data" / "golden" / "holistic_product_v1" / "language_calibration_v1.jsonl"
@@ -31,6 +33,8 @@ DEFAULT_CALIBRATION_YAML_PATH = DEFAULT_CALIBRATION_PATH.with_suffix(".yaml")
 DEFAULT_MANIFEST_PATH = (
     ROOT / "data" / "golden" / "holistic_product_v1" / "language_calibration_manifest_v1.json"
 )
+DEFAULT_APPROVAL_PATH = ROOT / "configs" / "rendering" / "holistic_golden_language_approval_v1.json"
+DEFAULT_APPROVAL_YAML_PATH = DEFAULT_APPROVAL_PATH.with_suffix(".yaml")
 DEFAULT_REVIEW_PATH = ROOT / "docs" / "product_holistic_golden_language_calibration_review_v1.md"
 
 
@@ -143,7 +147,12 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
         """
         Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear infection.
 
-        Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and give vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists, and follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
+        Management:
+        - Pneumonia: Give oral amoxicillin for 5 days, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days.
+        - Diarrhoea and dysentery: Give Plan A fluid, zinc, and food, and give ciprofloxacin for 3 days.
+        - Malaria and measles: Give the first-line oral antimalarial and give vitamin A treatment. Follow up in 3 days if fever persists.
+        - Acute ear infection: Give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days.
+        - Also follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
         """,
     ),
     "hpg-070-cross-multiple-urgent": _draft(
@@ -155,7 +164,7 @@ CALIBRATION_DRAFTS: dict[str, dict[str, Any]] = {
 
         Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile disease; mastoiditis.
 
-        Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
+        Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain. Complete the remaining assessment quickly, but do not delay urgent referral.
         """,
     ),
     "hpg-071-incomplete-entry-unknown": _draft(
@@ -341,6 +350,55 @@ def _semantic_records() -> dict[str, dict[str, Any]]:
     return {item["golden_case_id"]: item for item in load_holistic_golden_suite()}
 
 
+def load_language_approval() -> dict[str, Any]:
+    artifact = json.loads(DEFAULT_APPROVAL_PATH.read_text(encoding="utf-8"))
+    expected = {
+        "approval_id": LANGUAGE_APPROVAL_ID,
+        "status": "APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE",
+        "calibration_id": LANGUAGE_CALIBRATION_ID,
+        "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+        "semantic_suite_id": SUITE_ID,
+        "semantic_cases_sha256": SEMANTIC_CASES_SHA256,
+        "approval_authority": "PROJECT_OWNER",
+        "production_clinical_use_authorized": False,
+        "qualified_phc_field_validation_completed": False,
+    }
+    for key, value in expected.items():
+        if artifact.get(key) != value:
+            raise ValueError(f"incorrect holistic golden language approval {key}")
+    frozen_hash = artifact.get("frozen_language_calibration_sha256")
+    if not isinstance(frozen_hash, str) or len(frozen_hash) != 64:
+        raise ValueError("language approval must pin the frozen calibration hash")
+    approval_basis = artifact.get("approval_basis", {})
+    if approval_basis.get("independent_language_review_completed") is not True:
+        raise ValueError("language approval must record the completed independent review")
+    if approval_basis.get("independent_language_review_findings_remediated") != [
+        "LGR-IR-001",
+        "LGR-IR-002",
+    ]:
+        raise ValueError("language approval must record both independent-review remediations")
+    if artifact.get("freeze_transformation") != {
+        "conversation_content_changed": True,
+        "semantic_alignment_changed": False,
+        "changes": [
+            "APPLY_INDEPENDENT_LANGUAGE_REMEDIATIONS_LGR_IR_001_AND_LGR_IR_002",
+            "SET_RECORD_STATUS_FROZEN",
+            "RECORD_PROJECT_OWNER_HACKATHON_APPROVAL",
+            "PIN_APPROVAL_IN_MANIFEST",
+            "AUTHORIZE_FULL_GOLDEN_LANGUAGE_AUTHORING_AND_PRODUCT_EVALUATION",
+        ],
+    }:
+        raise ValueError("incorrect language calibration freeze transformation")
+    if artifact.get("eligibility_authorized") != {
+        "HOLISTIC_GENERATION": True,
+        "PRODUCT_EVALUATION": True,
+        "TEACHER_BAKEOFF": False,
+        "TRAINING": False,
+    }:
+        raise ValueError("incorrect approved language calibration eligibility")
+    return artifact
+
+
 def _flatten_missing(missing: dict[str, list[str]]) -> list[str]:
     return sorted(field for fields in missing.values() for field in fields)
 
@@ -392,7 +450,7 @@ def build_language_calibration() -> list[dict[str, Any]]:
                 "record_schema_id": LANGUAGE_RECORD_SCHEMA_ID,
                 "rendering_id": f"{golden_case_id}-language-v1",
                 "golden_case_id": golden_case_id,
-                "status": "DRAFT_FOR_HUMAN_REVIEW",
+                "status": "FROZEN",
                 "corpus_role": "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION",
                 "semantic_source": {
                     "suite_id": SUITE_ID,
@@ -405,11 +463,11 @@ def build_language_calibration() -> list[dict[str, Any]]:
                 ],
                 "alignment": _alignment(source, draft),
                 "review": {
-                    "semantic_faithfulness": "PENDING",
-                    "interaction_quality": "PENDING",
-                    "phc_suitability": "PENDING",
-                    "reviewer": None,
-                    "notes": "",
+                    "semantic_faithfulness": "APPROVED_FOR_HACKATHON_SCOPE",
+                    "interaction_quality": "APPROVED_FOR_HACKATHON_SCOPE",
+                    "phc_suitability": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED",
+                    "reviewer": "PROJECT_OWNER",
+                    "notes": "Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.",
                 },
             }
         )
@@ -465,7 +523,7 @@ def load_language_calibration(*, corpus_use: CorpusUse = CorpusUse.DOMAIN_REVIEW
 def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any]:
     return {
         "suite_id": LANGUAGE_CALIBRATION_ID,
-        "lifecycle_status": "PROPOSED_FOR_REVIEW",
+        "lifecycle_status": "FROZEN",
         "corpus_role": "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION",
         "assets": [
             str(DEFAULT_CALIBRATION_PATH.relative_to(ROOT)),
@@ -480,20 +538,34 @@ def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any
         "artifact_pins": {
             "record_schema_id": LANGUAGE_RECORD_SCHEMA_ID,
             "builder_id": LANGUAGE_BUILDER_ID,
+            "approval_id": LANGUAGE_APPROVAL_ID,
         },
         "language_calibration_sha256": content_hash,
-        "review_status": "PENDING_HUMAN_LANGUAGE_REVIEW",
+        "review_status": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_SCOPE",
+        "approval": {
+            "approval_id": LANGUAGE_APPROVAL_ID,
+            "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+            "frozen_language_calibration_sha256": content_hash,
+            "qualified_phc_field_validation_completed": False,
+        },
         "technical_editorial_review": {
             "record": "docs/product_holistic_golden_language_technical_review_v1.md",
             "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW",
             "same_agent_review": True,
-            "language_calibration_sha256": content_hash,
+            "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+        },
+        "independent_language_review": {
+            "record": "docs/product_holistic_golden_language_independent_review_v1.md",
+            "status": "READY_AFTER_LANGUAGE_REMEDIATION",
+            "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+            "remediated_findings": ["LGR-IR-001", "LGR-IR-002"],
+            "qualified_phc_field_validation": False,
         },
         "eligibility": {
             "DOMAIN_REVIEW": True,
             "COMPONENT_VALIDATION": True,
-            "HOLISTIC_GENERATION": False,
-            "PRODUCT_EVALUATION": False,
+            "HOLISTIC_GENERATION": True,
+            "PRODUCT_EVALUATION": True,
             "TEACHER_BAKEOFF": False,
             "TRAINING": False,
         },
@@ -505,11 +577,11 @@ def render_language_calibration_review(records: list[dict[str, Any]]) -> str:
     lines = [
         "# Product holistic golden language calibration v1 — review package",
         "",
-        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Language review surface; cannot alter frozen semantics.",
+        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Review surface for the project-owner-approved and frozen hackathon language calibration.",
         "",
-        f"**Status:** 16 draft calibration renderings pinned to semantic SHA-256 `{SEMANTIC_CASES_SHA256}`.",
+        f"**Status:** 16 calibration renderings approved and frozen for the bounded hackathon scope, pinned to semantic SHA-256 `{SEMANTIC_CASES_SHA256}`.",
         "",
-        "These are proposed canonical phrasings, not training data and not frozen golden language. Review semantic faithfulness first, then interaction quality and PHC suitability.",
+        "These are approved style anchors for completing the 78-case golden language layer. They are not training data, production clinical authorization, or qualified PHC field validation.",
         "",
     ]
     for record in records:
@@ -549,12 +621,12 @@ def render_language_calibration_review(records: list[dict[str, Any]]) -> str:
                 "",
                 record["conversation"][1]["content"],
                 "",
-                "### Review disposition",
+                "### Approval disposition",
                 "",
-                "- Semantic faithfulness: `PENDING`",
-                "- Interaction quality: `PENDING`",
-                "- PHC suitability: `PENDING`",
-                "- Required edits / notes:",
+                "- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`",
+                "- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`",
+                "- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`",
+                "- Reviewer: `PROJECT_OWNER`",
                 "",
             ]
         )
@@ -562,12 +634,15 @@ def render_language_calibration_review(records: list[dict[str, Any]]) -> str:
 
 
 def write_language_calibration() -> list[dict[str, Any]]:
+    approval = load_language_approval()
     records = build_language_calibration()
     semantics = _semantic_records()
     for record in records:
         validate_language_record(record, semantics[record["golden_case_id"]])
     content = "".join(json.dumps(record, sort_keys=True) + "\n" for record in records)
     content_hash = hashlib.sha256(content.encode()).hexdigest()
+    if content_hash != approval["frozen_language_calibration_sha256"]:
+        raise ValueError("generated frozen language calibration does not match approved hash")
     DEFAULT_CALIBRATION_PATH.write_text(content, encoding="utf-8")
     DEFAULT_CALIBRATION_YAML_PATH.write_text(
         "# Generated from the canonical JSONL; do not edit this mirror.\n"
@@ -576,6 +651,11 @@ def write_language_calibration() -> list[dict[str, Any]]:
     )
     DEFAULT_MANIFEST_PATH.write_text(
         json.dumps(_manifest(records, content_hash), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    DEFAULT_APPROVAL_YAML_PATH.write_text(
+        "# Generated from the canonical JSON; do not edit this mirror.\n"
+        + yaml.safe_dump(approval, allow_unicode=True, sort_keys=False, width=100),
         encoding="utf-8",
     )
     DEFAULT_REVIEW_PATH.write_text(render_language_calibration_review(records), encoding="utf-8")

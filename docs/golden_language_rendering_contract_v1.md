@@ -1,6 +1,6 @@
 # Golden language rendering contract v1
 
-> **Authority:** `WORKING_PLAN` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Defines a proposed language-layer review contract; it cannot create or modify clinical semantics.
+> **Authority:** `APPROVED_PRODUCT_POLICY` · **Lifecycle:** `CURRENT` · Defines the approved bounded-hackathon language-layer contract; it cannot create or modify clinical semantics.
 
 ## Purpose
 
@@ -8,7 +8,7 @@ The 78 product-level golden semantic cases are approved and frozen. They specify
 
 This contract governs manually curated golden language renderings derived from those cases. It does not authorize bulk generation, dataset splitting, SFT, or changes to the frozen semantic records.
 
-**Implementation status:** A versioned record schema and the proposed 16-case calibration draft now exist. All language-review fields remain `PENDING`, and the calibration manifest mechanically blocks generation, evaluation, teacher-bake-off, and training use until a later approval/freeze step.
+**Implementation status:** The versioned record schema and 16-case calibration are project-owner approved and frozen for the bounded hackathon. The calibration may anchor the remaining 62 canonical renderings and bounded product-language evaluation. Teacher bake-off, bulk generation, and training remain blocked until the complete 78-case language layer passes its own gate.
 
 ```text
 frozen semantic case
@@ -185,12 +185,12 @@ Semantic faithfulness is a hard gate. A fluent rendering with a missing, altered
 
 ## Controlled work sequence
 
-1. Approve or revise this contract.
-2. Define the versioned rendering schema and deterministic semantic-alignment checks.
-3. Use the proposed 16-case calibration set below, or approve a revised set with equivalent coverage.
-4. Manually draft and review the calibration renderings to establish the EdgeIMCI voice and organization.
-5. Update and freeze the contract/schema if calibration reveals interaction-policy problems; do not edit clinical semantics through this process.
-6. Produce and review one canonical rendering for each of the 78 semantic cases.
+1. ~~Approve or revise this contract.~~ Completed.
+2. ~~Define the versioned rendering schema and deterministic semantic-alignment checks.~~ Completed.
+3. ~~Use the proposed 16-case calibration set below, or approve a revised set with equivalent coverage.~~ Completed.
+4. ~~Manually draft and review the calibration renderings to establish the EdgeIMCI voice and organization.~~ Project-owner approved for the bounded hackathon; qualified PHC field validation was not performed.
+5. ~~Update and freeze the contract/schema if calibration reveals interaction-policy problems.~~ Completed without changing clinical semantics.
+6. Produce and review one canonical rendering for each of the 78 semantic cases. **Current stage.**
 7. Freeze the approved language layer with its own manifest, hashes, and review record.
 8. Use the frozen semantics and reviewed language layer to run teacher/prompt bake-offs.
 9. Only after a generation recipe passes acceptance checks should language variants and corpus candidates be generated.
@@ -218,7 +218,7 @@ The first language pass should use these cases. This set is intentionally small 
 | `hpg-075-contradiction-drinking` | Explicit conflict resolution without guessing. |
 | `hpg-077-out-of-scope-age-1` | Clear scope rejection without unsupported clinical synthesis. |
 
-Approval of this set authorizes careful manual drafting for these 16 cases only. It does not authorize automatic rendering of the remaining cases or variant generation.
+Approval of this set now authorizes authoring the remaining 62 canonical golden renderings in the same bounded style. It does not authorize synthetic variant generation or training.
 
 ## Explicit non-goals for this stage
 
@@ -231,9 +231,9 @@ This stage does not:
 - fine-tune a model; or
 - change `clinical-rules-v0`, the expanded clinical rules, completeness policy, approved decisions, or frozen golden semantics.
 
-## Approval gate
+## Completed calibration approval gate
 
-Before calibration authoring begins, reviewers should confirm:
+The calibration approval confirmed:
 
 - the required response behavior for each semantic state;
 - the proposed user-facing organization and tone;
@@ -242,4 +242,4 @@ Before calibration authoring begins, reviewers should confirm:
 - the proposed rendering record fields; and
 - the calibration-set coverage.
 
-Until that review occurs, this document remains a proposal and no language output should be described as frozen golden language.
+The 16 calibration cases are now frozen style anchors; the complete 78-case golden language layer is not yet authored, reviewed, or frozen.

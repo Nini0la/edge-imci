@@ -1,0 +1,34 @@
+{
+  "approved_style_anchor_count": 16,
+  "artifact_pins": {
+    "builder_id": "edge-imci-holistic-product-golden-language-builder-v1",
+    "record_schema_id": "edge-imci-holistic-golden-language-record-v1",
+    "style_approval_id": "edge-imci-holistic-golden-language-approval-v1"
+  },
+  "assets": [
+    "data/golden/holistic_product_v1/language_renderings_v1.jsonl",
+    "data/golden/holistic_product_v1/language_renderings_v1.yaml"
+  ],
+  "case_count": 78,
+  "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
+  "draft_rendering_count": 62,
+  "eligibility": {
+    "COMPONENT_VALIDATION": true,
+    "DOMAIN_REVIEW": true,
+    "HOLISTIC_GENERATION": false,
+    "PRODUCT_EVALUATION": false,
+    "TEACHER_BAKEOFF": false,
+    "TRAINING": false
+  },
+  "language_renderings_sha256": "9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe",
+  "lifecycle_status": "PROPOSED_FOR_REVIEW",
+  "production_clinical_use_authorized": false,
+  "qualified_phc_field_validation_completed": false,
+  "review_status": "62_NEW_RENDERINGS_PENDING_HUMAN_LANGUAGE_REVIEW",
+  "semantic_source": {
+    "path": "data/golden/holistic_product_v1/semantic_cases.jsonl",
+    "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "suite_id": "edge-imci-holistic-product-golden-v1"
+  },
+  "suite_id": "edge-imci-holistic-product-golden-language-v1"
+}

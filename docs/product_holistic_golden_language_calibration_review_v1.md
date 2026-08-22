@@ -1,10 +1,10 @@
 # Product holistic golden language calibration v1 — review package
 
-> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Language review surface; cannot alter frozen semantics.
+> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Review surface for the project-owner-approved and frozen hackathon language calibration.
 
-**Status:** 16 draft calibration renderings pinned to semantic SHA-256 `9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f`.
+**Status:** 16 calibration renderings approved and frozen for the bounded hackathon scope, pinned to semantic SHA-256 `9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f`.
 
-These are proposed canonical phrasings, not training data and not frozen golden language. Review semantic faithfulness first, then interaction quality and PHC suitability.
+These are approved style anchors for completing the 78-case golden language layer. They are not training data, production clinical authorization, or qualified PHC field validation.
 
 ## hpg-001-all-negative
 
@@ -27,12 +27,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 The supported assessment is complete. None of the currently supported IMCI classifications is triggered, and no management action is indicated by these pathways.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-008-resp-age-2-rate-50
 
@@ -57,12 +57,12 @@ Classification: Pneumonia.
 
 Give oral amoxicillin for 5 days. Soothe the throat and relieve the cough with a safe remedy. Advise the caregiver when to return immediately, and follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-014-resp-chest-hiv-positive
 
@@ -87,12 +87,12 @@ Classification: Pneumonia.
 
 Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral, not urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-016-resp-oximeter-89-9
 
@@ -117,12 +117,12 @@ Classification: Cough or cold.
 
 Refer the child because the oxygen saturation is below 90%. This finding alone calls for referral, not urgent referral. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-020-resp-post-bronchodilator-improved
 
@@ -149,12 +149,12 @@ Classification: Cough or cold.
 
 Give an inhaled bronchodilator for 5 days. Soothe the throat and relieve the cough with a safe remedy. Advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-028-diarrhoea-some-dehydration
 
@@ -179,12 +179,12 @@ Classification: Some dehydration.
 
 Give fluid, zinc, and food according to Plan B, then reassess and reclassify dehydration after Plan B. Advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-031-diarrhoea-severe-age-24-cholera
 
@@ -209,12 +209,12 @@ Classification: Severe dehydration.
 
 Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-052-fever-identified-bacterial-cause
 
@@ -239,12 +239,12 @@ Classification: Fever—no malaria.
 
 Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-055-fever-severe-measles-cornea
 
@@ -271,12 +271,12 @@ Classifications: Fever—no malaria; severe complicated measles.
 
 Before referral, give vitamin A treatment and the first dose of an appropriate antibiotic, and apply tetracycline eye ointment. Routine fever home-care and scheduled follow-up instructions must not delay or compete with this urgent referral workflow.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-068-cross-four-pathways
 
@@ -299,14 +299,19 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear infection.
 
-Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin for 3 days for dysentery. Give the first-line oral antimalarial and give vitamin A treatment. For the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists, and follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
+Management:
+- Pneumonia: Give oral amoxicillin for 5 days, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days.
+- Diarrhoea and dysentery: Give Plan A fluid, zinc, and food, and give ciprofloxacin for 3 days.
+- Malaria and measles: Give the first-line oral antimalarial and give vitamin A treatment. Follow up in 3 days if fever persists.
+- Acute ear infection: Give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days.
+- Also follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-070-cross-multiple-urgent
 
@@ -331,14 +336,14 @@ URGENT: Give the indicated pre-referral treatment immediately and arrange urgent
 
 Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile disease; mastoiditis.
 
-Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment quickly, but do not delay urgent referral.
+Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain. Complete the remaining assessment quickly, but do not delay urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-071-incomplete-entry-unknown
 
@@ -363,12 +368,12 @@ I need one more finding before I can provide the final classifications and manag
 
 Ask the caregiver whether the child has diarrhoea and report the answer. An unmentioned answer cannot be treated as no.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-072-incomplete-multiple-groups
 
@@ -396,12 +401,12 @@ I need the following assessment findings before I can provide the final classifi
 - Provide the malaria-risk category of the area: high, low, or no malaria risk. Do not infer this from a place name.
 - Ask the caregiver whether the child has an ear problem, including ear pain or ear discharge.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-073-incomplete-known-urgent
 
@@ -430,12 +435,12 @@ A complete set of classifications and management actions still requires the rema
 - Confirm the child's age in completed months from the caregiver or record.
 - Ask and report whether the child has cough or difficult breathing, diarrhoea, fever, or an ear problem.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-075-contradiction-drinking
 
@@ -460,12 +465,12 @@ These findings conflict: the general danger-sign assessment says the child can d
 
 Clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
 
 ## hpg-077-out-of-scope-age-1
 
@@ -488,9 +493,9 @@ This infant is 1 month old. There are no reported general danger signs, cough or
 
 This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide an IMCI classification or management synthesis from this workflow. Use the applicable approved young-infant assessment pathway.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`

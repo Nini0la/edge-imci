@@ -2,7 +2,7 @@
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-001-all-negative-language-v1
   golden_case_id: hpg-001-all-negative
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -29,15 +29,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-008-resp-age-2-rate-50-language-v1
   golden_case_id: hpg-008-resp-age-2-rate-50
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -74,15 +74,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-014-resp-chest-hiv-positive-language-v1
   golden_case_id: hpg-014-resp-chest-hiv-positive
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -117,15 +117,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-016-resp-oximeter-89-9-language-v1
   golden_case_id: hpg-016-resp-oximeter-89-9
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -164,15 +164,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-020-resp-post-bronchodilator-improved-language-v1
   golden_case_id: hpg-020-resp-post-bronchodilator-improved
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -218,15 +218,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-028-diarrhoea-some-dehydration-language-v1
   golden_case_id: hpg-028-diarrhoea-some-dehydration
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -264,15 +264,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-031-diarrhoea-severe-age-24-cholera-language-v1
   golden_case_id: hpg-031-diarrhoea-severe-age-24-cholera
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -309,15 +309,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-052-fever-identified-bacterial-cause-language-v1
   golden_case_id: hpg-052-fever-identified-bacterial-cause
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -356,15 +356,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-055-fever-severe-measles-cornea-language-v1
   golden_case_id: hpg-055-fever-severe-measles-cornea
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -410,15 +410,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-068-cross-four-pathways-language-v1
   golden_case_id: hpg-068-cross-four-pathways
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -442,12 +442,20 @@
       infection.
 
 
-      Give oral amoxicillin for 5 days for pneumonia, soothe the throat and relieve the cough with a safe
-      remedy, and follow up in 3 days. Give Plan A fluid, zinc, and food for diarrhoea, and give ciprofloxacin
-      for 3 days for dysentery. Give the first-line oral antimalarial and give vitamin A treatment. For
-      the acute ear infection, give the indicated antibiotic for 5 days, give paracetamol for ear pain,
-      dry the ear by wicking, and follow up in 5 days. Also follow up in 3 days if fever persists, and
-      follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.'
+      Management:
+
+      - Pneumonia: Give oral amoxicillin for 5 days, soothe the throat and relieve the cough with a safe
+      remedy, and follow up in 3 days.
+
+      - Diarrhoea and dysentery: Give Plan A fluid, zinc, and food, and give ciprofloxacin for 3 days.
+
+      - Malaria and measles: Give the first-line oral antimalarial and give vitamin A treatment. Follow
+      up in 3 days if fever persists.
+
+      - Acute ear infection: Give the indicated antibiotic for 5 days, give paracetamol for ear pain,
+      dry the ear by wicking, and follow up in 5 days.
+
+      - Also follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -481,15 +489,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-070-cross-multiple-urgent-language-v1
   golden_case_id: hpg-070-cross-multiple-urgent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -516,8 +524,8 @@
 
       Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic
       and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and
-      give paracetamol for ear pain as indicated by the mastoiditis pathway. Complete the remaining assessment
-      quickly, but do not delay urgent referral.'
+      give paracetamol for ear pain. Complete the remaining assessment quickly, but do not delay urgent
+      referral.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -544,15 +552,15 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-071-incomplete-entry-unknown-language-v1
   golden_case_id: hpg-071-incomplete-entry-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -585,15 +593,15 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-072-incomplete-multiple-groups-language-v1
   golden_case_id: hpg-072-incomplete-multiple-groups
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -647,15 +655,15 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-073-incomplete-known-urgent-language-v1
   golden_case_id: hpg-073-incomplete-known-urgent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -719,15 +727,15 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-075-contradiction-drinking-language-v1
   golden_case_id: hpg-075-contradiction-drinking
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -769,15 +777,15 @@
     - danger_signs.unable_to_drink_or_breastfeed
     - diarrhoea.dehydration.drinking_status
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-077-out-of-scope-age-1-language-v1
   golden_case_id: hpg-077-out-of-scope-age-1
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -804,8 +812,8 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: ''
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.

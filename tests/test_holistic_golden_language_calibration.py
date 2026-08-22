@@ -9,16 +9,21 @@ import yaml
 
 from edge_imci.corpus_policy import CorpusUse
 from edge_imci.generation.holistic_language import (
+    APPROVED_REVIEWED_LANGUAGE_SHA256,
     CALIBRATION_DRAFTS,
+    DEFAULT_APPROVAL_PATH,
+    DEFAULT_APPROVAL_YAML_PATH,
     DEFAULT_CALIBRATION_PATH,
     DEFAULT_CALIBRATION_YAML_PATH,
     DEFAULT_MANIFEST_PATH,
     DEFAULT_REVIEW_PATH,
     LANGUAGE_CALIBRATION_ID,
+    LANGUAGE_APPROVAL_ID,
     LANGUAGE_RECORD_SCHEMA_ID,
     SEMANTIC_CASES_SHA256,
     build_language_calibration,
     load_language_calibration,
+    load_language_approval,
     missing_language_markers,
 )
 
@@ -43,42 +48,57 @@ def test_committed_calibration_is_deterministic_and_mirrored(records: list[dict]
     assert yaml.safe_load(DEFAULT_CALIBRATION_YAML_PATH.read_text(encoding="utf-8")) == records
 
 
-def test_every_record_is_a_review_draft_pinned_to_frozen_semantics(records: list[dict]) -> None:
+def test_every_record_is_project_owner_approved_and_pinned_to_frozen_semantics(
+    records: list[dict],
+) -> None:
     for record in records:
         assert record["record_schema_id"] == LANGUAGE_RECORD_SCHEMA_ID
-        assert record["status"] == "DRAFT_FOR_HUMAN_REVIEW"
+        assert record["status"] == "FROZEN"
         assert record["corpus_role"] == "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION"
         assert record["semantic_source"]["semantic_cases_sha256"] == SEMANTIC_CASES_SHA256
         assert record["review"] == {
-            "semantic_faithfulness": "PENDING",
-            "interaction_quality": "PENDING",
-            "phc_suitability": "PENDING",
-            "reviewer": None,
-            "notes": "",
+            "semantic_faithfulness": "APPROVED_FOR_HACKATHON_SCOPE",
+            "interaction_quality": "APPROVED_FOR_HACKATHON_SCOPE",
+            "phc_suitability": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED",
+            "reviewer": "PROJECT_OWNER",
+            "notes": "Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.",
         }
 
 
-def test_manifest_hash_scope_and_noneligibility_are_explicit(records: list[dict]) -> None:
+def test_manifest_hash_scope_approval_and_eligibility_are_explicit(records: list[dict]) -> None:
     manifest = json.loads(DEFAULT_MANIFEST_PATH.read_text(encoding="utf-8"))
     assert manifest["suite_id"] == LANGUAGE_CALIBRATION_ID
-    assert manifest["lifecycle_status"] == "PROPOSED_FOR_REVIEW"
+    assert manifest["lifecycle_status"] == "FROZEN"
     assert manifest["case_count"] == len(records)
     assert manifest["semantic_source"]["sha256"] == SEMANTIC_CASES_SHA256
     assert manifest["language_calibration_sha256"] == hashlib.sha256(
         DEFAULT_CALIBRATION_PATH.read_bytes()
     ).hexdigest()
-    assert manifest["review_status"] == "PENDING_HUMAN_LANGUAGE_REVIEW"
+    assert manifest["review_status"] == "PROJECT_OWNER_APPROVED_FOR_HACKATHON_SCOPE"
+    assert manifest["approval"] == {
+        "approval_id": LANGUAGE_APPROVAL_ID,
+        "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+        "frozen_language_calibration_sha256": manifest["language_calibration_sha256"],
+        "qualified_phc_field_validation_completed": False,
+    }
     assert manifest["technical_editorial_review"] == {
         "record": "docs/product_holistic_golden_language_technical_review_v1.md",
         "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW",
         "same_agent_review": True,
-        "language_calibration_sha256": manifest["language_calibration_sha256"],
+        "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+    }
+    assert manifest["independent_language_review"] == {
+        "record": "docs/product_holistic_golden_language_independent_review_v1.md",
+        "status": "READY_AFTER_LANGUAGE_REMEDIATION",
+        "reviewed_language_calibration_sha256": APPROVED_REVIEWED_LANGUAGE_SHA256,
+        "remediated_findings": ["LGR-IR-001", "LGR-IR-002"],
+        "qualified_phc_field_validation": False,
     }
     assert manifest["eligibility"] == {
         "COMPONENT_VALIDATION": True,
         "DOMAIN_REVIEW": True,
-        "HOLISTIC_GENERATION": False,
-        "PRODUCT_EVALUATION": False,
+        "HOLISTIC_GENERATION": True,
+        "PRODUCT_EVALUATION": True,
         "TEACHER_BAKEOFF": False,
         "TRAINING": False,
     }
@@ -88,20 +108,20 @@ def test_manifest_hash_scope_and_noneligibility_are_explicit(records: list[dict]
 @pytest.mark.parametrize(
     "use",
     [
-        CorpusUse.HOLISTIC_GENERATION,
-        CorpusUse.PRODUCT_EVALUATION,
         CorpusUse.TEACHER_BAKEOFF,
         CorpusUse.TRAINING,
     ],
 )
-def test_unreviewed_language_calibration_rejects_premature_use(use: CorpusUse) -> None:
+def test_frozen_calibration_rejects_still_premature_uses(use: CorpusUse) -> None:
     with pytest.raises(ValueError, match="is not eligible"):
         load_language_calibration(corpus_use=use)
 
 
-def test_language_calibration_allows_only_review_and_component_validation() -> None:
+def test_language_calibration_allows_approved_review_generation_and_evaluation_uses() -> None:
     assert load_language_calibration(corpus_use=CorpusUse.DOMAIN_REVIEW)
     assert load_language_calibration(corpus_use=CorpusUse.COMPONENT_VALIDATION)
+    assert load_language_calibration(corpus_use=CorpusUse.HOLISTIC_GENERATION)
+    assert load_language_calibration(corpus_use=CorpusUse.PRODUCT_EVALUATION)
 
 
 def test_incomplete_requests_preserve_acquisition_modes(records: list[dict]) -> None:
@@ -160,6 +180,16 @@ def test_generic_treatment_renderings_do_not_invent_drugs(records: list[dict]) -
         assert unencoded_drug not in bacterial.lower()
 
 
+def test_independent_review_language_findings_are_remediated(records: list[dict]) -> None:
+    by_id = _by_id(records)
+    integrated = by_id["hpg-068-cross-four-pathways"]["conversation"][1]["content"]
+    urgent = by_id["hpg-070-cross-multiple-urgent"]["conversation"][1]["content"]
+    assert "Management:\n- Pneumonia:" in integrated
+    assert "- Diarrhoea and dysentery:" in integrated
+    assert "mastoiditis pathway" not in urgent.lower()
+    assert "give paracetamol for ear pain" in urgent.lower()
+
+
 def test_user_facing_text_does_not_leak_internal_identifiers(records: list[dict]) -> None:
     for record in records:
         for turn in record["conversation"]:
@@ -176,16 +206,18 @@ def test_every_response_explicitly_covers_its_semantic_targets(records: list[dic
         assert missing_language_markers(record) == []
 
 
-def test_review_package_contains_all_drafts_and_pending_fields(records: list[dict]) -> None:
+def test_review_package_contains_all_frozen_approval_dispositions(records: list[dict]) -> None:
     review = DEFAULT_REVIEW_PATH.read_text(encoding="utf-8")
     assert "not training data" in review.lower()
     assert "Frozen semantic target" in review
     assert "Acquisition requests" in review
     for record in records:
         assert f"## {record['golden_case_id']}" in review
-    assert review.count("Semantic faithfulness: `PENDING`") == len(records)
-    assert review.count("Interaction quality: `PENDING`") == len(records)
-    assert review.count("PHC suitability: `PENDING`") == len(records)
+    assert review.count("Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`") == len(records)
+    assert review.count("Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`") == len(records)
+    assert review.count(
+        "PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`"
+    ) == len(records)
     assert not Path("data/train").exists()
 
 
@@ -193,8 +225,42 @@ def test_technical_editorial_review_is_hash_pinned_without_claiming_human_approv
     review = Path("docs/product_holistic_golden_language_technical_review_v1.md").read_text(
         encoding="utf-8"
     )
-    digest = hashlib.sha256(DEFAULT_CALIBRATION_PATH.read_bytes()).hexdigest()
-    assert digest in review
+    assert APPROVED_REVIEWED_LANGUAGE_SHA256 in review
     assert "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW" in review
     assert "not human/domain or PHC-worker approval" in review
     assert "same coding agent authored and performed" in review.lower()
+
+
+def test_independent_language_review_is_hash_pinned_and_preserved() -> None:
+    review = Path("docs/product_holistic_golden_language_independent_review_v1.md").read_text(
+        encoding="utf-8"
+    )
+    csv = Path("docs/product_holistic_golden_language_independent_review_v1.csv").read_text(
+        encoding="utf-8"
+    )
+    assert APPROVED_REVIEWED_LANGUAGE_SHA256 in review
+    assert "READY_AFTER_LANGUAGE_REMEDIATION" in review
+    assert "LGR-IR-001" in review
+    assert "LGR-IR-002" in review
+    assert "qualified PHC-worker field review" in review
+    assert len(csv.splitlines()) == 17
+
+
+def test_project_owner_language_approval_is_versioned_hash_pinned_and_mirrored() -> None:
+    approval = load_language_approval()
+    manifest = json.loads(DEFAULT_MANIFEST_PATH.read_text(encoding="utf-8"))
+    assert approval["approval_id"] == LANGUAGE_APPROVAL_ID
+    assert approval["reviewed_language_calibration_sha256"] == APPROVED_REVIEWED_LANGUAGE_SHA256
+    assert approval["frozen_language_calibration_sha256"] == manifest[
+        "language_calibration_sha256"
+    ]
+    assert approval["approval_basis"]["independent_language_review_completed"] is True
+    assert approval["approval_basis"]["independent_language_review_findings_remediated"] == [
+        "LGR-IR-001",
+        "LGR-IR-002",
+    ]
+    assert approval["freeze_transformation"]["conversation_content_changed"] is True
+    assert approval["freeze_transformation"]["semantic_alignment_changed"] is False
+    assert approval["qualified_phc_field_validation_completed"] is False
+    assert yaml.safe_load(DEFAULT_APPROVAL_YAML_PATH.read_text(encoding="utf-8")) == approval
+    assert json.loads(DEFAULT_APPROVAL_PATH.read_text(encoding="utf-8")) == approval

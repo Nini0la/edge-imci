@@ -1,0 +1,41 @@
+# Generated from the canonical JSON; do not edit this mirror.
+approval_id: edge-imci-holistic-golden-language-approval-v1
+status: APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE
+approved_date: '2026-08-22'
+approval_authority: PROJECT_OWNER
+calibration_id: edge-imci-holistic-golden-language-calibration-v1
+reviewed_language_calibration_sha256: 4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9
+frozen_language_calibration_sha256: b42659143270e8ef732593598fc3c7eeb6d9fb6805eaa03a0f93801d76c97fbb
+semantic_suite_id: edge-imci-holistic-product-golden-v1
+semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+approval_basis:
+  technical_editorial_review: docs/product_holistic_golden_language_technical_review_v1.md
+  technical_editorial_recommendation: PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW
+  independent_language_review: docs/product_holistic_golden_language_independent_review_v1.md
+  independent_language_review_recommendation: READY_AFTER_LANGUAGE_REMEDIATION
+  independent_language_review_findings_remediated:
+  - LGR-IR-001
+  - LGR-IR-002
+  explicit_project_owner_disposition: APPROVED
+  independent_language_review_completed: true
+  qualified_phc_field_validation_completed: false
+freeze_transformation:
+  conversation_content_changed: true
+  semantic_alignment_changed: false
+  changes:
+  - APPLY_INDEPENDENT_LANGUAGE_REMEDIATIONS_LGR_IR_001_AND_LGR_IR_002
+  - SET_RECORD_STATUS_FROZEN
+  - RECORD_PROJECT_OWNER_HACKATHON_APPROVAL
+  - PIN_APPROVAL_IN_MANIFEST
+  - AUTHORIZE_FULL_GOLDEN_LANGUAGE_AUTHORING_AND_PRODUCT_EVALUATION
+eligibility_authorized:
+  HOLISTIC_GENERATION: true
+  PRODUCT_EVALUATION: true
+  TEACHER_BAKEOFF: false
+  TRAINING: false
+authorized_next_stage: AUTHOR_REMAINING_62_CANONICAL_GOLDEN_LANGUAGE_RENDERINGS
+production_clinical_use_authorized: false
+qualified_phc_field_validation_completed: false
+scope_note: Approval is a project-owner language and interaction decision for the bounded hackathon. It
+  freezes the 16 calibration conversations as style anchors, does not constitute qualified PHC field validation,
+  and does not authorize teacher bake-off, bulk generation, training, or production clinical use.

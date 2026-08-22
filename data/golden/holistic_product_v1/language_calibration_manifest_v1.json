@@ -1,5 +1,12 @@
 {
+  "approval": {
+    "approval_id": "edge-imci-holistic-golden-language-approval-v1",
+    "frozen_language_calibration_sha256": "b42659143270e8ef732593598fc3c7eeb6d9fb6805eaa03a0f93801d76c97fbb",
+    "qualified_phc_field_validation_completed": false,
+    "reviewed_language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9"
+  },
   "artifact_pins": {
+    "approval_id": "edge-imci-holistic-golden-language-approval-v1",
     "builder_id": "edge-imci-holistic-golden-language-calibration-builder-v1",
     "record_schema_id": "edge-imci-holistic-golden-language-record-v1"
   },
@@ -12,15 +19,25 @@
   "eligibility": {
     "COMPONENT_VALIDATION": true,
     "DOMAIN_REVIEW": true,
-    "HOLISTIC_GENERATION": false,
-    "PRODUCT_EVALUATION": false,
+    "HOLISTIC_GENERATION": true,
+    "PRODUCT_EVALUATION": true,
     "TEACHER_BAKEOFF": false,
     "TRAINING": false
   },
-  "language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
-  "lifecycle_status": "PROPOSED_FOR_REVIEW",
+  "independent_language_review": {
+    "qualified_phc_field_validation": false,
+    "record": "docs/product_holistic_golden_language_independent_review_v1.md",
+    "remediated_findings": [
+      "LGR-IR-001",
+      "LGR-IR-002"
+    ],
+    "reviewed_language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
+    "status": "READY_AFTER_LANGUAGE_REMEDIATION"
+  },
+  "language_calibration_sha256": "b42659143270e8ef732593598fc3c7eeb6d9fb6805eaa03a0f93801d76c97fbb",
+  "lifecycle_status": "FROZEN",
   "production_clinical_use_authorized": false,
-  "review_status": "PENDING_HUMAN_LANGUAGE_REVIEW",
+  "review_status": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_SCOPE",
   "semantic_source": {
     "path": "data/golden/holistic_product_v1/semantic_cases.jsonl",
     "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
@@ -28,8 +45,8 @@
   },
   "suite_id": "edge-imci-holistic-golden-language-calibration-v1",
   "technical_editorial_review": {
-    "language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
     "record": "docs/product_holistic_golden_language_technical_review_v1.md",
+    "reviewed_language_calibration_sha256": "4e05eae23aa7cc4a9371925035ee46564debf6bb004900fd37a4fefe606256b9",
     "same_agent_review": true,
     "status": "PASS_TECHNICAL_ALIGNMENT_READY_FOR_HUMAN_LANGUAGE_REVIEW"
   }

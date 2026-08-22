@@ -1,6 +1,8 @@
 # EdgeIMCI holistic golden language calibration — independent review agent instructions
 
-> **Authority:** `WORKING_PLAN` · **Lifecycle:** `CURRENT` · Review-only handoff; cannot alter clinical or frozen semantic authority.
+> **Authority:** `WORKING_PLAN` · **Lifecycle:** `SUPERSEDED` · This handoff was executed against its pinned pre-freeze hash and is retained as an audit record.
+
+> **Do not execute this handoff again against the current calibration file.** Its recorded review-target hash is the pre-freeze language content. The resulting review is in `product_holistic_golden_language_independent_review_v1.md`; its two minor findings were remediated before the subsequent project-owner approval and controlled freeze recorded in `product_holistic_golden_language_approval_v1.md`.
 
 ## Assignment
 

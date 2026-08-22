@@ -46,7 +46,9 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, a
 | `configs/golden/holistic_product_golden_approval_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
 | `data/golden/holistic_product_v1/semantic_cases.jsonl` | `semantic_cases.yaml` | `REVIEW_RECORD` | `FROZEN` |
 | `configs/rendering/holistic_golden_language_record_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
-| `data/golden/holistic_product_v1/language_calibration_v1.jsonl` | `language_calibration_v1.yaml` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` |
+| `configs/rendering/holistic_golden_language_approval_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
+| `data/golden/holistic_product_v1/language_calibration_v1.jsonl` | `language_calibration_v1.yaml` | `REVIEW_RECORD` | `FROZEN` |
+| `data/golden/holistic_product_v1/language_renderings_v1.jsonl` | `language_renderings_v1.yaml` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
 
 The frozen holistic golden suite is the approved semantic target for the bounded hackathon scope. Its approval artifact authorizes specified research uses but explicitly excludes direct training and production clinical use.
@@ -64,10 +66,13 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `product_holistic_golden_suite_requirements_v1.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Approved construction/review contract for product semantics. |
 | `product_holistic_golden_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Generated review surface for the approved and frozen semantics. |
 | `product_holistic_golden_approval_v1.md` | `REVIEW_RECORD` | `CURRENT` | Human-readable approval, hash transition, permissions, and freeze/change-control record. |
-| `golden_language_rendering_contract_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed language-layer contract and calibration/review gate; does not alter frozen semantics. |
-| `product_holistic_golden_language_calibration_review_v1.md` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` | Generated review surface for the 16 language calibration drafts; not frozen and not training-eligible. |
-| `product_holistic_golden_language_technical_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent technical/editorial verification of the 16 calibration drafts; human language/PHC review remains pending. |
-| `holistic_golden_language_independent_review_agent_instructions.md` | `WORKING_PLAN` | `CURRENT` | Review-only handoff for an independent 16-case language and interaction assessment. |
+| `golden_language_rendering_contract_v1.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Approved bounded-hackathon language contract and frozen 16-case style calibration boundary. |
+| `product_holistic_golden_language_calibration_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Generated review surface for the project-owner-approved and frozen 16-case calibration. |
+| `product_holistic_golden_language_technical_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent technical/editorial verification used as an approval input; preserves its independence limitation. |
+| `product_holistic_golden_language_independent_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Independent coding-agent review of the pinned pre-freeze calibration; its two minor findings were remediated before approval. |
+| `product_holistic_golden_language_approval_v1.md` | `REVIEW_RECORD` | `CURRENT` | Project-owner language approval, controlled freeze, permissions, and explicit validation limitations. |
+| `product_holistic_golden_language_review_v1.md` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` | Generated review surface for all 78 language records; 62 new renderings remain pending. |
+| `holistic_golden_language_independent_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Executed pre-freeze independent-review handoff retained for audit history. |
 | `holistic_golden_domain_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Original review-only protocol retained for audit history. |
 | `product_holistic_golden_domain_review_v1.md` | `REVIEW_RECORD` | `SUPERSEDED` | Technical/source review of the pre-remediation corpus hash; records four findings and no approval. |
 | `holistic_golden_remediation_re_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Completed oracle-v2 re-review protocol retained for history. |
@@ -101,5 +106,6 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `product_holistic_golden_domain_re_review_v1.csv` | Per-case companion to the superseded oracle-v2 independent review. |
 | `product_holistic_golden_domain_re_review_v2.csv` | Current 78-row companion to the oracle-v3 technical/source verification. |
 | `product_holistic_golden_language_technical_review_v1.csv` | Current 16-row companion to the language calibration technical/editorial review. |
+| `product_holistic_golden_language_independent_review_v1.csv` | Current 16-row companion to the independent pre-freeze language review. |
 
 Changes to document authority, lifecycle, canonicality, or supersession must update this index in the same commit.

@@ -1,0 +1,17 @@
+golden_case_id,semantic_faithfulness,interaction_quality,phc_suitability,finding_ids,case_recommendation,notes
+hpg-001-all-negative,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,No classifications or actions; completeness stated clearly.
+hpg-008-resp-age-2-rate-50,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Single classification and action set rendered directly.
+hpg-014-resp-chest-hiv-positive,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Non-urgent referral distinguished from urgent referral.
+hpg-016-resp-oximeter-89-9,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Non-urgent oxygen-referral reason explicit.
+hpg-020-resp-post-bronchodilator-improved,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Completed trial and reassessment acknowledged; post-treatment classification used.
+hpg-028-diarrhoea-some-dehydration,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Plan B and reassessment rendered faithfully.
+hpg-031-diarrhoea-severe-age-24-cholera,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Generic cholera-antibiotic wording preserved.
+hpg-052-fever-identified-bacterial-cause,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Generic antibiotic wording preserved.
+hpg-055-fever-severe-measles-cornea,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Urgent actions lead; deferred actions acknowledged as non-competing.
+hpg-068-cross-four-pathways,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,LGR-IR-001,READY_AFTER_MINOR_REMEDIATION,All content present; long prose would benefit from pathway grouping.
+hpg-070-cross-multiple-urgent,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,LGR-IR-002,READY_AFTER_MINOR_REMEDIATION,Urgent actions lead; residual internal pathway reference in paracetamol line.
+hpg-071-incomplete-entry-unknown,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Single missing element requested; unknown-not-negative stated.
+hpg-072-incomplete-multiple-groups,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Batched missing-element request across groups.
+hpg-073-incomplete-known-urgent,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Urgent actions lead before remaining assessment request.
+hpg-075-contradiction-drinking,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Conflict named; clinician reassessment requested.
+hpg-077-out-of-scope-age-1,PASS,PASS,PASS_FOR_HACKATHON_CALIBRATION,,READY,Clear scope rejection without unsupported synthesis.

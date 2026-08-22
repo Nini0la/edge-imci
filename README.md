@@ -31,7 +31,7 @@ The clinical-semantic foundation for the bounded hackathon scope is implemented.
 | Automated verification | Full deterministic suite maintained in `tests/` |
 | Archived selected-v0 14-case component slice | Frozen historical/component-regression artifact; product-ineligible |
 | Product-level holistic golden semantic set | 78 cases approved and hash-frozen for bounded hackathon use; never direct training data |
-| Golden language renderings | 16-case calibration passes same-agent technical/editorial alignment review; human language/PHC review pending |
+| Golden language renderings | Complete 78-case review draft generated from 16 frozen style anchors plus 62 new renderings; full-language review pending |
 | Experiment/run registry infrastructure | Implemented with versioned registry, immutable run sidecars, accounting, and profiling support |
 | Bulk corpus generation | Not started |
 | SFT/model training | Not started |
@@ -147,7 +147,7 @@ The proposed set includes complete encounters, every encoded classification fami
 
 The first review’s four findings and the second review’s three respiratory findings are closed in oracle v3. The reviewed semantic hash was explicitly accepted by the project domain owner and transformed into a frozen v4 record envelope without changing any clinical expectations. The approval record preserves both hashes and authorizes the frozen suite for golden-language generation, product evaluation, and teacher bake-off—not direct training or production clinical use.
 
-The 16-case language calibration draft now provides proposed PHC-worker inputs and EdgeIMCI responses across the critical interaction states. Every record pins the frozen semantic hash and exact case logic signature. A same-agent technical/editorial pass closed four language-layer findings and now mechanically checks explicit coverage of classifications, actions, acquisitions, urgent deferrals, and contradictions. Human semantic-language, interaction-quality, and PHC-suitability dispositions remain `PENDING`. After that review approves the calibration language, the contract/schema can be frozen and all 78 cases can receive reviewed golden language renderings. Only then should teacher/prompt bake-offs and variant generation begin. See the [approval record](docs/product_holistic_golden_approval_v1.md), [language rendering contract](docs/golden_language_rendering_contract_v1.md), [calibration review package](docs/product_holistic_golden_language_calibration_review_v1.md), [technical/editorial review](docs/product_holistic_golden_language_technical_review_v1.md), [requirements](docs/product_holistic_golden_suite_requirements_v1.md), [semantic review package](docs/product_holistic_golden_review_v1.md), and [technical/source verification](docs/product_holistic_golden_domain_re_review_v2.md).
+The 16-case language calibration provides the approved style anchors for the bounded hackathon. Its independent coding-agent review found two minor language issues, both remediated before the project-owner freeze; it remains explicitly unvalidated by qualified PHC-worker field review. A complete 78-case language review draft now reuses those 16 conversations exactly and adds 62 deterministic first drafts derived from the frozen observations and outputs. The full layer remains review-only and mechanically blocked from product evaluation, teacher bake-off, variant generation, and training. Its next gate is case-by-case language review and remediation, followed by a separate full-layer freeze. See the [semantic approval](docs/product_holistic_golden_approval_v1.md), [language approval](docs/product_holistic_golden_language_approval_v1.md), [language rendering contract](docs/golden_language_rendering_contract_v1.md), [complete language review package](docs/product_holistic_golden_language_review_v1.md), [independent calibration review](docs/product_holistic_golden_language_independent_review_v1.md), and [calibration technical/editorial review](docs/product_holistic_golden_language_technical_review_v1.md).
 
 ## Experimental campaign
 
@@ -238,11 +238,16 @@ Documentation authority and lifecycle are defined in [`docs/README.md`](docs/REA
 - [`data/golden/holistic_product_v1/`](data/golden/holistic_product_v1): approved, hash-frozen 78-case product-level holistic semantic suite, canonical manifest, and YAML mirror.
 - [`configs/golden/holistic_product_golden_approval_v1.json`](configs/golden/holistic_product_golden_approval_v1.json): canonical approval/freeze record, including reviewed and frozen hashes and bounded-use permissions.
 - [`docs/product_holistic_golden_approval_v1.md`](docs/product_holistic_golden_approval_v1.md): human-readable approval, freeze, and change-control record.
-- [`docs/golden_language_rendering_contract_v1.md`](docs/golden_language_rendering_contract_v1.md): proposed contract and review gate for the language layer derived from frozen semantics.
-- [`data/golden/holistic_product_v1/language_calibration_v1.jsonl`](data/golden/holistic_product_v1/language_calibration_v1.jsonl): canonical 16-case language calibration draft; review-only and not training-eligible.
-- [`docs/product_holistic_golden_language_calibration_review_v1.md`](docs/product_holistic_golden_language_calibration_review_v1.md): reviewer-facing presentation of the 16 draft conversations.
-- [`docs/product_holistic_golden_language_technical_review_v1.md`](docs/product_holistic_golden_language_technical_review_v1.md): same-agent alignment/editorial review and remediated findings; human language review remains pending.
-- [`docs/holistic_golden_language_independent_review_agent_instructions.md`](docs/holistic_golden_language_independent_review_agent_instructions.md): constrained review-only instructions for the next independent language reviewer.
+- [`docs/golden_language_rendering_contract_v1.md`](docs/golden_language_rendering_contract_v1.md): approved bounded-hackathon language contract and calibration boundary.
+- [`data/golden/holistic_product_v1/language_calibration_v1.jsonl`](data/golden/holistic_product_v1/language_calibration_v1.jsonl): canonical, project-owner-approved 16-case style calibration; frozen and not training-eligible.
+- [`docs/product_holistic_golden_language_calibration_review_v1.md`](docs/product_holistic_golden_language_calibration_review_v1.md): reviewer-facing presentation of the 16 frozen calibration conversations.
+- [`docs/product_holistic_golden_language_technical_review_v1.md`](docs/product_holistic_golden_language_technical_review_v1.md): same-agent alignment/editorial review and remediated findings used as an approval input.
+- [`docs/product_holistic_golden_language_independent_review_v1.md`](docs/product_holistic_golden_language_independent_review_v1.md): independent coding-agent review of the pinned pre-freeze calibration and its two subsequently remediated language findings.
+- [`configs/rendering/holistic_golden_language_approval_v1.json`](configs/rendering/holistic_golden_language_approval_v1.json): canonical project-owner approval, freeze hashes, permissions, and validation limitations.
+- [`docs/product_holistic_golden_language_approval_v1.md`](docs/product_holistic_golden_language_approval_v1.md): human-readable language approval and controlled-freeze record.
+- [`data/golden/holistic_product_v1/language_renderings_v1.jsonl`](data/golden/holistic_product_v1/language_renderings_v1.jsonl): complete 78-case language review draft; 16 frozen anchors plus 62 pending renderings.
+- [`docs/product_holistic_golden_language_review_v1.md`](docs/product_holistic_golden_language_review_v1.md): reviewer-facing complete language layer.
+- [`docs/holistic_golden_language_independent_review_agent_instructions.md`](docs/holistic_golden_language_independent_review_agent_instructions.md): executed, superseded pre-freeze review handoff retained for history.
 - [`docs/product_holistic_golden_suite_requirements_v1.md`](docs/product_holistic_golden_suite_requirements_v1.md): product-level semantic-suite contract.
 - [`configs/golden/holistic_product_golden_scope_dispositions_v1.json`](configs/golden/holistic_product_golden_scope_dispositions_v1.json): versioned product-scope resolution for later Plan B/C treatment-stage execution.
 - [`docs/product_holistic_golden_review_v1.md`](docs/product_holistic_golden_review_v1.md): case index, pinned substrate, review instructions, and resolved scope disposition.
@@ -258,7 +263,8 @@ Documentation authority and lifecycle are defined in [`docs/README.md`](docs/REA
 
 - [`scripts/sync_holistic_artifacts.py`](scripts/sync_holistic_artifacts.py): deterministic expanded JSON-to-YAML synchronization.
 - [`scripts/generate_holistic_golden_suite.py`](scripts/generate_holistic_golden_suite.py): deterministic proposed holistic semantic-suite generation and review package.
-- [`scripts/generate_holistic_language_calibration.py`](scripts/generate_holistic_language_calibration.py): deterministic materialization and validation of the manually authored 16-case language calibration draft.
+- [`scripts/generate_holistic_language_calibration.py`](scripts/generate_holistic_language_calibration.py): deterministic materialization and validation of the approved and frozen 16-case language calibration.
+- [`scripts/generate_holistic_golden_language_suite.py`](scripts/generate_holistic_golden_language_suite.py): deterministic complete-language draft generation from frozen semantics and approved style anchors.
 - [`experiments/registry/`](experiments/registry): versioned planned experiment definitions, campaign branches, schemas, generated YAML mirror, and generated run index.
 - [`src/edge_imci/experiments/`](src/edge_imci/experiments): provider-neutral automatic run tracking, provenance, telemetry, accounting, profiling, and CLI infrastructure.
 - [`experiments/README.md`](experiments/README.md): implemented experiment operations, immutable sidecar, accounting, and ADTC profiling conventions.

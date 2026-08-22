@@ -28,10 +28,13 @@
       "pattern": "^hpg-[0-9]{3}-.+$"
     },
     "status": {
-      "const": "DRAFT_FOR_HUMAN_REVIEW"
+      "enum": ["DRAFT_FOR_HUMAN_REVIEW", "FROZEN"]
     },
     "corpus_role": {
-      "const": "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION"
+      "enum": [
+        "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION",
+        "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE"
+      ]
     },
     "semantic_source": {
       "type": "object",
@@ -96,7 +99,9 @@
                   "CLINICIAN_OBSERVATION",
                   "MEASUREMENT",
                   "HISTORY_OR_RECORD",
-                  "AREA_CONTEXT"
+                  "AREA_CONTEXT",
+                  "DIAGNOSTIC_TEST",
+                  "INTERVENTION_REASSESSMENT"
                 ]
               }
             }
@@ -116,10 +121,19 @@
         "notes"
       ],
       "properties": {
-        "semantic_faithfulness": {"const": "PENDING"},
-        "interaction_quality": {"const": "PENDING"},
-        "phc_suitability": {"const": "PENDING"},
-        "reviewer": {"type": "null"},
+        "semantic_faithfulness": {
+          "enum": ["PENDING", "APPROVED_FOR_HACKATHON_SCOPE"]
+        },
+        "interaction_quality": {
+          "enum": ["PENDING", "APPROVED_FOR_HACKATHON_SCOPE"]
+        },
+        "phc_suitability": {
+          "enum": [
+            "PENDING",
+            "PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED"
+          ]
+        },
+        "reviewer": {"type": ["string", "null"]},
         "notes": {"type": "string"}
       }
     }
