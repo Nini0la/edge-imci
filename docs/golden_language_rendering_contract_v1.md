@@ -8,6 +8,8 @@ The 78 product-level golden semantic cases are approved and frozen. They specify
 
 This contract governs manually curated golden language renderings derived from those cases. It does not authorize bulk generation, dataset splitting, SFT, or changes to the frozen semantic records.
 
+**Implementation status:** A versioned record schema and the proposed 16-case calibration draft now exist. All language-review fields remain `PENDING`, and the calibration manifest mechanically blocks generation, evaluation, teacher-bake-off, and training use until a later approval/freeze step.
+
 ```text
 frozen semantic case
         ↓

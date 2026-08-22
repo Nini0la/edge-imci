@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "edge-imci-holistic-golden-language-record-v1",
+  "title": "EdgeIMCI holistic golden language calibration record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema_id",
+    "rendering_id",
+    "golden_case_id",
+    "status",
+    "corpus_role",
+    "semantic_source",
+    "conversation",
+    "alignment",
+    "review"
+  ],
+  "properties": {
+    "record_schema_id": {
+      "const": "edge-imci-holistic-golden-language-record-v1"
+    },
+    "rendering_id": {
+      "type": "string",
+      "pattern": "^hpg-[0-9]{3}-.+-language-v1$"
+    },
+    "golden_case_id": {
+      "type": "string",
+      "pattern": "^hpg-[0-9]{3}-.+$"
+    },
+    "status": {
+      "const": "DRAFT_FOR_HUMAN_REVIEW"
+    },
+    "corpus_role": {
+      "const": "HOLISTIC_GOLDEN_LANGUAGE_CALIBRATION"
+    },
+    "semantic_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["suite_id", "semantic_cases_sha256", "golden_case_logic_signature"],
+      "properties": {
+        "suite_id": {"const": "edge-imci-holistic-product-golden-v1"},
+        "semantic_cases_sha256": {
+          "const": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f"
+        },
+        "golden_case_logic_signature": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "conversation": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {"$ref": "#/$defs/userTurn"},
+        {"$ref": "#/$defs/assistantTurn"}
+      ],
+      "items": false
+    },
+    "alignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_state",
+        "supported_encounter_complete",
+        "final_synthesis_authorized",
+        "urgent_action_required",
+        "classifications_covered",
+        "actions_covered",
+        "deferred_actions_acknowledged",
+        "missing_elements_covered",
+        "contradictions_covered",
+        "acquisition_requests",
+        "clarification_targets"
+      ],
+      "properties": {
+        "expected_state": {"enum": ["COMPLETE", "INCOMPLETE", "SCHEMA_REJECTION"]},
+        "supported_encounter_complete": {"type": ["boolean", "null"]},
+        "final_synthesis_authorized": {"type": ["boolean", "null"]},
+        "urgent_action_required": {"type": ["boolean", "null"]},
+        "classifications_covered": {"$ref": "#/$defs/uniqueStrings"},
+        "actions_covered": {"$ref": "#/$defs/uniqueStrings"},
+        "deferred_actions_acknowledged": {"$ref": "#/$defs/uniqueStrings"},
+        "missing_elements_covered": {"$ref": "#/$defs/uniqueStrings"},
+        "contradictions_covered": {"$ref": "#/$defs/uniqueStrings"},
+        "acquisition_requests": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["observation_id", "acquisition_mode"],
+            "properties": {
+              "observation_id": {"type": "string", "minLength": 1},
+              "acquisition_mode": {
+                "enum": [
+                  "CAREGIVER_QUESTION",
+                  "CLINICIAN_OBSERVATION",
+                  "MEASUREMENT",
+                  "HISTORY_OR_RECORD",
+                  "AREA_CONTEXT"
+                ]
+              }
+            }
+          }
+        },
+        "clarification_targets": {"$ref": "#/$defs/uniqueStrings"}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_faithfulness",
+        "interaction_quality",
+        "phc_suitability",
+        "reviewer",
+        "notes"
+      ],
+      "properties": {
+        "semantic_faithfulness": {"const": "PENDING"},
+        "interaction_quality": {"const": "PENDING"},
+        "phc_suitability": {"const": "PENDING"},
+        "reviewer": {"type": "null"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "userTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {
+        "role": {"const": "user"},
+        "content": {"type": "string", "minLength": 1}
+      }
+    },
+    "assistantTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {
+        "role": {"const": "assistant"},
+        "content": {"type": "string", "minLength": 1}
+      }
+    },
+    "uniqueStrings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
