@@ -2,7 +2,7 @@
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-001-all-negative-language-v1
   golden_case_id: hpg-001-all-negative
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -35,16 +35,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-002-danger-unable-to-drink-or-breastfeed-language-v1
   golden_case_id: hpg-002-danger-unable-to-drink-or-breastfeed
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -95,15 +95,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-003-danger-vomits-everything-language-v1
   golden_case_id: hpg-003-danger-vomits-everything
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -154,15 +155,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-004-danger-had-convulsions-language-v1
   golden_case_id: hpg-004-danger-had-convulsions
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -213,15 +215,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-005-danger-lethargic-or-unconscious-language-v1
   golden_case_id: hpg-005-danger-lethargic-or-unconscious
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -272,15 +275,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-006-danger-convulsing-now-language-v1
   golden_case_id: hpg-006-danger-convulsing-now
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -303,9 +307,9 @@
 
       Immediate management:
 
-      - Complete the remaining assessment quickly.
-
       - Give diazepam if the child is convulsing now.
+
+      - Complete the remaining assessment quickly.
 
       - Give the indicated pre-referral treatment immediately.
 
@@ -334,15 +338,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-007-resp-age-2-rate-49-language-v1
   golden_case_id: hpg-007-resp-age-2-rate-49
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -364,11 +369,11 @@
 
       Management:
 
+      - Soothe the throat and relieve the cough with a safe remedy.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -386,15 +391,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-008-resp-age-2-rate-50-language-v1
   golden_case_id: hpg-008-resp-age-2-rate-50
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -415,13 +421,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give oral amoxicillin for 5 days.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -440,16 +446,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-009-resp-age-11-rate-50-language-v1
   golden_case_id: hpg-009-resp-age-11-rate-50
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -471,13 +477,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give oral amoxicillin for 5 days.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -496,15 +502,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-010-resp-age-12-rate-39-language-v1
   golden_case_id: hpg-010-resp-age-12-rate-39
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -526,11 +533,11 @@
 
       Management:
 
+      - Soothe the throat and relieve the cough with a safe remedy.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -548,15 +555,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-011-resp-age-12-rate-40-language-v1
   golden_case_id: hpg-011-resp-age-12-rate-40
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -578,13 +586,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give oral amoxicillin for 5 days.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -603,15 +611,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-012-resp-age-59-rate-40-language-v1
   golden_case_id: hpg-012-resp-age-59-rate-40
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -633,13 +642,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give oral amoxicillin for 5 days.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -658,15 +667,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-013-resp-chest-hiv-negative-language-v1
   golden_case_id: hpg-013-resp-chest-hiv-negative
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -689,13 +699,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give oral amoxicillin for 5 days.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -714,15 +724,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-014-resp-chest-hiv-positive-language-v1
   golden_case_id: hpg-014-resp-chest-hiv-positive
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -744,7 +755,8 @@
 
       Management:
 
-      - Give the first dose of amoxicillin, then refer the child.'
+      - Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral,
+      not urgent referral.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -760,16 +772,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-015-resp-stridor-language-v1
   golden_case_id: hpg-015-resp-stridor
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -813,15 +825,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-016-resp-oximeter-89-9-language-v1
   golden_case_id: hpg-016-resp-oximeter-89-9
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -843,14 +856,14 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 5 days if the child is not improving.
-
       - Refer because the oxygen saturation is below 90%; this finding alone calls for referral, not urgent
       referral.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -869,16 +882,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-017-resp-oximeter-90-language-v1
   golden_case_id: hpg-017-resp-oximeter-90
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -901,11 +914,11 @@
 
       Management:
 
+      - Soothe the throat and relieve the cough with a safe remedy.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -923,15 +936,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-018-resp-prolonged-cough-language-v1
   golden_case_id: hpg-018-resp-prolonged-cough
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -953,13 +967,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 5 days if the child is not improving.
-
       - Refer for tuberculosis or asthma assessment.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -978,15 +992,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-019-resp-recurrent-wheeze-language-v1
   golden_case_id: hpg-019-resp-recurrent-wheeze
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1008,15 +1023,15 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 5 days if the child is not improving.
-
       - Give an inhaled bronchodilator for 5 days.
 
       - Refer for tuberculosis or asthma assessment.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1036,15 +1051,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-020-resp-post-bronchodilator-improved-language-v1
   golden_case_id: hpg-020-resp-post-bronchodilator-improved
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1068,17 +1084,17 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 5 days if the child is not improving.
-
       - Give an inhaled bronchodilator for 5 days.
 
       - The rapid-acting inhaled bronchodilator trial was completed.
 
       - Breathing was reassessed after the bronchodilator trial.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -1099,16 +1115,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-021-resp-post-bronchodilator-fast-language-v1
   golden_case_id: hpg-021-resp-post-bronchodilator-fast
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1133,10 +1149,6 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days.
-
       - Give an inhaled bronchodilator for 5 days.
 
       - Give oral amoxicillin for 5 days.
@@ -1145,7 +1157,11 @@
 
       - Breathing was reassessed after the bronchodilator trial.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1167,15 +1183,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-022-resp-trial-outstanding-language-v1
   golden_case_id: hpg-022-resp-trial-outstanding
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1197,13 +1214,13 @@
 
       - Complete the indicated rapid-acting inhaled bronchodilator trial and record that it was completed.
 
-      - During post-bronchodilator reassessment, count breaths for one full minute.
-
-      - Reassess chest indrawing after the bronchodilator trial.
-
       - Confirm that the child is calm for the post-bronchodilator breathing reassessment.
 
+      - During post-bronchodilator reassessment, count breaths for one full minute.
+
       - Measure and report the post-bronchodilator respiratory rate while the child is calm.
+
+      - Reassess chest indrawing after the bronchodilator trial.
 
 
       I cannot provide the final classifications and complete management plan until these findings are
@@ -1236,15 +1253,16 @@
       acquisition_mode: MEASUREMENT
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-023-resp-child-not-calm-language-v1
   golden_case_id: hpg-023-resp-child-not-calm
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1296,15 +1314,16 @@
     - respiratory.child_calm
     - respiratory.respiratory_rate
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-024-resp-count-not-one-minute-language-v1
   golden_case_id: hpg-024-resp-count-not-one-minute
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1356,15 +1375,16 @@
     - respiratory.breaths_counted_one_minute
     - respiratory.respiratory_rate
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-025-resp-oximeter-missing-value-language-v1
   golden_case_id: hpg-025-resp-oximeter-missing-value
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1405,15 +1425,16 @@
       acquisition_mode: MEASUREMENT
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-026-resp-chest-hiv-unknown-language-v1
   golden_case_id: hpg-026-resp-chest-hiv-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1454,15 +1475,16 @@
       acquisition_mode: HISTORY_OR_RECORD
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-027-diarrhoea-no-dehydration-language-v1
   golden_case_id: hpg-027-diarrhoea-no-dehydration
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1484,11 +1506,11 @@
 
       Management:
 
+      - Give fluid, zinc, and food according to Plan A.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Give fluid, zinc, and food according to Plan A.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1506,15 +1528,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-028-diarrhoea-some-dehydration-language-v1
   golden_case_id: hpg-028-diarrhoea-some-dehydration
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1535,13 +1558,13 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 5 days if the child is not improving.
-
       - Give fluid, zinc, and food according to Plan B.
 
-      - Reassess and reclassify dehydration after Plan B.'
+      - Reassess and reclassify dehydration after Plan B.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -1560,16 +1583,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-029-diarrhoea-severe-plan-c-under-24m-language-v1
   golden_case_id: hpg-029-diarrhoea-severe-plan-c-under-24m
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1610,15 +1633,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-030-diarrhoea-severe-age-24-no-cholera-language-v1
   golden_case_id: hpg-030-diarrhoea-severe-age-24-no-cholera
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1659,15 +1683,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-031-diarrhoea-severe-age-24-cholera-language-v1
   golden_case_id: hpg-031-diarrhoea-severe-age-24-cholera
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1711,16 +1736,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-032-diarrhoea-duration-13-language-v1
   golden_case_id: hpg-032-diarrhoea-duration-13
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1742,11 +1767,11 @@
 
       Management:
 
+      - Give fluid, zinc, and food according to Plan A.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Give fluid, zinc, and food according to Plan A.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1764,15 +1789,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-033-diarrhoea-duration-14-persistent-language-v1
   golden_case_id: hpg-033-diarrhoea-duration-14-persistent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1796,17 +1822,17 @@
 
       Management:
 
+      - Give fluid, zinc, and food according to Plan A.
+
+      - Give multivitamins, minerals, and zinc for 14 days.
+
       - Advise the caregiver about feeding for persistent diarrhoea.
 
       - Advise the caregiver when to return immediately.
 
       - Follow up in 5 days.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Give fluid, zinc, and food according to Plan A.
-
-      - Give multivitamins, minerals, and zinc for 14 days.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1828,15 +1854,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-034-diarrhoea-severe-persistent-language-v1
   golden_case_id: hpg-034-diarrhoea-severe-persistent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1863,9 +1890,9 @@
 
       Immediate management:
 
-      - Refer the child to hospital.
-
       - Treat dehydration before referral unless another severe classification prevents this.
+
+      - Refer the child to hospital.
 
 
       Deferred routine care:
@@ -1893,15 +1920,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-035-diarrhoea-dysentery-language-v1
   golden_case_id: hpg-035-diarrhoea-dysentery
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1925,15 +1953,15 @@
 
       Management:
 
+      - Give ciprofloxacin for 3 days.
+
+      - Give fluid, zinc, and food according to Plan A.
+
       - Advise the caregiver when to return immediately.
 
       - Follow up in 3 days.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Give ciprofloxacin for 3 days.
-
-      - Give fluid, zinc, and food according to Plan A.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -1954,15 +1982,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-036-diarrhoea-persistent-and-dysentery-language-v1
   golden_case_id: hpg-036-diarrhoea-persistent-and-dysentery
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -1988,6 +2017,12 @@
 
       Management:
 
+      - Give ciprofloxacin for 3 days.
+
+      - Give fluid, zinc, and food according to Plan A.
+
+      - Give multivitamins, minerals, and zinc for 14 days.
+
       - Advise the caregiver about feeding for persistent diarrhoea.
 
       - Advise the caregiver when to return immediately.
@@ -1996,13 +2031,7 @@
 
       - Follow up in 5 days.
 
-      - Follow up in 5 days if the child is not improving.
-
-      - Give ciprofloxacin for 3 days.
-
-      - Give fluid, zinc, and food according to Plan A.
-
-      - Give multivitamins, minerals, and zinc for 14 days.'
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2027,15 +2056,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-037-diarrhoea-positive-drinking-reuse-language-v1
   golden_case_id: hpg-037-diarrhoea-positive-drinking-reuse
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2096,15 +2126,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-038-diarrhoea-negative-does-not-reuse-language-v1
   golden_case_id: hpg-038-diarrhoea-negative-does-not-reuse
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2145,15 +2176,16 @@
       acquisition_mode: CLINICIAN_OBSERVATION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-039-diarrhoea-duration-unknown-language-v1
   golden_case_id: hpg-039-diarrhoea-duration-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2194,15 +2226,16 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-040-diarrhoea-cholera-context-unknown-language-v1
   golden_case_id: hpg-040-diarrhoea-cholera-context-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2243,15 +2276,16 @@
       acquisition_mode: AREA_CONTEXT
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-041-fever-high-positive-language-v1
   golden_case_id: hpg-041-fever-high-positive
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2275,11 +2309,11 @@
 
       Management:
 
+      - Give the first-line oral antimalarial.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give the first-line oral antimalarial.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2297,15 +2331,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-042-fever-high-negative-language-v1
   golden_case_id: hpg-042-fever-high-negative
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2348,15 +2383,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-043-fever-high-test-unavailable-language-v1
   golden_case_id: hpg-043-fever-high-test-unavailable
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2380,11 +2416,11 @@
 
       Management:
 
+      - Give the first-line oral antimalarial.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give the first-line oral antimalarial.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2402,15 +2438,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-044-fever-low-obvious-cause-language-v1
   golden_case_id: hpg-044-fever-low-obvious-cause
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2453,15 +2490,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-045-fever-low-no-cause-positive-language-v1
   golden_case_id: hpg-045-fever-low-no-cause-positive
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2485,11 +2523,11 @@
 
       Management:
 
+      - Give the first-line oral antimalarial.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give the first-line oral antimalarial.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2507,15 +2545,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-046-fever-no-risk-language-v1
   golden_case_id: hpg-046-fever-no-risk
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2558,15 +2597,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-047-fever-temperature-38-4-language-v1
   golden_case_id: hpg-047-fever-temperature-38-4
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2609,15 +2649,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-048-fever-temperature-38-5-language-v1
   golden_case_id: hpg-048-fever-temperature-38-5
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2641,11 +2682,11 @@
 
       Management:
 
+      - Give paracetamol for high fever.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give paracetamol for high fever.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2663,15 +2704,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-049-fever-duration-7-language-v1
   golden_case_id: hpg-049-fever-duration-7
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2714,15 +2756,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-050-fever-duration-8-not-every-day-language-v1
   golden_case_id: hpg-050-fever-duration-8-not-every-day
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2766,15 +2809,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-051-fever-duration-8-every-day-language-v1
   golden_case_id: hpg-051-fever-duration-8-every-day
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2799,11 +2843,11 @@
 
       Management:
 
+      - Refer for assessment of prolonged fever.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Refer for assessment of prolonged fever.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2821,15 +2865,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-052-fever-identified-bacterial-cause-language-v1
   golden_case_id: hpg-052-fever-identified-bacterial-cause
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2852,12 +2897,12 @@
 
       Management:
 
+      - Give the appropriate antibiotic treatment specified by the applicable protocol for the identified
+      bacterial cause.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give the appropriate antibiotic treatment specified by the applicable protocol for the identified
-      bacterial cause.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -2875,16 +2920,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-053-fever-measles-language-v1
   golden_case_id: hpg-053-fever-measles
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2911,11 +2956,11 @@
 
       Management:
 
+      - Give vitamin A treatment.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give vitamin A treatment.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2934,15 +2979,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-054-fever-measles-eye-language-v1
   golden_case_id: hpg-054-fever-measles-eye
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -2969,15 +3015,15 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
       - Apply tetracycline eye ointment.
+
+      - Give vitamin A treatment.
+
+      - Advise the caregiver when to return immediately.
 
       - Follow up in 3 days.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give vitamin A treatment.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -2998,15 +3044,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-055-fever-severe-measles-cornea-language-v1
   golden_case_id: hpg-055-fever-severe-measles-cornea
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3068,16 +3115,16 @@
     supported_encounter_complete: true
     urgent_action_required: true
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-056-fever-severe-stiff-neck-language-v1
   golden_case_id: hpg-056-fever-severe-stiff-neck
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3129,15 +3176,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-057-fever-malaria-and-measles-language-v1
   golden_case_id: hpg-057-fever-malaria-and-measles
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3164,15 +3212,15 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
-      - Follow up in 3 days if the fever persists.
-
       - Give the first-line oral antimalarial.
 
       - Give paracetamol for high fever.
 
-      - Give vitamin A treatment.'
+      - Give vitamin A treatment.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3193,15 +3241,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-058-fever-measles-last-three-months-language-v1
   golden_case_id: hpg-058-fever-measles-last-three-months
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3228,11 +3277,11 @@
 
       Management:
 
+      - Give vitamin A treatment.
+
       - Advise the caregiver when to return immediately.
 
-      - Follow up in 3 days if the fever persists.
-
-      - Give vitamin A treatment.'
+      - Follow up in 3 days if the fever persists.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3251,15 +3300,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-059-fever-malaria-risk-unknown-language-v1
   golden_case_id: hpg-059-fever-malaria-risk-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3302,15 +3352,16 @@
       acquisition_mode: AREA_CONTEXT
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-060-fever-test-result-unknown-language-v1
   golden_case_id: hpg-060-fever-test-result-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3353,15 +3404,16 @@
       acquisition_mode: DIAGNOSTIC_TEST
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-061-ear-no-infection-language-v1
   golden_case_id: hpg-061-ear-no-infection
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3398,15 +3450,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-062-ear-acute-pain-language-v1
   golden_case_id: hpg-062-ear-acute-pain
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3429,11 +3482,11 @@
 
       - Dry the ear by wicking.
 
-      - Follow up in 5 days.
-
       - Give the indicated antibiotic for 5 days.
 
-      - Give paracetamol for ear pain.'
+      - Give paracetamol for ear pain.
+
+      - Follow up in 5 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3452,15 +3505,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-063-ear-acute-discharge-13-language-v1
   golden_case_id: hpg-063-ear-acute-discharge-13
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3483,11 +3537,11 @@
 
       - Dry the ear by wicking.
 
-      - Follow up in 5 days.
-
       - Give the indicated antibiotic for 5 days.
 
-      - Give paracetamol for ear pain.'
+      - Give paracetamol for ear pain.
+
+      - Follow up in 5 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3506,15 +3560,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-064-ear-chronic-discharge-14-language-v1
   golden_case_id: hpg-064-ear-chronic-discharge-14
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3537,9 +3592,9 @@
 
       - Dry the ear by wicking.
 
-      - Follow up in 5 days.
+      - Give topical quinolone eardrops for 14 days.
 
-      - Give topical quinolone eardrops for 14 days.'
+      - Follow up in 5 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3557,15 +3612,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-065-ear-observed-pus-no-history-language-v1
   golden_case_id: hpg-065-ear-observed-pus-no-history
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3588,11 +3644,11 @@
 
       - Dry the ear by wicking.
 
-      - Follow up in 5 days.
-
       - Give the indicated antibiotic for 5 days.
 
-      - Give paracetamol for ear pain.'
+      - Give paracetamol for ear pain.
+
+      - Follow up in 5 days.'
   alignment:
     expected_state: COMPLETE
     supported_encounter_complete: true
@@ -3611,15 +3667,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-066-ear-mastoiditis-language-v1
   golden_case_id: hpg-066-ear-mastoiditis
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3665,15 +3722,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-067-ear-duration-unknown-language-v1
   golden_case_id: hpg-067-ear-duration-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3713,15 +3771,16 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-068-cross-four-pathways-language-v1
   golden_case_id: hpg-068-cross-four-pathways
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3758,17 +3817,7 @@
 
       Management:
 
-      - Advise the caregiver when to return immediately.
-
       - Dry the ear by wicking.
-
-      - Follow up in 3 days.
-
-      - Follow up in 3 days if the fever persists.
-
-      - Follow up in 5 days.
-
-      - Follow up in 5 days if the child is not improving.
 
       - Give the indicated antibiotic for 5 days.
 
@@ -3784,7 +3833,17 @@
 
       - Give vitamin A treatment.
 
-      - Soothe the throat and relieve the cough with a safe remedy.'
+      - Soothe the throat and relieve the cough with a safe remedy.
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.
+
+      - Follow up in 3 days if the fever persists.
+
+      - Follow up in 5 days.
+
+      - Follow up in 5 days if the child is not improving.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -3818,16 +3877,16 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-069-cross-urgent-dehydration-ear-language-v1
   golden_case_id: hpg-069-cross-urgent-dehydration-ear
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3884,15 +3943,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-070-cross-multiple-urgent-language-v1
   golden_case_id: hpg-070-cross-multiple-urgent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -3926,9 +3986,9 @@
 
       Immediate management:
 
-      - Complete the remaining assessment quickly.
-
       - Give diazepam if the child is convulsing now.
+
+      - Complete the remaining assessment quickly.
 
       - Give the first dose of an appropriate antibiotic.
 
@@ -3969,16 +4029,16 @@
     supported_encounter_complete: true
     urgent_action_required: true
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-071-incomplete-entry-unknown-language-v1
   golden_case_id: hpg-071-incomplete-entry-unknown
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4016,16 +4076,16 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-072-incomplete-multiple-groups-language-v1
   golden_case_id: hpg-072-incomplete-multiple-groups
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4048,12 +4108,12 @@
 
       - Ask the caregiver whether the child vomits everything.
 
+      - Count the respiratory rate for one full minute while the child is calm and report the breaths
+      per minute.
+
       - Provide the malaria-risk category of the area: high, low, or no malaria risk.
 
       - Ask whether the child has an ear problem, including ear pain or discharge.
-
-      - Count the respiratory rate for one full minute while the child is calm and report the breaths
-      per minute.
 
 
       I cannot provide the final classifications and complete management plan until these findings are
@@ -4083,16 +4143,16 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-073-incomplete-known-urgent-language-v1
   golden_case_id: hpg-073-incomplete-known-urgent
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4109,9 +4169,9 @@
 
       Immediate management:
 
-      - Complete the remaining assessment quickly.
-
       - Give diazepam if the child is convulsing now.
+
+      - Complete the remaining assessment quickly.
 
       - Give the indicated pre-referral treatment immediately.
 
@@ -4135,9 +4195,9 @@
 
       - Ask whether the child has diarrhoea.
 
-      - Ask whether the child has an ear problem, including ear pain or discharge.
-
       - Ask whether the child has fever and report the measured temperature when applicable.
+
+      - Ask whether the child has an ear problem, including ear pain or discharge.
 
 
       Complete these checks rapidly, but do not delay referral. The final holistic classifications and
@@ -4179,16 +4239,16 @@
     supported_encounter_complete: false
     urgent_action_required: true
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-074-incomplete-internal-classification-withheld-language-v1
   golden_case_id: hpg-074-incomplete-internal-classification-withheld
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4229,15 +4289,16 @@
       acquisition_mode: CAREGIVER_QUESTION
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-075-contradiction-drinking-language-v1
   golden_case_id: hpg-075-contradiction-drinking
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4257,7 +4318,8 @@
 
       Conflicting or invalid findings:
 
-      - UNABLE observed drinking conflicts with a negative general danger sign.
+      - The general danger-sign assessment says the child can drink or breastfeed, but the diarrhoea assessment
+      records the child as unable to drink.
 
 
       Information needed:
@@ -4289,16 +4351,16 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-076-complete-danger-plus-all-pathways-language-v1
   golden_case_id: hpg-076-complete-danger-plus-all-pathways
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4387,15 +4449,16 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-077-out-of-scope-age-1-language-v1
   golden_case_id: hpg-077-out-of-scope-age-1
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4425,16 +4488,16 @@
     supported_encounter_complete: null
     urgent_action_required: null
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
-      preserved, while the assistant response requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration
+      user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-078-out-of-scope-age-60-language-v1
   golden_case_id: hpg-078-out-of-scope-age-60
-  status: DRAFT_FOR_HUMAN_REVIEW
+  status: FROZEN
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
@@ -4466,8 +4529,9 @@
     acquisition_requests: []
     clarification_targets: []
   review:
-    semantic_faithfulness: PENDING
-    interaction_quality: PENDING
-    phc_suitability: PENDING
-    reviewer: null
-    notes: Requires review under the approved response grammar.
+    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
+    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
+    reviewer: PROJECT_OWNER
+    notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified
+      PHC field validation.

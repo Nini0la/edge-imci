@@ -1,0 +1,46 @@
+# Generated from the canonical JSON; do not edit this mirror.
+approval_id: edge-imci-holistic-product-golden-language-approval-v1
+status: APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE
+approved_date: '2026-08-23'
+approval_authority: PROJECT_OWNER
+language_suite_id: edge-imci-holistic-product-golden-language-v1
+reviewed_language_renderings_sha256: 78d4a503eecf603ad69dd1d26edb1fa7cd258c310ece95bdfb892688158dd665
+frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+semantic_suite_id: edge-imci-holistic-product-golden-v1
+semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+response_grammar_id: edge-imci-response-grammar-v1
+response_grammar_sha256: 1fd793607f077cd4d44a9cf73349803d32ef1e69e3aab82d00fe0bda330f4873
+approval_basis:
+  format_re_review: docs/product_holistic_golden_language_format_re_review_v1.md
+  format_re_review_result: READY_AFTER_LANGUAGE_REMEDIATION
+  remediation_verification: docs/product_holistic_golden_language_remediation_verification_v1.md
+  remediation_verification_result: READY_FOR_PROJECT_OWNER_LANGUAGE_APPROVAL
+  resolved_findings:
+  - LGR-GR-001
+  - LGR-GR-002
+  - LGR-GR-003
+  - LGR-GR-004
+  - LGR-GR-DOC-001
+  explicit_project_owner_disposition: APPROVED
+  qualified_phc_field_validation_completed: false
+freeze_transformation:
+  conversation_content_changed: false
+  semantic_alignment_changed: false
+  lifecycle_and_review_metadata_changed: true
+  changes:
+  - SET_ALL_78_RECORD_STATUSES_FROZEN
+  - RECORD_PROJECT_OWNER_HACKATHON_APPROVAL
+  - PIN_REVIEWED_AND_FROZEN_LANGUAGE_HASHES
+  - AUTHORIZE_CONTROLLED_VARIANT_WORK_TEACHER_BAKEOFF_AND_PRODUCT_EVALUATION
+eligibility_authorized:
+  HOLISTIC_GENERATION: true
+  PRODUCT_EVALUATION: true
+  TEACHER_BAKEOFF: true
+  TRAINING: false
+authorized_next_stage: CONTROLLED_LANGUAGE_VARIANTS_AND_TEACHER_BAKEOFF
+production_clinical_use_authorized: false
+qualified_phc_field_validation_completed: false
+scope_note: Approval freezes the complete 78-case product-level golden language layer for the bounded
+  hackathon. It authorizes controlled variant work, teacher bake-off, and product evaluation, but not
+  direct training use, bulk corpus generation without a separate reviewed plan, production clinical use,
+  or claims of qualified PHC-worker field validation.

@@ -1,6 +1,15 @@
 {
+  "approval": {
+    "approval_id": "edge-imci-holistic-product-golden-language-approval-v1",
+    "approval_record": "docs/product_holistic_golden_language_full_approval_v1.md",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "qualified_phc_field_validation_completed": false,
+    "response_grammar_sha256": "1fd793607f077cd4d44a9cf73349803d32ef1e69e3aab82d00fe0bda330f4873",
+    "reviewed_language_renderings_sha256": "78d4a503eecf603ad69dd1d26edb1fa7cd258c310ece95bdfb892688158dd665"
+  },
   "artifact_pins": {
     "builder_id": "edge-imci-holistic-product-golden-language-builder-v1",
+    "full_language_approval_id": "edge-imci-holistic-product-golden-language-approval-v1",
     "record_schema_id": "edge-imci-holistic-golden-language-record-v1",
     "response_grammar_id": "edge-imci-response-grammar-v1",
     "style_approval_id": "edge-imci-holistic-golden-language-approval-v1"
@@ -11,19 +20,31 @@
   ],
   "case_count": 78,
   "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
-  "draft_rendering_count": 78,
+  "draft_rendering_count": 0,
   "eligibility": {
     "COMPONENT_VALIDATION": true,
     "DOMAIN_REVIEW": true,
-    "HOLISTIC_GENERATION": false,
-    "PRODUCT_EVALUATION": false,
-    "TEACHER_BAKEOFF": false,
+    "HOLISTIC_GENERATION": true,
+    "PRODUCT_EVALUATION": true,
+    "TEACHER_BAKEOFF": true,
     "TRAINING": false
+  },
+  "format_re_review": {
+    "findings_addressed": [
+      "LGR-GR-001",
+      "LGR-GR-002",
+      "LGR-GR-003",
+      "LGR-GR-004"
+    ],
+    "language_renderings_sha256": "713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94",
+    "report": "docs/product_holistic_golden_language_format_re_review_v1.md",
+    "result": "READY_AFTER_LANGUAGE_REMEDIATION"
   },
   "format_remediated_anchor_count": 16,
   "frozen_calibration_source_count": 16,
-  "language_renderings_sha256": "713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94",
-  "lifecycle_status": "PROPOSED_FOR_REVIEW",
+  "frozen_rendering_count": 78,
+  "language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+  "lifecycle_status": "FROZEN",
   "pre_format_review": {
     "findings_addressed": [
       "LGR-FR-001",
@@ -35,7 +56,7 @@
   },
   "production_clinical_use_authorized": false,
   "qualified_phc_field_validation_completed": false,
-  "review_status": "78_FORMAT_NORMALIZED_RENDERINGS_PENDING_REVIEW",
+  "review_status": "PROJECT_OWNER_APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE",
   "semantic_source": {
     "path": "data/golden/holistic_product_v1/semantic_cases.jsonl",
     "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",

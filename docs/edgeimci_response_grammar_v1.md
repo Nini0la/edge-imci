@@ -20,6 +20,22 @@ The canonical machine-readable policy is `configs/rendering/edgeimci_response_gr
 
 Classifications, actions, and acquisition requests use `- ` bullets. `Classifications:` is always plural, even for one classification. An encoded urgent state always begins with the exact `URGENT:` prefix. Optional sections appear only when their corresponding semantic content exists.
 
+## Deterministic presentation order
+
+The grammar also separates the semantic evaluator's stable identifier order from the order shown to a PHC worker. This is an interaction/UX policy, not an IMCI clinical rule. It never adds, removes, suppresses, or changes an encoded action or observation request.
+
+For management actions, the canonical renderer uses these priority bands while preserving semantic source order within a band:
+
+1. active stabilization that cannot wait, currently diazepam for a child convulsing now;
+2. an action whose own encoded wording requires completion before referral, currently treating dehydration before referral;
+3. remaining assessment, treatment, support, reassessment, and referral actions;
+4. caregiver counselling; and
+5. scheduled follow-up.
+
+This means treatment and operational actions appear before routine advice or follow-up, and “before referral” actions appear before the corresponding referral. It does not turn non-urgent referral into urgent referral.
+
+Information requests follow the encoded assessment workflow: general danger signs, age/scope, respiratory, diarrhoea, fever, then ear assessment. The bronchodilator sequence is rendered as trial completion, calm-state confirmation, full-minute respiratory counting/rate, then chest-indrawing reassessment. Equal-priority items retain their source order.
+
 ## Complete response
 
 ```text
@@ -100,4 +116,4 @@ This encounter is outside the supported EdgeIMCI major sick-child scope. Use the
 
 This format decision does not alter observations, classifications, actions, urgency, missing elements, contradictions, acquisition modes, or source provenance. The frozen 16-case calibration remains immutable historical evidence. Its user submissions are retained in the complete layer, while its assistant responses may be reformatted under this grammar.
 
-All 78 reformatted full-layer records return to review status. Teacher selection, variant generation, training, and production clinical use remain blocked until the complete formatted layer receives its own review, project-owner approval, and hash freeze.
+All 78 reformatted full-layer records returned to review status under this policy. That review, language remediation, project-owner approval, and controlled hash freeze are now complete. The separate full-language approval artifact authorizes controlled variant work, teacher bake-off, and product evaluation. Training and production clinical use remain blocked.

@@ -47,9 +47,10 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, a
 | `data/golden/holistic_product_v1/semantic_cases.jsonl` | `semantic_cases.yaml` | `REVIEW_RECORD` | `FROZEN` |
 | `configs/rendering/holistic_golden_language_record_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/rendering/holistic_golden_language_approval_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
+| `configs/rendering/holistic_golden_full_language_approval_v1.json` | `.yaml` sibling | `APPROVED_DECISION_ARTIFACT` | `CURRENT` |
 | `configs/rendering/edgeimci_response_grammar_v1.json` | `.yaml` sibling | `APPROVED_PRODUCT_POLICY` | `CURRENT` |
 | `data/golden/holistic_product_v1/language_calibration_v1.jsonl` | `language_calibration_v1.yaml` | `REVIEW_RECORD` | `FROZEN` |
-| `data/golden/holistic_product_v1/language_renderings_v1.jsonl` | `language_renderings_v1.yaml` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` |
+| `data/golden/holistic_product_v1/language_renderings_v1.jsonl` | `language_renderings_v1.yaml` | `REVIEW_RECORD` | `FROZEN` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
 
 The frozen holistic golden suite is the approved semantic target for the bounded hackathon scope. Its approval artifact authorizes specified research uses but explicitly excludes direct training and production clinical use.
@@ -74,8 +75,12 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `product_holistic_golden_language_approval_v1.md` | `REVIEW_RECORD` | `CURRENT` | Project-owner language approval, controlled freeze, permissions, and explicit validation limitations. |
 | `edgeimci_response_grammar_v1.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Stable state templates and delimiters for canonical responses and later post-training. |
 | `product_holistic_golden_language_review_v1_report.md` | `REVIEW_RECORD` | `SUPERSEDED` | Hash-pinned pre-format 78-case review; passed semantics and motivated grammar normalization. |
-| `product_holistic_golden_language_review_v1.md` | `REVIEW_RECORD` | `PROPOSED_FOR_REVIEW` | Generated review surface for all 78 grammar-normalized records; all remain pending re-review. |
-| `holistic_golden_language_format_re_review_agent_instructions.md` | `WORKING_PLAN` | `CURRENT` | Hash-pinned independent re-review protocol for the grammar-normalized 78-case layer. |
+| `product_holistic_golden_language_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Generated review surface for all 78 project-owner-approved and frozen records. |
+| `product_holistic_golden_language_format_re_review_v1.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent case-by-case review of language hash `713d2234...`; identified four language-only findings and no semantic defect. |
+| `product_holistic_golden_language_format_re_review_v1.csv` | `REVIEW_RECORD` | `CURRENT` | Machine-readable 78-case disposition mirror for the format re-review target. |
+| `product_holistic_golden_language_remediation_verification_v1.md` | `REVIEW_RECORD` | `CURRENT` | Verifies exact remediation of the 42 affected responses and records the completed approval transition. |
+| `product_holistic_golden_language_full_approval_v1.md` | `REVIEW_RECORD` | `CURRENT` | Project-owner approval and controlled hash freeze for the complete 78-case golden language layer. |
+| `holistic_golden_language_format_re_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Executed hash-pinned re-review protocol retained for audit history. |
 | `holistic_golden_language_independent_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Executed pre-freeze independent-review handoff retained for audit history. |
 | `holistic_golden_domain_review_agent_instructions.md` | `WORKING_PLAN` | `SUPERSEDED` | Original review-only protocol retained for audit history. |
 | `product_holistic_golden_domain_review_v1.md` | `REVIEW_RECORD` | `SUPERSEDED` | Technical/source review of the pre-remediation corpus hash; records four findings and no approval. |

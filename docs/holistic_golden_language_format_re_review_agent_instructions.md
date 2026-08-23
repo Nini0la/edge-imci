@@ -1,6 +1,6 @@
 # EdgeIMCI grammar-normalized golden language — re-review agent instructions
 
-> **Authority:** `WORKING_PLAN` · **Lifecycle:** `CURRENT` · Review-only handoff for the grammar-normalized 78-case language layer.
+> **Authority:** `WORKING_PLAN` · **Lifecycle:** `SUPERSEDED` · Executed review-only handoff retained for audit history.
 
 ## Assignment
 

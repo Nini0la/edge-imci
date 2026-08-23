@@ -32,14 +32,20 @@ from edge_imci.generation.holistic_language import (
 ROOT = Path(__file__).resolve().parents[3]
 FULL_LANGUAGE_SUITE_ID = "edge-imci-holistic-product-golden-language-v1"
 FULL_LANGUAGE_BUILDER_ID = "edge-imci-holistic-product-golden-language-builder-v1"
+FULL_LANGUAGE_APPROVAL_ID = "edge-imci-holistic-product-golden-language-approval-v1"
 RESPONSE_GRAMMAR_ID = "edge-imci-response-grammar-v1"
 PRE_FORMAT_LANGUAGE_SHA256 = "9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe"
+PRE_REMEDIATION_LANGUAGE_SHA256 = "713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94"
+APPROVED_REMEDIATED_LANGUAGE_SHA256 = "78d4a503eecf603ad69dd1d26edb1fa7cd258c310ece95bdfb892688158dd665"
+APPROVED_RESPONSE_GRAMMAR_SHA256 = "1fd793607f077cd4d44a9cf73349803d32ef1e69e3aab82d00fe0bda330f4873"
 DEFAULT_LANGUAGE_PATH = ROOT / "data" / "golden" / "holistic_product_v1" / "language_renderings_v1.jsonl"
 DEFAULT_LANGUAGE_YAML_PATH = DEFAULT_LANGUAGE_PATH.with_suffix(".yaml")
 DEFAULT_MANIFEST_PATH = ROOT / "data" / "golden" / "holistic_product_v1" / "language_manifest_v1.json"
 DEFAULT_REVIEW_PATH = ROOT / "docs" / "product_holistic_golden_language_review_v1.md"
 DEFAULT_GRAMMAR_PATH = ROOT / "configs" / "rendering" / "edgeimci_response_grammar_v1.json"
 DEFAULT_GRAMMAR_YAML_PATH = DEFAULT_GRAMMAR_PATH.with_suffix(".yaml")
+DEFAULT_FULL_APPROVAL_PATH = ROOT / "configs" / "rendering" / "holistic_golden_full_language_approval_v1.json"
+DEFAULT_FULL_APPROVAL_YAML_PATH = DEFAULT_FULL_APPROVAL_PATH.with_suffix(".yaml")
 DEFAULT_PRE_FORMAT_REVIEW_PATH = ROOT / "docs" / "product_holistic_golden_language_review_v1_report.md"
 
 CLASSIFICATION_LABELS = {
@@ -76,7 +82,10 @@ ACTION_SENTENCES = {
     "GIVE_DIAZEPAM_IF_CONVULSING_NOW": "Give diazepam if the child is convulsing now.",
     "GIVE_FIRST_DOSE_APPROPRIATE_ANTIBIOTIC": "Give the first dose of an appropriate antibiotic.",
     "GIVE_ORAL_AMOXICILLIN_5_DAYS": "Give oral amoxicillin for 5 days.",
-    "GIVE_FIRST_DOSE_AMOXICILLIN_AND_REFER": "Give the first dose of amoxicillin, then refer the child.",
+    "GIVE_FIRST_DOSE_AMOXICILLIN_AND_REFER": (
+        "Give the first dose of amoxicillin, then refer the child. This finding alone calls for "
+        "referral, not urgent referral."
+    ),
     "GIVE_RAPID_ACTING_INHALED_BRONCHODILATOR_TRIAL": "Give the rapid-acting inhaled bronchodilator trial.",
     "REASSESS_BREATHING_AFTER_BRONCHODILATOR": "Reassess breathing after the bronchodilator trial.",
     "GIVE_INHALED_BRONCHODILATOR_5_DAYS": "Give an inhaled bronchodilator for 5 days.",
@@ -154,6 +163,19 @@ _CONTRADICTION_CLARIFICATIONS = {
     ),
 }
 
+CONTRADICTION_SENTENCES = {
+    "respiratory observations are invalid because the child was not calm": (
+        "respiratory observations are invalid because the child was not calm"
+    ),
+    "respiratory rate is invalid because breaths were not counted for one minute": (
+        "respiratory rate is invalid because breaths were not counted for one minute"
+    ),
+    "UNABLE observed drinking conflicts with a negative general danger sign": (
+        "The general danger-sign assessment says the child can drink or breastfeed, but the "
+        "diarrhoea assessment records the child as unable to drink"
+    ),
+}
+
 
 def load_response_grammar() -> dict[str, Any]:
     grammar = json.loads(DEFAULT_GRAMMAR_PATH.read_text(encoding="utf-8"))
@@ -173,6 +195,30 @@ def load_response_grammar() -> dict[str, Any]:
     pre_format = grammar.get("pre_format_review", {})
     if pre_format.get("language_renderings_sha256") != PRE_FORMAT_LANGUAGE_SHA256:
         raise ValueError("response grammar has incorrect pre-format language hash")
+    format_re_review = grammar.get("format_re_review", {})
+    if format_re_review.get("language_renderings_sha256") != PRE_REMEDIATION_LANGUAGE_SHA256:
+        raise ValueError("response grammar has incorrect pre-remediation language hash")
+    if format_re_review.get("findings_addressed") != [
+        "LGR-GR-001",
+        "LGR-GR-002",
+        "LGR-GR-003",
+        "LGR-GR-004",
+    ]:
+        raise ValueError("response grammar has incorrect remediation finding set")
+    presentation_order = grammar.get("presentation_order", {})
+    action_priority = presentation_order.get("action_priority", {})
+    if set(action_priority) != set(ACTION_SENTENCES):
+        raise ValueError("response grammar action priority must cover every supported action")
+    clarification_observations = {
+        observation_id
+        for requests in _CONTRADICTION_CLARIFICATIONS.values()
+        for observation_id, _, _ in requests
+    }
+    acquisition_priority = presentation_order.get("acquisition_priority", {})
+    if set(acquisition_priority) != set(ACQUISITION_SPECS) | clarification_observations:
+        raise ValueError("response grammar acquisition priority must cover every supported request")
+    if presentation_order.get("stable_within_equal_priority") is not True:
+        raise ValueError("response grammar must preserve source order within equal priorities")
     change_control = grammar.get("change_control", {})
     if change_control.get("clinical_semantics_changed") is not False:
         raise ValueError("response grammar must not change clinical semantics")
@@ -190,6 +236,39 @@ def load_response_grammar() -> dict[str, Any]:
     ):
         raise ValueError("response grammar cannot authorize downstream or production use")
     return grammar
+
+
+def load_full_language_approval() -> dict[str, Any]:
+    approval = json.loads(DEFAULT_FULL_APPROVAL_PATH.read_text(encoding="utf-8"))
+    expected = {
+        "approval_id": FULL_LANGUAGE_APPROVAL_ID,
+        "status": "APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE",
+        "approval_authority": "PROJECT_OWNER",
+        "language_suite_id": FULL_LANGUAGE_SUITE_ID,
+        "reviewed_language_renderings_sha256": APPROVED_REMEDIATED_LANGUAGE_SHA256,
+        "semantic_suite_id": SEMANTIC_SUITE_ID,
+        "semantic_cases_sha256": SEMANTIC_CASES_SHA256,
+        "response_grammar_id": RESPONSE_GRAMMAR_ID,
+        "response_grammar_sha256": APPROVED_RESPONSE_GRAMMAR_SHA256,
+        "production_clinical_use_authorized": False,
+        "qualified_phc_field_validation_completed": False,
+    }
+    for key, value in expected.items():
+        if approval.get(key) != value:
+            raise ValueError(f"incorrect full golden language approval {key}")
+    if hashlib.sha256(DEFAULT_GRAMMAR_PATH.read_bytes()).hexdigest() != APPROVED_RESPONSE_GRAMMAR_SHA256:
+        raise ValueError("approved response grammar hash does not match the canonical grammar")
+    frozen_hash = approval.get("frozen_language_renderings_sha256")
+    if not isinstance(frozen_hash, str) or len(frozen_hash) != 64:
+        raise ValueError("full language approval must pin the frozen language hash")
+    if approval.get("eligibility_authorized") != {
+        "HOLISTIC_GENERATION": True,
+        "PRODUCT_EVALUATION": True,
+        "TEACHER_BAKEOFF": True,
+        "TRAINING": False,
+    }:
+        raise ValueError("incorrect approved full language eligibility")
+    return approval
 
 
 def _known_bool(label: str, value: bool | None) -> str | None:
@@ -413,6 +492,16 @@ def _clarifications(evaluation: dict[str, Any]) -> tuple[list[dict[str, str]], l
     return requests, targets, prompts
 
 
+def _ordered_action_ids(actions: list[str] | tuple[str, ...]) -> list[str]:
+    priorities = load_response_grammar()["presentation_order"]["action_priority"]
+    return sorted(actions, key=priorities.__getitem__)
+
+
+def _ordered_missing_fields(missing: dict[str, list[str]]) -> list[str]:
+    priorities = load_response_grammar()["presentation_order"]["acquisition_priority"]
+    return sorted(_flatten_missing(missing), key=priorities.__getitem__)
+
+
 def _alignment(semantic_record: dict[str, Any]) -> dict[str, Any]:
     expected = semantic_record["expected"]
     if expected["kind"] == "SCHEMA_REJECTION":
@@ -501,7 +590,7 @@ def render_assistant(semantic_record: dict[str, Any]) -> str:
         blocks.append(
             "Classifications:\n" + "\n".join(f"- {item}" for item in classification_lines)
         )
-        actions = evaluation["final_actions"]
+        actions = _ordered_action_ids(evaluation["final_actions"])
         action_lines = [
             _action_sentence(action, semantic_record) for action in actions
         ] or ["No management action is indicated by the supported assessment."]
@@ -519,7 +608,7 @@ def render_assistant(semantic_record: dict[str, Any]) -> str:
             )
         return "\n\n".join(blocks)
 
-    urgent_actions = evaluation["urgent_actions"]
+    urgent_actions = _ordered_action_ids(evaluation["urgent_actions"])
     if urgent_actions:
         blocks.append(
             "Immediate management:\n"
@@ -528,10 +617,19 @@ def render_assistant(semantic_record: dict[str, Any]) -> str:
             )
         )
     blocks.append("ASSESSMENT INCOMPLETE")
-    requests = [ACQUISITION_SPECS[field][1] for field in _flatten_missing(evaluation["missing_elements"])]
+    requests = [
+        ACQUISITION_SPECS[field][1]
+        for field in _ordered_missing_fields(evaluation["missing_elements"])
+    ]
     _, _, clarification_prompts = _clarifications(evaluation)
     if evaluation["contradictions"]:
-        blocks.append("Conflicting or invalid findings:\n" + "\n".join(f"- {item}." for item in evaluation["contradictions"]))
+        blocks.append(
+            "Conflicting or invalid findings:\n"
+            + "\n".join(
+                f"- {CONTRADICTION_SENTENCES[item]}."
+                for item in evaluation["contradictions"]
+            )
+        )
     requests.extend(clarification_prompts)
     if requests:
         heading = (
@@ -568,23 +666,26 @@ def build_full_language_suite() -> list[dict[str, Any]]:
             alignment = anchor["alignment"]
             user_content = anchor["conversation"][0]["content"]
             notes = (
-                "Format-remediated from frozen calibration v1; the user submission and semantic "
-                "alignment are preserved, while the assistant response requires review under the "
-                "approved response grammar."
+                "Project-owner approved for the bounded hackathon after language remediation; "
+                "the frozen calibration user submission and semantic alignment are preserved. "
+                "This is not qualified PHC field validation."
             )
         else:
             alignment = _alignment(semantic)
             user_content = render_encounter_input(semantic["input"]["encounter"])
-            notes = "Requires review under the approved response grammar."
+            notes = (
+                "Project-owner approved for the bounded hackathon after language remediation. "
+                "This is not qualified PHC field validation."
+            )
         conversation = [
             {"role": "user", "content": user_content},
             {"role": "assistant", "content": render_assistant(semantic)},
         ]
         review = {
-            "semantic_faithfulness": "PENDING",
-            "interaction_quality": "PENDING",
-            "phc_suitability": "PENDING",
-            "reviewer": None,
+            "semantic_faithfulness": "APPROVED_FOR_HACKATHON_SCOPE",
+            "interaction_quality": "APPROVED_FOR_HACKATHON_SCOPE",
+            "phc_suitability": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED",
+            "reviewer": "PROJECT_OWNER",
             "notes": notes,
         }
         records.append(
@@ -592,7 +693,7 @@ def build_full_language_suite() -> list[dict[str, Any]]:
                 "record_schema_id": LANGUAGE_RECORD_SCHEMA_ID,
                 "rendering_id": f"{case_id}-language-v1",
                 "golden_case_id": case_id,
-                "status": "DRAFT_FOR_HUMAN_REVIEW",
+                "status": "FROZEN",
                 "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
                 "semantic_source": {
                     "suite_id": SEMANTIC_SUITE_ID,
@@ -716,14 +817,16 @@ def validate_full_language_record(
         raise ValueError("generated full-language user submission is not deterministic")
     if record["conversation"][1]["content"] != render_assistant(semantic):
         raise ValueError("full-language assistant response is not deterministic")
-    if record["status"] != "DRAFT_FOR_HUMAN_REVIEW":
-        raise ValueError("grammar-remediated full-language records must remain review drafts")
-    if any(record["review"][key] != "PENDING" for key in (
-        "semantic_faithfulness",
-        "interaction_quality",
-        "phc_suitability",
-    )):
-        raise ValueError("grammar-remediated full-language records must return to review")
+    if record["status"] != "FROZEN":
+        raise ValueError("approved full-language records must be frozen")
+    if record["review"] != {
+        "semantic_faithfulness": "APPROVED_FOR_HACKATHON_SCOPE",
+        "interaction_quality": "APPROVED_FOR_HACKATHON_SCOPE",
+        "phc_suitability": "PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED",
+        "reviewer": "PROJECT_OWNER",
+        "notes": record["review"]["notes"],
+    }:
+        raise ValueError("approved full-language records have incorrect review disposition")
     for turn in record["conversation"]:
         if "IMCI-MSC-" in turn["content"]:
             raise ValueError("user-facing full-language text leaks internal rule IDs")
@@ -734,6 +837,10 @@ def validate_full_language_record(
 
 def load_full_language_suite(*, corpus_use: CorpusUse = CorpusUse.DOMAIN_REVIEW) -> list[dict[str, Any]]:
     assert_corpus_use_allowed(DEFAULT_LANGUAGE_PATH, corpus_use, manifest_path=DEFAULT_MANIFEST_PATH)
+    approval = load_full_language_approval()
+    actual_hash = hashlib.sha256(DEFAULT_LANGUAGE_PATH.read_bytes()).hexdigest()
+    if actual_hash != approval["frozen_language_renderings_sha256"]:
+        raise ValueError("frozen full language hash does not match project-owner approval")
     records = [json.loads(line) for line in DEFAULT_LANGUAGE_PATH.read_text(encoding="utf-8").splitlines() if line]
     semantics = {item["golden_case_id"]: item for item in load_holistic_golden_suite()}
     anchors = {item["golden_case_id"]: item for item in load_language_calibration()}
@@ -742,16 +849,19 @@ def load_full_language_suite(*, corpus_use: CorpusUse = CorpusUse.DOMAIN_REVIEW)
     return records
 
 
-def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any]:
+def _manifest(
+    records: list[dict[str, Any]], content_hash: str, approval: dict[str, Any]
+) -> dict[str, Any]:
     return {
         "suite_id": FULL_LANGUAGE_SUITE_ID,
-        "lifecycle_status": "PROPOSED_FOR_REVIEW",
+        "lifecycle_status": "FROZEN",
         "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
         "assets": [str(DEFAULT_LANGUAGE_PATH.relative_to(ROOT)), str(DEFAULT_LANGUAGE_YAML_PATH.relative_to(ROOT))],
         "case_count": len(records),
         "frozen_calibration_source_count": 16,
         "format_remediated_anchor_count": 16,
-        "draft_rendering_count": len(records),
+        "draft_rendering_count": 0,
+        "frozen_rendering_count": len(records),
         "semantic_source": {
             "suite_id": SEMANTIC_SUITE_ID,
             "path": str(SEMANTIC_JSONL_PATH.relative_to(ROOT)),
@@ -762,6 +872,7 @@ def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any
             "builder_id": FULL_LANGUAGE_BUILDER_ID,
             "style_approval_id": LANGUAGE_APPROVAL_ID,
             "response_grammar_id": RESPONSE_GRAMMAR_ID,
+            "full_language_approval_id": FULL_LANGUAGE_APPROVAL_ID,
         },
         "pre_format_review": {
             "report": str(DEFAULT_PRE_FORMAT_REVIEW_PATH.relative_to(ROOT)),
@@ -769,14 +880,28 @@ def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any
             "result": "PASS_WITH_MINOR_FORMATTING_NOTES",
             "findings_addressed": ["LGR-FR-001", "LGR-FR-002"],
         },
+        "format_re_review": {
+            "report": "docs/product_holistic_golden_language_format_re_review_v1.md",
+            "language_renderings_sha256": PRE_REMEDIATION_LANGUAGE_SHA256,
+            "result": "READY_AFTER_LANGUAGE_REMEDIATION",
+            "findings_addressed": ["LGR-GR-001", "LGR-GR-002", "LGR-GR-003", "LGR-GR-004"],
+        },
         "language_renderings_sha256": content_hash,
-        "review_status": "78_FORMAT_NORMALIZED_RENDERINGS_PENDING_REVIEW",
+        "review_status": "PROJECT_OWNER_APPROVED_AND_FROZEN_FOR_HACKATHON_SCOPE",
+        "approval": {
+            "approval_id": FULL_LANGUAGE_APPROVAL_ID,
+            "reviewed_language_renderings_sha256": APPROVED_REMEDIATED_LANGUAGE_SHA256,
+            "frozen_language_renderings_sha256": content_hash,
+            "approval_record": "docs/product_holistic_golden_language_full_approval_v1.md",
+            "response_grammar_sha256": APPROVED_RESPONSE_GRAMMAR_SHA256,
+            "qualified_phc_field_validation_completed": False,
+        },
         "eligibility": {
             "DOMAIN_REVIEW": True,
             "COMPONENT_VALIDATION": True,
-            "HOLISTIC_GENERATION": False,
-            "PRODUCT_EVALUATION": False,
-            "TEACHER_BAKEOFF": False,
+            "HOLISTIC_GENERATION": True,
+            "PRODUCT_EVALUATION": True,
+            "TEACHER_BAKEOFF": True,
             "TRAINING": False,
         },
         "production_clinical_use_authorized": False,
@@ -788,9 +913,9 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
     lines = [
         "# Product holistic golden language suite v1 — review package",
         "",
-        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Full language review surface; cannot alter frozen semantics.",
+        "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Review surface for the project-owner-approved and frozen full golden language layer.",
         "",
-        f"**Status:** {len(records)} grammar-normalized language records pending review. The frozen 16-case calibration remains unchanged as historical evidence.",
+        f"**Status:** {len(records)} language records approved and frozen for the bounded hackathon scope. The frozen 16-case calibration remains unchanged as historical evidence.",
         "",
         f"**Frozen semantic source:** `{SEMANTIC_CASES_SHA256}`.",
         "",
@@ -798,7 +923,9 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
         "",
         f"**Pre-format reviewed language hash:** `{PRE_FORMAT_LANGUAGE_SHA256}`.",
         "",
-        "This artifact is not training data and is ineligible for teacher bake-off, product evaluation, bulk generation, and training until the complete language layer is reviewed and frozen.",
+        f"**Pre-remediation re-reviewed language hash:** `{PRE_REMEDIATION_LANGUAGE_SHA256}`.",
+        "",
+        "This artifact may now support controlled language-variant work, teacher bake-off, and product evaluation. It is not training data, production clinical authorization, or qualified PHC field validation.",
         "",
     ]
     for record in records:
@@ -817,12 +944,13 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
                 "",
                 record["conversation"][1]["content"],
                 "",
-                "### Review disposition",
+                "### Approval disposition",
                 "",
                 f"- Semantic faithfulness: `{record['review']['semantic_faithfulness']}`",
                 f"- Interaction quality: `{record['review']['interaction_quality']}`",
                 f"- PHC suitability: `{record['review']['phc_suitability']}`",
-                "- Required edits / notes:",
+                f"- Reviewer: `{record['review']['reviewer']}`",
+                f"- Notes: {record['review']['notes']}",
                 "",
             ]
         )
@@ -831,6 +959,7 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
 
 def write_full_language_suite() -> list[dict[str, Any]]:
     grammar = load_response_grammar()
+    approval = load_full_language_approval()
     records = build_full_language_suite()
     semantics = {item["golden_case_id"]: item for item in load_holistic_golden_suite()}
     anchors = {item["golden_case_id"]: item for item in load_language_calibration()}
@@ -838,16 +967,26 @@ def write_full_language_suite() -> list[dict[str, Any]]:
         validate_full_language_record(record, semantics[record["golden_case_id"]], anchors.get(record["golden_case_id"]))
     content = "".join(json.dumps(record, sort_keys=True) + "\n" for record in records)
     content_hash = hashlib.sha256(content.encode()).hexdigest()
+    if content_hash != approval["frozen_language_renderings_sha256"]:
+        raise ValueError("generated frozen full language does not match approved hash")
     DEFAULT_LANGUAGE_PATH.write_text(content, encoding="utf-8")
     DEFAULT_LANGUAGE_YAML_PATH.write_text(
         "# Generated from the canonical JSONL; do not edit this mirror.\n"
         + yaml.safe_dump(records, allow_unicode=True, sort_keys=False, width=100),
         encoding="utf-8",
     )
-    DEFAULT_MANIFEST_PATH.write_text(json.dumps(_manifest(records, content_hash), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    DEFAULT_MANIFEST_PATH.write_text(
+        json.dumps(_manifest(records, content_hash, approval), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
     DEFAULT_GRAMMAR_YAML_PATH.write_text(
         "# Generated from the canonical JSON; do not edit this mirror.\n"
         + yaml.safe_dump(grammar, allow_unicode=True, sort_keys=False, width=100),
+        encoding="utf-8",
+    )
+    DEFAULT_FULL_APPROVAL_YAML_PATH.write_text(
+        "# Generated from the canonical JSON; do not edit this mirror.\n"
+        + yaml.safe_dump(approval, allow_unicode=True, sort_keys=False, width=100),
         encoding="utf-8",
     )
     DEFAULT_REVIEW_PATH.write_text(render_full_language_review(records), encoding="utf-8")

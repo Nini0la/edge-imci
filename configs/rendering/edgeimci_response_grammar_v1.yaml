@@ -20,6 +20,15 @@ frozen_calibration_source:
   calibration_id: edge-imci-holistic-golden-language-calibration-v1
   sha256: b42659143270e8ef732593598fc3c7eeb6d9fb6805eaa03a0f93801d76c97fbb
   preservation: IMMUTABLE_HISTORICAL_STYLE_EVIDENCE
+format_re_review:
+  language_renderings_sha256: 713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94
+  report: docs/product_holistic_golden_language_format_re_review_v1.md
+  result: READY_AFTER_LANGUAGE_REMEDIATION
+  findings_addressed:
+  - LGR-GR-001
+  - LGR-GR-002
+  - LGR-GR-003
+  - LGR-GR-004
 delimiters:
   urgent_prefix: 'URGENT:'
   classifications_heading: 'Classifications:'
@@ -73,6 +82,82 @@ formatting_rules:
   internal_rule_action_and_schema_ids_are_forbidden: true
   frozen_anchor_user_submissions_are_preserved: true
   frozen_anchor_assistant_responses_may_be_format_remediated: true
+presentation_order:
+  policy_kind: INTERACTION_UX_NOT_CLINICAL_RULE
+  stable_within_equal_priority: true
+  lower_number_appears_first: true
+  action_priority:
+    ADVISE_FEEDING_FOR_PERSISTENT_DIARRHOEA: 40
+    ADVISE_WHEN_TO_RETURN_IMMEDIATELY: 40
+    APPLY_TETRACYCLINE_EYE_OINTMENT: 30
+    COMPLETE_ASSESSMENT_QUICKLY: 30
+    CONTINUE_BREASTFEEDING: 30
+    DRY_EAR_BY_WICKING: 30
+    FOLLOW_UP_2_DAYS_IF_FEVER_PERSISTS: 50
+    FOLLOW_UP_3_DAYS: 50
+    FOLLOW_UP_3_DAYS_IF_FEVER_PERSISTS: 50
+    FOLLOW_UP_5_DAYS: 50
+    FOLLOW_UP_5_DAYS_IF_NOT_IMPROVING: 50
+    FREQUENT_ORS_SIPS_DURING_REFERRAL: 30
+    GIVE_ANTIBIOTIC_5_DAYS: 30
+    GIVE_APPROPRIATE_ANTIBIOTIC_FOR_IDENTIFIED_BACTERIAL_CAUSE: 30
+    GIVE_CHOLERA_ANTIBIOTIC_PER_LOCAL_PROTOCOL: 30
+    GIVE_CIPROFLOXACIN_3_DAYS: 30
+    GIVE_DIAZEPAM_IF_CONVULSING_NOW: 10
+    GIVE_FIRST_DOSE_AMOXICILLIN_AND_REFER: 30
+    GIVE_FIRST_DOSE_APPROPRIATE_ANTIBIOTIC: 30
+    GIVE_FIRST_DOSE_SEVERE_MALARIA_TREATMENT: 30
+    GIVE_FIRST_LINE_ORAL_ANTIMALARIAL: 30
+    GIVE_FLUID_FOR_SEVERE_DEHYDRATION_PLAN_C: 30
+    GIVE_FLUID_ZINC_AND_FOOD_PLAN_A: 30
+    GIVE_FLUID_ZINC_AND_FOOD_PLAN_B: 30
+    GIVE_INHALED_BRONCHODILATOR_5_DAYS: 30
+    GIVE_MULTIVITAMINS_MINERALS_ZINC_14_DAYS: 30
+    GIVE_ORAL_AMOXICILLIN_5_DAYS: 30
+    GIVE_PARACETAMOL_FOR_EAR_PAIN: 30
+    GIVE_PARACETAMOL_FOR_HIGH_FEVER: 30
+    GIVE_PRE_REFERRAL_TREATMENT_IMMEDIATELY: 30
+    GIVE_RAPID_ACTING_INHALED_BRONCHODILATOR_TRIAL: 30
+    GIVE_TOPICAL_QUINOLONE_EARDROPS_14_DAYS: 30
+    GIVE_VITAMIN_A_TREATMENT: 30
+    KEEP_WARM: 30
+    NO_EAR_TREATMENT: 30
+    PREVENT_LOW_BLOOD_SUGAR: 30
+    REASSESS_BREATHING_AFTER_BRONCHODILATOR: 30
+    REASSESS_DEHYDRATION_AFTER_PLAN_B: 30
+    REASSESS_DEHYDRATION_AFTER_PLAN_C: 30
+    REFER_FOR_OXYGEN_SATURATION_BELOW_90: 30
+    REFER_FOR_TB_OR_ASTHMA_ASSESSMENT: 30
+    REFER_PROLONGED_FEVER_FOR_ASSESSMENT: 30
+    REFER_TO_HOSPITAL: 30
+    SOOTHE_THROAT_AND_RELIEVE_COUGH: 30
+    TREAT_DEHYDRATION_BEFORE_REFERRAL: 20
+    TREAT_MOUTH_ULCERS_WITH_GENTIAN_VIOLET: 30
+    URGENT_REFERRAL: 30
+  acquisition_priority:
+    danger_signs.vomits_everything: 100
+    danger_signs.unable_to_drink_or_breastfeed: 110
+    patient_facts.age_months: 200
+    patient_facts.has_cough_or_difficult_breathing: 300
+    respiratory.bronchodilator_trial_completed: 310
+    respiratory.child_calm: 320
+    respiratory.post_bronchodilator_child_calm: 320
+    respiratory.breaths_counted_one_minute: 330
+    respiratory.post_bronchodilator_breaths_counted_one_minute: 330
+    respiratory.respiratory_rate: 340
+    respiratory.post_bronchodilator_respiratory_rate: 340
+    respiratory.post_bronchodilator_chest_indrawing: 350
+    respiratory.hiv_exposed_or_infected: 360
+    respiratory.oxygen_saturation_percent: 370
+    patient_facts.has_diarrhoea: 400
+    diarrhoea.duration_days: 410
+    diarrhoea.dehydration.drinking_status: 420
+    diarrhoea.cholera_in_area: 430
+    patient_facts.has_fever: 500
+    fever.malaria_risk: 510
+    fever.malaria_test_result: 520
+    patient_facts.has_ear_problem: 600
+    ear.ear_discharge_duration_days: 610
 change_control:
   clinical_semantics_changed: false
   semantic_alignment_changed: false

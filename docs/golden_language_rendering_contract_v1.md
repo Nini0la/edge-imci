@@ -218,11 +218,11 @@ The first language pass should use these cases. This set is intentionally small 
 | `hpg-075-contradiction-drinking` | Explicit conflict resolution without guessing. |
 | `hpg-077-out-of-scope-age-1` | Clear scope rejection without unsupported clinical synthesis. |
 
-The frozen set authorized the first complete 78-case language pass. It remains immutable historical evidence. After the complete-layer review identified formatting inconsistency, the response grammar authorized language-only remediation while preserving the 16 anchor user submissions and every semantic alignment. It does not authorize synthetic variant generation or training.
+The frozen calibration authorized the first complete 78-case language pass and remains immutable historical evidence. The complete layer has now been authored, reviewed, language-remediated, explicitly approved by the project owner, and frozen at its versioned hash. All 16 anchor user submissions and every semantic alignment were preserved. The freeze authorizes controlled variant work, teacher bake-off, and product evaluation, but not direct training use or production clinical use.
 
 ## Deterministic response grammar
 
-The canonical grammar is `configs/rendering/edgeimci_response_grammar_v1.json`, with a generated YAML mirror and human-readable explanation in `edgeimci_response_grammar_v1.md`. It defines exact headings, casing, bullet delimiters, and state-dependent section order for complete, urgent-complete, incomplete, urgent-incomplete, and out-of-scope responses.
+The canonical grammar is `configs/rendering/edgeimci_response_grammar_v1.json`, with a generated YAML mirror and human-readable explanation in `edgeimci_response_grammar_v1.md`. It defines exact headings, casing, bullet delimiters, state-dependent section order, deterministic action priority, and deterministic acquisition order for complete, urgent-complete, incomplete, urgent-incomplete, and out-of-scope responses.
 
 This is an interaction and post-training consistency policy, not an IMCI rule. If the grammar and a frozen semantic target disagree, the semantic target wins and the rendering must return to review.
 

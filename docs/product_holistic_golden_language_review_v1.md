@@ -1,8 +1,8 @@
 # Product holistic golden language suite v1 — review package
 
-> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Full language review surface; cannot alter frozen semantics.
+> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `CURRENT` · Review surface for the project-owner-approved and frozen full golden language layer.
 
-**Status:** 78 grammar-normalized language records pending review. The frozen 16-case calibration remains unchanged as historical evidence.
+**Status:** 78 language records approved and frozen for the bounded hackathon scope. The frozen 16-case calibration remains unchanged as historical evidence.
 
 **Frozen semantic source:** `9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f`.
 
@@ -10,11 +10,13 @@
 
 **Pre-format reviewed language hash:** `9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe`.
 
-This artifact is not training data and is ineligible for teacher bake-off, product evaluation, bulk generation, and training until the complete language layer is reviewed and frozen.
+**Pre-remediation re-reviewed language hash:** `713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94`.
+
+This artifact may now support controlled language-variant work, teacher bake-off, and product evaluation. It is not training data, production clinical authorization, or qualified PHC field validation.
 
 ## hpg-001-all-negative
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -28,16 +30,17 @@ Classifications:
 Management:
 - No management action is indicated by the supported assessment.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-002-danger-unable-to-drink-or-breastfeed
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -57,16 +60,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-003-danger-vomits-everything
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -86,16 +90,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-004-danger-had-convulsions
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -115,16 +120,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-005-danger-lethargic-or-unconscious
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -144,16 +150,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-006-danger-convulsing-now
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -167,23 +174,24 @@ Classifications:
 - Very severe disease
 
 Immediate management:
-- Complete the remaining assessment quickly.
 - Give diazepam if the child is convulsing now.
+- Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-007-resp-age-2-rate-49
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -195,20 +203,21 @@ Classifications:
 - Cough or cold
 
 Management:
+- Soothe the throat and relieve the cough with a safe remedy.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days if the child is not improving.
-- Soothe the throat and relieve the cough with a safe remedy.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-008-resp-age-2-rate-50
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -220,21 +229,22 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give oral amoxicillin for 5 days.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-009-resp-age-11-rate-50
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -246,21 +256,22 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give oral amoxicillin for 5 days.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-010-resp-age-12-rate-39
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -272,20 +283,21 @@ Classifications:
 - Cough or cold
 
 Management:
+- Soothe the throat and relieve the cough with a safe remedy.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days if the child is not improving.
-- Soothe the throat and relieve the cough with a safe remedy.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-011-resp-age-12-rate-40
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -297,21 +309,22 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give oral amoxicillin for 5 days.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-012-resp-age-59-rate-40
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -323,21 +336,22 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give oral amoxicillin for 5 days.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-013-resp-chest-hiv-negative
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -349,21 +363,22 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give oral amoxicillin for 5 days.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-014-resp-chest-hiv-positive
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -375,18 +390,19 @@ Classifications:
 - Pneumonia
 
 Management:
-- Give the first dose of amoxicillin, then refer the child.
+- Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral, not urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-015-resp-stridor
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -403,16 +419,17 @@ Immediate management:
 - Give the first dose of an appropriate antibiotic.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-016-resp-oximeter-89-9
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -424,21 +441,22 @@ Classifications:
 - Cough or cold
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 5 days if the child is not improving.
 - Refer because the oxygen saturation is below 90%; this finding alone calls for referral, not urgent referral.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-017-resp-oximeter-90
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -450,20 +468,21 @@ Classifications:
 - Cough or cold
 
 Management:
+- Soothe the throat and relieve the cough with a safe remedy.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days if the child is not improving.
-- Soothe the throat and relieve the cough with a safe remedy.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-018-resp-prolonged-cough
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -475,21 +494,22 @@ Classifications:
 - Cough or cold
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 5 days if the child is not improving.
 - Refer for tuberculosis or asthma assessment.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-019-resp-recurrent-wheeze
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -501,22 +521,23 @@ Classifications:
 - Cough or cold
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 5 days if the child is not improving.
 - Give an inhaled bronchodilator for 5 days.
 - Refer for tuberculosis or asthma assessment.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-020-resp-post-bronchodilator-improved
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -528,23 +549,24 @@ Classifications:
 - Cough or cold
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 5 days if the child is not improving.
 - Give an inhaled bronchodilator for 5 days.
 - The rapid-acting inhaled bronchodilator trial was completed.
 - Breathing was reassessed after the bronchodilator trial.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-021-resp-post-bronchodilator-fast
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -556,24 +578,25 @@ Classifications:
 - Pneumonia
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days.
 - Give an inhaled bronchodilator for 5 days.
 - Give oral amoxicillin for 5 days.
 - The rapid-acting inhaled bronchodilator trial was completed.
 - Breathing was reassessed after the bronchodilator trial.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-022-resp-trial-outstanding
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -585,23 +608,24 @@ ASSESSMENT INCOMPLETE
 
 Information needed:
 - Complete the indicated rapid-acting inhaled bronchodilator trial and record that it was completed.
-- During post-bronchodilator reassessment, count breaths for one full minute.
-- Reassess chest indrawing after the bronchodilator trial.
 - Confirm that the child is calm for the post-bronchodilator breathing reassessment.
+- During post-bronchodilator reassessment, count breaths for one full minute.
 - Measure and report the post-bronchodilator respiratory rate while the child is calm.
+- Reassess chest indrawing after the bronchodilator trial.
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-023-resp-child-not-calm
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -620,16 +644,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-024-resp-count-not-one-minute
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -648,16 +673,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-025-resp-oximeter-missing-value
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -672,16 +698,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-026-resp-chest-hiv-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -696,16 +723,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-027-diarrhoea-no-dehydration
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -717,20 +745,21 @@ Classifications:
 - No dehydration
 
 Management:
+- Give fluid, zinc, and food according to Plan A.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days if the child is not improving.
-- Give fluid, zinc, and food according to Plan A.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-028-diarrhoea-some-dehydration
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -742,21 +771,22 @@ Classifications:
 - Some dehydration
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 5 days if the child is not improving.
 - Give fluid, zinc, and food according to Plan B.
 - Reassess and reclassify dehydration after Plan B.
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-029-diarrhoea-severe-plan-c-under-24m
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -771,16 +801,17 @@ Management:
 - Give fluid for severe dehydration according to Plan C.
 - Reassess and reclassify dehydration after Plan C.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-030-diarrhoea-severe-age-24-no-cholera
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -795,16 +826,17 @@ Management:
 - Give fluid for severe dehydration according to Plan C.
 - Reassess and reclassify dehydration after Plan C.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-031-diarrhoea-severe-age-24-cholera
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -820,16 +852,17 @@ Management:
 - Give fluid for severe dehydration according to Plan C.
 - Reassess and reclassify dehydration after Plan C.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-032-diarrhoea-duration-13
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -841,20 +874,21 @@ Classifications:
 - No dehydration
 
 Management:
+- Give fluid, zinc, and food according to Plan A.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days if the child is not improving.
-- Give fluid, zinc, and food according to Plan A.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-033-diarrhoea-duration-14-persistent
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -867,23 +901,24 @@ Classifications:
 - Persistent diarrhoea
 
 Management:
+- Give fluid, zinc, and food according to Plan A.
+- Give multivitamins, minerals, and zinc for 14 days.
 - Advise the caregiver about feeding for persistent diarrhoea.
 - Advise the caregiver when to return immediately.
 - Follow up in 5 days.
 - Follow up in 5 days if the child is not improving.
-- Give fluid, zinc, and food according to Plan A.
-- Give multivitamins, minerals, and zinc for 14 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-034-diarrhoea-severe-persistent
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -898,22 +933,23 @@ Classifications:
 - Severe persistent diarrhoea
 
 Immediate management:
-- Refer the child to hospital.
 - Treat dehydration before referral unless another severe classification prevents this.
+- Refer the child to hospital.
 
 Deferred routine care:
 - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-035-diarrhoea-dysentery
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -926,22 +962,23 @@ Classifications:
 - Dysentery
 
 Management:
+- Give ciprofloxacin for 3 days.
+- Give fluid, zinc, and food according to Plan A.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days.
 - Follow up in 5 days if the child is not improving.
-- Give ciprofloxacin for 3 days.
-- Give fluid, zinc, and food according to Plan A.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-036-diarrhoea-persistent-and-dysentery
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -955,25 +992,26 @@ Classifications:
 - Dysentery
 
 Management:
+- Give ciprofloxacin for 3 days.
+- Give fluid, zinc, and food according to Plan A.
+- Give multivitamins, minerals, and zinc for 14 days.
 - Advise the caregiver about feeding for persistent diarrhoea.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days.
 - Follow up in 5 days.
 - Follow up in 5 days if the child is not improving.
-- Give ciprofloxacin for 3 days.
-- Give fluid, zinc, and food according to Plan A.
-- Give multivitamins, minerals, and zinc for 14 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-037-diarrhoea-positive-drinking-reuse
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -996,16 +1034,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-038-diarrhoea-negative-does-not-reuse
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1020,16 +1059,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-039-diarrhoea-duration-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1044,16 +1084,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-040-diarrhoea-cholera-context-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1068,16 +1109,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-041-fever-high-positive
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1089,20 +1131,21 @@ Classifications:
 - Malaria
 
 Management:
+- Give the first-line oral antimalarial.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give the first-line oral antimalarial.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-042-fever-high-negative
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1117,16 +1160,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-043-fever-high-test-unavailable
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1138,20 +1182,21 @@ Classifications:
 - Malaria
 
 Management:
+- Give the first-line oral antimalarial.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give the first-line oral antimalarial.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-044-fever-low-obvious-cause
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1166,16 +1211,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-045-fever-low-no-cause-positive
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1187,20 +1233,21 @@ Classifications:
 - Malaria
 
 Management:
+- Give the first-line oral antimalarial.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give the first-line oral antimalarial.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-046-fever-no-risk
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1215,16 +1262,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 2 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-047-fever-temperature-38-4
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1239,16 +1287,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-048-fever-temperature-38-5
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1260,20 +1309,21 @@ Classifications:
 - Fever—no malaria
 
 Management:
+- Give paracetamol for high fever.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give paracetamol for high fever.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-049-fever-duration-7
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1288,16 +1338,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-050-fever-duration-8-not-every-day
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1312,16 +1363,17 @@ Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-051-fever-duration-8-every-day
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1333,20 +1385,21 @@ Classifications:
 - Fever—no malaria
 
 Management:
+- Refer for assessment of prolonged fever.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Refer for assessment of prolonged fever.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-052-fever-identified-bacterial-cause
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1358,20 +1411,21 @@ Classifications:
 - Fever—no malaria
 
 Management:
+- Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-053-fever-measles
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1384,20 +1438,21 @@ Classifications:
 - Measles
 
 Management:
+- Give vitamin A treatment.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give vitamin A treatment.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-054-fever-measles-eye
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1410,22 +1465,23 @@ Classifications:
 - Measles with eye or mouth complications
 
 Management:
-- Advise the caregiver when to return immediately.
 - Apply tetracycline eye ointment.
+- Give vitamin A treatment.
+- Advise the caregiver when to return immediately.
 - Follow up in 3 days.
 - Follow up in 3 days if the fever persists.
-- Give vitamin A treatment.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-055-fever-severe-measles-cornea
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1448,16 +1504,17 @@ Immediate management:
 Deferred routine care:
 - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-056-fever-severe-stiff-neck
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1476,16 +1533,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-057-fever-malaria-and-measles
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1498,22 +1556,23 @@ Classifications:
 - Measles
 
 Management:
-- Advise the caregiver when to return immediately.
-- Follow up in 3 days if the fever persists.
 - Give the first-line oral antimalarial.
 - Give paracetamol for high fever.
 - Give vitamin A treatment.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days if the fever persists.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-058-fever-measles-last-three-months
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1526,20 +1585,21 @@ Classifications:
 - Measles
 
 Management:
+- Give vitamin A treatment.
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days if the fever persists.
-- Give vitamin A treatment.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-059-fever-malaria-risk-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1554,16 +1614,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-060-fever-test-result-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1578,16 +1639,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-061-ear-no-infection
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1601,16 +1663,17 @@ Classifications:
 Management:
 - No ear treatment is indicated.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-062-ear-acute-pain
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1623,20 +1686,21 @@ Classifications:
 
 Management:
 - Dry the ear by wicking.
-- Follow up in 5 days.
 - Give the indicated antibiotic for 5 days.
 - Give paracetamol for ear pain.
+- Follow up in 5 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-063-ear-acute-discharge-13
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1649,20 +1713,21 @@ Classifications:
 
 Management:
 - Dry the ear by wicking.
-- Follow up in 5 days.
 - Give the indicated antibiotic for 5 days.
 - Give paracetamol for ear pain.
+- Follow up in 5 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-064-ear-chronic-discharge-14
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1675,19 +1740,20 @@ Classifications:
 
 Management:
 - Dry the ear by wicking.
-- Follow up in 5 days.
 - Give topical quinolone eardrops for 14 days.
+- Follow up in 5 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-065-ear-observed-pus-no-history
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1700,20 +1766,21 @@ Classifications:
 
 Management:
 - Dry the ear by wicking.
-- Follow up in 5 days.
 - Give the indicated antibiotic for 5 days.
 - Give paracetamol for ear pain.
+- Follow up in 5 days.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-066-ear-mastoiditis
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1731,16 +1798,17 @@ Immediate management:
 - Give paracetamol for ear pain.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-067-ear-duration-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1755,16 +1823,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-068-cross-four-pathways
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1781,12 +1850,7 @@ Classifications:
 - Acute ear infection
 
 Management:
-- Advise the caregiver when to return immediately.
 - Dry the ear by wicking.
-- Follow up in 3 days.
-- Follow up in 3 days if the fever persists.
-- Follow up in 5 days.
-- Follow up in 5 days if the child is not improving.
 - Give the indicated antibiotic for 5 days.
 - Give ciprofloxacin for 3 days.
 - Give the first-line oral antimalarial.
@@ -1795,17 +1859,23 @@ Management:
 - Give paracetamol for ear pain.
 - Give vitamin A treatment.
 - Soothe the throat and relieve the cough with a safe remedy.
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
+- Follow up in 3 days if the fever persists.
+- Follow up in 5 days.
+- Follow up in 5 days if the child is not improving.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-069-cross-urgent-dehydration-ear
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1826,16 +1896,17 @@ Immediate management:
 - Give paracetamol for ear pain.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-070-cross-multiple-urgent
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1852,8 +1923,8 @@ Classifications:
 - Mastoiditis
 
 Immediate management:
-- Complete the remaining assessment quickly.
 - Give diazepam if the child is convulsing now.
+- Complete the remaining assessment quickly.
 - Give the first dose of an appropriate antibiotic.
 - Give the first dose of severe-malaria treatment.
 - Give paracetamol for ear pain.
@@ -1862,16 +1933,17 @@ Immediate management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-071-incomplete-entry-unknown
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1886,16 +1958,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-072-incomplete-multiple-groups
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1907,22 +1980,23 @@ ASSESSMENT INCOMPLETE
 
 Information needed:
 - Ask the caregiver whether the child vomits everything.
+- Count the respiratory rate for one full minute while the child is calm and report the breaths per minute.
 - Provide the malaria-risk category of the area: high, low, or no malaria risk.
 - Ask whether the child has an ear problem, including ear pain or discharge.
-- Count the respiratory rate for one full minute while the child is calm and report the breaths per minute.
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-073-incomplete-known-urgent
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1933,8 +2007,8 @@ The child is convulsing now. The child can drink or breastfeed, has had no earli
 URGENT: Act now and do not delay referral.
 
 Immediate management:
-- Complete the remaining assessment quickly.
 - Give diazepam if the child is convulsing now.
+- Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
 - Prevent low blood sugar.
@@ -1947,21 +2021,22 @@ Information still needed:
 - Confirm the child's age in completed months from the caregiver or record.
 - Ask whether the child has cough or difficult breathing.
 - Ask whether the child has diarrhoea.
-- Ask whether the child has an ear problem, including ear pain or discharge.
 - Ask whether the child has fever and report the measured temperature when applicable.
+- Ask whether the child has an ear problem, including ear pain or discharge.
 
 Complete these checks rapidly, but do not delay referral. The final holistic classifications and complete management plan remain pending.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-074-incomplete-internal-classification-withheld
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1976,16 +2051,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-075-contradiction-drinking
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1996,7 +2072,7 @@ This child is 18 months old. The general danger-sign assessment recorded that th
 ASSESSMENT INCOMPLETE
 
 Conflicting or invalid findings:
-- UNABLE observed drinking conflicts with a negative general danger sign.
+- The general danger-sign assessment says the child can drink or breastfeed, but the diarrhoea assessment records the child as unable to drink.
 
 Information needed:
 - Clinically reassess the child's ability to drink or breastfeed.
@@ -2004,16 +2080,17 @@ Information needed:
 
 I cannot provide the final classifications and complete management plan until these findings are supplied.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-076-complete-danger-plus-all-pathways
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -2042,16 +2119,17 @@ Immediate management:
 Deferred routine care:
 - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
 
 ## hpg-077-out-of-scope-age-1
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
+**Lifecycle:** `FROZEN` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
 
 ### PHC-worker submission
 
@@ -2063,16 +2141,17 @@ OUTSIDE SUPPORTED SCOPE
 
 This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide a classification or management plan from this workflow. Use the applicable approved age-specific pathway.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation; the frozen calibration user submission and semantic alignment are preserved. This is not qualified PHC field validation.
 
 ## hpg-078-out-of-scope-age-60
 
-**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
+**Lifecycle:** `FROZEN` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
 
 ### PHC-worker submission
 
@@ -2084,9 +2163,10 @@ OUTSIDE SUPPORTED SCOPE
 
 This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide a classification or management plan from this workflow. Use the applicable approved age-specific pathway.
 
-### Review disposition
+### Approval disposition
 
-- Semantic faithfulness: `PENDING`
-- Interaction quality: `PENDING`
-- PHC suitability: `PENDING`
-- Required edits / notes:
+- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
+- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
+- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Reviewer: `PROJECT_OWNER`
+- Notes: Project-owner approved for the bounded hackathon after language remediation. This is not qualified PHC field validation.
