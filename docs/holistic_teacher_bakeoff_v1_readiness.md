@@ -34,6 +34,8 @@ Deterministic checks are a screening layer, not final language approval.
 - The stable response grammar is pinned.
 - The candidate, final-record and attempt schemas exist.
 - The request builder excludes encounter provenance fields from teacher-renderable facts.
+- The teacher payload excludes the frozen assistant response, classifications, actions, target urgency language, evaluator traces, rule IDs and source hashes.
+- Source-value hashes are attached internally only after candidate validation.
 - Unknown values remain visible as unknown in the structured payload and are excluded from the required known-fact evidence set.
 - Tests cover equal-case scheduling, no-generation guardrails, source-fact exactness, rejection mutations, frozen-target attachment and training ineligibility.
 

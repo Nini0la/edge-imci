@@ -54,7 +54,8 @@ def _candidate(semantic: dict, parent: dict, strategy_id: str) -> dict:
         "strategy_id": strategy_id,
         "user_submission": submission,
         "fact_evidence": [
-            {**fact, "evidence_text": submission} for fact in source_fact_specs(semantic)
+            {"fact_id": fact["fact_id"], "evidence_text": submission}
+            for fact in source_fact_specs(semantic)
         ],
     }
 
@@ -110,6 +111,16 @@ def test_request_builder_is_model_independent_and_covers_same_78_cases_twice(
     }
     assert all(item["teacher_model"] is None for item in requests)
     assert all(item["generation_authorized"] is False for item in requests)
+    parents_by_id = {item["golden_case_id"]: item for item in parents}
+    for request in requests:
+        rendered = request["rendered_prompt"]
+        parent = parents_by_id[request["semantic_case_id"]]
+        assert parent["conversation"][1]["content"] not in rendered
+        assert "source_value_sha256" not in rendered
+        assert "classifications_covered" not in rendered
+        assert "actions_covered" not in rendered
+        assert "urgent_action_required" not in rendered
+        assert "IMCI-MSC-" not in rendered
     for case_id in case_ids:
         assert sum(item["semantic_case_id"] == case_id for item in requests) == 2
 
@@ -117,24 +128,28 @@ def test_request_builder_is_model_independent_and_covers_same_78_cases_twice(
 def test_teacher_payload_excludes_encounter_provenance_and_assistant_target(
     semantics: list[dict], parents: list[dict]
 ) -> None:
-    package = build_source_package(
-        semantics[0], parents[0], "phc-concise-complete-v1"
-    )
+    package = build_source_package(semantics[0], "phc-concise-complete-v1")
 
     assert "encounter_id" not in package["structured_encounter"]
     assert "schema_version" not in package["structured_encounter"]
     assert all(
-        fact["fact_id"] not in {"encounter_id", "schema_version"}
-        for fact in package["required_fact_evidence"]
+        fact not in {"encounter_id", "schema_version"}
+        for fact in package["required_fact_ids"]
     )
     assert "canonical_assistant_response" not in package
     assert parents[0]["conversation"][1]["content"] not in json.dumps(package)
+    serialized = json.dumps(package)
+    assert "source_value_sha256" not in serialized
+    assert "classifications_covered" not in serialized
+    assert "actions_covered" not in serialized
+    assert "urgent_action_required" not in serialized
+    assert "IMCI-MSC-" not in serialized
 
 
 def test_source_fact_contract_preserves_unknown_as_unknown(semantics: list[dict]) -> None:
     record = next(item for item in semantics if item["golden_case_id"].startswith("hpg-071-"))
-    package = build_source_package(record, {"golden_case_id": record["golden_case_id"]}, "phc-concise-complete-v1")
-    flattened_ids = {item["fact_id"] for item in package["required_fact_evidence"]}
+    package = build_source_package(record, "phc-concise-complete-v1")
+    flattened_ids = set(package["required_fact_ids"])
 
     assert package["unknown_values_are_not_negative"] is True
     assert package["structured_encounter"]["patient_facts"]["has_diarrhoea"] is None
@@ -156,17 +171,10 @@ def test_candidate_mutations_are_rejected_in_memory(
         missing, semantic, parent, strategy
     ).error_codes
 
-    changed = copy.deepcopy(valid)
-    changed["fact_evidence"][0]["source_value_sha256"] = "0" * 64
-    assert "FACT_VALUE_HASH_MISMATCH" in validate_candidate(
-        changed, semantic, parent, strategy
-    ).error_codes
-
     extra = copy.deepcopy(valid)
     extra["fact_evidence"].append(
         {
             "fact_id": "fever.temperature_c",
-            "source_value_sha256": "0" * 64,
             "evidence_text": extra["user_submission"],
         }
     )
@@ -183,7 +191,7 @@ def test_candidate_mutations_are_rejected_in_memory(
     duplicate = copy.deepcopy(valid)
     duplicate["user_submission"] = parent["conversation"][0]["content"]
     duplicate["fact_evidence"] = [
-        {**fact, "evidence_text": duplicate["user_submission"]}
+        {"fact_id": fact["fact_id"], "evidence_text": duplicate["user_submission"]}
         for fact in source_fact_specs(semantic)
     ]
     assert "DUPLICATE_CANONICAL_USER_SUBMISSION" in validate_candidate(
@@ -218,6 +226,7 @@ def test_variant_record_attaches_frozen_target_and_remains_training_ineligible(
 
     assert record["conversation"][1] == parent["conversation"][1]
     assert record["alignment"] == parent["alignment"]
+    assert all("source_value_sha256" in item for item in record["fact_evidence"])
     assert record["status"] == "PENDING_HUMAN_REVIEW"
     assert record["validation"]["requires_human_semantic_review"] is True
     assert record["eligibility"]["corpus_candidate"] is False

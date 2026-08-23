@@ -11,6 +11,7 @@
     "status",
     "parent_source",
     "conversation",
+    "fact_evidence",
     "alignment",
     "generation_provenance",
     "validation",
@@ -78,6 +79,24 @@
         }
       ],
       "items": false
+    },
+    "fact_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "evidence_text", "source_value_sha256"],
+        "properties": {
+          "fact_id": {"type": "string", "minLength": 1},
+          "evidence_text": {"type": "string", "minLength": 1},
+          "source_value_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
     },
     "alignment": {
       "type": "object"

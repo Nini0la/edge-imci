@@ -24,6 +24,26 @@ The pipeline attaches the following deterministically from the frozen parent rec
 
 The teacher does not regenerate classifications, actions, urgency, missing-assessment elements, acquisition modes, contradictions, scope disposition or any assistant response. This is a controlled input-language experiment, not a new clinical synthesis experiment.
 
+### Teacher-visible information
+
+- structured encounter findings;
+- known negatives;
+- measurements and durations;
+- relevant encounter context;
+- acquisition information only when it is present in the source encounter; and
+- explicit unknown-state representation.
+
+### Teacher-hidden information
+
+- the canonical assistant response or wording;
+- expected classification labels;
+- expected actions or treatment synthesis;
+- target-side urgency wording;
+- evaluator traces, rule IDs and policy IDs; and
+- frozen source-value hashes.
+
+The teacher returns fact IDs and evidence spans only. Source-value hashes are attached internally after validation. The request builder must never derive user-language prompts from the expected output, because that would allow target leakage and unnaturally answer-shaped PHC submissions.
+
 ## Allowed and forbidden change
 
 Allowed change is limited to connected prose, sentence structure, coherent domain ordering and the difference between concise-complete and natural-complete PHC styles.
@@ -39,7 +59,7 @@ The following are forbidden:
 
 ## Deterministic acceptance boundary
 
-The v1 validator checks the candidate schema, exact fact-ID set, source-value hashes, presence of claimed evidence spans, source pins, internal-marker leakage, exact attachment of the frozen assistant response and alignment, and non-duplication of the canonical user submission.
+The v1 validator checks the candidate schema, exact fact-ID set, presence of claimed evidence spans, source pins, internal-marker leakage, deterministic attachment of source-value hashes, exact attachment of the frozen assistant response and alignment, and non-duplication of the canonical user submission.
 
 These checks establish mechanical integrity only. A teacher can copy the expected hashes while expressing a fact incorrectly, or point a fact to an irrelevant span. Deterministic acceptance therefore does **not** prove semantic faithfulness, naturalness or PHC suitability. Every pilot candidate remains `PENDING_HUMAN_REVIEW`, corpus-ineligible and training-ineligible until reviewed and separately approved.
 

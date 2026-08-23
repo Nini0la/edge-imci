@@ -4,7 +4,7 @@ Clinical truth is fixed. Render every supplied fact exactly once where natural. 
 
 Produce only the worker's case submission. Do not produce an EdgeIMCI response: the approved canonical response is attached deterministically after validation. Do not expose field names, schema terms, hashes, rule IDs, policy IDs, or implementation commentary.
 
-Return one JSON object matching the supplied candidate schema. `fact_evidence` must contain every supplied `fact_id` exactly once, copy its supplied `source_value_sha256`, and quote a short exact span from `user_submission` that expresses that fact. Do not include unknown fact IDs.
+Return one JSON object matching the supplied candidate schema. `fact_evidence` must contain every supplied `fact_id` exactly once and quote a short exact span from `user_submission` that expresses that fact. Do not include unknown fact IDs.
 
 Style: concise but complete PHC documentation; connected prose; medically neutral wording; no unnecessary greeting or conclusion.
 

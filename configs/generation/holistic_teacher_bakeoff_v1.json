@@ -17,17 +17,17 @@
     {
       "artifact_kind": "CONTRACT",
       "path": "configs/generation/holistic_language_variant_contract_v1.json",
-      "sha256": "adf97a7767bfeaca59ec9219af5f6c7c315e06d3bc7a80d299e5a229380bd54f"
+      "sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0"
     },
     {
       "artifact_kind": "CANDIDATE_SCHEMA",
       "path": "configs/generation/holistic_language_variant_candidate_v1.schema.json",
-      "sha256": "3888a1d3de54042e4271d0c2821f2eb7d771d355a5a83050e1df2639e4ed3f41"
+      "sha256": "37f31c2bdeb94b425544761d40b66acbff2f8e0c133aafbc6462d851d1bfa73d"
     },
     {
       "artifact_kind": "VARIANT_RECORD_SCHEMA",
       "path": "configs/generation/holistic_language_variant_record_v1.schema.json",
-      "sha256": "2c820034ed8362151ea42d372acd50a8f6b5a93830181a0843267c2f657247e0"
+      "sha256": "e754dd164a92f71fd2a0be17d81c22a0dbbbe2ae208c1ffe00398b7be0e31f57"
     },
     {
       "artifact_kind": "ATTEMPT_SCHEMA",
@@ -37,7 +37,7 @@
     {
       "artifact_kind": "VALIDATOR",
       "path": "src/edge_imci/generation/holistic_variants.py",
-      "sha256": "fecbd465d88eb26cecd627cd4e04f8e79976355bbc5e6cf7b428d0cf6a0fd194"
+      "sha256": "da205e02aae68c0c38074eab4ed2a53b85136a4fa53aafc46102ea3e3fb867e0"
     }
   ],
   "teacher_models": [],
@@ -47,7 +47,7 @@
       "prompt_id": "edge-imci-phc-concise-complete",
       "prompt_version": "1.0.0",
       "prompt_path": "prompts/holistic_language_variants/phc_concise_complete_v1.txt",
-      "prompt_sha256": "b402f62256788cc4ca962d04319ce74bff52014d1e3019191be20f88ffc9c6b1",
+      "prompt_sha256": "70e7c071f73f0cc796681f6acfbc53fa30a74bd927ddaf0eaa0d3ee5fc49cd27",
       "teacher_output": "USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY",
       "assistant_target": "ATTACH_FROZEN_CANONICAL_RESPONSE"
     },
@@ -56,7 +56,7 @@
       "prompt_id": "edge-imci-phc-natural-complete",
       "prompt_version": "1.0.0",
       "prompt_path": "prompts/holistic_language_variants/phc_natural_complete_v1.txt",
-      "prompt_sha256": "8ce3536e5cbe4fe1352b90c3ea0fc45e609e515f93af0960ac828c41d8c11f87",
+      "prompt_sha256": "6b964b39cdcba43b6a1ec5d37e2dfc113cad1b5967b80b5923a1094b78aea583",
       "teacher_output": "USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY",
       "assistant_target": "ATTACH_FROZEN_CANONICAL_RESPONSE"
     }

@@ -212,19 +212,34 @@ def source_fact_specs(semantic_record: dict[str, Any]) -> list[dict[str, str]]:
 
 
 def build_source_package(
-    semantic_record: dict[str, Any], parent_language: dict[str, Any], strategy_id: str
+    semantic_record: dict[str, Any], strategy_id: str
 ) -> dict[str, Any]:
-    if semantic_record["golden_case_id"] != parent_language["golden_case_id"]:
-        raise ValueError("semantic and language parent IDs differ")
+    fact_ids = [item["fact_id"] for item in source_fact_specs(semantic_record)]
     return {
         "candidate_schema_id": CANDIDATE_SCHEMA_ID,
         "semantic_case_id": semantic_record["golden_case_id"],
         "strategy_id": strategy_id,
         "structured_encounter": _clinical_encounter(semantic_record),
-        "required_fact_evidence": source_fact_specs(semantic_record),
+        "required_fact_ids": fact_ids,
         "unknown_values_are_not_negative": True,
-        "assistant_response_attached_after_validation": True,
-        "assistant_response_is_not_teacher_output": True,
+        "teacher_visibility": {
+            "visible": [
+                "STRUCTURED_ENCOUNTER_FINDINGS",
+                "KNOWN_NEGATIVES",
+                "MEASUREMENTS_AND_DURATIONS",
+                "RELEVANT_ENCOUNTER_CONTEXT",
+                "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+                "UNKNOWN_STATE_REPRESENTATION",
+            ],
+            "hidden": [
+                "CANONICAL_ASSISTANT_RESPONSE",
+                "EXPECTED_CLASSIFICATION_LABELS",
+                "EXPECTED_ACTION_SYNTHESIS",
+                "EXPECTED_URGENCY_WORDING",
+                "EVALUATOR_TRACES_AND_RULE_IDS",
+                "SOURCE_VALUE_HASHES",
+            ],
+        },
         "output_shape": {
             "candidate_schema_id": CANDIDATE_SCHEMA_ID,
             "semantic_case_id": semantic_record["golden_case_id"],
@@ -233,7 +248,6 @@ def build_source_package(
             "fact_evidence": [
                 {
                     "fact_id": "string",
-                    "source_value_sha256": "64 lowercase hex characters",
                     "evidence_text": "exact substring of user_submission",
                 }
             ],
@@ -258,7 +272,7 @@ def build_pilot_requests() -> list[dict[str, Any]]:
             raise ValueError("prompt template must contain one source-package placeholder")
         for parent in parents:
             case_id = parent["golden_case_id"]
-            package = build_source_package(semantics[case_id], parent, strategy["strategy_id"])
+            package = build_source_package(semantics[case_id], strategy["strategy_id"])
             rendered_prompt = prompt_template.replace(
                 "{{SOURCE_PACKAGE_JSON}}",
                 json.dumps(package, ensure_ascii=False, sort_keys=True),
@@ -322,20 +336,14 @@ def validate_candidate(
     if candidate["strategy_id"] != strategy_id:
         errors.append("STRATEGY_ID_MISMATCH")
 
-    expected = {
-        item["fact_id"]: item["source_value_sha256"]
-        for item in source_fact_specs(semantic_record)
-    }
+    expected = {item["fact_id"] for item in source_fact_specs(semantic_record)}
     evidence_items = candidate["fact_evidence"]
     actual_ids = [item["fact_id"] for item in evidence_items]
     if len(actual_ids) != len(set(actual_ids)):
         errors.append("FACT_ID_DUPLICATE")
-    if set(actual_ids) != set(expected):
+    if set(actual_ids) != expected:
         errors.append("FACT_SET_MISMATCH")
     for item in evidence_items:
-        fact_id = item["fact_id"]
-        if fact_id in expected and item["source_value_sha256"] != expected[fact_id]:
-            errors.append("FACT_VALUE_HASH_MISMATCH")
         if item["evidence_text"] not in candidate["user_submission"]:
             errors.append("EVIDENCE_SPAN_MISSING")
 
@@ -389,6 +397,16 @@ def build_variant_record(
                 "role": "assistant",
                 "content": parent_language["conversation"][1]["content"],
             },
+        ],
+        "fact_evidence": [
+            {
+                **item,
+                "source_value_sha256": {
+                    fact["fact_id"]: fact["source_value_sha256"]
+                    for fact in source_fact_specs(semantic_record)
+                }[item["fact_id"]],
+            }
+            for item in candidate["fact_evidence"]
         ],
         "alignment": parent_language["alignment"],
         "generation_provenance": {
