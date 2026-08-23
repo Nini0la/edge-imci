@@ -39,6 +39,7 @@ Deterministic checks are a screening layer, not final language approval.
 - The Azure Foundry v1 Responses adapter, structured-output compatibility layer, secret-safe authentication setup and bounded one-unit executor are implemented.
 - The Azure executor persists a `REQUESTED` receipt before network I/O and leaves ambiguous provider failures for reconciliation.
 - Azure execution remains blocked by its checked-in provider configuration. Deployment `gpt-4.1`, model `gpt-4.1`, snapshot `2025-04-14` and API-key environment names are project-owner supplied and pinned; the attempt ceiling, budget and remote-call authorization remain unresolved.
+- Six canary cases are deterministically selected across complete/incomplete, urgent/non-urgent, stateful and all-pathway strata, producing 12 unauthorized source requests across the two prompt strategies.
 - The request builder excludes encounter provenance fields from teacher-renderable facts.
 - The teacher payload excludes the frozen assistant response, classifications, actions, target urgency language, evaluator traces, rule IDs and source hashes.
 - Source-value hashes are attached internally only after candidate validation.

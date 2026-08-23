@@ -1,0 +1,55 @@
+{
+  "selection_id": "edge-imci-holistic-teacher-canary-selection-v1",
+  "selection_version": "1.0.0",
+  "status": "SELECTED_NOT_AUTHORIZED_FOR_REMOTE_CALLS",
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "teacher_bakeoff_config_sha256": "469510200095527736bd7e93b05f33f3d83fb185e9396e9389b2d315ffa14814",
+    "language_variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0"
+  },
+  "prompt_strategy_ids": [
+    "phc-concise-complete-v1",
+    "phc-natural-complete-v1"
+  ],
+  "strata": [
+    {
+      "stratum_id": "COMPLETE_EXPLICIT_NEGATIVE_BASELINE",
+      "selection_rule": "Lowest case ID tagged complete + low_severity + explicit_negative",
+      "selected_case_id": "hpg-001-all-negative",
+      "purpose": "Shortest complete baseline with explicit negative pathway entry findings"
+    },
+    {
+      "stratum_id": "COMPLETE_STATEFUL_REASSESSMENT",
+      "selection_rule": "Lowest case ID tagged complete + bronchodilator_reassessment + complete_post_reassessment",
+      "selected_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "purpose": "Pre-treatment and post-treatment measurements in one stateful respiratory assessment"
+    },
+    {
+      "stratum_id": "COMPLETE_NONURGENT_ALL_PATHWAYS",
+      "selection_rule": "Highest known-observation count among complete + all_pathways cases without urgent action; tie by case ID",
+      "selected_case_id": "hpg-068-cross-four-pathways",
+      "purpose": "Longest non-urgent whole-encounter synthesis across all four supported pathways"
+    },
+    {
+      "stratum_id": "COMPLETE_URGENT_ALL_PATHWAYS",
+      "selection_rule": "Highest known-observation count among complete + all_pathways cases with urgent action; tie by case ID",
+      "selected_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "purpose": "Urgent finding plus complete holistic assessment and simultaneous classifications"
+    },
+    {
+      "stratum_id": "INCOMPLETE_MULTIGROUP",
+      "selection_rule": "Highest known-observation count among cases tagged incomplete + multiple_omissions; tie by case ID",
+      "selected_case_id": "hpg-072-incomplete-multiple-groups",
+      "purpose": "Unknown preservation across multiple incomplete assessment groups"
+    },
+    {
+      "stratum_id": "INCOMPLETE_URGENT",
+      "selection_rule": "Lowest case ID tagged incomplete + urgent_incomplete",
+      "selected_case_id": "hpg-073-incomplete-known-urgent",
+      "purpose": "Known urgent finding while final holistic synthesis remains withheld"
+    }
+  ],
+  "selected_case_count": 6,
+  "expected_request_count": 12,
+  "remote_calls_authorized": false
+}

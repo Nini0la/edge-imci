@@ -59,6 +59,8 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, a
 | `configs/generation/holistic_language_variant_review_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/holistic_teacher_bakeoff_schedule_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/holistic_teacher_bakeoff_selection_policy_v1.json` | `.yaml` sibling | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` |
+| `configs/generation/holistic_teacher_canary_selection_v1.json` | `.yaml` sibling | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` |
+| `configs/generation/holistic_teacher_canary_selection_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/azure_foundry_teacher_execution_v1.json` | `.yaml` sibling | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/azure_foundry_teacher_execution_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
