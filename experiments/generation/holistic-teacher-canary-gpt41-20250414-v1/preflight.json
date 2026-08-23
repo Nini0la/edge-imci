@@ -1,0 +1,57 @@
+{
+  "preflight_schema_id": "edge-imci-holistic-teacher-canary-preflight-v1",
+  "generation_run_id": "holistic-teacher-canary-gpt41-20250414-v1",
+  "status": "VALIDATED_NOT_STARTED",
+  "validated_at": "2026-08-23T06:07:16Z",
+  "approval": {
+    "project_owner": "Niniola Adegboyega",
+    "approval_basis": "Project owner instructed Codex to proceed with the described step-4 immutable schedule",
+    "variant_contract_approved_for_canary": true,
+    "remote_calls_authorized_for_schedule": true,
+    "execution_not_started": true
+  },
+  "source_pins": {
+      "source_git_commit": "260c8a33cf5d8b51aa90e0db6d01ee8a7b9e335e",
+    "canary_selection_sha256": "715ff5cb225b814f675c5d2fef30ff0bc3535b80c4ca63510b45e0d4faed9eae",
+    "azure_execution_template_sha256": "d2209158c3689f0f733e42a68e81dc31a8a70e3cf4ad979e3726e54cbdcbfe77",
+    "azure_execution_schema_sha256": "490e686140dbd2c159a23bd90d09c39507807e7119400eb3e0d941c5d8b7c2c8",
+    "schedule_schema_sha256": "2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437"
+  },
+  "artifact_hashes": {
+    "azure_execution_config_sha256": "0c99b40c80eca2a44f4f8d7b25a38734b7c487811f46be8f27a3cc7ab4d93404",
+    "schedule_sha256": "633eff32934f2073ce9afe7b362f8a6adb1c4472ddeed20ad467acc219998500"
+  },
+  "environment_checks": {
+    "env_file_present": true,
+    "env_file_mode": "0600",
+    "required_variable_names_present": [
+      "AZURE_OPENAI_API_KEY",
+      "AZURE_OPENAI_BASE_URL"
+    ],
+    "base_url_valid": true,
+    "secret_values_persisted": false
+  },
+  "exposure": {
+    "selected_case_count": 6,
+    "configuration_count": 2,
+    "scheduled_attempt_count": 12,
+    "attempts_started": 0,
+    "maximum_remote_attempts": 12,
+    "budget_currency": "USD",
+    "maximum_budget": 1.0,
+    "accounted_spend": 0.0,
+    "reservation_per_attempt": 0.02,
+    "maximum_reserved_total": 0.24,
+    "reservation_kind": "CONSERVATIVE_EXECUTION_RESERVATION_NOT_BILLING_EVIDENCE"
+  },
+  "checks": {
+    "selection_valid": true,
+    "two_strategies_per_case": true,
+    "request_hashes_valid": true,
+    "teacher_target_blind": true,
+    "deployment_snapshot_pinned": true,
+    "provider_storage_disabled": true,
+    "sdk_automatic_retries_disabled": true,
+    "ambiguous_outcomes_require_reconciliation": true
+  }
+}
