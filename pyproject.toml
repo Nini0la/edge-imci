@@ -17,6 +17,7 @@ edgeimci-experiments = "edge_imci.experiments.cli:main"
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 models = ["mlx-lm==0.31.3"]
+azure = ["openai>=1.66.0", "azure-identity>=1.17.0"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/edge_imci"]

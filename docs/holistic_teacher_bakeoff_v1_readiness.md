@@ -36,6 +36,9 @@ Deterministic checks are a screening layer, not final language approval.
 - The blind human-review schema, proposed selection policy and stable scoring anchors exist.
 - An authorized immutable schedule can be constructed once the approval gate is satisfied.
 - Resume state is derived without automatic semantic retries or duplicate retries of uncertain provider requests.
+- The Azure Foundry v1 Responses adapter, structured-output compatibility layer, secret-safe authentication setup and bounded one-unit executor are implemented.
+- The Azure executor persists a `REQUESTED` receipt before network I/O and leaves ambiguous provider failures for reconciliation.
+- Azure execution remains blocked by its checked-in provider configuration. Deployment `gpt-4.1`, model `gpt-4.1`, snapshot `2025-04-14` and API-key environment names are project-owner supplied and pinned; the attempt ceiling, budget and remote-call authorization remain unresolved.
 - The request builder excludes encounter provenance fields from teacher-renderable facts.
 - The teacher payload excludes the frozen assistant response, classifications, actions, target urgency language, evaluator traces, rule IDs and source hashes.
 - Source-value hashes are attached internally only after candidate validation.
@@ -54,6 +57,8 @@ The pilot config remains `BLOCKED_PENDING_TEACHER_BUDGET_AND_REMOTE_CALL_AUTHORI
 - the proposed language-variant contract.
 
 Those decisions must be written into a new versioned run configuration and immutable schedule before calls begin. The infrastructure must not treat an environment credential or an available API as authorization.
+
+The provider-specific fields are recorded in `configs/generation/azure_foundry_teacher_execution_v1.json`. Its checked-in state is `BLOCKED_PENDING_PROJECT_OWNER_AUTHORIZATION`, so the implemented transport cannot be constructed from that file for a real run.
 
 ## After authorization
 

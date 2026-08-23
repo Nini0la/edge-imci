@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/azure_foundry_teacher_execution_v1.schema.json",
+  "title": "EdgeIMCI Azure Foundry teacher execution configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "execution_config_id",
+    "config_version",
+    "status",
+    "remote_calls_authorized",
+    "provider",
+    "api",
+    "base_url_environment",
+    "authentication",
+    "deployments",
+    "limits",
+    "data_handling"
+  ],
+  "properties": {
+    "execution_config_id": {
+      "const": "edge-imci-azure-foundry-teacher-execution-v1"
+    },
+    "config_version": {"const": "1.0.0"},
+    "status": {
+      "enum": [
+        "BLOCKED_PENDING_PROJECT_OWNER_AUTHORIZATION",
+        "AUTHORIZED_FOR_RECORDED_BAKEOFF_ONLY"
+      ]
+    },
+    "remote_calls_authorized": {"type": "boolean"},
+    "provider": {"const": "AZURE_OPENAI"},
+    "api": {"const": "RESPONSES_V1"},
+    "base_url_environment": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]+$"
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "api_key_environment"],
+      "properties": {
+        "mode": {"enum": ["UNRESOLVED", "API_KEY", "ENTRA_ID"]},
+        "api_key_environment": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Z][A-Z0-9_]+$"
+        }
+      }
+    },
+    "deployments": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deployment_name",
+          "model_family",
+          "model_snapshot",
+          "structured_outputs_supported"
+        ],
+        "properties": {
+          "deployment_name": {"type": "string", "minLength": 1},
+          "model_family": {"type": "string", "minLength": 1},
+          "model_snapshot": {"type": "string", "minLength": 1},
+          "structured_outputs_supported": {"const": true}
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_remote_attempts", "maximum_budget_usd"],
+      "properties": {
+        "maximum_remote_attempts": {"type": ["integer", "null"], "minimum": 1},
+        "maximum_budget_usd": {"type": ["number", "null"], "exclusiveMinimum": 0}
+      }
+    },
+    "data_handling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["store_provider_response", "persist_secrets", "persist_full_provider_envelope"],
+      "properties": {
+        "store_provider_response": {"const": false},
+        "persist_secrets": {"const": false},
+        "persist_full_provider_envelope": {"const": false}
+      }
+    }
+  }
+}
