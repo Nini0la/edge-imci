@@ -11,10 +11,21 @@
       "hypothesis": "A controlled teacher and prompt comparison can identify a source-faithful whole-encounter rendering recipe.",
       "decision_question": "Which teacher and rendering strategy should be used for the first controlled corpus?",
       "branch_id": "teacher-prompt-bakeoff",
-      "prerequisites": ["Human domain approval and freeze of the holistic golden semantic slice"],
+      "prerequisites": ["Approved and frozen holistic semantic and canonical language layers", "Approval of the controlled holistic language-variant contract"],
       "branch_trigger": null,
-      "material_configuration": {"semantic_unit": "WHOLE_ENCOUNTER", "shared_slice_size_range": [50, 100], "teacher_candidates": "UNRESOLVED", "prompt_strategies": "UNRESOLVED"},
-      "reproducibility": {"required_reference_kinds": ["CONFIG", "MODEL", "DATASET", "PROMPT", "VALIDATOR"], "references": [], "unresolved_inputs": ["approved frozen semantic slice", "teacher snapshots", "prompt versions", "validator version", "bake-off config"]},
+      "material_configuration": {"semantic_unit": "WHOLE_ENCOUNTER", "shared_slice_size_range": [78, 78], "teacher_candidates": "UNRESOLVED", "prompt_strategies": ["phc-concise-complete-v1", "phc-natural-complete-v1"], "teacher_output": "USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY", "assistant_target": "ATTACH_FROZEN_CANONICAL_RESPONSE"},
+      "reproducibility": {
+        "required_reference_kinds": ["CONFIG", "MODEL", "DATASET", "PROMPT", "VALIDATOR"],
+        "references": [
+          {"reference_kind": "CONFIG", "reference_id": "holistic-teacher-bakeoff-v1-config", "version": "1.0.0", "location": "configs/generation/holistic_teacher_bakeoff_v1.json", "sha256": "f489cff451baec81d173fcbf0098f013e8c43b5cd8c019c3edd37509795d2a81", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-v1-semantics", "version": "1.0.0", "location": "data/golden/holistic_product_v1/semantic_cases.jsonl", "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-language-v1", "version": "1.0.0", "location": "data/golden/holistic_product_v1/language_renderings_v1.jsonl", "sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "PROMPT", "reference_id": "edge-imci-phc-concise-complete", "version": "1.0.0", "location": "prompts/holistic_language_variants/phc_concise_complete_v1.txt", "sha256": "b402f62256788cc4ca962d04319ce74bff52014d1e3019191be20f88ffc9c6b1", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "PROMPT", "reference_id": "edge-imci-phc-natural-complete", "version": "1.0.0", "location": "prompts/holistic_language_variants/phc_natural_complete_v1.txt", "sha256": "8ce3536e5cbe4fe1352b90c3ea0fc45e609e515f93af0960ac828c41d8c11f87", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "VALIDATOR", "reference_id": "edge-imci-holistic-language-variant-validator-v1", "version": "1.0.0", "location": "src/edge_imci/generation/holistic_variants.py", "sha256": "fecbd465d88eb26cecd627cd4e04f8e79976355bbc5e6cf7b428d0cf6a0fd194", "remote_only": false, "role": "EVALUATOR"}
+        ],
+        "unresolved_inputs": ["controlled variant contract approval", "teacher candidates and immutable snapshots", "provider and credential context", "remote-call authorization", "budget or credit limit", "sampling and output-token configuration"]
+      },
       "evidence": [
         {"evidence_id": "generation_acceptance", "evidence_class": "SCIENTIFIC", "applicability": "APPLICABLE", "artifact_ref": null},
         {"evidence_id": "semantic_error_distribution", "evidence_class": "SCIENTIFIC", "applicability": "APPLICABLE", "artifact_ref": null},

@@ -15,11 +15,11 @@ A whole-encounter request contains the full relevant child context - for example
 | Component | Responsibility |
 | --- | --- |
 | Deterministic oracle | Defines semantic truth: required classifications, actions, completeness/withholding and urgent handling. |
-| Teacher model | Primarily converts the approved semantics into realistic PHC-worker language and an integrated target response. |
+| Teacher model | Converts the approved semantics into realistic PHC-worker language within the boundary fixed by the selected rendering strategy. |
 | Validator | Checks semantic fidelity, required content and detectable rendering failures; returns pass/fail plus error codes. |
 | Student evaluation | Determines whether a generation recipe ultimately improves the trained EdgeIMCI model; validator acceptance is an intermediate proxy. |
 
-*A bake-off may compare a single teacher call that renders both sides with a more controlled two-stage rendering path. In either design, the complete encounter remains available so the language stays internally coherent.*
+*The first controlled bake-off uses the safer two-stage path: the teacher renders only a complete PHC-worker submission plus fact-evidence annotations, and the system attaches the approved frozen assistant response and semantic alignment exactly. This avoids paying a teacher to rewrite an already reviewed target and prevents assistant-side semantic drift. A later experiment may compare a teacher-rendered target only after separate approval. In every design, the complete encounter remains the semantic unit.*
 
 ## 2. Experiment definition and campaign
 
@@ -111,7 +111,8 @@ Do not hard-code provider prices into the experiment record. Retain actual input
 
 ## 8. Gates and next actions
 
-- Freeze the holistic golden semantic slice and validator version for the first bake-off.
+- Use the frozen holistic semantic and language layers as the source for the first bake-off; pin the controlled-variant contract, prompts, schemas and validator.
+- Keep teacher selection, immutable model snapshots, remote-call authorization, sampling settings and a budget/credit ceiling as explicit run gates.
 - Run teacher/prompt comparisons on identical cases; review both validator outcomes and language quality.
 - Select a recipe only after stable acceptance, no systematic semantic corruption and sensible cost/throughput.
 - Generate the fast approximately 1k corpus and start Qwen3-1.7B SFT-v1 on Modal.

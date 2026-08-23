@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/holistic_teacher_attempt_v1.schema.json",
+  "title": "EdgeIMCI teacher generation attempt record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attempt_schema_id",
+    "generation_run_id",
+    "attempt_id",
+    "request_id",
+    "configuration_id",
+    "semantic_case_id",
+    "status",
+    "teacher",
+    "prompt",
+    "generation_parameters",
+    "request_sha256",
+    "requested_at",
+    "completed_at",
+    "raw_response",
+    "candidate",
+    "validation",
+    "usage"
+  ],
+  "properties": {
+    "attempt_schema_id": {
+      "const": "edge-imci-holistic-teacher-attempt-v1"
+    },
+    "generation_run_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "request_id": {"type": "string", "minLength": 1},
+    "configuration_id": {"type": "string", "minLength": 1},
+    "semantic_case_id": {"type": "string", "pattern": "^hpg-[0-9]{3}-.+$"},
+    "status": {
+      "enum": [
+        "REQUESTED",
+        "TRANSPORT_FAILED",
+        "PARSE_FAILED",
+        "DETERMINISTIC_REJECTED",
+        "PENDING_HUMAN_REVIEW",
+        "APPROVED_CORPUS_CANDIDATE",
+        "REJECTED_BY_REVIEW"
+      ]
+    },
+    "teacher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "snapshot"],
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "snapshot": {"type": "string", "minLength": 1}
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy_id", "prompt_id", "prompt_version", "prompt_sha256"],
+      "properties": {
+        "strategy_id": {"type": "string", "minLength": 1},
+        "prompt_id": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "generation_parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sampling_config", "max_output_tokens"],
+      "properties": {
+        "sampling_config": {"type": "object", "minProperties": 1},
+        "max_output_tokens": {"type": "integer", "minimum": 1}
+      }
+    },
+    "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "raw_response": {"type": ["string", "null"]},
+    "candidate": {
+      "anyOf": [
+        {"$ref": "holistic_language_variant_candidate_v1.schema.json"},
+        {"type": "null"}
+      ]
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deterministic_pass", "error_codes", "requires_human_semantic_review"],
+      "properties": {
+        "deterministic_pass": {"type": "boolean"},
+        "error_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "requires_human_semantic_review": {"const": true}
+      }
+    },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "cached_input_tokens",
+        "latency_ms",
+        "retry_count",
+        "provider_request_id",
+        "raw_usage"
+      ],
+      "properties": {
+        "input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "output_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "cached_input_tokens": {"type": ["integer", "null"], "minimum": 0},
+        "latency_ms": {"type": ["integer", "null"], "minimum": 0},
+        "retry_count": {"type": "integer", "minimum": 0},
+        "provider_request_id": {"type": ["string", "null"]},
+        "raw_usage": {"type": ["object", "null"]}
+      }
+    }
+  }
+}

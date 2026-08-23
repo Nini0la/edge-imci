@@ -51,6 +51,11 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, a
 | `configs/rendering/edgeimci_response_grammar_v1.json` | `.yaml` sibling | `APPROVED_PRODUCT_POLICY` | `CURRENT` |
 | `data/golden/holistic_product_v1/language_calibration_v1.jsonl` | `language_calibration_v1.yaml` | `REVIEW_RECORD` | `FROZEN` |
 | `data/golden/holistic_product_v1/language_renderings_v1.jsonl` | `language_renderings_v1.yaml` | `REVIEW_RECORD` | `FROZEN` |
+| `configs/generation/holistic_language_variant_contract_v1.json` | `.yaml` sibling | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` |
+| `configs/generation/holistic_teacher_bakeoff_v1.json` | `.yaml` sibling | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` |
+| `configs/generation/holistic_language_variant_candidate_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
+| `configs/generation/holistic_language_variant_record_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
+| `configs/generation/holistic_teacher_attempt_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
 
 The frozen holistic golden suite is the approved semantic target for the bounded hackathon scope. Its approval artifact authorizes specified research uses but explicitly excludes direct training and production clinical use.
@@ -93,6 +98,8 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `experimental_campaign_map.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
 | `synthetic_data_generation_experiment_plan.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
 | `synthetic_data_generation_experiment_notes.md` | `EXPLORATORY_NOTES` | `CURRENT` | Generation hypotheses and options; never a clinical or product decision. |
+| `holistic_language_variant_contract_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed controlled input-language variation boundary; does not authorize model calls or training. |
+| `holistic_teacher_bakeoff_v1_readiness.md` | `IMPLEMENTATION_REFERENCE` | `CURRENT` | Records the no-generation readiness state and the explicit teacher, budget and remote-call gate. |
 | `information_policy_proposal.md` | `REVIEW_RECORD` | `ARCHIVED` | Selected-v0 design record. |
 | `information_policy_v1.md` | `IMPLEMENTATION_REFERENCE` | `ARCHIVED` | Selected-v0 deterministic policy reference. |
 | `trajectory_schema.md` | `IMPLEMENTATION_REFERENCE` | `ARCHIVED` | Selected-v0 trajectory/reference-rendering schema. |

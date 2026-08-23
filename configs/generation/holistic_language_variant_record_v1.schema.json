@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/holistic_language_variant_record_v1.schema.json",
+  "title": "EdgeIMCI controlled holistic language variant record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema_id",
+    "variant_id",
+    "semantic_case_id",
+    "status",
+    "parent_source",
+    "conversation",
+    "alignment",
+    "generation_provenance",
+    "validation",
+    "review",
+    "eligibility"
+  ],
+  "properties": {
+    "record_schema_id": {
+      "const": "edge-imci-holistic-language-variant-record-v1"
+    },
+    "variant_id": {
+      "type": "string",
+      "pattern": "^hpg-[0-9]{3}-.+__.+__v[0-9]+$"
+    },
+    "semantic_case_id": {
+      "type": "string",
+      "pattern": "^hpg-[0-9]{3}-.+$"
+    },
+    "status": {
+      "enum": ["PENDING_HUMAN_REVIEW", "APPROVED_CORPUS_CANDIDATE", "REJECTED"]
+    },
+    "parent_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_cases_sha256",
+        "frozen_language_renderings_sha256",
+        "parent_rendering_id"
+      ],
+      "properties": {
+        "semantic_cases_sha256": {
+          "const": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f"
+        },
+        "frozen_language_renderings_sha256": {
+          "const": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0"
+        },
+        "parent_rendering_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "conversation": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "prefixItems": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["role", "content"],
+          "properties": {
+            "role": {"const": "user"},
+            "content": {"type": "string", "minLength": 20}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["role", "content"],
+          "properties": {
+            "role": {"const": "assistant"},
+            "content": {"type": "string", "minLength": 1}
+          }
+        }
+      ],
+      "items": false
+    },
+    "alignment": {
+      "type": "object"
+    },
+    "generation_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generation_run_id",
+        "attempt_id",
+        "teacher_provider",
+        "teacher_model",
+        "teacher_snapshot",
+        "strategy_id",
+        "prompt_id",
+        "prompt_version",
+        "prompt_sha256",
+        "request_sha256",
+        "renderer_git_commit",
+        "generated_at",
+        "variant_contract_id",
+        "validator_id"
+      ],
+      "properties": {
+        "generation_run_id": {"type": "string", "minLength": 1},
+        "attempt_id": {"type": "string", "minLength": 1},
+        "teacher_provider": {"type": "string", "minLength": 1},
+        "teacher_model": {"type": "string", "minLength": 1},
+        "teacher_snapshot": {"type": "string", "minLength": 1},
+        "strategy_id": {"type": "string", "minLength": 1},
+        "prompt_id": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "renderer_git_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "variant_contract_id": {
+          "const": "edge-imci-holistic-language-variant-contract-v1"
+        },
+        "validator_id": {
+          "const": "edge-imci-holistic-language-variant-validator-v1"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deterministic_pass",
+        "error_codes",
+        "requires_human_semantic_review"
+      ],
+      "properties": {
+        "deterministic_pass": {"type": "boolean"},
+        "error_codes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "requires_human_semantic_review": {"const": true}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_faithfulness", "naturalness", "phc_suitability", "reviewer"],
+      "properties": {
+        "semantic_faithfulness": {"enum": ["PENDING", "APPROVED", "REJECTED"]},
+        "naturalness": {"enum": ["PENDING", "APPROVED", "REJECTED"]},
+        "phc_suitability": {"enum": ["PENDING", "APPROVED_FOR_HACKATHON", "REJECTED"]},
+        "reviewer": {"type": ["string", "null"]}
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["teacher_bakeoff", "corpus_candidate", "training"],
+      "properties": {
+        "teacher_bakeoff": {"type": "boolean"},
+        "corpus_candidate": {"type": "boolean"},
+        "training": {"const": false}
+      }
+    }
+  }
+}

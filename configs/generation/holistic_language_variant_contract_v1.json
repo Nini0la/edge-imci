@@ -1,0 +1,82 @@
+{
+  "contract_id": "edge-imci-holistic-language-variant-contract-v1",
+  "status": "PROPOSED_FOR_PROJECT_OWNER_REVIEW",
+  "authority": "WORKING_PLAN",
+  "semantic_unit": "WHOLE_ENCOUNTER",
+  "source_pins": {
+    "semantic_suite_id": "edge-imci-holistic-product-golden-v1",
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "language_suite_id": "edge-imci-holistic-product-golden-language-v1",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "response_grammar_id": "edge-imci-response-grammar-v1",
+    "response_grammar_sha256": "1fd793607f077cd4d44a9cf73349803d32ef1e69e3aab82d00fe0bda330f4873"
+  },
+  "generation_boundary": {
+    "teacher_generates": [
+      "PHC_WORKER_USER_SUBMISSION",
+      "FACT_EVIDENCE_SPANS"
+    ],
+    "system_attaches_from_frozen_source": [
+      "CANONICAL_ASSISTANT_RESPONSE",
+      "SEMANTIC_ALIGNMENT",
+      "SOURCE_HASHES"
+    ],
+    "teacher_must_not_generate": [
+      "CLINICAL_SEMANTICS",
+      "CLASSIFICATIONS",
+      "ACTIONS",
+      "URGENCY",
+      "MISSING_ELEMENTS",
+      "ACQUISITION_MODES",
+      "CONTRADICTIONS",
+      "SCOPE_DISPOSITION"
+    ]
+  },
+  "allowed_input_variation": [
+    "CONNECTED_PHC_PROSE",
+    "SENTENCE_STRUCTURE",
+    "DOMAIN_ORDER_WHERE_COHERENT",
+    "CONCISE_OR_NATURAL_COMPLETE_STYLE"
+  ],
+  "forbidden_variation": [
+    "FACT_ADDITION",
+    "FACT_OMISSION",
+    "VALUE_CHANGE",
+    "UNKNOWN_TO_NEGATIVE",
+    "ACQUISITION_MODE_CHANGE",
+    "CLINICAL_SHORTHAND_NOT_EXPLICITLY_APPROVED",
+    "ASSISTANT_TARGET_REWRITING",
+    "INTERNAL_IDENTIFIER_LEAKAGE"
+  ],
+  "validation_policy": {
+    "deterministic_checks": [
+      "SCHEMA_VALID",
+      "SOURCE_PINS_MATCH",
+      "KNOWN_FACT_SET_EXACT",
+      "SOURCE_VALUE_HASHES_MATCH",
+      "EVIDENCE_SPANS_PRESENT",
+      "CANONICAL_ASSISTANT_ATTACHED_EXACTLY",
+      "SEMANTIC_ALIGNMENT_ATTACHED_EXACTLY",
+      "NO_INTERNAL_IDENTIFIERS",
+      "NOT_DUPLICATE_OF_CANONICAL_USER_SUBMISSION"
+    ],
+    "deterministic_pass_is_final_acceptance": false,
+    "human_semantic_review_required_for_pilot": true,
+    "training_eligibility_before_dataset_approval": false
+  },
+  "no_waste_policy": {
+    "mock_teacher_allowed": false,
+    "persist_test_mutations": false,
+    "teacher_called_during_infrastructure_validation": false,
+    "winning_pilot_outputs_may_be_promoted": true,
+    "losing_or_rejected_outputs_are_not_training_eligible": true,
+    "semantic_rejection_auto_retry": false,
+    "transport_retry_limit": 1
+  },
+  "schemas": {
+    "teacher_candidate": "configs/generation/holistic_language_variant_candidate_v1.schema.json",
+    "variant_record": "configs/generation/holistic_language_variant_record_v1.schema.json",
+    "attempt_record": "configs/generation/holistic_teacher_attempt_v1.schema.json"
+  },
+  "scope_note": "This contract governs controlled language variation for the bounded hackathon. It is not a clinical rule, does not authorize remote calls or spending, and does not make any generated record training eligible."
+}

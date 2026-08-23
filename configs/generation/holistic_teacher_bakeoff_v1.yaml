@@ -1,0 +1,63 @@
+# Generated from configs/generation/holistic_teacher_bakeoff_v1.json; edit canonical JSON.
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+config_version: 1.0.0
+status: BLOCKED_PENDING_TEACHER_BUDGET_AND_REMOTE_CALL_AUTHORIZATION
+mock_teacher: false
+actual_generation_authorized: false
+variant_contract_id: edge-imci-holistic-language-variant-contract-v1
+source:
+  semantic_cases_path: data/golden/holistic_product_v1/semantic_cases.jsonl
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  language_renderings_path: data/golden/holistic_product_v1/language_renderings_v1.jsonl
+  language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  case_selector: ALL_FROZEN_PRODUCT_LANGUAGE_CASES
+  case_count: 78
+artifact_pins:
+- artifact_kind: CONTRACT
+  path: configs/generation/holistic_language_variant_contract_v1.json
+  sha256: adf97a7767bfeaca59ec9219af5f6c7c315e06d3bc7a80d299e5a229380bd54f
+- artifact_kind: CANDIDATE_SCHEMA
+  path: configs/generation/holistic_language_variant_candidate_v1.schema.json
+  sha256: 3888a1d3de54042e4271d0c2821f2eb7d771d355a5a83050e1df2639e4ed3f41
+- artifact_kind: VARIANT_RECORD_SCHEMA
+  path: configs/generation/holistic_language_variant_record_v1.schema.json
+  sha256: 2c820034ed8362151ea42d372acd50a8f6b5a93830181a0843267c2f657247e0
+- artifact_kind: ATTEMPT_SCHEMA
+  path: configs/generation/holistic_teacher_attempt_v1.schema.json
+  sha256: 407b76ee6b19457a39e4c2613e35febfab8bcf61f47a3f73b9326344ba2326a7
+- artifact_kind: VALIDATOR
+  path: src/edge_imci/generation/holistic_variants.py
+  sha256: fecbd465d88eb26cecd627cd4e04f8e79976355bbc5e6cf7b428d0cf6a0fd194
+teacher_models: []
+prompt_strategies:
+- strategy_id: phc-concise-complete-v1
+  prompt_id: edge-imci-phc-concise-complete
+  prompt_version: 1.0.0
+  prompt_path: prompts/holistic_language_variants/phc_concise_complete_v1.txt
+  prompt_sha256: b402f62256788cc4ca962d04319ce74bff52014d1e3019191be20f88ffc9c6b1
+  teacher_output: USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY
+  assistant_target: ATTACH_FROZEN_CANONICAL_RESPONSE
+- strategy_id: phc-natural-complete-v1
+  prompt_id: edge-imci-phc-natural-complete
+  prompt_version: 1.0.0
+  prompt_path: prompts/holistic_language_variants/phc_natural_complete_v1.txt
+  prompt_sha256: 8ce3536e5cbe4fe1352b90c3ea0fc45e609e515f93af0960ac828c41d8c11f87
+  teacher_output: USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY
+  assistant_target: ATTACH_FROZEN_CANONICAL_RESPONSE
+generation:
+  variants_per_case_per_configuration: 1
+  semantic_rejection_auto_retry: false
+  transport_retry_limit: 1
+  sampling: UNRESOLVED_WITH_TEACHER_SELECTION
+  max_output_tokens: UNRESOLVED_WITH_TEACHER_SELECTION
+promotion_policy:
+  winning_configuration_deterministic_passes_reusable: true
+  human_semantic_review_required: true
+  training_eligible: false
+  dataset_approval_required: true
+unresolved_authorizations:
+- TEACHER_CANDIDATES_AND_IMMUTABLE_SNAPSHOTS
+- PROVIDER_AND_CREDENTIAL_CONTEXT
+- REMOTE_MODEL_CALLS
+- BUDGET_OR_CREDIT_LIMIT
+- SAMPLING_CONFIG
