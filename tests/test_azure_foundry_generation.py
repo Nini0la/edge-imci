@@ -191,12 +191,20 @@ def test_base_url_normalization_rejects_credentials_and_non_v1_paths() -> None:
     expected = "https://edgeimci.openai.azure.com/openai/v1/"
     assert normalize_azure_v1_base_url("https://edgeimci.openai.azure.com") == expected
     assert normalize_azure_v1_base_url(expected) == expected
+    project = "https://fixture.services.ai.azure.com/api/projects/edgeimci"
+    project_v1 = project + "/openai/v1/"
+    assert normalize_azure_v1_base_url(project) == project_v1
+    assert normalize_azure_v1_base_url(project_v1) == project_v1
     with pytest.raises(ValueError):
         normalize_azure_v1_base_url("http://edgeimci.openai.azure.com")
     with pytest.raises(ValueError):
         normalize_azure_v1_base_url("https://user:secret@edgeimci.openai.azure.com")
     with pytest.raises(ValueError):
         normalize_azure_v1_base_url("https://edgeimci.openai.azure.com/openai/deployments")
+    with pytest.raises(ValueError):
+        normalize_azure_v1_base_url("https://fixture.services.ai.azure.com/models")
+    with pytest.raises(ValueError):
+        normalize_azure_v1_base_url("https://example.com/openai/v1")
 
 
 def test_payload_uses_blind_prompt_store_false_and_azure_schema_subset() -> None:

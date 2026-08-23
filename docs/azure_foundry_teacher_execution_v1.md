@@ -30,9 +30,10 @@ The execution configuration does not contain secrets. It stores only environment
 
 ## Azure API contract
 
-The adapter uses the Azure OpenAI v1 Responses API:
+The adapter uses the Azure OpenAI-compatible v1 Responses API through either supported Azure endpoint family:
 
-- base URL: `https://<resource>.openai.azure.com/openai/v1/`;
+- Azure OpenAI resource: `https://<resource>.openai.azure.com/openai/v1/`; or
+- Foundry project: `https://<resource>.services.ai.azure.com/api/projects/<project>/openai/v1/`;
 - `model`: the Azure deployment name resolved from the authorized execution configuration;
 - `input`: the blind teacher prompt already built by `holistic_variants.py`;
 - `store`: `false`;
@@ -50,7 +51,7 @@ The execution configuration supports:
 
 The project owner selected `API_KEY` for this bake-off. `UNRESOLVED` remains an invalid execution state for later configurations.
 
-The resource endpoint is supplied through the configured environment name, currently `AZURE_OPENAI_BASE_URL`. An endpoint with credentials, a query string, a fragment, a non-HTTPS scheme, or a non-v1 path is rejected.
+The resource or project endpoint is supplied through the configured environment name, currently `AZURE_OPENAI_BASE_URL`. A valid Foundry project endpoint may omit the final `/openai/v1/`, which the adapter appends deterministically. An endpoint with credentials, a query string, a fragment, a non-HTTPS scheme, or an unsupported path is rejected.
 
 ## Independent authorization gates
 

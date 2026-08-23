@@ -117,18 +117,34 @@ def require_authorized_execution_config(config: Mapping[str, Any]) -> None:
 
 
 def normalize_azure_v1_base_url(value: str) -> str:
-    """Normalize a resource endpoint to the Azure OpenAI v1 SDK base URL."""
+    """Normalize an Azure OpenAI resource or Foundry project to its v1 base URL."""
 
     parsed = urlsplit(value.strip())
     if parsed.scheme != "https" or not parsed.netloc:
         raise ValueError("Azure OpenAI base URL must be an absolute HTTPS URL")
     if parsed.username or parsed.password or parsed.query or parsed.fragment:
         raise ValueError("Azure OpenAI base URL cannot contain credentials, query, or fragment")
+    host = (parsed.hostname or "").casefold()
     path = parsed.path.rstrip("/")
-    if not path:
-        path = "/openai/v1"
-    elif path != "/openai/v1":
-        raise ValueError("Azure OpenAI base URL path must be empty or /openai/v1")
+    if host.endswith(".openai.azure.com"):
+        if not path:
+            path = "/openai/v1"
+        elif path != "/openai/v1":
+            raise ValueError("Azure OpenAI resource path must be empty or /openai/v1")
+    elif host.endswith(".services.ai.azure.com"):
+        parts = [part for part in path.split("/") if part]
+        if len(parts) == 3 and parts[:2] == ["api", "projects"]:
+            path += "/openai/v1"
+        elif not (
+            len(parts) == 5
+            and parts[:2] == ["api", "projects"]
+            and parts[3:] == ["openai", "v1"]
+        ):
+            raise ValueError(
+                "Foundry project path must be /api/projects/<project> with optional /openai/v1"
+            )
+    else:
+        raise ValueError("unsupported Azure OpenAI or Foundry endpoint host")
     return urlunsplit((parsed.scheme, parsed.netloc, path + "/", "", ""))
 
 
@@ -452,13 +468,23 @@ class OpenAIAzureResponsesTransport:
         if not base_url_value:
             raise RuntimeError(f"missing required environment variable: {base_url_name}")
         base_url = normalize_azure_v1_base_url(base_url_value)
+        project_endpoint = (urlsplit(base_url).hostname or "").endswith(
+            ".services.ai.azure.com"
+        )
         auth = config["authentication"]
         if auth["mode"] == "API_KEY":
             secret_name = auth["api_key_environment"]
             secret = os.environ.get(secret_name)
             if not secret:
                 raise RuntimeError(f"missing required environment variable: {secret_name}")
-            self._client = OpenAI(base_url=base_url, api_key=secret, max_retries=0)
+            client_options: dict[str, Any] = {
+                "base_url": base_url,
+                "api_key": secret,
+                "max_retries": 0,
+            }
+            if project_endpoint:
+                client_options["default_headers"] = {"api-key": secret}
+            self._client = OpenAI(**client_options)
         else:
             try:
                 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
@@ -466,7 +492,7 @@ class OpenAIAzureResponsesTransport:
                 raise RuntimeError("install EdgeIMCI with the 'azure' extra") from exc
             token_provider = get_bearer_token_provider(
                 DefaultAzureCredential(),
-                "https://cognitiveservices.azure.com/.default",
+                "https://ai.azure.com/.default",
             )
             self._client = OpenAI(
                 base_url=base_url,
