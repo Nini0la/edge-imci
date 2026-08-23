@@ -1,7 +1,8 @@
-"""Deterministic first drafts for the complete 78-case golden language layer.
+"""Deterministic, grammar-normalized drafts for the 78-case golden language layer.
 
-The approved 16 calibration conversations are reused exactly. Remaining language
-is a review draft derived from frozen semantics; it cannot alter clinical truth.
+Frozen calibration history is preserved separately. Its user submissions and
+semantic alignments are reused, while all assistant responses return to review
+after deterministic formatting under the approved response grammar.
 """
 
 from __future__ import annotations
@@ -31,10 +32,15 @@ from edge_imci.generation.holistic_language import (
 ROOT = Path(__file__).resolve().parents[3]
 FULL_LANGUAGE_SUITE_ID = "edge-imci-holistic-product-golden-language-v1"
 FULL_LANGUAGE_BUILDER_ID = "edge-imci-holistic-product-golden-language-builder-v1"
+RESPONSE_GRAMMAR_ID = "edge-imci-response-grammar-v1"
+PRE_FORMAT_LANGUAGE_SHA256 = "9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe"
 DEFAULT_LANGUAGE_PATH = ROOT / "data" / "golden" / "holistic_product_v1" / "language_renderings_v1.jsonl"
 DEFAULT_LANGUAGE_YAML_PATH = DEFAULT_LANGUAGE_PATH.with_suffix(".yaml")
 DEFAULT_MANIFEST_PATH = ROOT / "data" / "golden" / "holistic_product_v1" / "language_manifest_v1.json"
 DEFAULT_REVIEW_PATH = ROOT / "docs" / "product_holistic_golden_language_review_v1.md"
+DEFAULT_GRAMMAR_PATH = ROOT / "configs" / "rendering" / "edgeimci_response_grammar_v1.json"
+DEFAULT_GRAMMAR_YAML_PATH = DEFAULT_GRAMMAR_PATH.with_suffix(".yaml")
+DEFAULT_PRE_FORMAT_REVIEW_PATH = ROOT / "docs" / "product_holistic_golden_language_review_v1_report.md"
 
 CLASSIFICATION_LABELS = {
     "VERY_SEVERE_DISEASE": "Very severe disease",
@@ -147,6 +153,43 @@ _CONTRADICTION_CLARIFICATIONS = {
         ("diarrhoea.dehydration.drinking_status", "CLINICIAN_OBSERVATION", "Reassess the diarrhoea-specific drinking response."),
     ),
 }
+
+
+def load_response_grammar() -> dict[str, Any]:
+    grammar = json.loads(DEFAULT_GRAMMAR_PATH.read_text(encoding="utf-8"))
+    expected = {
+        "grammar_id": RESPONSE_GRAMMAR_ID,
+        "status": "APPROVED_FOR_GOLDEN_LANGUAGE_REMEDIATION",
+        "approval_authority": "PROJECT_OWNER",
+    }
+    for key, value in expected.items():
+        if grammar.get(key) != value:
+            raise ValueError(f"incorrect EdgeIMCI response grammar {key}")
+    if grammar.get("semantic_source") != {
+        "suite_id": SEMANTIC_SUITE_ID,
+        "sha256": SEMANTIC_CASES_SHA256,
+    }:
+        raise ValueError("response grammar has incorrect semantic source")
+    pre_format = grammar.get("pre_format_review", {})
+    if pre_format.get("language_renderings_sha256") != PRE_FORMAT_LANGUAGE_SHA256:
+        raise ValueError("response grammar has incorrect pre-format language hash")
+    change_control = grammar.get("change_control", {})
+    if change_control.get("clinical_semantics_changed") is not False:
+        raise ValueError("response grammar must not change clinical semantics")
+    if change_control.get("semantic_alignment_changed") is not False:
+        raise ValueError("response grammar must not change semantic alignment")
+    if change_control.get("full_language_records_return_to_review") is not True:
+        raise ValueError("response grammar must return full-language records to review")
+    if any(
+        change_control.get(key) is not False
+        for key in (
+            "teacher_bakeoff_authorized",
+            "training_authorized",
+            "production_clinical_use_authorized",
+        )
+    ):
+        raise ValueError("response grammar cannot authorize downstream or production use")
+    return grammar
 
 
 def _known_bool(label: str, value: bool | None) -> str | None:
@@ -409,10 +452,35 @@ def _alignment(semantic_record: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _action_sentence(action: str, semantic_record: dict[str, Any]) -> str:
+    encounter = semantic_record.get("input", {}).get("encounter", {})
+    respiratory = encounter.get("respiratory") or {}
+    post_treatment_available = (
+        respiratory.get("bronchodilator_trial_completed") is True
+        and respiratory.get("post_bronchodilator_child_calm") is not None
+    )
+    if post_treatment_available and action == "GIVE_RAPID_ACTING_INHALED_BRONCHODILATOR_TRIAL":
+        return "The rapid-acting inhaled bronchodilator trial was completed."
+    if post_treatment_available and action == "REASSESS_BREATHING_AFTER_BRONCHODILATOR":
+        return "Breathing was reassessed after the bronchodilator trial."
+    return ACTION_SENTENCES[action]
+
+
+def _response_state(expected: dict[str, Any]) -> str:
+    if expected["kind"] == "SCHEMA_REJECTION":
+        return "OUT_OF_SCOPE"
+    evaluation = expected["evaluation"]
+    if evaluation["supported_encounter_complete"]:
+        return "URGENT_COMPLETE" if evaluation["urgent_action_required"] else "COMPLETE"
+    return "URGENT_INCOMPLETE" if evaluation["urgent_action_required"] else "INCOMPLETE"
+
+
 def render_assistant(semantic_record: dict[str, Any]) -> str:
+    load_response_grammar()
     expected = semantic_record["expected"]
     if expected["kind"] == "SCHEMA_REJECTION":
         return (
+            "OUTSIDE SUPPORTED SCOPE\n\n"
             "This encounter is outside the supported EdgeIMCI major sick-child scope, which starts "
             "at 2 completed months and ends before 60 months. I cannot provide a classification or "
             "management plan from this workflow. Use the applicable approved age-specific pathway."
@@ -427,49 +495,66 @@ def render_assistant(semantic_record: dict[str, Any]) -> str:
             CLASSIFICATION_LABELS[item["classification"]]
             for item in evaluation["final_classifications"]
         ]
-        if classifications:
-            label = "Classification" if len(classifications) == 1 else "Classifications"
-            blocks.append(f"{label}: " + "; ".join(classifications) + ".")
-        else:
-            blocks.append(
-                "The supported assessment is complete. None of the currently supported IMCI "
-                "classifications is triggered."
-            )
+        classification_lines = classifications or [
+            "None of the currently supported classifications is triggered."
+        ]
+        blocks.append(
+            "Classifications:\n" + "\n".join(f"- {item}" for item in classification_lines)
+        )
         actions = evaluation["final_actions"]
-        if actions:
-            blocks.append("Management:\n" + "\n".join(f"- {ACTION_SENTENCES[item]}" for item in actions))
-        elif not classifications:
-            blocks[-1] += " No management action is indicated by these pathways."
+        action_lines = [
+            _action_sentence(action, semantic_record) for action in actions
+        ] or ["No management action is indicated by the supported assessment."]
+        management_heading = (
+            "Immediate management:" if evaluation["urgent_action_required"] else "Management:"
+        )
+        blocks.append(
+            management_heading + "\n" + "\n".join(f"- {item}" for item in action_lines)
+        )
         if evaluation["deferred_actions"]:
             blocks.append(
-                "Routine home-care counselling and scheduled follow-up are deferred so they do not "
-                "delay or compete with the urgent referral workflow."
+                "Deferred routine care:\n"
+                "- Routine home-care counselling and scheduled follow-up are deferred so they do "
+                "not delay or compete with the urgent referral workflow."
             )
         return "\n\n".join(blocks)
 
     urgent_actions = evaluation["urgent_actions"]
     if urgent_actions:
-        blocks.append("Immediate actions:\n" + "\n".join(f"- {ACTION_SENTENCES[item]}" for item in urgent_actions))
-    blocks.append(
-        "I cannot provide the final classifications or complete management plan until the remaining "
-        "assessment findings are supplied."
-    )
+        blocks.append(
+            "Immediate management:\n"
+            + "\n".join(
+                f"- {_action_sentence(item, semantic_record)}" for item in urgent_actions
+            )
+        )
+    blocks.append("ASSESSMENT INCOMPLETE")
     requests = [ACQUISITION_SPECS[field][1] for field in _flatten_missing(evaluation["missing_elements"])]
     _, _, clarification_prompts = _clarifications(evaluation)
     if evaluation["contradictions"]:
         blocks.append("Conflicting or invalid findings:\n" + "\n".join(f"- {item}." for item in evaluation["contradictions"]))
     requests.extend(clarification_prompts)
     if requests:
-        prefix = (
-            "While urgent treatment and referral are being arranged, complete these checks quickly:"
+        heading = (
+            "Information still needed:"
             if evaluation["urgent_action_required"]
-            else "Please complete these checks:"
+            else "Information needed:"
         )
-        blocks.append(prefix + "\n" + "\n".join(f"- {item}" for item in requests))
+        blocks.append(heading + "\n" + "\n".join(f"- {item}" for item in requests))
+    if evaluation["urgent_action_required"]:
+        blocks.append(
+            "Complete these checks rapidly, but do not delay referral. The final holistic "
+            "classifications and complete management plan remain pending."
+        )
+    else:
+        blocks.append(
+            "I cannot provide the final classifications and complete management plan until these "
+            "findings are supplied."
+        )
     return "\n\n".join(blocks)
 
 
 def build_full_language_suite() -> list[dict[str, Any]]:
+    load_response_grammar()
     actual_hash = hashlib.sha256(SEMANTIC_JSONL_PATH.read_bytes()).hexdigest()
     if actual_hash != SEMANTIC_CASES_SHA256:
         raise ValueError("frozen semantic suite hash does not match full language pin")
@@ -478,32 +563,36 @@ def build_full_language_suite() -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for semantic in semantics:
         case_id = semantic["golden_case_id"]
+        anchor = anchors.get(case_id)
         if case_id in anchors:
-            anchor = anchors[case_id]
-            conversation = anchor["conversation"]
             alignment = anchor["alignment"]
-            review = anchor["review"]
-            status = "FROZEN"
+            user_content = anchor["conversation"][0]["content"]
+            notes = (
+                "Format-remediated from frozen calibration v1; the user submission and semantic "
+                "alignment are preserved, while the assistant response requires review under the "
+                "approved response grammar."
+            )
         else:
-            conversation = [
-                {"role": "user", "content": render_encounter_input(semantic["input"]["encounter"])},
-                {"role": "assistant", "content": render_assistant(semantic)},
-            ]
-            review = {
-                "semantic_faithfulness": "PENDING",
-                "interaction_quality": "PENDING",
-                "phc_suitability": "PENDING",
-                "reviewer": None,
-                "notes": "",
-            }
             alignment = _alignment(semantic)
-            status = "DRAFT_FOR_HUMAN_REVIEW"
+            user_content = render_encounter_input(semantic["input"]["encounter"])
+            notes = "Requires review under the approved response grammar."
+        conversation = [
+            {"role": "user", "content": user_content},
+            {"role": "assistant", "content": render_assistant(semantic)},
+        ]
+        review = {
+            "semantic_faithfulness": "PENDING",
+            "interaction_quality": "PENDING",
+            "phc_suitability": "PENDING",
+            "reviewer": None,
+            "notes": notes,
+        }
         records.append(
             {
                 "record_schema_id": LANGUAGE_RECORD_SCHEMA_ID,
                 "rendering_id": f"{case_id}-language-v1",
                 "golden_case_id": case_id,
-                "status": status,
+                "status": "DRAFT_FOR_HUMAN_REVIEW",
                 "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
                 "semantic_source": {
                     "suite_id": SEMANTIC_SUITE_ID,
@@ -518,7 +607,97 @@ def build_full_language_suite() -> list[dict[str, Any]]:
     return records
 
 
-def validate_full_language_record(record: dict[str, Any], semantic: dict[str, Any], anchor: dict[str, Any] | None) -> None:
+def validate_response_grammar(record: dict[str, Any], semantic: dict[str, Any]) -> None:
+    load_response_grammar()
+    assistant = record["conversation"][1]["content"]
+    state = _response_state(semantic["expected"])
+    alignment = record["alignment"]
+
+    if state == "OUT_OF_SCOPE":
+        if not assistant.startswith("OUTSIDE SUPPORTED SCOPE\n\n"):
+            raise ValueError("out-of-scope response has incorrect grammar")
+        if "Classifications:" in assistant or "Management:" in assistant:
+            raise ValueError("out-of-scope response must not synthesize classifications or management")
+        return
+
+    if state == "URGENT_COMPLETE" or state == "URGENT_INCOMPLETE":
+        if not assistant.startswith("URGENT: Act now and do not delay referral."):
+            raise ValueError("urgent response must begin with the exact urgent delimiter")
+    elif assistant.startswith("URGENT:"):
+        raise ValueError("non-urgent response must not use the urgent delimiter")
+
+    if state == "COMPLETE" or state == "URGENT_COMPLETE":
+        expected_start = "Classifications:" if state == "COMPLETE" else "\n\nClassifications:"
+        if expected_start not in assistant:
+            raise ValueError("complete response must use the plural classifications heading")
+        for classification in alignment["classifications_covered"]:
+            if f"- {CLASSIFICATION_LABELS[classification]}" not in assistant:
+                raise ValueError(f"response omits classification bullet {classification}")
+        if not alignment["classifications_covered"] and (
+            "- None of the currently supported classifications is triggered." not in assistant
+        ):
+            raise ValueError("no-classification response must use the canonical classification bullet")
+        management_heading = (
+            "Immediate management:" if state == "URGENT_COMPLETE" else "Management:"
+        )
+        if f"\n\n{management_heading}\n" not in assistant:
+            raise ValueError("complete response has incorrect management heading")
+        for action in alignment["actions_covered"]:
+            if f"- {_action_sentence(action, semantic)}" not in assistant:
+                raise ValueError(f"response omits action bullet {action}")
+        if not alignment["actions_covered"] and (
+            "- No management action is indicated by the supported assessment." not in assistant
+        ):
+            raise ValueError("no-action response must use the canonical management bullet")
+        if alignment["deferred_actions_acknowledged"]:
+            if "\n\nDeferred routine care:\n- " not in assistant:
+                raise ValueError("response omits canonical deferred-care section")
+        elif "Deferred routine care:" in assistant:
+            raise ValueError("response invents a deferred-care section")
+        if "ASSESSMENT INCOMPLETE" in assistant:
+            raise ValueError("complete response must not use the incomplete delimiter")
+        return
+
+    if "ASSESSMENT INCOMPLETE" not in assistant:
+        raise ValueError("incomplete response must use the canonical incomplete delimiter")
+    information_heading = (
+        "Information still needed:" if state == "URGENT_INCOMPLETE" else "Information needed:"
+    )
+    if f"\n\n{information_heading}\n" not in assistant:
+        raise ValueError("incomplete response has incorrect information heading")
+    if state == "URGENT_INCOMPLETE":
+        if "\n\nImmediate management:\n" not in assistant:
+            raise ValueError("urgent incomplete response omits immediate management")
+        for action in alignment["actions_covered"]:
+            if f"- {_action_sentence(action, semantic)}" not in assistant:
+                raise ValueError(f"urgent incomplete response omits action bullet {action}")
+    elif "Immediate management:" in assistant:
+        raise ValueError("non-urgent incomplete response invents immediate management")
+    for request in alignment["acquisition_requests"]:
+        field = request["observation_id"]
+        if field in alignment["clarification_targets"]:
+            prompt = next(
+                prompt
+                for observation_id, _, prompt in sum(
+                    (_CONTRADICTION_CLARIFICATIONS[key] for key in alignment["contradictions_covered"]),
+                    (),
+                )
+                if observation_id == field
+            )
+        else:
+            prompt = ACQUISITION_SPECS[field][1]
+        if f"- {prompt}" not in assistant:
+            raise ValueError(f"incomplete response omits acquisition bullet {field}")
+    if alignment["contradictions_covered"]:
+        if "\n\nConflicting or invalid findings:\n" not in assistant:
+            raise ValueError("contradictory response omits conflict heading")
+    elif "Conflicting or invalid findings:" in assistant:
+        raise ValueError("response invents a conflict section")
+
+
+def validate_full_language_record(
+    record: dict[str, Any], semantic: dict[str, Any], anchor: dict[str, Any] | None
+) -> None:
     schema = json.loads(DEFAULT_SCHEMA_PATH.read_text(encoding="utf-8"))
     Draft202012Validator(schema).validate(record)
     expected_alignment = anchor["alignment"] if anchor is not None else _alignment(semantic)
@@ -527,23 +706,30 @@ def validate_full_language_record(record: dict[str, Any], semantic: dict[str, An
     if record["semantic_source"]["golden_case_logic_signature"] != semantic["metadata"]["logic_signature"]:
         raise ValueError("full language record has incorrect case logic signature")
     if anchor is not None:
-        if (
-            record["conversation"] != anchor["conversation"]
-            or record["alignment"] != anchor["alignment"]
-            or record["review"] != anchor["review"]
-        ):
-            raise ValueError("approved calibration anchor changed in the full language layer")
-        if record["status"] != "FROZEN":
-            raise ValueError("approved calibration anchor must remain frozen")
-    elif record["status"] != "DRAFT_FOR_HUMAN_REVIEW":
-        raise ValueError("new full-language records must remain review drafts")
+        if record["conversation"][0] != anchor["conversation"][0]:
+            raise ValueError("format remediation changed a frozen-anchor user submission")
+        if record["alignment"] != anchor["alignment"]:
+            raise ValueError("format remediation changed frozen-anchor semantic alignment")
+    elif record["conversation"][0]["content"] != render_encounter_input(
+        semantic["input"]["encounter"]
+    ):
+        raise ValueError("generated full-language user submission is not deterministic")
+    if record["conversation"][1]["content"] != render_assistant(semantic):
+        raise ValueError("full-language assistant response is not deterministic")
+    if record["status"] != "DRAFT_FOR_HUMAN_REVIEW":
+        raise ValueError("grammar-remediated full-language records must remain review drafts")
+    if any(record["review"][key] != "PENDING" for key in (
+        "semantic_faithfulness",
+        "interaction_quality",
+        "phc_suitability",
+    )):
+        raise ValueError("grammar-remediated full-language records must return to review")
     for turn in record["conversation"]:
         if "IMCI-MSC-" in turn["content"]:
             raise ValueError("user-facing full-language text leaks internal rule IDs")
         if any(action in turn["content"] for action in ACTION_SENTENCES):
             raise ValueError("user-facing full-language text leaks internal action IDs")
-    if record["alignment"]["urgent_action_required"] is True and not record["conversation"][1]["content"].startswith("URGENT:"):
-        raise ValueError("urgent full-language response must lead with urgency")
+    validate_response_grammar(record, semantic)
 
 
 def load_full_language_suite(*, corpus_use: CorpusUse = CorpusUse.DOMAIN_REVIEW) -> list[dict[str, Any]]:
@@ -557,15 +743,15 @@ def load_full_language_suite(*, corpus_use: CorpusUse = CorpusUse.DOMAIN_REVIEW)
 
 
 def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any]:
-    frozen_anchors = sum(record["status"] == "FROZEN" for record in records)
     return {
         "suite_id": FULL_LANGUAGE_SUITE_ID,
         "lifecycle_status": "PROPOSED_FOR_REVIEW",
         "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
         "assets": [str(DEFAULT_LANGUAGE_PATH.relative_to(ROOT)), str(DEFAULT_LANGUAGE_YAML_PATH.relative_to(ROOT))],
         "case_count": len(records),
-        "approved_style_anchor_count": frozen_anchors,
-        "draft_rendering_count": len(records) - frozen_anchors,
+        "frozen_calibration_source_count": 16,
+        "format_remediated_anchor_count": 16,
+        "draft_rendering_count": len(records),
         "semantic_source": {
             "suite_id": SEMANTIC_SUITE_ID,
             "path": str(SEMANTIC_JSONL_PATH.relative_to(ROOT)),
@@ -575,9 +761,16 @@ def _manifest(records: list[dict[str, Any]], content_hash: str) -> dict[str, Any
             "record_schema_id": LANGUAGE_RECORD_SCHEMA_ID,
             "builder_id": FULL_LANGUAGE_BUILDER_ID,
             "style_approval_id": LANGUAGE_APPROVAL_ID,
+            "response_grammar_id": RESPONSE_GRAMMAR_ID,
+        },
+        "pre_format_review": {
+            "report": str(DEFAULT_PRE_FORMAT_REVIEW_PATH.relative_to(ROOT)),
+            "language_renderings_sha256": PRE_FORMAT_LANGUAGE_SHA256,
+            "result": "PASS_WITH_MINOR_FORMATTING_NOTES",
+            "findings_addressed": ["LGR-FR-001", "LGR-FR-002"],
         },
         "language_renderings_sha256": content_hash,
-        "review_status": "62_NEW_RENDERINGS_PENDING_HUMAN_LANGUAGE_REVIEW",
+        "review_status": "78_FORMAT_NORMALIZED_RENDERINGS_PENDING_REVIEW",
         "eligibility": {
             "DOMAIN_REVIEW": True,
             "COMPONENT_VALIDATION": True,
@@ -597,9 +790,13 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
         "",
         "> **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Full language review surface; cannot alter frozen semantics.",
         "",
-        f"**Status:** {len(records)} language records: 16 approved style anchors and 62 new deterministic review drafts.",
+        f"**Status:** {len(records)} grammar-normalized language records pending review. The frozen 16-case calibration remains unchanged as historical evidence.",
         "",
         f"**Frozen semantic source:** `{SEMANTIC_CASES_SHA256}`.",
+        "",
+        f"**Approved response grammar:** `{RESPONSE_GRAMMAR_ID}`.",
+        "",
+        f"**Pre-format reviewed language hash:** `{PRE_FORMAT_LANGUAGE_SHA256}`.",
         "",
         "This artifact is not training data and is ineligible for teacher bake-off, product evaluation, bulk generation, and training until the complete language layer is reviewed and frozen.",
         "",
@@ -633,6 +830,7 @@ def render_full_language_review(records: list[dict[str, Any]]) -> str:
 
 
 def write_full_language_suite() -> list[dict[str, Any]]:
+    grammar = load_response_grammar()
     records = build_full_language_suite()
     semantics = {item["golden_case_id"]: item for item in load_holistic_golden_suite()}
     anchors = {item["golden_case_id"]: item for item in load_language_calibration()}
@@ -647,5 +845,10 @@ def write_full_language_suite() -> list[dict[str, Any]]:
         encoding="utf-8",
     )
     DEFAULT_MANIFEST_PATH.write_text(json.dumps(_manifest(records, content_hash), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    DEFAULT_GRAMMAR_YAML_PATH.write_text(
+        "# Generated from the canonical JSON; do not edit this mirror.\n"
+        + yaml.safe_dump(grammar, allow_unicode=True, sort_keys=False, width=100),
+        encoding="utf-8",
+    )
     DEFAULT_REVIEW_PATH.write_text(render_full_language_review(records), encoding="utf-8")
     return records

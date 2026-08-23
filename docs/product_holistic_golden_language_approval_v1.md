@@ -43,4 +43,6 @@ The canonical machine-readable decision is `configs/rendering/holistic_golden_la
 
 ## Next gate
 
-The approved style may now be applied to the remaining 62 frozen semantic cases. The resulting complete 78-case language layer must receive its own review and freeze before teacher selection or synthetic variant generation begins.
+The approved style was applied to the remaining frozen semantic cases. The resulting complete-layer review passed semantic faithfulness and identified formatting inconsistency. The project owner subsequently approved `edge-imci-response-grammar-v1` as a language-only normalization policy for the complete layer.
+
+The frozen calibration files and this approval remain unchanged historical evidence. Their user submissions are preserved in the full layer, but the full-layer assistant responses have returned to review under the new grammar. The reformatted 78-case layer must receive its own review and freeze before teacher selection or synthetic variant generation begins.

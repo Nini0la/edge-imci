@@ -1,8 +1,8 @@
 {
-  "approved_style_anchor_count": 16,
   "artifact_pins": {
     "builder_id": "edge-imci-holistic-product-golden-language-builder-v1",
     "record_schema_id": "edge-imci-holistic-golden-language-record-v1",
+    "response_grammar_id": "edge-imci-response-grammar-v1",
     "style_approval_id": "edge-imci-holistic-golden-language-approval-v1"
   },
   "assets": [
@@ -11,7 +11,7 @@
   ],
   "case_count": 78,
   "corpus_role": "HOLISTIC_PRODUCT_GOLDEN_LANGUAGE",
-  "draft_rendering_count": 62,
+  "draft_rendering_count": 78,
   "eligibility": {
     "COMPONENT_VALIDATION": true,
     "DOMAIN_REVIEW": true,
@@ -20,11 +20,22 @@
     "TEACHER_BAKEOFF": false,
     "TRAINING": false
   },
-  "language_renderings_sha256": "9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe",
+  "format_remediated_anchor_count": 16,
+  "frozen_calibration_source_count": 16,
+  "language_renderings_sha256": "713d223436c7b1b2daf10006d7e239ae1d7681dc6cccb771cea7d906a2bf2d94",
   "lifecycle_status": "PROPOSED_FOR_REVIEW",
+  "pre_format_review": {
+    "findings_addressed": [
+      "LGR-FR-001",
+      "LGR-FR-002"
+    ],
+    "language_renderings_sha256": "9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe",
+    "report": "docs/product_holistic_golden_language_review_v1_report.md",
+    "result": "PASS_WITH_MINOR_FORMATTING_NOTES"
+  },
   "production_clinical_use_authorized": false,
   "qualified_phc_field_validation_completed": false,
-  "review_status": "62_NEW_RENDERINGS_PENDING_HUMAN_LANGUAGE_REVIEW",
+  "review_status": "78_FORMAT_NORMALIZED_RENDERINGS_PENDING_REVIEW",
   "semantic_source": {
     "path": "data/golden/holistic_product_v1/semantic_cases.jsonl",
     "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",

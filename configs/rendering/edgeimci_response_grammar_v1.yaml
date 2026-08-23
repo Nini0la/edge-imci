@@ -1,0 +1,85 @@
+# Generated from the canonical JSON; do not edit this mirror.
+grammar_id: edge-imci-response-grammar-v1
+status: APPROVED_FOR_GOLDEN_LANGUAGE_REMEDIATION
+approved_date: '2026-08-23'
+approval_authority: PROJECT_OWNER
+purpose: Provide a deterministic, scannable response grammar for canonical golden language and later small-model
+  post-training.
+semantic_source:
+  suite_id: edge-imci-holistic-product-golden-v1
+  sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+pre_format_review:
+  language_suite_id: edge-imci-holistic-product-golden-language-v1
+  language_renderings_sha256: 9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe
+  report: docs/product_holistic_golden_language_review_v1_report.md
+  result: PASS_WITH_MINOR_FORMATTING_NOTES
+  findings_addressed:
+  - LGR-FR-001
+  - LGR-FR-002
+frozen_calibration_source:
+  calibration_id: edge-imci-holistic-golden-language-calibration-v1
+  sha256: b42659143270e8ef732593598fc3c7eeb6d9fb6805eaa03a0f93801d76c97fbb
+  preservation: IMMUTABLE_HISTORICAL_STYLE_EVIDENCE
+delimiters:
+  urgent_prefix: 'URGENT:'
+  classifications_heading: 'Classifications:'
+  management_heading: 'Management:'
+  immediate_management_heading: 'Immediate management:'
+  assessment_incomplete_heading: ASSESSMENT INCOMPLETE
+  information_needed_heading: 'Information needed:'
+  information_still_needed_heading: 'Information still needed:'
+  conflicts_heading: 'Conflicting or invalid findings:'
+  deferred_care_heading: 'Deferred routine care:'
+  outside_scope_heading: OUTSIDE SUPPORTED SCOPE
+  bullet_prefix: '- '
+state_templates:
+  COMPLETE:
+    section_order:
+    - 'Classifications:'
+    - 'Management:'
+  URGENT_COMPLETE:
+    section_order:
+    - 'URGENT:'
+    - 'Classifications:'
+    - 'Immediate management:'
+    - 'Deferred routine care:'
+    deferred_care_section: ONLY_WHEN_ENCODED
+  INCOMPLETE:
+    section_order:
+    - ASSESSMENT INCOMPLETE
+    - 'Conflicting or invalid findings:'
+    - 'Information needed:'
+    conflicts_section: ONLY_WHEN_ENCODED
+  URGENT_INCOMPLETE:
+    section_order:
+    - 'URGENT:'
+    - 'Immediate management:'
+    - ASSESSMENT INCOMPLETE
+    - 'Conflicting or invalid findings:'
+    - 'Information still needed:'
+    conflicts_section: ONLY_WHEN_ENCODED
+  OUT_OF_SCOPE:
+    section_order:
+    - OUTSIDE SUPPORTED SCOPE
+formatting_rules:
+  classification_heading_always_plural: true
+  classifications_are_bullets: true
+  management_actions_are_bullets: true
+  acquisition_requests_are_bullets: true
+  headings_use_exact_casing: true
+  urgent_prefix_is_first_content: true
+  complete_no_action_case_uses_both_standard_sections: true
+  unknown_is_never_rendered_as_negative: true
+  internal_rule_action_and_schema_ids_are_forbidden: true
+  frozen_anchor_user_submissions_are_preserved: true
+  frozen_anchor_assistant_responses_may_be_format_remediated: true
+change_control:
+  clinical_semantics_changed: false
+  semantic_alignment_changed: false
+  full_language_records_return_to_review: true
+  full_language_freeze_requires_separate_project_owner_approval: true
+  teacher_bakeoff_authorized: false
+  training_authorized: false
+  production_clinical_use_authorized: false
+scope_note: This is a project and interaction-format decision for the bounded hackathon. It is not an
+  IMCI clinical rule and does not constitute qualified PHC-worker field validation.

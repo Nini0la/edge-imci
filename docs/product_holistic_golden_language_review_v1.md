@@ -2,15 +2,19 @@
 
 > **Authority:** `REVIEW_RECORD` · **Lifecycle:** `PROPOSED_FOR_REVIEW` · Full language review surface; cannot alter frozen semantics.
 
-**Status:** 78 language records: 16 approved style anchors and 62 new deterministic review drafts.
+**Status:** 78 grammar-normalized language records pending review. The frozen 16-case calibration remains unchanged as historical evidence.
 
 **Frozen semantic source:** `9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f`.
+
+**Approved response grammar:** `edge-imci-response-grammar-v1`.
+
+**Pre-format reviewed language hash:** `9840b57e5e7b21193d7d5596de7cf1b574285fae280c5f8365cafd3d637f7dbe`.
 
 This artifact is not training data and is ineligible for teacher bake-off, product evaluation, bulk generation, and training until the complete language layer is reviewed and frozen.
 
 ## hpg-001-all-negative
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -18,13 +22,17 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-The supported assessment is complete. None of the currently supported IMCI classifications is triggered, and no management action is indicated by these pathways.
+Classifications:
+- None of the currently supported classifications is triggered.
+
+Management:
+- No management action is indicated by the supported assessment.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-002-danger-unable-to-drink-or-breastfeed
@@ -39,9 +47,10 @@ This child is 18 months old. The child is unable to drink or breastfeed, does no
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe disease.
+Classifications:
+- Very severe disease
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
@@ -67,9 +76,10 @@ This child is 18 months old. The child can drink or breastfeed, vomits everythin
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe disease.
+Classifications:
+- Very severe disease
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
@@ -95,9 +105,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe disease.
+Classifications:
+- Very severe disease
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
@@ -123,9 +134,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe disease.
+Classifications:
+- Very severe disease
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give the indicated pre-referral treatment immediately.
 - Keep the child warm.
@@ -151,9 +163,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe disease.
+Classifications:
+- Very severe disease
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give diazepam if the child is convulsing now.
 - Give the indicated pre-referral treatment immediately.
@@ -178,7 +191,8 @@ This child is 2 months old. The child can drink or breastfeed, does not vomit ev
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -194,7 +208,7 @@ Management:
 
 ## hpg-008-resp-age-2-rate-50
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -202,15 +216,20 @@ This child is 2 months old. The child can drink or breastfeed, does not vomit ev
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
-Give oral amoxicillin for 5 days. Soothe the throat and relieve the cough with a safe remedy. Advise the caregiver when to return immediately, and follow up in 3 days.
+Management:
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days.
+- Give oral amoxicillin for 5 days.
+- Soothe the throat and relieve the cough with a safe remedy.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-009-resp-age-11-rate-50
@@ -223,7 +242,8 @@ This child is 11 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -248,7 +268,8 @@ This child is 12 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -272,7 +293,8 @@ This child is 12 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -297,7 +319,8 @@ This child is 59 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -322,7 +345,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -339,7 +363,7 @@ Management:
 
 ## hpg-014-resp-chest-hiv-positive
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -347,15 +371,17 @@ This child is 18 months old and is HIV-exposed or HIV-infected. The child can dr
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
-Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral, not urgent referral.
+Management:
+- Give the first dose of amoxicillin, then refer the child.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-015-resp-stridor
@@ -370,9 +396,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Severe pneumonia or very severe disease.
+Classifications:
+- Severe pneumonia or very severe disease
 
-Management:
+Immediate management:
 - Give the first dose of an appropriate antibiotic.
 - Arrange urgent referral.
 
@@ -385,7 +412,7 @@ Management:
 
 ## hpg-016-resp-oximeter-89-9
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -393,15 +420,20 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
-Refer the child because the oxygen saturation is below 90%. This finding alone calls for referral, not urgent referral. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
+Management:
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
+- Refer because the oxygen saturation is below 90%; this finding alone calls for referral, not urgent referral.
+- Soothe the throat and relieve the cough with a safe remedy.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-017-resp-oximeter-90
@@ -414,7 +446,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -438,7 +471,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -463,7 +497,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Cough or cold.
+Classifications:
+- Cough or cold
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -481,7 +516,7 @@ Management:
 
 ## hpg-020-resp-post-bronchodilator-improved
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -489,17 +524,22 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-The bronchodilator trial and breathing reassessment are complete, so use the post-treatment findings for classification.
+Classifications:
+- Cough or cold
 
-Classification: Cough or cold.
-
-Give an inhaled bronchodilator for 5 days. Soothe the throat and relieve the cough with a safe remedy. Advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
+Management:
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
+- Give an inhaled bronchodilator for 5 days.
+- The rapid-acting inhaled bronchodilator trial was completed.
+- Breathing was reassessed after the bronchodilator trial.
+- Soothe the throat and relieve the cough with a safe remedy.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-021-resp-post-bronchodilator-fast
@@ -512,15 +552,16 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Pneumonia.
+Classifications:
+- Pneumonia
 
 Management:
 - Advise the caregiver when to return immediately.
 - Follow up in 3 days.
 - Give an inhaled bronchodilator for 5 days.
 - Give oral amoxicillin for 5 days.
-- Give the rapid-acting inhaled bronchodilator trial.
-- Reassess breathing after the bronchodilator trial.
+- The rapid-acting inhaled bronchodilator trial was completed.
+- Breathing was reassessed after the bronchodilator trial.
 - Soothe the throat and relieve the cough with a safe remedy.
 
 ### Review disposition
@@ -540,14 +581,16 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Complete the indicated rapid-acting inhaled bronchodilator trial and record that it was completed.
 - During post-bronchodilator reassessment, count breaths for one full minute.
 - Reassess chest indrawing after the bronchodilator trial.
 - Confirm that the child is calm for the post-bronchodilator breathing reassessment.
 - Measure and report the post-bronchodilator respiratory rate while the child is calm.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -566,14 +609,16 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
 Conflicting or invalid findings:
 - respiratory observations are invalid because the child was not calm.
 
-Please complete these checks:
+Information needed:
 - Settle the child and confirm that the child is calm.
 - Repeat the respiratory-rate count for one full minute while the child is calm.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -592,14 +637,16 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
 Conflicting or invalid findings:
 - respiratory rate is invalid because breaths were not counted for one minute.
 
-Please complete these checks:
+Information needed:
 - Repeat the breath count for one full minute.
 - Report the repeated respiratory-rate value while the child is calm.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -618,10 +665,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Measure and report the oxygen saturation.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -640,10 +689,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Confirm from the history or record whether the child is HIV-exposed or HIV-infected.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -662,7 +713,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: No dehydration.
+Classifications:
+- No dehydration
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -678,7 +730,7 @@ Management:
 
 ## hpg-028-diarrhoea-some-dehydration
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -686,15 +738,20 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Some dehydration.
+Classifications:
+- Some dehydration
 
-Give fluid, zinc, and food according to Plan B, then reassess and reclassify dehydration after Plan B. Advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.
+Management:
+- Advise the caregiver when to return immediately.
+- Follow up in 5 days if the child is not improving.
+- Give fluid, zinc, and food according to Plan B.
+- Reassess and reclassify dehydration after Plan B.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-029-diarrhoea-severe-plan-c-under-24m
@@ -707,7 +764,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Severe dehydration.
+Classifications:
+- Severe dehydration
 
 Management:
 - Give fluid for severe dehydration according to Plan C.
@@ -730,7 +788,8 @@ This child is 24 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Severe dehydration.
+Classifications:
+- Severe dehydration
 
 Management:
 - Give fluid for severe dehydration according to Plan C.
@@ -745,7 +804,7 @@ Management:
 
 ## hpg-031-diarrhoea-severe-age-24-cholera
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -753,15 +812,19 @@ This child is 24 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Severe dehydration.
+Classifications:
+- Severe dehydration
 
-Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration after Plan C. Give the antibiotic for cholera specified by the applicable local protocol.
+Management:
+- Give the antibiotic for cholera specified by the applicable local protocol.
+- Give fluid for severe dehydration according to Plan C.
+- Reassess and reclassify dehydration after Plan C.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-032-diarrhoea-duration-13
@@ -774,7 +837,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: No dehydration.
+Classifications:
+- No dehydration
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -798,7 +862,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: No dehydration; Persistent diarrhoea.
+Classifications:
+- No dehydration
+- Persistent diarrhoea
 
 Management:
 - Advise the caregiver about feeding for persistent diarrhoea.
@@ -827,13 +893,16 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classifications: Some dehydration; Severe persistent diarrhoea.
+Classifications:
+- Some dehydration
+- Severe persistent diarrhoea
 
-Management:
+Immediate management:
 - Refer the child to hospital.
 - Treat dehydration before referral unless another severe classification prevents this.
 
-Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
+Deferred routine care:
+- Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
 ### Review disposition
 
@@ -852,7 +921,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: No dehydration; Dysentery.
+Classifications:
+- No dehydration
+- Dysentery
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -878,7 +949,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: No dehydration; Persistent diarrhoea; Dysentery.
+Classifications:
+- No dehydration
+- Persistent diarrhoea
+- Dysentery
 
 Management:
 - Advise the caregiver about feeding for persistent diarrhoea.
@@ -909,9 +983,11 @@ This child is 18 months old. The child is unable to drink or breastfeed, does no
 
 URGENT: Act now and do not delay referral.
 
-Classifications: Very severe disease; Severe dehydration.
+Classifications:
+- Very severe disease
+- Severe dehydration
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Continue breastfeeding during referral.
 - Give frequent sips of ORS during referral.
@@ -937,10 +1013,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Offer fluid and observe whether the child drinks normally, eagerly or thirstily, poorly, or is unable to drink.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -959,10 +1037,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Ask the caregiver how many days the child has had diarrhoea.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -981,10 +1061,12 @@ This child is 24 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Confirm whether cholera is present in the area.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -1003,7 +1085,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Malaria.
+Classifications:
+- Malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1027,7 +1110,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1050,7 +1134,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Malaria.
+Classifications:
+- Malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1074,7 +1159,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1097,7 +1183,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Malaria.
+Classifications:
+- Malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1121,7 +1208,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever.
+Classifications:
+- Fever
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1144,7 +1232,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1167,7 +1256,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1191,7 +1281,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1214,7 +1305,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1237,7 +1329,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1253,7 +1346,7 @@ Management:
 
 ## hpg-052-fever-identified-bacterial-cause
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1261,15 +1354,19 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Fever—no malaria.
+Classifications:
+- Fever—no malaria
 
-Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause. Advise the caregiver when to return immediately, and follow up in 3 days if the fever persists.
+Management:
+- Advise the caregiver when to return immediately.
+- Follow up in 3 days if the fever persists.
+- Give the appropriate antibiotic treatment specified by the applicable protocol for the identified bacterial cause.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-053-fever-measles
@@ -1282,7 +1379,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: Fever—no malaria; Measles.
+Classifications:
+- Fever—no malaria
+- Measles
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1306,7 +1405,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: Fever—no malaria; Measles with eye or mouth complications.
+Classifications:
+- Fever—no malaria
+- Measles with eye or mouth complications
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1324,7 +1425,7 @@ Management:
 
 ## hpg-055-fever-severe-measles-cornea
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1332,17 +1433,26 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-URGENT: Arrange urgent referral.
+URGENT: Act now and do not delay referral.
 
-Classifications: Fever—no malaria; severe complicated measles.
+Classifications:
+- Fever—no malaria
+- Severe complicated measles
 
-Before referral, give vitamin A treatment and the first dose of an appropriate antibiotic, and apply tetracycline eye ointment. Routine fever home-care and scheduled follow-up instructions must not delay or compete with this urgent referral workflow.
+Immediate management:
+- Apply tetracycline eye ointment.
+- Give the first dose of an appropriate antibiotic.
+- Give vitamin A treatment.
+- Arrange urgent referral.
+
+Deferred routine care:
+- Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-056-fever-severe-stiff-neck
@@ -1357,9 +1467,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Very severe febrile disease.
+Classifications:
+- Very severe febrile disease
 
-Management:
+Immediate management:
 - Give the first dose of an appropriate antibiotic.
 - Give the first dose of severe-malaria treatment.
 - Prevent low blood sugar.
@@ -1382,7 +1493,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: Malaria; Measles.
+Classifications:
+- Malaria
+- Measles
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1408,7 +1521,9 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: Fever—no malaria; Measles.
+Classifications:
+- Fever—no malaria
+- Measles
 
 Management:
 - Advise the caregiver when to return immediately.
@@ -1432,10 +1547,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Provide the malaria-risk category of the area: high, low, or no malaria risk.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -1454,10 +1571,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Perform or report the indicated malaria test result.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -1476,7 +1595,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: No ear infection.
+Classifications:
+- No ear infection
 
 Management:
 - No ear treatment is indicated.
@@ -1498,7 +1618,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Acute ear infection.
+Classifications:
+- Acute ear infection
 
 Management:
 - Dry the ear by wicking.
@@ -1523,7 +1644,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Acute ear infection.
+Classifications:
+- Acute ear infection
 
 Management:
 - Dry the ear by wicking.
@@ -1548,7 +1670,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Chronic ear infection.
+Classifications:
+- Chronic ear infection
 
 Management:
 - Dry the ear by wicking.
@@ -1572,7 +1695,8 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classification: Acute ear infection.
+Classifications:
+- Acute ear infection
 
 Management:
 - Dry the ear by wicking.
@@ -1599,9 +1723,10 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classification: Mastoiditis.
+Classifications:
+- Mastoiditis
 
-Management:
+Immediate management:
 - Give the first dose of an appropriate antibiotic.
 - Give paracetamol for ear pain.
 - Arrange urgent referral.
@@ -1623,10 +1748,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Ask the caregiver how many days the ear discharge has been present.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -1637,7 +1764,7 @@ Please complete these checks:
 
 ## hpg-068-cross-four-pathways
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1645,20 +1772,35 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear infection.
+Classifications:
+- Pneumonia
+- No dehydration
+- Dysentery
+- Malaria
+- Measles
+- Acute ear infection
 
 Management:
-- Pneumonia: Give oral amoxicillin for 5 days, soothe the throat and relieve the cough with a safe remedy, and follow up in 3 days.
-- Diarrhoea and dysentery: Give Plan A fluid, zinc, and food, and give ciprofloxacin for 3 days.
-- Malaria and measles: Give the first-line oral antimalarial and give vitamin A treatment. Follow up in 3 days if fever persists.
-- Acute ear infection: Give the indicated antibiotic for 5 days, give paracetamol for ear pain, dry the ear by wicking, and follow up in 5 days.
-- Also follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.
+- Advise the caregiver when to return immediately.
+- Dry the ear by wicking.
+- Follow up in 3 days.
+- Follow up in 3 days if the fever persists.
+- Follow up in 5 days.
+- Follow up in 5 days if the child is not improving.
+- Give the indicated antibiotic for 5 days.
+- Give ciprofloxacin for 3 days.
+- Give the first-line oral antimalarial.
+- Give fluid, zinc, and food according to Plan A.
+- Give oral amoxicillin for 5 days.
+- Give paracetamol for ear pain.
+- Give vitamin A treatment.
+- Soothe the throat and relieve the cough with a safe remedy.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-069-cross-urgent-dehydration-ear
@@ -1673,9 +1815,11 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 URGENT: Act now and do not delay referral.
 
-Classifications: Severe dehydration; Mastoiditis.
+Classifications:
+- Severe dehydration
+- Mastoiditis
 
-Management:
+Immediate management:
 - Continue breastfeeding during referral.
 - Give frequent sips of ORS during referral.
 - Give the first dose of an appropriate antibiotic.
@@ -1691,7 +1835,7 @@ Management:
 
 ## hpg-070-cross-multiple-urgent
 
-**Lifecycle:** `FROZEN` · **State:** `COMPLETE` · **Urgent:** `True`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `COMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1699,22 +1843,35 @@ This child is 18 months old and is convulsing now. The child can drink or breast
 
 ### EdgeIMCI response
 
-URGENT: Give the indicated pre-referral treatment immediately and arrange urgent referral.
+URGENT: Act now and do not delay referral.
 
-Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile disease; mastoiditis.
+Classifications:
+- Very severe disease
+- Severe pneumonia or very severe disease
+- Very severe febrile disease
+- Mastoiditis
 
-Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and give paracetamol for ear pain. Complete the remaining assessment quickly, but do not delay urgent referral.
+Immediate management:
+- Complete the remaining assessment quickly.
+- Give diazepam if the child is convulsing now.
+- Give the first dose of an appropriate antibiotic.
+- Give the first dose of severe-malaria treatment.
+- Give paracetamol for ear pain.
+- Give the indicated pre-referral treatment immediately.
+- Keep the child warm.
+- Prevent low blood sugar.
+- Arrange urgent referral.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-071-incomplete-entry-unknown
 
-**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1722,20 +1879,23 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I need one more finding before I can provide the final classifications and management plan.
+ASSESSMENT INCOMPLETE
 
-Ask the caregiver whether the child has diarrhoea and report the answer. An unmentioned answer cannot be treated as no.
+Information needed:
+- Ask whether the child has diarrhoea.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-072-incomplete-multiple-groups
 
-**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1743,23 +1903,26 @@ This child is 18 months old. The child can drink or breastfeed, has had no convu
 
 ### EdgeIMCI response
 
-I need the following assessment findings before I can provide the final classifications and management plan. Please complete them together:
+ASSESSMENT INCOMPLETE
 
+Information needed:
 - Ask the caregiver whether the child vomits everything.
+- Provide the malaria-risk category of the area: high, low, or no malaria risk.
+- Ask whether the child has an ear problem, including ear pain or discharge.
 - Count the respiratory rate for one full minute while the child is calm and report the breaths per minute.
-- Provide the malaria-risk category of the area: high, low, or no malaria risk. Do not infer this from a place name.
-- Ask the caregiver whether the child has an ear problem, including ear pain or ear discharge.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-073-incomplete-known-urgent
 
-**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `True`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `True`
 
 ### PHC-worker submission
 
@@ -1767,19 +1930,33 @@ The child is convulsing now. The child can drink or breastfeed, has had no earli
 
 ### EdgeIMCI response
 
-URGENT: Give diazepam because the child is convulsing now. Give the indicated pre-referral treatment immediately, prevent low blood sugar, keep the child warm, and arrange urgent referral. Do not delay referral.
+URGENT: Act now and do not delay referral.
 
-A complete set of classifications and management actions still requires the remaining findings. While urgent treatment and referral are being arranged, complete the assessment quickly:
+Immediate management:
+- Complete the remaining assessment quickly.
+- Give diazepam if the child is convulsing now.
+- Give the indicated pre-referral treatment immediately.
+- Keep the child warm.
+- Prevent low blood sugar.
+- Arrange urgent referral.
 
+ASSESSMENT INCOMPLETE
+
+Information still needed:
 - Ask the caregiver whether the child vomits everything.
 - Confirm the child's age in completed months from the caregiver or record.
-- Ask and report whether the child has cough or difficult breathing, diarrhoea, fever, or an ear problem.
+- Ask whether the child has cough or difficult breathing.
+- Ask whether the child has diarrhoea.
+- Ask whether the child has an ear problem, including ear pain or discharge.
+- Ask whether the child has fever and report the measured temperature when applicable.
+
+Complete these checks rapidly, but do not delay referral. The final holistic classifications and complete management plan remain pending.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-074-incomplete-internal-classification-withheld
@@ -1792,10 +1969,12 @@ This child is 18 months old. The child can drink or breastfeed, does not vomit e
 
 ### EdgeIMCI response
 
-I cannot provide the final classifications or complete management plan until the remaining assessment findings are supplied.
+ASSESSMENT INCOMPLETE
 
-Please complete these checks:
+Information needed:
 - Ask whether the child has an ear problem, including ear pain or discharge.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
@@ -1806,7 +1985,7 @@ Please complete these checks:
 
 ## hpg-075-contradiction-drinking
 
-**Lifecycle:** `FROZEN` · **State:** `INCOMPLETE` · **Urgent:** `False`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `INCOMPLETE` · **Urgent:** `False`
 
 ### PHC-worker submission
 
@@ -1814,15 +1993,22 @@ This child is 18 months old. The general danger-sign assessment recorded that th
 
 ### EdgeIMCI response
 
-These findings conflict: the general danger-sign assessment says the child can drink or breastfeed, while the diarrhoea assessment records that the child is unable to drink. Do not choose one result or issue a final classification yet.
+ASSESSMENT INCOMPLETE
 
-Clinically reassess the child's ability to drink or breastfeed and the diarrhoea-specific drinking response, then record consistent findings in both relevant sections.
+Conflicting or invalid findings:
+- UNABLE observed drinking conflicts with a negative general danger sign.
+
+Information needed:
+- Clinically reassess the child's ability to drink or breastfeed.
+- Reassess the diarrhoea-specific drinking response.
+
+I cannot provide the final classifications and complete management plan until these findings are supplied.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-076-complete-danger-plus-all-pathways
@@ -1837,9 +2023,14 @@ This child is 18 months old. The child can drink or breastfeed, vomits everythin
 
 URGENT: Act now and do not delay referral.
 
-Classifications: Very severe disease; Severe pneumonia or very severe disease; No dehydration; Very severe febrile disease; No ear infection.
+Classifications:
+- Very severe disease
+- Severe pneumonia or very severe disease
+- No dehydration
+- Very severe febrile disease
+- No ear infection
 
-Management:
+Immediate management:
 - Complete the remaining assessment quickly.
 - Give the first dose of an appropriate antibiotic.
 - Give the first dose of severe-malaria treatment.
@@ -1848,7 +2039,8 @@ Management:
 - Prevent low blood sugar.
 - Arrange urgent referral.
 
-Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
+Deferred routine care:
+- Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow.
 
 ### Review disposition
 
@@ -1859,7 +2051,7 @@ Routine home-care counselling and scheduled follow-up are deferred so they do no
 
 ## hpg-077-out-of-scope-age-1
 
-**Lifecycle:** `FROZEN` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
+**Lifecycle:** `DRAFT_FOR_HUMAN_REVIEW` · **State:** `SCHEMA_REJECTION` · **Urgent:** `None`
 
 ### PHC-worker submission
 
@@ -1867,13 +2059,15 @@ This infant is 1 month old. There are no reported general danger signs, cough or
 
 ### EdgeIMCI response
 
-This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide an IMCI classification or management synthesis from this workflow. Use the applicable approved young-infant assessment pathway.
+OUTSIDE SUPPORTED SCOPE
+
+This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide a classification or management plan from this workflow. Use the applicable approved age-specific pathway.
 
 ### Review disposition
 
-- Semantic faithfulness: `APPROVED_FOR_HACKATHON_SCOPE`
-- Interaction quality: `APPROVED_FOR_HACKATHON_SCOPE`
-- PHC suitability: `PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED`
+- Semantic faithfulness: `PENDING`
+- Interaction quality: `PENDING`
+- PHC suitability: `PENDING`
 - Required edits / notes:
 
 ## hpg-078-out-of-scope-age-60
@@ -1885,6 +2079,8 @@ This encounter is outside the supported EdgeIMCI major sick-child scope, which s
 This child is 60 months old. The child can drink or breastfeed, does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing now. There is no cough or difficult breathing. There is no diarrhoea. There is no fever. There is no ear problem.
 
 ### EdgeIMCI response
+
+OUTSIDE SUPPORTED SCOPE
 
 This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed months and ends before 60 months. I cannot provide a classification or management plan from this workflow. Use the applicable approved age-specific pathway.
 

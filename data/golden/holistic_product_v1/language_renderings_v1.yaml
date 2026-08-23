@@ -2,20 +2,26 @@
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-001-all-negative-language-v1
   golden_case_id: hpg-001-all-negative
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 3e2a0519e965b7225794129df02e7386ce56e9ff1ef1cc4a913d6f509acacba6
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. There is no cough or difficult breathing, no diarrhoea, no fever, and no ear problem.
-    role: user
-  - content: The supported assessment is complete. None of the currently supported IMCI classifications
-      is triggered, and no management action is indicated by these pathways.
-    role: assistant
+  - role: assistant
+    content: 'Classifications:
+
+      - None of the currently supported classifications is triggered.
+
+
+      Management:
+
+      - No management action is indicated by the supported assessment.'
   alignment:
     acquisition_requests: []
     actions_covered: []
@@ -29,11 +35,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-002-danger-unable-to-drink-or-breastfeed-language-v1
   golden_case_id: hpg-002-danger-unable-to-drink-or-breastfeed
@@ -53,10 +60,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe disease.
+      Classifications:
+
+      - Very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -90,7 +99,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-003-danger-vomits-everything-language-v1
   golden_case_id: hpg-003-danger-vomits-everything
@@ -110,10 +119,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe disease.
+      Classifications:
+
+      - Very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -147,7 +158,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-004-danger-had-convulsions-language-v1
   golden_case_id: hpg-004-danger-had-convulsions
@@ -167,10 +178,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe disease.
+      Classifications:
+
+      - Very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -204,7 +217,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-005-danger-lethargic-or-unconscious-language-v1
   golden_case_id: hpg-005-danger-lethargic-or-unconscious
@@ -224,10 +237,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe disease.
+      Classifications:
+
+      - Very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -261,7 +276,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-006-danger-convulsing-now-language-v1
   golden_case_id: hpg-006-danger-convulsing-now
@@ -281,10 +296,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe disease.
+      Classifications:
+
+      - Very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -321,7 +338,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-007-resp-age-2-rate-49-language-v1
   golden_case_id: hpg-007-resp-age-2-rate-49
@@ -340,7 +357,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Cough or cold.
+    content: 'Classifications:
+
+      - Cough or cold
 
 
       Management:
@@ -371,29 +390,38 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-008-resp-age-2-rate-50-language-v1
   golden_case_id: hpg-008-resp-age-2-rate-50
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 8e411a76a093ccce898712884325ba0de4bbbf6ff19ea6e6fdaa045407084634
   conversation:
-  - content: This child is 2 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 2 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate
       counted for one full minute is 50 breaths per minute. There is no chest indrawing, stridor, wheeze,
       or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea, fever, or ear problem.
-    role: user
-  - content: 'Classification: Pneumonia.
+  - role: assistant
+    content: 'Classifications:
+
+      - Pneumonia
 
 
-      Give oral amoxicillin for 5 days. Soothe the throat and relieve the cough with a safe remedy. Advise
-      the caregiver when to return immediately, and follow up in 3 days.'
-    role: assistant
+      Management:
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days.
+
+      - Give oral amoxicillin for 5 days.
+
+      - Soothe the throat and relieve the cough with a safe remedy.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -412,11 +440,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-009-resp-age-11-rate-50-language-v1
   golden_case_id: hpg-009-resp-age-11-rate-50
@@ -435,7 +464,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Pneumonia.
+    content: 'Classifications:
+
+      - Pneumonia
 
 
       Management:
@@ -469,7 +500,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-010-resp-age-12-rate-39-language-v1
   golden_case_id: hpg-010-resp-age-12-rate-39
@@ -488,7 +519,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Cough or cold.
+    content: 'Classifications:
+
+      - Cough or cold
 
 
       Management:
@@ -519,7 +552,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-011-resp-age-12-rate-40-language-v1
   golden_case_id: hpg-011-resp-age-12-rate-40
@@ -538,7 +571,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Pneumonia.
+    content: 'Classifications:
+
+      - Pneumonia
 
 
       Management:
@@ -572,7 +607,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-012-resp-age-59-rate-40-language-v1
   golden_case_id: hpg-012-resp-age-59-rate-40
@@ -591,7 +626,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Pneumonia.
+    content: 'Classifications:
+
+      - Pneumonia
 
 
       Management:
@@ -625,7 +662,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-013-resp-chest-hiv-negative-language-v1
   golden_case_id: hpg-013-resp-chest-hiv-negative
@@ -645,7 +682,9 @@
       oximeter is not available. The child is not known to be HIV-exposed or HIV-infected. There is no
       diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Pneumonia.
+    content: 'Classifications:
+
+      - Pneumonia
 
 
       Management:
@@ -679,30 +718,33 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-014-resp-chest-hiv-positive-language-v1
   golden_case_id: hpg-014-resp-chest-hiv-positive
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 817f73a4be2c08d7f1fabd8a44185641ede6989f37845387a9059a541baf4cfe
   conversation:
-  - content: This child is 18 months old and is HIV-exposed or HIV-infected. The child can drink or breastfeed,
+  - role: user
+    content: This child is 18 months old and is HIV-exposed or HIV-infected. The child can drink or breastfeed,
       does not vomit everything, has had no convulsions during this illness, is not lethargic or unconscious,
       and is not convulsing now. The child has had cough or difficult breathing for 3 days. While calm,
       the respiratory rate counted for one full minute is 35 breaths per minute. Chest indrawing is present,
       with no stridor, wheeze, or recurrent wheeze. A pulse oximeter is not available. There is no diarrhoea,
       fever, or ear problem.
-    role: user
-  - content: 'Classification: Pneumonia.
+  - role: assistant
+    content: 'Classifications:
+
+      - Pneumonia
 
 
-      Give the first dose of amoxicillin, then refer the child. This finding alone calls for referral,
-      not urgent referral.'
-    role: assistant
+      Management:
+
+      - Give the first dose of amoxicillin, then refer the child.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -718,11 +760,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-015-resp-stridor-language-v1
   golden_case_id: hpg-015-resp-stridor
@@ -744,10 +787,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Severe pneumonia or very severe disease.
+      Classifications:
+
+      - Severe pneumonia or very severe disease
 
 
-      Management:
+      Immediate management:
 
       - Give the first dose of an appropriate antibiotic.
 
@@ -772,31 +817,40 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-016-resp-oximeter-89-9-language-v1
   golden_case_id: hpg-016-resp-oximeter-89-9
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 614b92074483d46a1c1069db5f95df8abeed729088a2f3ae61685f8339334fde
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. The child has had cough or difficult breathing for 3 days. While calm, the respiratory rate
       counted for one full minute is 35 breaths per minute. There is no chest indrawing, stridor, wheeze,
       or recurrent wheeze. Pulse oximetry is available and the oxygen saturation is 89.9%. There is no
       diarrhoea, fever, or ear problem.
-    role: user
-  - content: 'Classification: Cough or cold.
+  - role: assistant
+    content: 'Classifications:
+
+      - Cough or cold
 
 
-      Refer the child because the oxygen saturation is below 90%. This finding alone calls for referral,
-      not urgent referral. Soothe the throat and relieve the cough with a safe remedy, advise the caregiver
-      when to return immediately, and follow up in 5 days if the child is not improving.'
-    role: assistant
+      Management:
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.
+
+      - Refer because the oxygen saturation is below 90%; this finding alone calls for referral, not urgent
+      referral.
+
+      - Soothe the throat and relieve the cough with a safe remedy.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -815,11 +869,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-017-resp-oximeter-90-language-v1
   golden_case_id: hpg-017-resp-oximeter-90
@@ -839,7 +894,9 @@
       is available. The oxygen saturation is 90.0%. There is no diarrhoea. There is no fever. There is
       no ear problem.
   - role: assistant
-    content: 'Classification: Cough or cold.
+    content: 'Classifications:
+
+      - Cough or cold
 
 
       Management:
@@ -870,7 +927,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-018-resp-prolonged-cough-language-v1
   golden_case_id: hpg-018-resp-prolonged-cough
@@ -889,7 +946,9 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Cough or cold.
+    content: 'Classifications:
+
+      - Cough or cold
 
 
       Management:
@@ -923,7 +982,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-019-resp-recurrent-wheeze-language-v1
   golden_case_id: hpg-019-resp-recurrent-wheeze
@@ -942,7 +1001,9 @@
       There is no stridor while calm. Wheezing is present. There is recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Cough or cold.
+    content: 'Classifications:
+
+      - Cough or cold
 
 
       Management:
@@ -979,18 +1040,19 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-020-resp-post-bronchodilator-improved-language-v1
   golden_case_id: hpg-020-resp-post-bronchodilator-improved
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 8fbaf0e97e925dcceefbac496cd9408b7c24585a1ce3b6d13bdcc229fd31edf5
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. The child has had cough or difficult breathing for 3 days. Initially, while calm and counted
       for one full minute, the respiratory rate was 45 breaths per minute. Wheeze was present, with no
@@ -998,17 +1060,25 @@
       inhaled bronchodilator trial was completed. On reassessment, while calm and counted for one full
       minute, the respiratory rate was 35 breaths per minute and there was no chest indrawing. There is
       no diarrhoea, fever, or ear problem.
-    role: user
-  - content: 'The bronchodilator trial and breathing reassessment are complete, so use the post-treatment
-      findings for classification.
+  - role: assistant
+    content: 'Classifications:
+
+      - Cough or cold
 
 
-      Classification: Cough or cold.
+      Management:
 
+      - Advise the caregiver when to return immediately.
 
-      Give an inhaled bronchodilator for 5 days. Soothe the throat and relieve the cough with a safe remedy.
-      Advise the caregiver when to return immediately, and follow up in 5 days if the child is not improving.'
-    role: assistant
+      - Follow up in 5 days if the child is not improving.
+
+      - Give an inhaled bronchodilator for 5 days.
+
+      - The rapid-acting inhaled bronchodilator trial was completed.
+
+      - Breathing was reassessed after the bronchodilator trial.
+
+      - Soothe the throat and relieve the cough with a safe remedy.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -1029,11 +1099,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-021-resp-post-bronchodilator-fast-language-v1
   golden_case_id: hpg-021-resp-post-bronchodilator-fast
@@ -1055,7 +1126,9 @@
       was 42 breaths per minute, and there was no chest indrawing. There is no diarrhoea. There is no
       fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Pneumonia.
+    content: 'Classifications:
+
+      - Pneumonia
 
 
       Management:
@@ -1068,9 +1141,9 @@
 
       - Give oral amoxicillin for 5 days.
 
-      - Give the rapid-acting inhaled bronchodilator trial.
+      - The rapid-acting inhaled bronchodilator trial was completed.
 
-      - Reassess breathing after the bronchodilator trial.
+      - Breathing was reassessed after the bronchodilator trial.
 
       - Soothe the throat and relieve the cough with a safe remedy.'
   alignment:
@@ -1098,7 +1171,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-022-resp-trial-outstanding-language-v1
   golden_case_id: hpg-022-resp-trial-outstanding
@@ -1117,11 +1190,10 @@
       There is no stridor while calm. Wheezing is present. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
       - Complete the indicated rapid-acting inhaled bronchodilator trial and record that it was completed.
 
@@ -1131,7 +1203,11 @@
 
       - Confirm that the child is calm for the post-bronchodilator breathing reassessment.
 
-      - Measure and report the post-bronchodilator respiratory rate while the child is calm.'
+      - Measure and report the post-bronchodilator respiratory rate while the child is calm.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -1164,7 +1240,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-023-resp-child-not-calm-language-v1
   golden_case_id: hpg-023-resp-child-not-calm
@@ -1183,8 +1259,7 @@
       chest indrawing. There is no stridor while calm. There is no wheezing. There is no recurrent wheeze.
       A pulse oximeter is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
       Conflicting or invalid findings:
@@ -1192,11 +1267,15 @@
       - respiratory observations are invalid because the child was not calm.
 
 
-      Please complete these checks:
+      Information needed:
 
       - Settle the child and confirm that the child is calm.
 
-      - Repeat the respiratory-rate count for one full minute while the child is calm.'
+      - Repeat the respiratory-rate count for one full minute while the child is calm.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -1221,7 +1300,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-024-resp-count-not-one-minute-language-v1
   golden_case_id: hpg-024-resp-count-not-one-minute
@@ -1240,8 +1319,7 @@
       chest indrawing. There is no stridor while calm. There is no wheezing. There is no recurrent wheeze.
       A pulse oximeter is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
       Conflicting or invalid findings:
@@ -1249,11 +1327,15 @@
       - respiratory rate is invalid because breaths were not counted for one minute.
 
 
-      Please complete these checks:
+      Information needed:
 
       - Repeat the breath count for one full minute.
 
-      - Report the repeated respiratory-rate value while the child is calm.'
+      - Report the repeated respiratory-rate value while the child is calm.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -1278,7 +1360,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-025-resp-oximeter-missing-value-language-v1
   golden_case_id: hpg-025-resp-oximeter-missing-value
@@ -1297,13 +1379,16 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Measure and report the oxygen saturation.'
+      - Measure and report the oxygen saturation.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -1324,7 +1409,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-026-resp-chest-hiv-unknown-language-v1
   golden_case_id: hpg-026-resp-chest-hiv-unknown
@@ -1343,13 +1428,16 @@
       present. There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse
       oximeter is not available. There is no diarrhoea. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Confirm from the history or record whether the child is HIV-exposed or HIV-infected.'
+      - Confirm from the history or record whether the child is HIV-exposed or HIV-infected.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -1370,7 +1458,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-027-diarrhoea-no-dehydration-language-v1
   golden_case_id: hpg-027-diarrhoea-no-dehydration
@@ -1389,7 +1477,9 @@
       the child drinks normally. The abdominal skin pinch returns normally. There is no fever. There is
       no ear problem.
   - role: assistant
-    content: 'Classification: No dehydration.
+    content: 'Classifications:
+
+      - No dehydration
 
 
       Management:
@@ -1420,30 +1510,38 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-028-diarrhoea-some-dehydration-language-v1
   golden_case_id: hpg-028-diarrhoea-some-dehydration
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 7e61e729f478b2e14e2c1fead0c5ad65673a6f6eea1567503054e936fd3b6476
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is restless or
       irritable and has sunken eyes, drinks normally when offered fluid, and the abdominal skin pinch
       returns normally. There is no cough or difficult breathing, fever, or ear problem.
-    role: user
-  - content: 'Classification: Some dehydration.
+  - role: assistant
+    content: 'Classifications:
+
+      - Some dehydration
 
 
-      Give fluid, zinc, and food according to Plan B, then reassess and reclassify dehydration after Plan
-      B. Advise the caregiver when to return immediately, and follow up in 5 days if the child is not
-      improving.'
-    role: assistant
+      Management:
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 5 days if the child is not improving.
+
+      - Give fluid, zinc, and food according to Plan B.
+
+      - Reassess and reclassify dehydration after Plan B.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -1462,11 +1560,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-029-diarrhoea-severe-plan-c-under-24m-language-v1
   golden_case_id: hpg-029-diarrhoea-severe-plan-c-under-24m
@@ -1485,7 +1584,9 @@
       child drinks poorly. The abdominal skin pinch returns normally. There is no fever. There is no ear
       problem.
   - role: assistant
-    content: 'Classification: Severe dehydration.
+    content: 'Classifications:
+
+      - Severe dehydration
 
 
       Management:
@@ -1513,7 +1614,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-030-diarrhoea-severe-age-24-no-cholera-language-v1
   golden_case_id: hpg-030-diarrhoea-severe-age-24-no-cholera
@@ -1532,7 +1633,9 @@
       child drinks poorly. The abdominal skin pinch returns normally. Cholera is not present in the area.
       There is no fever. There is no ear problem.
   - role: assistant
-    content: 'Classification: Severe dehydration.
+    content: 'Classifications:
+
+      - Severe dehydration
 
 
       Management:
@@ -1560,30 +1663,37 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-031-diarrhoea-severe-age-24-cholera-language-v1
   golden_case_id: hpg-031-diarrhoea-severe-age-24-cholera
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: b4dc809f4172337dda0043f8cdaeccbce2802fdce670fccaf5a74c7cc985f93f
   conversation:
-  - content: This child is 24 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 24 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. The child has had diarrhoea for 3 days, with no blood in the stool. The child is not restless
       or irritable, has sunken eyes, drinks poorly when offered fluid, and the abdominal skin pinch returns
       normally. Cholera is present in the area. There is no cough or difficult breathing, fever, or ear
       problem.
-    role: user
-  - content: 'Classification: Severe dehydration.
+  - role: assistant
+    content: 'Classifications:
+
+      - Severe dehydration
 
 
-      Give fluid for severe dehydration according to Plan C, then reassess and reclassify dehydration
-      after Plan C. Give the antibiotic for cholera specified by the applicable local protocol.'
-    role: assistant
+      Management:
+
+      - Give the antibiotic for cholera specified by the applicable local protocol.
+
+      - Give fluid for severe dehydration according to Plan C.
+
+      - Reassess and reclassify dehydration after Plan C.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -1601,11 +1711,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-032-diarrhoea-duration-13-language-v1
   golden_case_id: hpg-032-diarrhoea-duration-13
@@ -1624,7 +1735,9 @@
       fluid, the child drinks normally. The abdominal skin pinch returns normally. There is no fever.
       There is no ear problem.
   - role: assistant
-    content: 'Classification: No dehydration.
+    content: 'Classifications:
+
+      - No dehydration
 
 
       Management:
@@ -1655,7 +1768,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-033-diarrhoea-duration-14-persistent-language-v1
   golden_case_id: hpg-033-diarrhoea-duration-14-persistent
@@ -1674,7 +1787,11 @@
       fluid, the child drinks normally. The abdominal skin pinch returns normally. There is no fever.
       There is no ear problem.
   - role: assistant
-    content: 'Classifications: No dehydration; Persistent diarrhoea.
+    content: 'Classifications:
+
+      - No dehydration
+
+      - Persistent diarrhoea
 
 
       Management:
@@ -1715,7 +1832,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-034-diarrhoea-severe-persistent-language-v1
   golden_case_id: hpg-034-diarrhoea-severe-persistent
@@ -1737,17 +1854,23 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Some dehydration; Severe persistent diarrhoea.
+      Classifications:
+
+      - Some dehydration
+
+      - Severe persistent diarrhoea
 
 
-      Management:
+      Immediate management:
 
       - Refer the child to hospital.
 
       - Treat dehydration before referral unless another severe classification prevents this.
 
 
-      Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete
+      Deferred routine care:
+
+      - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete
       with the urgent referral workflow.'
   alignment:
     expected_state: COMPLETE
@@ -1774,7 +1897,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-035-diarrhoea-dysentery-language-v1
   golden_case_id: hpg-035-diarrhoea-dysentery
@@ -1793,7 +1916,11 @@
       the child drinks normally. The abdominal skin pinch returns normally. There is no fever. There is
       no ear problem.
   - role: assistant
-    content: 'Classifications: No dehydration; Dysentery.
+    content: 'Classifications:
+
+      - No dehydration
+
+      - Dysentery
 
 
       Management:
@@ -1831,7 +1958,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-036-diarrhoea-persistent-and-dysentery-language-v1
   golden_case_id: hpg-036-diarrhoea-persistent-and-dysentery
@@ -1850,7 +1977,13 @@
       the child drinks normally. The abdominal skin pinch returns normally. There is no fever. There is
       no ear problem.
   - role: assistant
-    content: 'Classifications: No dehydration; Persistent diarrhoea; Dysentery.
+    content: 'Classifications:
+
+      - No dehydration
+
+      - Persistent diarrhoea
+
+      - Dysentery
 
 
       Management:
@@ -1898,7 +2031,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-037-diarrhoea-positive-drinking-reuse-language-v1
   golden_case_id: hpg-037-diarrhoea-positive-drinking-reuse
@@ -1919,10 +2052,14 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Very severe disease; Severe dehydration.
+      Classifications:
+
+      - Very severe disease
+
+      - Severe dehydration
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -1963,7 +2100,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-038-diarrhoea-negative-does-not-reuse-language-v1
   golden_case_id: hpg-038-diarrhoea-negative-does-not-reuse
@@ -1981,14 +2118,17 @@
       in the stool. The child is not restless or irritable. The eyes are not sunken. The abdominal skin
       pinch returns normally. There is no fever. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
       - Offer fluid and observe whether the child drinks normally, eagerly or thirstily, poorly, or is
-      unable to drink.'
+      unable to drink.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -2009,7 +2149,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-039-diarrhoea-duration-unknown-language-v1
   golden_case_id: hpg-039-diarrhoea-duration-unknown
@@ -2028,13 +2168,16 @@
       child drinks normally. The abdominal skin pinch returns normally. There is no fever. There is no
       ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Ask the caregiver how many days the child has had diarrhoea.'
+      - Ask the caregiver how many days the child has had diarrhoea.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -2055,7 +2198,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-040-diarrhoea-cholera-context-unknown-language-v1
   golden_case_id: hpg-040-diarrhoea-cholera-context-unknown
@@ -2074,13 +2217,16 @@
       child drinks poorly. The abdominal skin pinch returns normally. There is no fever. There is no ear
       problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Confirm whether cholera is present in the area.'
+      - Confirm whether cholera is present in the area.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -2101,7 +2247,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-041-fever-high-positive-language-v1
   golden_case_id: hpg-041-fever-high-positive
@@ -2122,7 +2268,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is positive. There is no ear problem.
   - role: assistant
-    content: 'Classification: Malaria.
+    content: 'Classifications:
+
+      - Malaria
 
 
       Management:
@@ -2153,7 +2301,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-042-fever-high-negative-language-v1
   golden_case_id: hpg-042-fever-high-negative
@@ -2174,7 +2322,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2202,7 +2352,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-043-fever-high-test-unavailable-language-v1
   golden_case_id: hpg-043-fever-high-test-unavailable
@@ -2223,7 +2373,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is not available. There is no ear problem.
   - role: assistant
-    content: 'Classification: Malaria.
+    content: 'Classifications:
+
+      - Malaria
 
 
       Management:
@@ -2254,7 +2406,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-044-fever-low-obvious-cause-language-v1
   golden_case_id: hpg-044-fever-low-obvious-cause
@@ -2275,7 +2427,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. There is no ear
       problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2303,7 +2457,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-045-fever-low-no-cause-positive-language-v1
   golden_case_id: hpg-045-fever-low-no-cause-positive
@@ -2324,7 +2478,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is positive. There is no ear problem.
   - role: assistant
-    content: 'Classification: Malaria.
+    content: 'Classifications:
+
+      - Malaria
 
 
       Management:
@@ -2355,7 +2511,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-046-fever-no-risk-language-v1
   golden_case_id: hpg-046-fever-no-risk
@@ -2376,7 +2532,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. There is no ear
       problem.
   - role: assistant
-    content: 'Classification: Fever.
+    content: 'Classifications:
+
+      - Fever
 
 
       Management:
@@ -2404,7 +2562,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-047-fever-temperature-38-4-language-v1
   golden_case_id: hpg-047-fever-temperature-38-4
@@ -2425,7 +2583,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2453,7 +2613,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-048-fever-temperature-38-5-language-v1
   golden_case_id: hpg-048-fever-temperature-38-5
@@ -2474,7 +2634,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2505,7 +2667,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-049-fever-duration-7-language-v1
   golden_case_id: hpg-049-fever-duration-7
@@ -2526,7 +2688,9 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2554,7 +2718,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-050-fever-duration-8-not-every-day-language-v1
   golden_case_id: hpg-050-fever-duration-8-not-every-day
@@ -2576,7 +2740,9 @@
       The eyes are not red. Malaria testing is available. The malaria test is negative. There is no ear
       problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2604,7 +2770,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-051-fever-duration-8-every-day-language-v1
   golden_case_id: hpg-051-fever-duration-8-every-day
@@ -2626,7 +2792,9 @@
       The eyes are not red. Malaria testing is available. The malaria test is negative. There is no ear
       problem.
   - role: assistant
-    content: 'Classification: Fever—no malaria.
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
       Management:
@@ -2657,32 +2825,39 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-052-fever-identified-bacterial-cause-language-v1
   golden_case_id: hpg-052-fever-identified-bacterial-cause
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 57205a3512fb59fbf1ecb895dbf5e70c4f008934a21128b4010c52a269f13d2a
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk
       area; testing is available and the malaria test is negative. There is no stiff neck, runny nose,
       obvious cause of fever, generalized rash, measles in the last 3 months, measles-associated cough,
       or red eyes. A bacterial cause of fever has been identified. There is no cough or difficult breathing,
       diarrhoea, or ear problem.
-    role: user
-  - content: 'Classification: Fever—no malaria.
+  - role: assistant
+    content: 'Classifications:
+
+      - Fever—no malaria
 
 
-      Give the appropriate antibiotic treatment specified by the applicable protocol for the identified
-      bacterial cause. Advise the caregiver when to return immediately, and follow up in 3 days if the
-      fever persists.'
-    role: assistant
+      Management:
+
+      - Advise the caregiver when to return immediately.
+
+      - Follow up in 3 days if the fever persists.
+
+      - Give the appropriate antibiotic treatment specified by the applicable protocol for the identified
+      bacterial cause.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -2700,11 +2875,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-053-fever-measles-language-v1
   golden_case_id: hpg-053-fever-measles
@@ -2726,7 +2902,11 @@
       ulcers. There is no pus draining from the eye. There is no clouding of the cornea. Malaria testing
       is available. The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classifications: Fever—no malaria; Measles.
+    content: 'Classifications:
+
+      - Fever—no malaria
+
+      - Measles
 
 
       Management:
@@ -2758,7 +2938,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-054-fever-measles-eye-language-v1
   golden_case_id: hpg-054-fever-measles-eye
@@ -2780,7 +2960,11 @@
       Pus is draining from the eye. There is no clouding of the cornea. Malaria testing is available.
       The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classifications: Fever—no malaria; Measles with eye or mouth complications.
+    content: 'Classifications:
+
+      - Fever—no malaria
+
+      - Measles with eye or mouth complications
 
 
       Management:
@@ -2818,35 +3002,51 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-055-fever-severe-measles-cornea-language-v1
   golden_case_id: hpg-055-fever-severe-measles-cornea
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: a8e6c86bdb060bfebdf02edecd34638bf96bcda2f282ee2c1c3cfc6880412e37
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. Fever has been present for 2 days and the measured temperature is 38.0°C. This is a high-malaria-risk
       area; testing is available and the malaria test is negative. There is no stiff neck, runny nose,
       obvious or identified bacterial cause of fever, or measles in the last 3 months. The child has a
       generalized rash, red eyes, and clouding of the cornea, with no mouth ulcers or pus draining from
       the eye. There is no cough or difficult breathing, diarrhoea, or ear problem.
-    role: user
-  - content: 'URGENT: Arrange urgent referral.
+  - role: assistant
+    content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Fever—no malaria; severe complicated measles.
+      Classifications:
+
+      - Fever—no malaria
+
+      - Severe complicated measles
 
 
-      Before referral, give vitamin A treatment and the first dose of an appropriate antibiotic, and apply
-      tetracycline eye ointment. Routine fever home-care and scheduled follow-up instructions must not
-      delay or compete with this urgent referral workflow.'
-    role: assistant
+      Immediate management:
+
+      - Apply tetracycline eye ointment.
+
+      - Give the first dose of an appropriate antibiotic.
+
+      - Give vitamin A treatment.
+
+      - Arrange urgent referral.
+
+
+      Deferred routine care:
+
+      - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete
+      with the urgent referral workflow.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -2868,11 +3068,12 @@
     supported_encounter_complete: true
     urgent_action_required: true
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-056-fever-severe-stiff-neck-language-v1
   golden_case_id: hpg-056-fever-severe-stiff-neck
@@ -2896,10 +3097,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Very severe febrile disease.
+      Classifications:
+
+      - Very severe febrile disease
 
 
-      Management:
+      Immediate management:
 
       - Give the first dose of an appropriate antibiotic.
 
@@ -2930,7 +3133,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-057-fever-malaria-and-measles-language-v1
   golden_case_id: hpg-057-fever-malaria-and-measles
@@ -2952,7 +3155,11 @@
       ulcers. There is no pus draining from the eye. There is no clouding of the cornea. Malaria testing
       is available. The malaria test is positive. There is no ear problem.
   - role: assistant
-    content: 'Classifications: Malaria; Measles.
+    content: 'Classifications:
+
+      - Malaria
+
+      - Measles
 
 
       Management:
@@ -2990,7 +3197,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-058-fever-measles-last-three-months-language-v1
   golden_case_id: hpg-058-fever-measles-last-three-months
@@ -3012,7 +3219,11 @@
       There is no pus draining from the eye. There is no clouding of the cornea. Malaria testing is available.
       The malaria test is negative. There is no ear problem.
   - role: assistant
-    content: 'Classifications: Fever—no malaria; Measles.
+    content: 'Classifications:
+
+      - Fever—no malaria
+
+      - Measles
 
 
       Management:
@@ -3044,7 +3255,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-059-fever-malaria-risk-unknown-language-v1
   golden_case_id: hpg-059-fever-malaria-risk-unknown
@@ -3065,13 +3276,16 @@
       records no cough. The eyes are not red. Malaria testing is available. The malaria test is negative.
       There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Provide the malaria-risk category of the area: high, low, or no malaria risk.'
+      - Provide the malaria-risk category of the area: high, low, or no malaria risk.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -3092,7 +3306,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-060-fever-test-result-unknown-language-v1
   golden_case_id: hpg-060-fever-test-result-unknown
@@ -3113,13 +3327,16 @@
       generalized rash. The measles assessment records no cough. The eyes are not red. Malaria testing
       is available. There is no ear problem.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Perform or report the indicated malaria test result.'
+      - Perform or report the indicated malaria test result.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -3140,7 +3357,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-061-ear-no-infection-language-v1
   golden_case_id: hpg-061-ear-no-infection
@@ -3158,7 +3375,9 @@
       has an ear problem. There is no ear pain. The caregiver reports no ear discharge. There is no pus
       draining from the ear. There is no tender swelling behind the ear.
   - role: assistant
-    content: 'Classification: No ear infection.
+    content: 'Classifications:
+
+      - No ear infection
 
 
       Management:
@@ -3183,7 +3402,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-062-ear-acute-pain-language-v1
   golden_case_id: hpg-062-ear-acute-pain
@@ -3201,7 +3420,9 @@
       has an ear problem. Ear pain is present. The caregiver reports no ear discharge. There is no pus
       draining from the ear. There is no tender swelling behind the ear.
   - role: assistant
-    content: 'Classification: Acute ear infection.
+    content: 'Classifications:
+
+      - Acute ear infection
 
 
       Management:
@@ -3235,7 +3456,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-063-ear-acute-discharge-13-language-v1
   golden_case_id: hpg-063-ear-acute-discharge-13
@@ -3253,7 +3474,9 @@
       has an ear problem. There is no ear pain. The caregiver reports ear discharge. Pus is draining from
       the ear. There is no tender swelling behind the ear. Ear discharge has been present for 13 days.
   - role: assistant
-    content: 'Classification: Acute ear infection.
+    content: 'Classifications:
+
+      - Acute ear infection
 
 
       Management:
@@ -3287,7 +3510,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-064-ear-chronic-discharge-14-language-v1
   golden_case_id: hpg-064-ear-chronic-discharge-14
@@ -3305,7 +3528,9 @@
       has an ear problem. There is no ear pain. The caregiver reports ear discharge. Pus is draining from
       the ear. There is no tender swelling behind the ear. Ear discharge has been present for 14 days.
   - role: assistant
-    content: 'Classification: Chronic ear infection.
+    content: 'Classifications:
+
+      - Chronic ear infection
 
 
       Management:
@@ -3336,7 +3561,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-065-ear-observed-pus-no-history-language-v1
   golden_case_id: hpg-065-ear-observed-pus-no-history
@@ -3354,7 +3579,9 @@
       has an ear problem. There is no ear pain. The caregiver reports no ear discharge. Pus is draining
       from the ear. There is no tender swelling behind the ear.
   - role: assistant
-    content: 'Classification: Acute ear infection.
+    content: 'Classifications:
+
+      - Acute ear infection
 
 
       Management:
@@ -3388,7 +3615,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-066-ear-mastoiditis-language-v1
   golden_case_id: hpg-066-ear-mastoiditis
@@ -3409,10 +3636,12 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classification: Mastoiditis.
+      Classifications:
+
+      - Mastoiditis
 
 
-      Management:
+      Immediate management:
 
       - Give the first dose of an appropriate antibiotic.
 
@@ -3440,7 +3669,7 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-067-ear-duration-unknown-language-v1
   golden_case_id: hpg-067-ear-duration-unknown
@@ -3458,13 +3687,16 @@
       has an ear problem. There is no ear pain. The caregiver reports ear discharge. Pus is draining from
       the ear. There is no tender swelling behind the ear.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Ask the caregiver how many days the ear discharge has been present.'
+      - Ask the caregiver how many days the ear discharge has been present.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -3485,18 +3717,19 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-068-cross-four-pathways-language-v1
   golden_case_id: hpg-068-cross-four-pathways
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 4dbf933294b9232aaa2f9e8cce45b3db15dfdacbf9566f33eba66d06688426e1
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. Cough or difficult breathing has been present for 3 days. While calm, the respiratory rate
       counted for one full minute is 42 breaths per minute, with no chest indrawing, stridor, wheeze,
@@ -3507,26 +3740,51 @@
       cause, or measles in the last 3 months. There is a generalized rash with cough, but no red eyes,
       mouth ulcers, eye pus, or corneal clouding. The child has ear pain, with no reported discharge,
       no pus draining, and no tender swelling behind the ear.
-    role: user
-  - content: 'Classifications: Pneumonia; no dehydration and dysentery; malaria and measles; acute ear
-      infection.
+  - role: assistant
+    content: 'Classifications:
+
+      - Pneumonia
+
+      - No dehydration
+
+      - Dysentery
+
+      - Malaria
+
+      - Measles
+
+      - Acute ear infection
 
 
       Management:
 
-      - Pneumonia: Give oral amoxicillin for 5 days, soothe the throat and relieve the cough with a safe
-      remedy, and follow up in 3 days.
+      - Advise the caregiver when to return immediately.
 
-      - Diarrhoea and dysentery: Give Plan A fluid, zinc, and food, and give ciprofloxacin for 3 days.
+      - Dry the ear by wicking.
 
-      - Malaria and measles: Give the first-line oral antimalarial and give vitamin A treatment. Follow
-      up in 3 days if fever persists.
+      - Follow up in 3 days.
 
-      - Acute ear infection: Give the indicated antibiotic for 5 days, give paracetamol for ear pain,
-      dry the ear by wicking, and follow up in 5 days.
+      - Follow up in 3 days if the fever persists.
 
-      - Also follow up in 5 days if the child is not improving. Advise the caregiver when to return immediately.'
-    role: assistant
+      - Follow up in 5 days.
+
+      - Follow up in 5 days if the child is not improving.
+
+      - Give the indicated antibiotic for 5 days.
+
+      - Give ciprofloxacin for 3 days.
+
+      - Give the first-line oral antimalarial.
+
+      - Give fluid, zinc, and food according to Plan A.
+
+      - Give oral amoxicillin for 5 days.
+
+      - Give paracetamol for ear pain.
+
+      - Give vitamin A treatment.
+
+      - Soothe the throat and relieve the cough with a safe remedy.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -3560,11 +3818,12 @@
     supported_encounter_complete: true
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-069-cross-urgent-dehydration-ear-language-v1
   golden_case_id: hpg-069-cross-urgent-dehydration-ear
@@ -3587,10 +3846,14 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Severe dehydration; Mastoiditis.
+      Classifications:
+
+      - Severe dehydration
+
+      - Mastoiditis
 
 
-      Management:
+      Immediate management:
 
       - Continue breastfeeding during referral.
 
@@ -3625,18 +3888,19 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-070-cross-multiple-urgent-language-v1
   golden_case_id: hpg-070-cross-multiple-urgent
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: fc9c4031b2888bbd8ff45d396a312bfdadd594ce494cb994a577f46340720621
   conversation:
-  - content: This child is 18 months old and is convulsing now. The child can drink or breastfeed, does
+  - role: user
+    content: This child is 18 months old and is convulsing now. The child can drink or breastfeed, does
       not vomit everything, has had no earlier convulsions during this illness, and is not lethargic or
       unconscious. Cough or difficult breathing has been present for 3 days. While calm, the respiratory
       rate counted for one full minute is 35 breaths per minute; stridor is present, with no chest indrawing
@@ -3645,19 +3909,40 @@
       neck. There is no runny nose, obvious or identified bacterial cause, recent measles, generalized
       rash, measles-associated cough, or red eyes. There is an ear problem with tender swelling behind
       the ear, but no ear pain, reported discharge, or pus draining.
-    role: user
-  - content: 'URGENT: Give the indicated pre-referral treatment immediately and arrange urgent referral.
+  - role: assistant
+    content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Very severe disease; severe pneumonia or very severe disease; very severe febrile
-      disease; mastoiditis.
+      Classifications:
+
+      - Very severe disease
+
+      - Severe pneumonia or very severe disease
+
+      - Very severe febrile disease
+
+      - Mastoiditis
 
 
-      Give diazepam because the child is convulsing now. Give the first dose of an appropriate antibiotic
-      and the first dose of severe-malaria treatment, prevent low blood sugar, keep the child warm, and
-      give paracetamol for ear pain. Complete the remaining assessment quickly, but do not delay urgent
-      referral.'
-    role: assistant
+      Immediate management:
+
+      - Complete the remaining assessment quickly.
+
+      - Give diazepam if the child is convulsing now.
+
+      - Give the first dose of an appropriate antibiotic.
+
+      - Give the first dose of severe-malaria treatment.
+
+      - Give paracetamol for ear pain.
+
+      - Give the indicated pre-referral treatment immediately.
+
+      - Keep the child warm.
+
+      - Prevent low blood sugar.
+
+      - Arrange urgent referral.'
   alignment:
     acquisition_requests: []
     actions_covered:
@@ -3684,31 +3969,37 @@
     supported_encounter_complete: true
     urgent_action_required: true
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-071-incomplete-entry-unknown-language-v1
   golden_case_id: hpg-071-incomplete-entry-unknown
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 897fe0332a43c4a8d791b03baca80aec45b3456fae2a18f928f32f91ccba6973
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, does not vomit everything,
       has had no convulsions during this illness, is not lethargic or unconscious, and is not convulsing
       now. There is no cough or difficult breathing, no fever, and no ear problem.
-    role: user
-  - content: 'I need one more finding before I can provide the final classifications and management plan.
+  - role: assistant
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Ask the caregiver whether the child has diarrhoea and report the answer. An unmentioned answer cannot
-      be treated as no.'
-    role: assistant
+      Information needed:
+
+      - Ask whether the child has diarrhoea.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     acquisition_requests:
     - acquisition_mode: CAREGIVER_QUESTION
@@ -3725,43 +4016,48 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-072-incomplete-multiple-groups-language-v1
   golden_case_id: hpg-072-incomplete-multiple-groups
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 9408768aadf043d59651a15535de7abdc197c33486ac55c491fd3780c8077349
   conversation:
-  - content: This child is 18 months old. The child can drink or breastfeed, has had no convulsions, is
+  - role: user
+    content: This child is 18 months old. The child can drink or breastfeed, has had no convulsions, is
       not lethargic or unconscious, and is not convulsing now. Cough or difficult breathing has been present
       for 3 days; the child is calm, there is no chest indrawing, stridor, or wheeze, and breaths were
       counted for one full minute, but the respiratory-rate value was not recorded. A pulse oximeter is
       not available. There is no diarrhoea. Fever has been present for 2 days at 38.0°C; the malaria test
       is available and negative. There is no stiff neck, runny nose, obvious or identified bacterial cause,
       recent measles, generalized rash, measles-associated cough, or red eyes.
-    role: user
-  - content: 'I need the following assessment findings before I can provide the final classifications
-      and management plan. Please complete them together:
+  - role: assistant
+    content: 'ASSESSMENT INCOMPLETE
 
+
+      Information needed:
 
       - Ask the caregiver whether the child vomits everything.
+
+      - Provide the malaria-risk category of the area: high, low, or no malaria risk.
+
+      - Ask whether the child has an ear problem, including ear pain or discharge.
 
       - Count the respiratory rate for one full minute while the child is calm and report the breaths
       per minute.
 
-      - Provide the malaria-risk category of the area: high, low, or no malaria risk. Do not infer this
-      from a place name.
 
-      - Ask the caregiver whether the child has an ear problem, including ear pain or ear discharge.'
-    role: assistant
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     acquisition_requests:
     - acquisition_mode: CAREGIVER_QUESTION
@@ -3787,41 +4083,65 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-073-incomplete-known-urgent-language-v1
   golden_case_id: hpg-073-incomplete-known-urgent
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: 649485094087fdbf9c10cf324d8493c7bc85f5e2ef12e67707d660225cedff1c
   conversation:
-  - content: The child is convulsing now. The child can drink or breastfeed, has had no earlier convulsions
+  - role: user
+    content: The child is convulsing now. The child can drink or breastfeed, has had no earlier convulsions
       during this illness, and is not lethargic or unconscious. The child's age and the rest of the major
       assessment were not supplied.
-    role: user
-  - content: 'URGENT: Give diazepam because the child is convulsing now. Give the indicated pre-referral
-      treatment immediately, prevent low blood sugar, keep the child warm, and arrange urgent referral.
-      Do not delay referral.
+  - role: assistant
+    content: 'URGENT: Act now and do not delay referral.
 
 
-      A complete set of classifications and management actions still requires the remaining findings.
-      While urgent treatment and referral are being arranged, complete the assessment quickly:
+      Immediate management:
 
+      - Complete the remaining assessment quickly.
+
+      - Give diazepam if the child is convulsing now.
+
+      - Give the indicated pre-referral treatment immediately.
+
+      - Keep the child warm.
+
+      - Prevent low blood sugar.
+
+      - Arrange urgent referral.
+
+
+      ASSESSMENT INCOMPLETE
+
+
+      Information still needed:
 
       - Ask the caregiver whether the child vomits everything.
 
       - Confirm the child''s age in completed months from the caregiver or record.
 
-      - Ask and report whether the child has cough or difficult breathing, diarrhoea, fever, or an ear
-      problem.'
-    role: assistant
+      - Ask whether the child has cough or difficult breathing.
+
+      - Ask whether the child has diarrhoea.
+
+      - Ask whether the child has an ear problem, including ear pain or discharge.
+
+      - Ask whether the child has fever and report the measured temperature when applicable.
+
+
+      Complete these checks rapidly, but do not delay referral. The final holistic classifications and
+      complete management plan remain pending.'
   alignment:
     acquisition_requests:
     - acquisition_mode: CAREGIVER_QUESTION
@@ -3859,11 +4179,12 @@
     supported_encounter_complete: false
     urgent_action_required: true
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-074-incomplete-internal-classification-withheld-language-v1
   golden_case_id: hpg-074-incomplete-internal-classification-withheld
@@ -3882,13 +4203,16 @@
       There is no stridor while calm. There is no wheezing. There is no recurrent wheeze. A pulse oximeter
       is not available. There is no diarrhoea. There is no fever.
   - role: assistant
-    content: 'I cannot provide the final classifications or complete management plan until the remaining
-      assessment findings are supplied.
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Please complete these checks:
+      Information needed:
 
-      - Ask whether the child has an ear problem, including ear pain or discharge.'
+      - Ask whether the child has an ear problem, including ear pain or discharge.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     expected_state: INCOMPLETE
     supported_encounter_complete: false
@@ -3909,32 +4233,42 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-075-contradiction-drinking-language-v1
   golden_case_id: hpg-075-contradiction-drinking
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: d4acfbaf106b7d407585f02d8bcb5c81477e51b5a2bf2d0eab433d0b9817c4e2
   conversation:
-  - content: This child is 18 months old. The general danger-sign assessment recorded that the child is
+  - role: user
+    content: This child is 18 months old. The general danger-sign assessment recorded that the child is
       able to drink or breastfeed. The child does not vomit everything, has had no convulsions during
       this illness, is not lethargic or unconscious, and is not convulsing now. The child has had diarrhoea
       for 3 days with no blood in the stool. During the diarrhoea assessment, the child was recorded as
       unable to drink when offered fluid. The child is not restless, has no sunken eyes, and the skin
       pinch returns normally. There is no cough or difficult breathing, fever, or ear problem.
-    role: user
-  - content: 'These findings conflict: the general danger-sign assessment says the child can drink or
-      breastfeed, while the diarrhoea assessment records that the child is unable to drink. Do not choose
-      one result or issue a final classification yet.
+  - role: assistant
+    content: 'ASSESSMENT INCOMPLETE
 
 
-      Clinically reassess the child''s ability to drink or breastfeed and the diarrhoea-specific drinking
-      response, then record consistent findings in both relevant sections.'
-    role: assistant
+      Conflicting or invalid findings:
+
+      - UNABLE observed drinking conflicts with a negative general danger sign.
+
+
+      Information needed:
+
+      - Clinically reassess the child''s ability to drink or breastfeed.
+
+      - Reassess the diarrhoea-specific drinking response.
+
+
+      I cannot provide the final classifications and complete management plan until these findings are
+      supplied.'
   alignment:
     acquisition_requests:
     - acquisition_mode: CLINICIAN_OBSERVATION
@@ -3955,11 +4289,12 @@
     supported_encounter_complete: false
     urgent_action_required: false
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-076-complete-danger-plus-all-pathways-language-v1
   golden_case_id: hpg-076-complete-danger-plus-all-pathways
@@ -3989,11 +4324,20 @@
     content: 'URGENT: Act now and do not delay referral.
 
 
-      Classifications: Very severe disease; Severe pneumonia or very severe disease; No dehydration; Very
-      severe febrile disease; No ear infection.
+      Classifications:
+
+      - Very severe disease
+
+      - Severe pneumonia or very severe disease
+
+      - No dehydration
+
+      - Very severe febrile disease
+
+      - No ear infection
 
 
-      Management:
+      Immediate management:
 
       - Complete the remaining assessment quickly.
 
@@ -4010,7 +4354,9 @@
       - Arrange urgent referral.
 
 
-      Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete
+      Deferred routine care:
+
+      - Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete
       with the urgent referral workflow.'
   alignment:
     expected_state: COMPLETE
@@ -4045,24 +4391,27 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-077-out-of-scope-age-1-language-v1
   golden_case_id: hpg-077-out-of-scope-age-1
-  status: FROZEN
+  status: DRAFT_FOR_HUMAN_REVIEW
   corpus_role: HOLISTIC_PRODUCT_GOLDEN_LANGUAGE
   semantic_source:
     suite_id: edge-imci-holistic-product-golden-v1
     semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
     golden_case_logic_signature: eac38a6013169ba029eafbd066f7e2677a3cca11570e596e9df4d4acf317d1e2
   conversation:
-  - content: This infant is 1 month old. There are no reported general danger signs, cough or difficult
+  - role: user
+    content: This infant is 1 month old. There are no reported general danger signs, cough or difficult
       breathing, diarrhoea, fever, or ear problem.
-    role: user
-  - content: This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at
-      2 completed months and ends before 60 months. I cannot provide an IMCI classification or management
-      synthesis from this workflow. Use the applicable approved young-infant assessment pathway.
-    role: assistant
+  - role: assistant
+    content: 'OUTSIDE SUPPORTED SCOPE
+
+
+      This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed
+      months and ends before 60 months. I cannot provide a classification or management plan from this
+      workflow. Use the applicable approved age-specific pathway.'
   alignment:
     acquisition_requests: []
     actions_covered: []
@@ -4076,11 +4425,12 @@
     supported_encounter_complete: null
     urgent_action_required: null
   review:
-    interaction_quality: APPROVED_FOR_HACKATHON_SCOPE
-    notes: Approval is bounded to the hackathon language calibration and is not qualified PHC field validation.
-    phc_suitability: PROJECT_OWNER_APPROVED_FOR_HACKATHON_DEMO_NOT_FIELD_VALIDATED
-    reviewer: PROJECT_OWNER
-    semantic_faithfulness: APPROVED_FOR_HACKATHON_SCOPE
+    semantic_faithfulness: PENDING
+    interaction_quality: PENDING
+    phc_suitability: PENDING
+    reviewer: null
+    notes: Format-remediated from frozen calibration v1; the user submission and semantic alignment are
+      preserved, while the assistant response requires review under the approved response grammar.
 - record_schema_id: edge-imci-holistic-golden-language-record-v1
   rendering_id: hpg-078-out-of-scope-age-60-language-v1
   golden_case_id: hpg-078-out-of-scope-age-60
@@ -4097,9 +4447,12 @@
       now. There is no cough or difficult breathing. There is no diarrhoea. There is no fever. There is
       no ear problem.
   - role: assistant
-    content: This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at
-      2 completed months and ends before 60 months. I cannot provide a classification or management plan
-      from this workflow. Use the applicable approved age-specific pathway.
+    content: 'OUTSIDE SUPPORTED SCOPE
+
+
+      This encounter is outside the supported EdgeIMCI major sick-child scope, which starts at 2 completed
+      months and ends before 60 months. I cannot provide a classification or management plan from this
+      workflow. Use the applicable approved age-specific pathway.'
   alignment:
     expected_state: SCHEMA_REJECTION
     supported_encounter_complete: null
@@ -4117,4 +4470,4 @@
     interaction_quality: PENDING
     phc_suitability: PENDING
     reviewer: null
-    notes: ''
+    notes: Requires review under the approved response grammar.

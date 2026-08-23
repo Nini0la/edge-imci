@@ -8,7 +8,7 @@ The 78 product-level golden semantic cases are approved and frozen. They specify
 
 This contract governs manually curated golden language renderings derived from those cases. It does not authorize bulk generation, dataset splitting, SFT, or changes to the frozen semantic records.
 
-**Implementation status:** The versioned record schema and 16-case calibration are project-owner approved and frozen for the bounded hackathon. The calibration may anchor the remaining 62 canonical renderings and bounded product-language evaluation. Teacher bake-off, bulk generation, and training remain blocked until the complete 78-case language layer passes its own gate.
+**Implementation status:** The versioned record schema and 16-case calibration are project-owner approved and frozen for the bounded hackathon. The first complete 78-case review passed semantic faithfulness and identified a formatting split. The project-owner-approved `edge-imci-response-grammar-v1` now governs exact canonical state templates and delimiters. All 78 formatted records are pending re-review. Teacher bake-off, bulk generation, and training remain blocked until the complete layer passes its own gate.
 
 ```text
 frozen semantic case
@@ -218,7 +218,13 @@ The first language pass should use these cases. This set is intentionally small 
 | `hpg-075-contradiction-drinking` | Explicit conflict resolution without guessing. |
 | `hpg-077-out-of-scope-age-1` | Clear scope rejection without unsupported clinical synthesis. |
 
-Approval of this set now authorizes authoring the remaining 62 canonical golden renderings in the same bounded style. It does not authorize synthetic variant generation or training.
+The frozen set authorized the first complete 78-case language pass. It remains immutable historical evidence. After the complete-layer review identified formatting inconsistency, the response grammar authorized language-only remediation while preserving the 16 anchor user submissions and every semantic alignment. It does not authorize synthetic variant generation or training.
+
+## Deterministic response grammar
+
+The canonical grammar is `configs/rendering/edgeimci_response_grammar_v1.json`, with a generated YAML mirror and human-readable explanation in `edgeimci_response_grammar_v1.md`. It defines exact headings, casing, bullet delimiters, and state-dependent section order for complete, urgent-complete, incomplete, urgent-incomplete, and out-of-scope responses.
+
+This is an interaction and post-training consistency policy, not an IMCI rule. If the grammar and a frozen semantic target disagree, the semantic target wins and the rendering must return to review.
 
 ## Explicit non-goals for this stage
 
