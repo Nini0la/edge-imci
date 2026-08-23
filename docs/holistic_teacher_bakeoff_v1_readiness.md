@@ -33,6 +33,9 @@ Deterministic checks are a screening layer, not final language approval.
 - The 78 canonical language renderings are approved and frozen.
 - The stable response grammar is pinned.
 - The candidate, final-record and attempt schemas exist.
+- The blind human-review schema, proposed selection policy and stable scoring anchors exist.
+- An authorized immutable schedule can be constructed once the approval gate is satisfied.
+- Resume state is derived without automatic semantic retries or duplicate retries of uncertain provider requests.
 - The request builder excludes encounter provenance fields from teacher-renderable facts.
 - The teacher payload excludes the frozen assistant response, classifications, actions, target urgency language, evaluator traces, rule IDs and source hashes.
 - Source-value hashes are attached internally only after candidate validation.
@@ -50,7 +53,7 @@ The pilot config remains `BLOCKED_PENDING_TEACHER_BUDGET_AND_REMOTE_CALL_AUTHORI
 - sampling and maximum-output-token settings; and
 - the proposed language-variant contract.
 
-Those decisions must be written into a new versioned run configuration before calls begin. The infrastructure must not treat an environment credential or an available API as authorization.
+Those decisions must be written into a new versioned run configuration and immutable schedule before calls begin. The infrastructure must not treat an environment credential or an available API as authorization.
 
 ## After authorization
 

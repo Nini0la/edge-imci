@@ -56,6 +56,9 @@ Lifecycle values are `CURRENT`, `PROPOSED_FOR_REVIEW`, `FROZEN`, `SUPERSEDED`, a
 | `configs/generation/holistic_language_variant_candidate_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/holistic_language_variant_record_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
 | `configs/generation/holistic_teacher_attempt_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
+| `configs/generation/holistic_language_variant_review_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
+| `configs/generation/holistic_teacher_bakeoff_schedule_v1.schema.json` | none | `IMPLEMENTATION_REFERENCE` | `CURRENT` |
+| `configs/generation/holistic_teacher_bakeoff_selection_policy_v1.json` | `.yaml` sibling | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` |
 | `data/archive/selected_v0/archive_manifest.json` | none | `HISTORICAL_ARCHIVE` | `ARCHIVED` |
 
 The frozen holistic golden suite is the approved semantic target for the bounded hackathon scope. Its approval artifact authorizes specified research uses but explicitly excludes direct training and production clinical use.
@@ -100,6 +103,8 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `synthetic_data_generation_experiment_notes.md` | `EXPLORATORY_NOTES` | `CURRENT` | Generation hypotheses and options; never a clinical or product decision. |
 | `holistic_language_variant_contract_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed controlled input-language variation boundary; does not authorize model calls or training. |
 | `holistic_teacher_bakeoff_v1_readiness.md` | `IMPLEMENTATION_REFERENCE` | `CURRENT` | Records the no-generation readiness state and the explicit teacher, budget and remote-call gate. |
+| `holistic_teacher_bakeoff_review_protocol_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed blind-review rubric, disposition logic, configuration gates and comparison order. |
+| `holistic_teacher_bakeoff_resume_protocol_v1.md` | `IMPLEMENTATION_REFERENCE` | `CURRENT` | Immutable schedule and safe request-level resume behavior; does not authorize provider calls. |
 | `information_policy_proposal.md` | `REVIEW_RECORD` | `ARCHIVED` | Selected-v0 design record. |
 | `information_policy_v1.md` | `IMPLEMENTATION_REFERENCE` | `ARCHIVED` | Selected-v0 deterministic policy reference. |
 | `trajectory_schema.md` | `IMPLEMENTATION_REFERENCE` | `ARCHIVED` | Selected-v0 trajectory/reference-rendering schema. |

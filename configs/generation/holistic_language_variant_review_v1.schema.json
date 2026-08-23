@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/holistic_language_variant_review_v1.schema.json",
+  "title": "Blind human review of one EdgeIMCI holistic language variant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_schema_id",
+    "review_id",
+    "review_item_id",
+    "reviewer",
+    "assessments",
+    "error_codes",
+    "overall_disposition",
+    "notes"
+  ],
+  "properties": {
+    "review_schema_id": {
+      "const": "edge-imci-holistic-language-variant-review-v1"
+    },
+    "review_id": {"type": "string", "minLength": 1},
+    "review_item_id": {
+      "type": "string",
+      "pattern": "^review-[0-9a-f]{24}$"
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity", "role", "reviewed_at", "blind_to_configuration"],
+      "properties": {
+        "identity": {"type": "string", "minLength": 1},
+        "role": {
+          "enum": [
+            "PROJECT_OWNER",
+            "CLINICAL_REVIEWER",
+            "PHC_REVIEWER",
+            "TECHNICAL_REVIEWER"
+          ]
+        },
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "blind_to_configuration": {"const": true}
+      }
+    },
+    "assessments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_faithfulness",
+        "fact_completeness",
+        "unknown_preservation",
+        "target_leakage",
+        "answer_shaped_language",
+        "naturalness_score",
+        "phc_suitability_score"
+      ],
+      "properties": {
+        "semantic_faithfulness": {"enum": ["PASS", "FAIL", "UNSURE"]},
+        "fact_completeness": {"enum": ["PASS", "FAIL", "UNSURE"]},
+        "unknown_preservation": {
+          "enum": ["PASS", "FAIL", "NOT_APPLICABLE", "UNSURE"]
+        },
+        "target_leakage": {"enum": ["NONE", "SUSPECTED", "PRESENT"]},
+        "answer_shaped_language": {"enum": ["NONE", "SUSPECTED", "PRESENT"]},
+        "naturalness_score": {"type": "integer", "minimum": 1, "maximum": 5},
+        "phc_suitability_score": {"type": "integer", "minimum": 1, "maximum": 5}
+      }
+    },
+    "error_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "FACT_ADDED",
+          "FACT_OMITTED",
+          "FACT_CHANGED",
+          "UNKNOWN_CHANGED_TO_NEGATIVE",
+          "ACQUISITION_MODE_CHANGED",
+          "TARGET_CLASSIFICATION_LEAKAGE",
+          "TARGET_ACTION_LEAKAGE",
+          "TARGET_URGENCY_LEAKAGE",
+          "ANSWER_SHAPED_PHRASING",
+          "UNNATURAL_LANGUAGE",
+          "UNSUITABLE_PHC_LANGUAGE",
+          "INTERNAL_IDENTIFIER_LEAKAGE",
+          "OTHER_REVIEW_FINDING"
+        ]
+      }
+    },
+    "overall_disposition": {"enum": ["APPROVE", "REJECT", "ESCALATE"]},
+    "notes": {"type": "string"}
+  }
+}

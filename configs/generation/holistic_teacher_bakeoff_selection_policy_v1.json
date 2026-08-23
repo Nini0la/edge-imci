@@ -1,0 +1,50 @@
+{
+  "selection_policy_id": "edge-imci-holistic-teacher-bakeoff-selection-policy-v1",
+  "version": "1.0.0",
+  "status": "PROPOSED_FOR_PROJECT_OWNER_REVIEW",
+  "authority": "WORKING_PLAN",
+  "review_mode": {
+    "blind_to_teacher_and_strategy": true,
+    "minimum_reviews_per_candidate": 1,
+    "review_schema_id": "edge-imci-holistic-language-variant-review-v1"
+  },
+  "item_disposition_rules": {
+    "approve_requires": {
+      "semantic_faithfulness": "PASS",
+      "fact_completeness": "PASS",
+      "unknown_preservation": ["PASS", "NOT_APPLICABLE"],
+      "target_leakage": "NONE",
+      "answer_shaped_language": "NONE",
+      "minimum_naturalness_score": 3,
+      "minimum_phc_suitability_score": 3,
+      "error_codes": []
+    },
+    "uncertain_or_suspected_requires": "ESCALATE",
+    "failed_or_present_requires": "REJECT"
+  },
+  "configuration_eligibility_gates": [
+    "ALL_SCHEDULED_UNITS_REACHED_TERMINAL_EXECUTION_STATE",
+    "NO_REQUEST_RECONCILIATION_OUTSTANDING",
+    "EVERY_DETERMINISTIC_PASS_HAS_REQUIRED_HUMAN_REVIEW",
+    "NO_REVIEW_ESCALATIONS_OUTSTANDING",
+    "HUMAN_ACCEPTANCE_REVIEW_RECORDED_AS_SUFFICIENT",
+    "SYSTEMATIC_CORRUPTION_REVIEW_RECORDED_AS_NONE",
+    "USAGE_AND_COST_EVIDENCE_COMPLETE",
+    "NO_APPROVED_ITEM_HAS_TARGET_LEAKAGE"
+  ],
+  "comparison_order": [
+    "HUMAN_APPROVAL_RATE_DESCENDING",
+    "SEMANTIC_OR_UNKNOWN_REJECTION_RATE_ASCENDING",
+    "TARGET_LEAKAGE_RATE_ASCENDING",
+    "MEAN_PHC_SUITABILITY_DESCENDING",
+    "MEAN_NATURALNESS_DESCENDING",
+    "DETERMINISTIC_PASS_RATE_DESCENDING",
+    "COST_PER_HUMAN_APPROVED_ITEM_ASCENDING",
+    "P95_LATENCY_ASCENDING"
+  ],
+  "automatic_winner_selection": false,
+  "tie_policy": "PROJECT_OWNER_REVIEW_REQUIRED",
+  "minimum_acceptable_human_approval_rate": "PROJECT_OWNER_DECISION_AFTER_BAKEOFF_EVIDENCE",
+  "systematic_corruption_threshold": "NOT_AUTOMATICALLY_INFERRED_IN_V1",
+  "scope_note": "This interaction and experiment policy does not define clinical truth. It orders evidence for project-owner selection and does not authorize generation, corpus promotion, bulk generation, or training."
+}

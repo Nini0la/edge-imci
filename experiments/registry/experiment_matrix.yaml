@@ -39,7 +39,7 @@ experiments:
           reference_id: holistic-teacher-bakeoff-v1-config
           version: 1.0.0
           location: configs/generation/holistic_teacher_bakeoff_v1.json
-          sha256: 99c2eab7ea97ae9831b5854feb7181333799d426e29c7a20f16275907be4fb30
+          sha256: 469510200095527736bd7e93b05f33f3d83fb185e9396e9389b2d315ffa14814
           remote_only: false
           role: INPUT
         - reference_kind: DATASET
@@ -74,7 +74,7 @@ experiments:
           reference_id: edge-imci-holistic-language-variant-validator-v1
           version: 1.0.0
           location: src/edge_imci/generation/holistic_variants.py
-          sha256: da205e02aae68c0c38074eab4ed2a53b85136a4fa53aafc46102ea3e3fb867e0
+          sha256: 3ce521c424ffc8cced9031756ab829cf7c82bd0fca3965dabd303b092bb7387b
           remote_only: false
           role: EVALUATOR
       unresolved_inputs:

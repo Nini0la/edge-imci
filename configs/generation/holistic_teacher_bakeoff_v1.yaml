@@ -24,10 +24,22 @@ artifact_pins:
   sha256: e754dd164a92f71fd2a0be17d81c22a0dbbbe2ae208c1ffe00398b7be0e31f57
 - artifact_kind: ATTEMPT_SCHEMA
   path: configs/generation/holistic_teacher_attempt_v1.schema.json
-  sha256: 407b76ee6b19457a39e4c2613e35febfab8bcf61f47a3f73b9326344ba2326a7
+  sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
 - artifact_kind: VALIDATOR
   path: src/edge_imci/generation/holistic_variants.py
-  sha256: da205e02aae68c0c38074eab4ed2a53b85136a4fa53aafc46102ea3e3fb867e0
+  sha256: 3ce521c424ffc8cced9031756ab829cf7c82bd0fca3965dabd303b092bb7387b
+- artifact_kind: HUMAN_REVIEW_SCHEMA
+  path: configs/generation/holistic_language_variant_review_v1.schema.json
+  sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+- artifact_kind: AUTHORIZED_SCHEDULE_SCHEMA
+  path: configs/generation/holistic_teacher_bakeoff_schedule_v1.schema.json
+  sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+- artifact_kind: SELECTION_POLICY
+  path: configs/generation/holistic_teacher_bakeoff_selection_policy_v1.json
+  sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+- artifact_kind: REVIEW_AND_RESUME_LOGIC
+  path: src/edge_imci/generation/holistic_bakeoff.py
+  sha256: f43efe6f84daa72f945622f9b5b52ef45b407bca8d5716964b99aa669d8b30f4
 teacher_models: []
 prompt_strategies:
 - strategy_id: phc-concise-complete-v1

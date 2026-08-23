@@ -38,9 +38,7 @@
         "TRANSPORT_FAILED",
         "PARSE_FAILED",
         "DETERMINISTIC_REJECTED",
-        "PENDING_HUMAN_REVIEW",
-        "APPROVED_CORPUS_CANDIDATE",
-        "REJECTED_BY_REVIEW"
+        "PENDING_HUMAN_REVIEW"
       ]
     },
     "teacher": {

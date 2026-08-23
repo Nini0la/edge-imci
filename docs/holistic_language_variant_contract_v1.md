@@ -79,7 +79,11 @@ These checks establish mechanical integrity only. A teacher can copy the expecte
 - `configs/generation/holistic_language_variant_candidate_v1.schema.json` — teacher-returned candidate schema.
 - `configs/generation/holistic_language_variant_record_v1.schema.json` — assembled variant schema.
 - `configs/generation/holistic_teacher_attempt_v1.schema.json` — request/attempt/usage evidence schema.
+- `configs/generation/holistic_language_variant_review_v1.schema.json` — blind human-review result schema.
+- `configs/generation/holistic_teacher_bakeoff_schedule_v1.schema.json` — immutable authorized schedule schema.
+- `configs/generation/holistic_teacher_bakeoff_selection_policy_v1.json` — proposed winner-evidence policy.
 - `src/edge_imci/generation/holistic_variants.py` — request construction, deterministic validation and frozen-target assembly.
+- `src/edge_imci/generation/holistic_bakeoff.py` — blind review, resume-state and comparison-summary logic.
 
 ## Approval effect
 

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/holistic_teacher_bakeoff_schedule_v1.schema.json",
+  "title": "Immutable authorized EdgeIMCI teacher bake-off schedule",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schedule_schema_id",
+    "generation_run_id",
+    "experiment_id",
+    "created_at",
+    "authorization",
+    "source_pins",
+    "retry_policy",
+    "configurations",
+    "units"
+  ],
+  "properties": {
+    "schedule_schema_id": {
+      "const": "edge-imci-holistic-teacher-bakeoff-schedule-v1"
+    },
+    "generation_run_id": {"type": "string", "minLength": 1},
+    "experiment_id": {"const": "holistic-teacher-prompt-bakeoff-v1"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_owner",
+        "approved_at",
+        "variant_contract_approved",
+        "remote_calls_authorized",
+        "budget"
+      ],
+      "properties": {
+        "project_owner": {"type": "string", "minLength": 1},
+        "approved_at": {"type": "string", "format": "date-time"},
+        "variant_contract_approved": {"const": true},
+        "remote_calls_authorized": {"const": true},
+        "budget": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["currency", "maximum_amount"],
+          "properties": {
+            "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+            "maximum_amount": {"type": "number", "exclusiveMinimum": 0}
+          }
+        }
+      }
+    },
+    "source_pins": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_cases_sha256",
+        "frozen_language_renderings_sha256",
+        "variant_contract_sha256",
+        "validator_sha256",
+        "attempt_schema_sha256",
+        "review_schema_sha256",
+        "selection_policy_sha256",
+        "schedule_schema_sha256"
+      ],
+      "properties": {
+        "semantic_cases_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "frozen_language_renderings_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "variant_contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "validator_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "attempt_schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "review_schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "selection_policy_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "schedule_schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transport_retry_limit", "semantic_retry", "uncertain_request_policy"],
+      "properties": {
+        "transport_retry_limit": {"const": 1},
+        "semantic_retry": {"const": false},
+        "uncertain_request_policy": {"const": "RECONCILE_BEFORE_RETRY"}
+      }
+    },
+    "configurations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "configuration_id",
+          "teacher_provider",
+          "teacher_model",
+          "teacher_snapshot",
+          "strategy_id",
+          "prompt_id",
+          "prompt_version",
+          "prompt_sha256",
+          "sampling_config",
+          "max_output_tokens"
+        ],
+        "properties": {
+          "configuration_id": {"type": "string", "minLength": 1},
+          "teacher_provider": {"type": "string", "minLength": 1},
+          "teacher_model": {"type": "string", "minLength": 1},
+          "teacher_snapshot": {"type": "string", "minLength": 1},
+          "strategy_id": {"type": "string", "minLength": 1},
+          "prompt_id": {"type": "string", "minLength": 1},
+          "prompt_version": {"type": "string", "minLength": 1},
+          "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "sampling_config": {"type": "object", "minProperties": 1},
+          "max_output_tokens": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "request_id",
+          "configuration_id",
+          "semantic_case_id",
+          "strategy_id",
+          "source_request_sha256",
+          "review_item_id"
+        ],
+        "properties": {
+          "request_id": {"type": "string", "minLength": 1},
+          "configuration_id": {"type": "string", "minLength": 1},
+          "semantic_case_id": {"type": "string", "pattern": "^hpg-[0-9]{3}-.+$"},
+          "strategy_id": {"type": "string", "minLength": 1},
+          "source_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "review_item_id": {"type": "string", "pattern": "^review-[0-9a-f]{24}$"}
+        }
+      }
+    }
+  }
+}

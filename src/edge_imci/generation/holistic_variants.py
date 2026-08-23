@@ -453,6 +453,32 @@ def validate_attempt_record(record: dict[str, Any]) -> None:
         ATTEMPT_SCHEMA_PATH,
         referenced_schema_paths=(CANDIDATE_SCHEMA_PATH,),
     ).validate(record)
+    status = record["status"]
+    if status == "REQUESTED":
+        if any(
+            record[field] is not None
+            for field in ("completed_at", "raw_response", "candidate")
+        ):
+            raise ValueError("REQUESTED attempt receipts cannot contain response fields")
+        if record["validation"]["deterministic_pass"]:
+            raise ValueError("REQUESTED attempt receipts cannot pass validation")
+        return
+    if record["completed_at"] is None:
+        raise ValueError("terminal attempts require completed_at")
+    if status == "TRANSPORT_FAILED":
+        if record["candidate"] is not None:
+            raise ValueError("transport failures cannot contain a candidate")
+    elif status == "PARSE_FAILED":
+        if record["raw_response"] is None or record["candidate"] is not None:
+            raise ValueError("parse failures require raw response and no candidate")
+    elif status == "DETERMINISTIC_REJECTED":
+        if record["raw_response"] is None or record["candidate"] is None:
+            raise ValueError("deterministic rejections require raw response and candidate")
+    elif status == "PENDING_HUMAN_REVIEW":
+        if record["raw_response"] is None or record["candidate"] is None:
+            raise ValueError("reviewable attempts require raw response and candidate")
+        if not record["validation"]["deterministic_pass"]:
+            raise ValueError("reviewable attempts must pass deterministic validation")
 
 
 def summarize_attempts(attempts: Iterable[dict[str, Any]]) -> dict[str, Any]:
@@ -466,7 +492,7 @@ def summarize_attempts(attempts: Iterable[dict[str, Any]]) -> dict[str, Any]:
         deterministic_passes = sum(
             item["validation"]["deterministic_pass"] for item in items
         )
-        approved = sum(item["status"] == "APPROVED_CORPUS_CANDIDATE" for item in items)
+        pending_review = sum(item["status"] == "PENDING_HUMAN_REVIEW" for item in items)
         errors: dict[str, int] = {}
         for item in items:
             for code in item["validation"]["error_codes"]:
@@ -477,7 +503,7 @@ def summarize_attempts(attempts: Iterable[dict[str, Any]]) -> dict[str, Any]:
                 "attempt_count": len(items),
                 "deterministic_pass_count": deterministic_passes,
                 "deterministic_pass_rate": deterministic_passes / len(items),
-                "human_approved_count": approved,
+                "pending_human_review_count": pending_review,
                 "error_code_counts": errors,
             }
         )

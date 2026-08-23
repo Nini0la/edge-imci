@@ -17,12 +17,12 @@
       "reproducibility": {
         "required_reference_kinds": ["CONFIG", "MODEL", "DATASET", "PROMPT", "VALIDATOR"],
         "references": [
-          {"reference_kind": "CONFIG", "reference_id": "holistic-teacher-bakeoff-v1-config", "version": "1.0.0", "location": "configs/generation/holistic_teacher_bakeoff_v1.json", "sha256": "99c2eab7ea97ae9831b5854feb7181333799d426e29c7a20f16275907be4fb30", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "CONFIG", "reference_id": "holistic-teacher-bakeoff-v1-config", "version": "1.0.0", "location": "configs/generation/holistic_teacher_bakeoff_v1.json", "sha256": "469510200095527736bd7e93b05f33f3d83fb185e9396e9389b2d315ffa14814", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-v1-semantics", "version": "1.0.0", "location": "data/golden/holistic_product_v1/semantic_cases.jsonl", "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-language-v1", "version": "1.0.0", "location": "data/golden/holistic_product_v1/language_renderings_v1.jsonl", "sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "PROMPT", "reference_id": "edge-imci-phc-concise-complete", "version": "1.0.0", "location": "prompts/holistic_language_variants/phc_concise_complete_v1.txt", "sha256": "70e7c071f73f0cc796681f6acfbc53fa30a74bd927ddaf0eaa0d3ee5fc49cd27", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "PROMPT", "reference_id": "edge-imci-phc-natural-complete", "version": "1.0.0", "location": "prompts/holistic_language_variants/phc_natural_complete_v1.txt", "sha256": "6b964b39cdcba43b6a1ec5d37e2dfc113cad1b5967b80b5923a1094b78aea583", "remote_only": false, "role": "INPUT"},
-          {"reference_kind": "VALIDATOR", "reference_id": "edge-imci-holistic-language-variant-validator-v1", "version": "1.0.0", "location": "src/edge_imci/generation/holistic_variants.py", "sha256": "da205e02aae68c0c38074eab4ed2a53b85136a4fa53aafc46102ea3e3fb867e0", "remote_only": false, "role": "EVALUATOR"}
+          {"reference_kind": "VALIDATOR", "reference_id": "edge-imci-holistic-language-variant-validator-v1", "version": "1.0.0", "location": "src/edge_imci/generation/holistic_variants.py", "sha256": "3ce521c424ffc8cced9031756ab829cf7c82bd0fca3965dabd303b092bb7387b", "remote_only": false, "role": "EVALUATOR"}
         ],
         "unresolved_inputs": ["controlled variant contract approval", "teacher candidates and immutable snapshots", "provider and credential context", "remote-call authorization", "budget or credit limit", "sampling and output-token configuration"]
       },
