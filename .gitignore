@@ -223,3 +223,9 @@ __marimo__/
 
 # Local source documents
 /data/sources/*.pdf
+
+# Frontend dependencies and generated output
+/web/node_modules/
+/web/dist/
+!/web/src/lib/
+!/web/src/lib/**

@@ -1,0 +1,152 @@
+from __future__ import annotations
+
+import copy
+import json
+from threading import Thread
+from urllib.request import Request, urlopen
+
+import pytest
+
+from app.api import make_server, result_payload
+from app.extractor.base import ExtractionResult
+from app.service import (
+    analyze_freeform_findings,
+    create_default_service,
+    evaluate_extracted_findings,
+    extract_freeform_findings,
+)
+
+
+EXPECTED_STATES = [
+    "COMPLETE",
+    "COMPLETE",
+    "INCOMPLETE",
+    "URGENT_INCOMPLETE",
+    "URGENT_COMPLETE",
+]
+
+
+def test_approved_examples_cover_primary_ui_states() -> None:
+    extractor, examples = create_default_service()
+
+    results = [
+        analyze_freeform_findings(example["text"], extractor=extractor)
+        for example in examples
+    ]
+
+    assert [result.state for result in results] == EXPECTED_STATES
+    assert all(result.structured_view for result in results)
+    assert all(
+        result.pipeline_trace[-1].label == "Worker-facing presentation"
+        for result in results
+    )
+
+
+@pytest.mark.parametrize("findings", ["", "   ", "This child is 18 months old."])
+def test_stub_does_not_invent_a_complete_encounter_from_partial_input(
+    findings: str,
+) -> None:
+    extractor, _ = create_default_service()
+
+    result = analyze_freeform_findings(findings, extractor=extractor)
+
+    assert result.state == "ERROR"
+    assert not result.schema_valid
+    assert result.matched_case_id is None
+
+
+def test_examples_include_text_needed_by_the_ui() -> None:
+    _, examples = create_default_service()
+
+    assert len(examples) == 5
+    assert all(set(example) == {"id", "label", "text"} for example in examples)
+    assert all(example["text"].strip() for example in examples)
+
+
+def test_out_of_scope_age_has_a_dedicated_ui_state() -> None:
+    base_extractor, examples = create_default_service()
+    base = base_extractor.extract(examples[0]["text"]).encounter
+    encounter = copy.deepcopy(base)
+    encounter["patient_facts"]["age_months"] = 1
+
+    class OutOfScopeExtractor:
+        mode_label = "test"
+
+        def extract(self, free_text: str) -> ExtractionResult:
+            return ExtractionResult(
+                encounter=encounter, extraction_mode=self.mode_label
+            )
+
+    result = analyze_freeform_findings(
+        "One-month-old child", extractor=OutOfScopeExtractor()
+    )
+
+    assert result.state == "OUT_OF_SCOPE"
+    assert result.error is None
+    assert result.rendered_response.startswith("OUTSIDE SUPPORTED SCOPE")
+
+
+def test_result_payload_includes_derived_state() -> None:
+    extractor, examples = create_default_service()
+    result = analyze_freeform_findings(examples[2]["text"], extractor=extractor)
+
+    payload = result_payload(result)
+
+    assert payload["state"] == "INCOMPLETE"
+    assert payload["structured_view"]
+
+
+def test_worker_review_separates_extraction_from_decision_engine() -> None:
+    extractor, examples = create_default_service()
+
+    preview = extract_freeform_findings(examples[3]["text"], extractor=extractor)
+
+    assert preview.state == "READY_FOR_REVIEW"
+    assert [step.label for step in preview.pipeline_trace] == [
+        "Language interpretation",
+        "Structured encounter validation",
+    ]
+
+    result = evaluate_extracted_findings(preview)
+
+    assert result.state == "URGENT_INCOMPLETE"
+    assert result.pipeline_trace[-1].label == "Worker-facing presentation"
+
+
+def test_http_api_exposes_examples_and_analysis() -> None:
+    server = make_server(port=0)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    base_url = f"http://127.0.0.1:{server.server_port}"
+
+    try:
+        with urlopen(f"{base_url}/api/examples") as response:
+            examples = json.load(response)["examples"]
+
+        extract_request = Request(
+            f"{base_url}/api/extract",
+            data=json.dumps({"findings": examples[3]["text"]}).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urlopen(extract_request) as response:
+            preview = json.load(response)
+
+        assert preview["state"] == "READY_FOR_REVIEW"
+
+        evaluate_request = Request(
+            f"{base_url}/api/evaluate",
+            data=json.dumps(preview).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urlopen(evaluate_request) as response:
+            result = json.load(response)
+
+        assert result["state"] == "URGENT_INCOMPLETE"
+        assert result["is_urgent"] is True
+        assert result["rendered_response"].startswith("URGENT:")
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)
