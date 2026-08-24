@@ -1,0 +1,159 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v15",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v15__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__oos-extract-young-respiratory-001__variant-0005__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v15__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__oos-extract-young-respiratory-001__variant-0005",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12",
+  "semantic_case_id": "oos-extract-young-respiratory-001",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.12",
+    "prompt_sha256": "000f31f3ad22fd35efc771101d545a1eb58afe51d783aa2254ccc8b34daf6726"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "b47b9975809ea4b618bdbae6d4b189b367069e4822f066892c6b4b736a8aa3a9",
+  "requested_at": "2026-08-23T16:13:14Z",
+  "completed_at": "2026-08-23T16:13:20Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"oos-extract-young-respiratory-001\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin dey 1 month old. Pikin get cough and e get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever. I count pikin breath for one minute. Bronchodilator trial don complete. Pikin chest no dey sink inside. Pikin dey calm. Cough don dey for 3 days. I count pikin breath for one minute after bronchodilator. Pikin chest no dey sink inside after bronchodilator. Pikin dey calm after bronchodilator. After bronchodilator, pikin respiratory rate na 35. Pulse oximeter no dey. Pikin no dey wheeze often. Pikin respiratory rate na 45. Pikin no get stridor when e calm. Pikin dey wheeze.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get convulsion before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin no dey vomit everything.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin dey 1 month old.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin get cough and e get wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin no get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin no get fever.\"},{\"fact_id\":\"respiratory.breaths_counted_one_minute\",\"evidence_text\":\"I count pikin breath for one minute.\"},{\"fact_id\":\"respiratory.bronchodilator_trial_completed\",\"evidence_text\":\"Bronchodilator trial don complete.\"},{\"fact_id\":\"respiratory.chest_indrawing\",\"evidence_text\":\"Pikin chest no dey sink inside.\"},{\"fact_id\":\"respiratory.child_calm\",\"evidence_text\":\"Pikin dey calm.\"},{\"fact_id\":\"respiratory.cough_duration_days\",\"evidence_text\":\"Cough don dey for 3 days.\"},{\"fact_id\":\"respiratory.post_bronchodilator_breaths_counted_one_minute\",\"evidence_text\":\"I count pikin breath for one minute after bronchodilator.\"},{\"fact_id\":\"respiratory.post_bronchodilator_chest_indrawing\",\"evidence_text\":\"Pikin chest no dey sink inside after bronchodilator.\"},{\"fact_id\":\"respiratory.post_bronchodilator_child_calm\",\"evidence_text\":\"Pikin dey calm after bronchodilator.\"},{\"fact_id\":\"respiratory.post_bronchodilator_respiratory_rate\",\"evidence_text\":\"After bronchodilator, pikin respiratory rate na 35.\"},{\"fact_id\":\"respiratory.pulse_oximeter_available\",\"evidence_text\":\"Pulse oximeter no dey.\"},{\"fact_id\":\"respiratory.recurrent_wheeze\",\"evidence_text\":\"Pikin no dey wheeze often.\"},{\"fact_id\":\"respiratory.respiratory_rate\",\"evidence_text\":\"Pikin respiratory rate na 45.\"},{\"fact_id\":\"respiratory.stridor_when_calm\",\"evidence_text\":\"Pikin no get stridor when e calm.\"},{\"fact_id\":\"respiratory.wheezing\",\"evidence_text\":\"Pikin dey wheeze.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "oos-extract-young-respiratory-001",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin dey 1 month old. Pikin get cough and e get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever. I count pikin breath for one minute. Bronchodilator trial don complete. Pikin chest no dey sink inside. Pikin dey calm. Cough don dey for 3 days. I count pikin breath for one minute after bronchodilator. Pikin chest no dey sink inside after bronchodilator. Pikin dey calm after bronchodilator. After bronchodilator, pikin respiratory rate na 35. Pulse oximeter no dey. Pikin no dey wheeze often. Pikin respiratory rate na 45. Pikin no get stridor when e calm. Pikin dey wheeze.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin no dey vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin dey 1 month old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin get cough and e get wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "I count pikin breath for one minute."
+      },
+      {
+        "fact_id": "respiratory.bronchodilator_trial_completed",
+        "evidence_text": "Bronchodilator trial don complete."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Pikin chest no dey sink inside."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Pikin dey calm."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough don dey for 3 days."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_breaths_counted_one_minute",
+        "evidence_text": "I count pikin breath for one minute after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_chest_indrawing",
+        "evidence_text": "Pikin chest no dey sink inside after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_child_calm",
+        "evidence_text": "Pikin dey calm after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_respiratory_rate",
+        "evidence_text": "After bronchodilator, pikin respiratory rate na 35."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Pikin no dey wheeze often."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Pikin respiratory rate na 45."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Pikin no get stridor when e calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Pikin dey wheeze."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1565,
+    "output_tokens": 912,
+    "cached_input_tokens": 0,
+    "latency_ms": 5771,
+    "retry_count": 0,
+    "provider_request_id": "resp_01e13d086356947f016a8b1c1a9c108197b8f447743d7f80ed",
+    "raw_usage": {
+      "input_tokens": 1565,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 912,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2477
+    }
+  }
+}

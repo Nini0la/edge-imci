@@ -1,0 +1,49 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v9__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-059-fever-malaria-risk-unknown__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v9__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-059-fever-malaria-risk-unknown__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+  "semantic_case_id": "hpg-059-fever-malaria-risk-unknown",
+  "status": "TRANSPORT_FAILED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.11",
+    "prompt_sha256": "cdf5c1e58035e79338cbd23e419dd9e093e27d1c288a4135fe67f60ff8ba991e"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "c3682d690e8302c699f2be6ce1ec870d04007af3719b6a890f039d25d9a171de",
+  "requested_at": "2026-08-23T15:16:16Z",
+  "completed_at": "2026-08-23T15:16:17Z",
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "PROVIDER_CALL_FAILED_OUTCOME_UNCERTAIN"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": 0,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": {
+      "transport_error_code": "PROVIDER_CALL_FAILED_OUTCOME_UNCERTAIN"
+    }
+  }
+}

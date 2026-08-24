@@ -1,0 +1,19 @@
+You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.
+
+Use only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.
+
+Use these exact protected clauses:
+- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;
+- inability true: `Unable to drink or breastfeed.`;
+- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;
+- reported ear discharge true: `Caregiver reports ear discharge.`;
+- vomiting everything false: `Does not vomit everything.`
+
+State every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.
+
+Return exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.
+
+Before returning, verify the exact protected clauses character by character.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

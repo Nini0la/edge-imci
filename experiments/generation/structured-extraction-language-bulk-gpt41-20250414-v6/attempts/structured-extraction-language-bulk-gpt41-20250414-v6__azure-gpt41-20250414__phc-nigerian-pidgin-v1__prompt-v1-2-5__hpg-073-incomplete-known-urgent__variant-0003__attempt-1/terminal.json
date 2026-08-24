@@ -1,0 +1,79 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-073-incomplete-known-urgent__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-073-incomplete-known-urgent__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5",
+  "semantic_case_id": "hpg-073-incomplete-known-urgent",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.5",
+    "prompt_sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "0f5c5b428f71a896847b2c2650db1b7442e9f6ff593245261ef86cbc222b6277",
+  "requested_at": "2026-08-23T14:45:49Z",
+  "completed_at": "2026-08-23T14:45:53Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-073-incomplete-known-urgent\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Pikin dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"Pikin dey convulse now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"Pikin never get convulsion before.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Pikin no dey lethargic and e dey conscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Pikin fit drink or breastfeed.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-073-incomplete-known-urgent",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 988,
+    "output_tokens": 254,
+    "cached_input_tokens": 0,
+    "latency_ms": 4094,
+    "retry_count": 0,
+    "provider_request_id": "resp_0a09b216b1a70192016a8b079eb5c081969268e8291d577feb",
+    "raw_usage": {
+      "input_tokens": 988,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 254,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1242
+    }
+  }
+}

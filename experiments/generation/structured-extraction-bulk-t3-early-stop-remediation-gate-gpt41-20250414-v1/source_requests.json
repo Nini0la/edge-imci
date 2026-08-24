@@ -1,0 +1,1633 @@
+[
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-001-all-negative",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "3a140168d61d0c13494b783f843d8442277cf5d18a444908c62f632cda963c75",
+    "request_sha256": "f05c32d49499da0a5cb6ff27352e06fd24c85e38ce113f215a6e7c78b515aa5f",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-001-all-negative\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-001-all-negative\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "818ce5796201164362f8da7779f96c0c8e103825f3f1dfea5f9ed3adc65fff6c",
+    "request_sha256": "a0dca869dfc9a276a8da507ecf315792c9c0cf72bd1abd64be5a6108f250ab95",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": 89.9,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": true,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 35,
+          "stridor_when_calm": false,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.oxygen_saturation_percent",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-016-resp-oximeter-89-9\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.oxygen_saturation_percent\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-016-resp-oximeter-89-9\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": 89.9, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": true, \"recurrent_wheeze\": false, \"respiratory_rate\": 35, \"stridor_when_calm\": false, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-023-resp-child-not-calm",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "0f8a0bb09d314fe137f515b300ed5bd30726db2a960938357ecc6fc5d67aad99",
+    "request_sha256": "45a95406084f2c57841f3a2e6f0429bb3b397170278f41bba91fe3491b70cdcc",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": false,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 35,
+          "stridor_when_calm": false,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-023-resp-child-not-calm",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-023-resp-child-not-calm\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-023-resp-child-not-calm\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": false, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 35, \"stridor_when_calm\": false, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "c0c8961577ee586bc2d5cf1bddb67f1b418d817ff6def78d5dd29716d36cec90",
+    "request_sha256": "5e5bf5f6bf853a1f3a06681f183aa425934a7339a6030b265c0da168b5782b93",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": {
+          "blood_in_stool": false,
+          "cholera_in_area": null,
+          "dehydration": {
+            "drinking_status": "NORMAL",
+            "restless_or_irritable": true,
+            "skin_pinch": "NORMAL",
+            "sunken_eyes": true
+          },
+          "duration_days": 3,
+          "post_rehydration": null,
+          "rehydration_stage": null
+        },
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": true,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "diarrhoea.blood_in_stool",
+        "diarrhoea.dehydration.drinking_status",
+        "diarrhoea.dehydration.restless_or_irritable",
+        "diarrhoea.dehydration.skin_pinch",
+        "diarrhoea.dehydration.sunken_eyes",
+        "diarrhoea.duration_days",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-028-diarrhoea-some-dehydration\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"diarrhoea.blood_in_stool\", \"diarrhoea.dehydration.drinking_status\", \"diarrhoea.dehydration.restless_or_irritable\", \"diarrhoea.dehydration.skin_pinch\", \"diarrhoea.dehydration.sunken_eyes\", \"diarrhoea.duration_days\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-028-diarrhoea-some-dehydration\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": {\"blood_in_stool\": false, \"cholera_in_area\": null, \"dehydration\": {\"drinking_status\": \"NORMAL\", \"restless_or_irritable\": true, \"skin_pinch\": \"NORMAL\", \"sunken_eyes\": true}, \"duration_days\": 3, \"post_rehydration\": null, \"rehydration_stage\": null}, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": true, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "34f968059a3f4e490126a4fb5f3d7987b5c841cb42adc5a8c02e92780ef2ec5d",
+    "request_sha256": "e9bb2e7ee7ad3ab972213db91b20049eef28b9cfdcda81f0d87c3ab765393990",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": {
+          "blood_in_stool": false,
+          "cholera_in_area": null,
+          "dehydration": {
+            "drinking_status": "NORMAL",
+            "restless_or_irritable": false,
+            "skin_pinch": "NORMAL",
+            "sunken_eyes": false
+          },
+          "duration_days": 13,
+          "post_rehydration": null,
+          "rehydration_stage": null
+        },
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": true,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "diarrhoea.blood_in_stool",
+        "diarrhoea.dehydration.drinking_status",
+        "diarrhoea.dehydration.restless_or_irritable",
+        "diarrhoea.dehydration.skin_pinch",
+        "diarrhoea.dehydration.sunken_eyes",
+        "diarrhoea.duration_days",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-032-diarrhoea-duration-13\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"diarrhoea.blood_in_stool\", \"diarrhoea.dehydration.drinking_status\", \"diarrhoea.dehydration.restless_or_irritable\", \"diarrhoea.dehydration.skin_pinch\", \"diarrhoea.dehydration.sunken_eyes\", \"diarrhoea.duration_days\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-032-diarrhoea-duration-13\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": {\"blood_in_stool\": false, \"cholera_in_area\": null, \"dehydration\": {\"drinking_status\": \"NORMAL\", \"restless_or_irritable\": false, \"skin_pinch\": \"NORMAL\", \"sunken_eyes\": false}, \"duration_days\": 13, \"post_rehydration\": null, \"rehydration_stage\": null}, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": true, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "bf4c51505be8aa3dbdaf5141e4cc5b2cfdcca842669233e4c53cc6f05c8e4403",
+    "request_sha256": "1b6657cb974fdd627de608be7e5c3831ea7d67af6c6c9fc8a5885dc7ef6f7205",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": {
+          "blood_in_stool": false,
+          "cholera_in_area": null,
+          "dehydration": {
+            "drinking_status": "NORMAL",
+            "restless_or_irritable": false,
+            "skin_pinch": "NORMAL",
+            "sunken_eyes": false
+          },
+          "duration_days": null,
+          "post_rehydration": null,
+          "rehydration_stage": null
+        },
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": true,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "diarrhoea.blood_in_stool",
+        "diarrhoea.dehydration.drinking_status",
+        "diarrhoea.dehydration.restless_or_irritable",
+        "diarrhoea.dehydration.skin_pinch",
+        "diarrhoea.dehydration.sunken_eyes",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-039-diarrhoea-duration-unknown\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"diarrhoea.blood_in_stool\", \"diarrhoea.dehydration.drinking_status\", \"diarrhoea.dehydration.restless_or_irritable\", \"diarrhoea.dehydration.skin_pinch\", \"diarrhoea.dehydration.sunken_eyes\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-039-diarrhoea-duration-unknown\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": {\"blood_in_stool\": false, \"cholera_in_area\": null, \"dehydration\": {\"drinking_status\": \"NORMAL\", \"restless_or_irritable\": false, \"skin_pinch\": \"NORMAL\", \"sunken_eyes\": false}, \"duration_days\": null, \"post_rehydration\": null, \"rehydration_stage\": null}, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": true, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-048-fever-temperature-38-5",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "bc9aeab7939dafb628bdfeeadf5134069f0886f7d824d2a5f82be390fcd25a24",
+    "request_sha256": "6ff51735c454e60c9266dcd473a9774cc06094249a320361a0de3343f1eb17b0",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-048-fever-temperature-38-5",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": {
+          "clouding_of_cornea": null,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": false,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "NEGATIVE",
+          "measles_cough": false,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": null,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": null,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.5
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": true
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.obvious_cause_of_fever_present",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-048-fever-temperature-38-5",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-048-fever-temperature-38-5\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.obvious_cause_of_fever_present\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-048-fever-temperature-38-5\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": {\"clouding_of_cornea\": null, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": false, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"NEGATIVE\", \"measles_cough\": false, \"measles_within_last_3_months\": false, \"mouth_ulcers\": null, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": null, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.5}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": true}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "307f898b435a5edd032dfa828aba20a036810179dceffc38a0255607bd063f24",
+    "request_sha256": "0d5fd8adcc0394f3cab9caf9c5b0e79c9e551a8cd7ce48824204c32eec148280",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": {
+          "clouding_of_cornea": false,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": true,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "POSITIVE",
+          "measles_cough": true,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": false,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": false,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.5
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": true
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "fever.clouding_of_cornea",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.mouth_ulcers",
+        "fever.obvious_cause_of_fever_present",
+        "fever.pus_draining_from_eye",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-057-fever-malaria-and-measles\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"fever.clouding_of_cornea\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.mouth_ulcers\", \"fever.obvious_cause_of_fever_present\", \"fever.pus_draining_from_eye\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-057-fever-malaria-and-measles\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": {\"clouding_of_cornea\": false, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": true, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"POSITIVE\", \"measles_cough\": true, \"measles_within_last_3_months\": false, \"mouth_ulcers\": false, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": false, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.5}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": true}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396",
+    "source_package_sha256": "c97ba02b9c3bbd14e46a1bc1d517ae252fe1830ca8feaf6bfa8759556804c9b5",
+    "request_sha256": "5c1d7200d2af4993f6142d5bcf0e663ea544e4e1c0e1d4a24f4aa7956276ece7",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": null,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.\n\nThe following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:\n- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;\n- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;\n- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;\n- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;\n- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;\n- positive and negative cough/difficult breathing must remain direct and current.\n\nCreate one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.\n\nAllowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-071-incomplete-entry-unknown\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-071-incomplete-entry-unknown\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": null, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-003-danger-vomits-everything",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "f2595f11752366a14f2b7bb33148d329656286c19aab2ce8d814d28ec35d38a0",
+    "request_sha256": "60a0c74215d91f07269a79d3dcf332972cf9abd7329ef782e88d54d11567522d",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-003-danger-vomits-everything",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": true
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-003-danger-vomits-everything",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-003-danger-vomits-everything\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-003-danger-vomits-everything\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": true}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-007-resp-age-2-rate-49",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "d8636e7912c15a054114d672849567ae13adbce4657630483782b386762aae29",
+    "request_sha256": "48d58a70fa6f7dccccc70566d115d15548b910df5025156f7420c57c32d14de3",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-007-resp-age-2-rate-49",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 2,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 49,
+          "stridor_when_calm": false,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-007-resp-age-2-rate-49",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-007-resp-age-2-rate-49\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-007-resp-age-2-rate-49\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 2, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 49, \"stridor_when_calm\": false, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "f47b5af1d2bac8b29be17418c7c976c1522c31b0171a9155fc6ca7fc8629fb37",
+    "request_sha256": "f45c5b4cb58e66a0d62942ac3a143319df79c182d68888a5ea69e7411f9df92d",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": true,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": true,
+          "post_bronchodilator_chest_indrawing": false,
+          "post_bronchodilator_child_calm": true,
+          "post_bronchodilator_respiratory_rate": 42,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 45,
+          "stridor_when_calm": false,
+          "wheezing": true
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.bronchodilator_trial_completed",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.post_bronchodilator_breaths_counted_one_minute",
+        "respiratory.post_bronchodilator_chest_indrawing",
+        "respiratory.post_bronchodilator_child_calm",
+        "respiratory.post_bronchodilator_respiratory_rate",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-021-resp-post-bronchodilator-fast\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.bronchodilator_trial_completed\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.post_bronchodilator_breaths_counted_one_minute\", \"respiratory.post_bronchodilator_chest_indrawing\", \"respiratory.post_bronchodilator_child_calm\", \"respiratory.post_bronchodilator_respiratory_rate\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-021-resp-post-bronchodilator-fast\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": true, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": true, \"post_bronchodilator_chest_indrawing\": false, \"post_bronchodilator_child_calm\": true, \"post_bronchodilator_respiratory_rate\": 42, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 45, \"stridor_when_calm\": false, \"wheezing\": true}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-060-fever-test-result-unknown",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "faf8b01f17a52b8592b9c1b367513041f1fa4767b6dc8a03ecd5b8bb6cc93e33",
+    "request_sha256": "7280bd150836adc3b61fecd356ea4610b676e4767d3f210823644554573cb599",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-060-fever-test-result-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": {
+          "clouding_of_cornea": null,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": false,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": null,
+          "measles_cough": false,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": null,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": null,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.0
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": true
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.obvious_cause_of_fever_present",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-060-fever-test-result-unknown",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-060-fever-test-result-unknown\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.obvious_cause_of_fever_present\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-060-fever-test-result-unknown\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": {\"clouding_of_cornea\": null, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": false, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": null, \"measles_cough\": false, \"measles_within_last_3_months\": false, \"mouth_ulcers\": null, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": null, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.0}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": true}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-061-ear-no-infection",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "07f5668a8c4965dca2b6c1e8b3a8cf06b37a479853a63bfa3923769f21dacec5",
+    "request_sha256": "195f8d87b5d3ffcd9f1e9067d8107251c1ed03fde6e735ebc92cea3eedf11cb9",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": {
+          "ear_discharge_duration_days": null,
+          "ear_discharge_reported": false,
+          "ear_pain": false,
+          "pus_draining_from_ear": false,
+          "tender_swelling_behind_ear": false
+        },
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": true,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "ear.ear_discharge_reported",
+        "ear.ear_pain",
+        "ear.pus_draining_from_ear",
+        "ear.tender_swelling_behind_ear",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-061-ear-no-infection",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-061-ear-no-infection\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"ear.ear_discharge_reported\", \"ear.ear_pain\", \"ear.pus_draining_from_ear\", \"ear.tender_swelling_behind_ear\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-061-ear-no-infection\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": {\"ear_discharge_duration_days\": null, \"ear_discharge_reported\": false, \"ear_pain\": false, \"pus_draining_from_ear\": false, \"tender_swelling_behind_ear\": false}, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": true, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-070-cross-multiple-urgent",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "noise_profile": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.5",
+    "prompt_sha256": "9f4724766e00d3e10993fe1f59be354518b9f96d848fa1db0cc9d6fdc0528615",
+    "source_package_sha256": "1a227ad0018e06910db4d2259405a9cb04be6b9040d88002b41d875d7858f839",
+    "request_sha256": "a3a0eea7fdb0ee7fc92ecaaa7e621134c1400f7be8476823ee7c0b8f88657fbb",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-070-cross-multiple-urgent",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": true,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": {
+          "ear_discharge_duration_days": null,
+          "ear_discharge_reported": false,
+          "ear_pain": false,
+          "pus_draining_from_ear": false,
+          "tender_swelling_behind_ear": true
+        },
+        "fever": {
+          "clouding_of_cornea": null,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": false,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "NEGATIVE",
+          "measles_cough": false,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": null,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": null,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": true,
+          "temperature_c": 38.0
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": true,
+          "has_fever": true
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 35,
+          "stridor_when_calm": true,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "ear.ear_discharge_reported",
+        "ear.ear_pain",
+        "ear.pus_draining_from_ear",
+        "ear.tender_swelling_behind_ear",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.obvious_cause_of_fever_present",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-070-cross-multiple-urgent",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.\n\nUse only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and meaning outrank brevity.\n\nUse these exact protected clauses:\n- inability false: `Able to drink or breastfeed.` Never use AND, slash, `not unable`, `no inability`, or predicate-absent wording;\n- inability true: `Unable to drink or breastfeed.`;\n- reported ear discharge false: `Caregiver confirms no current or previous ear discharge.` Never `No ear discharge reported.`;\n- reported ear discharge true: `Caregiver reports ear discharge.`;\n- vomiting everything false: `Does not vomit everything.`\n\nState every supplied chest-indrawing, measles-cough, and parent-entry fact. Keep general and diarrhoea drinking separate. Keep initial and recurrent wheeze separate. Preserve exact category, polarity, value or unambiguous number word, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnosis, decision, action, advice, or internal metadata.\n\nReturn exactly one candidate-schema JSON object with the five required fields. Copy IDs. Include each supplied `fact_id` once and no others. Every evidence span must occur verbatim and independently express its fact.\n\nBefore returning, verify the exact protected clauses character by character.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-070-cross-multiple-urgent\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"ear.ear_discharge_reported\", \"ear.ear_pain\", \"ear.pus_draining_from_ear\", \"ear.tender_swelling_behind_ear\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.obvious_cause_of_fever_present\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-070-cross-multiple-urgent\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": true, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": {\"ear_discharge_duration_days\": null, \"ear_discharge_reported\": false, \"ear_pain\": false, \"pus_draining_from_ear\": false, \"tender_swelling_behind_ear\": true}, \"fever\": {\"clouding_of_cornea\": null, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": false, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"NEGATIVE\", \"measles_cough\": false, \"measles_within_last_3_months\": false, \"mouth_ulcers\": null, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": null, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": true, \"temperature_c\": 38.0}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": true, \"has_fever\": true}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 35, \"stridor_when_calm\": true, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  }
+]

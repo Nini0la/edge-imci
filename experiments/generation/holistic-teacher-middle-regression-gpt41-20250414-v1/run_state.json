@@ -1,0 +1,76 @@
+{
+  "run_state_schema_id": "edge-imci-holistic-teacher-middle-regression-state-v1",
+  "generation_run_id": "holistic-teacher-middle-regression-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T07:31:27Z",
+  "remote_attempts_started": 4,
+  "deterministic_passes": 1,
+  "deterministic_rejections": 3,
+  "reserved_total_usd": 0.08,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 5069,
+    "output_tokens": 3410,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-teacher-middle-regression-gpt41-20250414-v1",
+    "unit_count": 4,
+    "state_counts": {
+      "TERMINAL": 4
+    },
+    "units": [
+      {
+        "request_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-011-resp-age-12-rate-40",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2-1",
+        "semantic_case_id": "hpg-011-resp-age-12-rate-40",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "b331e15fe2e8e058c841618d10ec6d9f894f80e709c8dc08f39f771a41cd0b10",
+        "review_item_id": "review-aeafd85f4c20a177069d6fb1",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-011-resp-age-12-rate-40__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2-1",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "73fdd8d732722e7e5d9621dc34770f3a33b48ac889cbd0d39ac6b001277fcfaa",
+        "review_item_id": "review-8c1cf652184e92b732c7a750",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-014-resp-chest-hiv-positive",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2-1",
+        "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "5e1dfa1ef6a7b675a2337eacb9a50afe8ed2854aa6cebffedca8fa70f7392961",
+        "review_item_id": "review-824d13e89f8f604cd7c4027e",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-014-resp-chest-hiv-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-062-ear-acute-pain",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2-1",
+        "semantic_case_id": "hpg-062-ear-acute-pain",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "4fec5446d17d66d19de045a62f19b243cf931047ac42d3ee9118039ac92bf056",
+        "review_item_id": "review-d4c47dd16e860a13c9eb1e82",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-062-ear-acute-pain__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

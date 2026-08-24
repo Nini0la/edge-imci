@@ -1,0 +1,131 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-031-diarrhoea-severe-age-24-cholera__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-031-diarrhoea-severe-age-24-cholera",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+  "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.0.0",
+    "prompt_sha256": "0e7a40358518abed4aeff672d00bd5f1db8ff279c222a3eb524999073dec85a7"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "9e65038d2b4793a2bc93ae1ab04245584ae746e5c6718f82b6ee130be6adebf9",
+  "requested_at": "2026-08-23T12:24:29Z",
+  "completed_at": "2026-08-23T12:24:55Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-031-diarrhoea-severe-age-24-cholera\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Pikin na 24 months old. E dey get diarrhoea for 3 days now. E no dey get cough or any wahala to breathe. E no dey get fever. E no dey get ear problem. Stool no get blood inside am. For area wey e dey, cholera dey. When I check am, e eyes dey sunken. E no dey restless or irritable. When I pinch e skin, e skin dey normal. E dey drink poorly. E never convulse now and e never convulse before. E no dey lethargic or unconscious. E fit drink or breastfeed. E no dey vomit everything.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"E never convulse now\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"e never convulse before\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"E no dey lethargic or unconscious\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"E fit drink or breastfeed\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"E no dey vomit everything\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.blood_in_stool\",\n      \"evidence_text\": \"Stool no get blood inside am\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.cholera_in_area\",\n      \"evidence_text\": \"For area wey e dey, cholera dey\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.drinking_status\",\n      \"evidence_text\": \"E dey drink poorly\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\",\n      \"evidence_text\": \"E no dey restless or irritable\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.skin_pinch\",\n      \"evidence_text\": \"When I pinch e skin, e skin dey normal\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.sunken_eyes\",\n      \"evidence_text\": \"e eyes dey sunken\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.duration_days\",\n      \"evidence_text\": \"E dey get diarrhoea for 3 days now\"\n    },\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"Pikin na 24 months old\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"E no dey get cough or any wahala to breathe\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"E dey get diarrhoea\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"E no dey get ear problem\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"E no dey get fever\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin na 24 months old. E dey get diarrhoea for 3 days now. E no dey get cough or any wahala to breathe. E no dey get fever. E no dey get ear problem. Stool no get blood inside am. For area wey e dey, cholera dey. When I check am, e eyes dey sunken. E no dey restless or irritable. When I pinch e skin, e skin dey normal. E dey drink poorly. E never convulse now and e never convulse before. E no dey lethargic or unconscious. E fit drink or breastfeed. E no dey vomit everything.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "E never convulse now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "e never convulse before"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "E no dey lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "E fit drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "E no dey vomit everything"
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Stool no get blood inside am"
+      },
+      {
+        "fact_id": "diarrhoea.cholera_in_area",
+        "evidence_text": "For area wey e dey, cholera dey"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "E dey drink poorly"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "E no dey restless or irritable"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "When I pinch e skin, e skin dey normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "e eyes dey sunken"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "E dey get diarrhoea for 3 days now"
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin na 24 months old"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "E no dey get cough or any wahala to breathe"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "E dey get diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "E no dey get ear problem"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "E no dey get fever"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1284,
+    "output_tokens": 806,
+    "cached_input_tokens": 0,
+    "latency_ms": 25976,
+    "retry_count": 0,
+    "provider_request_id": "resp_0227da4bd9f8a26c016a8ae67f8e108197abf7422055ced774",
+    "raw_usage": {
+      "input_tokens": 1284,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 806,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2090
+    }
+  }
+}

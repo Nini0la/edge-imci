@@ -1,0 +1,18 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v11",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 264,
+  "candidate_attempts": 264,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 239,
+  "deterministic_rejections": 24,
+  "parse_failures": 1,
+  "semantic_rejections": 1,
+  "reviewed_nonsemantic_rejections": 24,
+  "reason": "A noisy-English cross-pathway candidate omitted two supplied pathway-entry negatives while fabricating absent positive evidence spans for them.",
+  "continuation_policy": "All 264 completed allocation slots remain immutable. Continue only after mixed positive/negative and unknown pathway-entry boundaries pass a targeted completeness gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

@@ -1,0 +1,63 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T15:45:23Z",
+  "remote_attempts_started": 3,
+  "deterministic_passes": 3,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 5442,
+    "output_tokens": 2620,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1",
+    "unit_count": 3,
+    "state_counts": {
+      "TERMINAL": 3
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-008-resp-age-2-rate-50",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15",
+        "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "54e2cf8087a8027806532ff95e1af67940b87359c9546927c1a883898a5013da",
+        "review_item_id": "review-7b6fc4c3dc464affe210d6c3",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-008-resp-age-2-rate-50__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-019-resp-recurrent-wheeze",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15",
+        "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "3a45faf79ae8eea44bb6478b0afe12d73225d7d0f0a3bc96f8d3735137fdbc21",
+        "review_item_id": "review-0d6c8bcbe637bcf55ed1b1d2",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-019-resp-recurrent-wheeze__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-068-cross-four-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15",
+        "semantic_case_id": "hpg-068-cross-four-pathways",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "66f3289ee3e60e4a8ecbf12b5359fbf0367351b17fe81c2e6a5425891cffd03f",
+        "review_item_id": "review-96e35d2855e809646bb84dd9",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-noisy-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-068-cross-four-pathways__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

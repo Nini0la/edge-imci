@@ -1,0 +1,41 @@
+You render one fixed EdgeIMCI whole-encounter record as a realistically noisy typed submission from a trained frontline PHC worker.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. Build the submission only from the supplied `facts` entries. A field absent from that list is not available evidence and must not appear in the submission. A null/unknown source field must remain unmentioned: do not state that it is negative and do not add a sentence saying that it is unknown.
+
+Do not expand a broad parent fact into narrower findings. In particular:
+- `patient_facts.has_ear_problem = false` permits only a direct "no ear problem" statement. It does not supply or imply ear-discharge history, ear pain, pus, or swelling;
+- `patient_facts.has_fever = true` does not supply or imply that fever is present every day. Mention daily/every-day fever only when `fever.fever_present_every_day` is explicitly supplied;
+- apply the same rule to every other absent nested fact: do not complete a checklist from expectation or from examples in this prompt.
+
+Preserve logical and epistemic meaning exactly. In particular:
+- "able to drink or breastfeed" is the general danger-sign finding. It must remain an OR condition and must never become "drink and breastfeed";
+- diarrhoea-specific `drinking_status` is a separate finding. If supplied, explicitly state whether the child drinks normally, drinks poorly, drinks eagerly/is thirsty, or is unable to drink. Never omit it or use the general danger-sign finding as its substitute;
+- if both general ability and diarrhoea-specific drinking status are supplied, express both as separate clauses, even when they appear contradictory;
+- when `unable_to_drink_or_breastfeed` is false, use the direct known-negative realization "able to drink or breastfeed";
+- when a supplied `ear.ear_discharge_reported` history is negative, state directly that the caregiver confirms there has been no ear discharge. Never write "no ear discharge reported," "no history of discharge," or other wording that merely says information was not supplied;
+- never weaken a supplied known negative into absence of a report, history, mention, complaint, or information;
+- never use a double negative such as "not unable to drink";
+- "no identified bacterial cause" means no cause has been identified in this assessment; never claim that no bacterial cause exists;
+- preserve reported, observed, measured, confirmed, calm-state, full-minute, before-treatment, and after-treatment qualifiers.
+
+Clinical polarity and evidence status are protected content. Surface noise may not alter, weaken, obscure, or reverse them. For every false Boolean observation, use a direct and unambiguous negative. Use history/report wording only when the supplied fact itself represents history or caregiver report.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, or summary conclusions. Do not expose field paths, schema terms, hashes, rule IDs, policy IDs, expected outputs, or implementation commentary.
+
+Return exactly one JSON object matching the supplied candidate schema. The object contains only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy the IDs from the source package exactly.
+
+`fact_evidence` must contain every supplied `fact_id` exactly once and no unknown fact IDs. Every `evidence_text` must be copied character-for-character as one contiguous substring of the final `user_submission`. Never duplicate a `fact_id`, use ellipses, or reconstruct text. Recheck every evidence string against the final submission before returning.
+
+Apply only this controlled noise profile: article omission, some punctuation loss, casing variation, sentence fragments, and a small amount of ordinary spelling noise. The submission must remain clinically interpretable. Do not apply noise to numbers, units, negations, OR/AND connectors, comparison words, drinking-status words, ear-discharge evidence, or words carrying epistemic meaning such as identified, observed, reported, confirmed, before, or after. Do not delete a fact merely to make the note shorter. Produce findings only, without greetings or an EdgeIMCI response.
+
+Before returning, perform this private checklist:
+1. Every supplied fact appears exactly once in `fact_evidence`.
+2. Every evidence span occurs verbatim in `user_submission`.
+3. No absent or null fact is mentioned, including nested ear findings and daily fever.
+4. No broad parent fact has been expanded into narrower findings.
+5. No known negative is phrased as absence of a report or as a double negative.
+6. General drinking ability and diarrhoea-specific drinking status are each stated separately when supplied.
+7. Noise has not touched polarity, connectors, qualifiers, measurements, or intervention timing.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

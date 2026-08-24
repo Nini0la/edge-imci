@@ -1,0 +1,87 @@
+# Generated from experiments/generation/holistic-teacher-middle-gate-gpt41-20250414-v1/schedule.json; edit canonical JSON.
+schedule_schema_id: edge-imci-holistic-teacher-bakeoff-schedule-v1
+generation_run_id: holistic-teacher-middle-gate-gpt41-20250414-v1
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+created_at: '2026-08-23T07:25:58Z'
+authorization:
+  project_owner: Niniola Adegboyega
+  approved_at: '2026-08-23T07:25:58Z'
+  variant_contract_approved: true
+  remote_calls_authorized: true
+  budget:
+    currency: USD
+    maximum_amount: 0.5
+source_pins:
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
+  validator_sha256: 93686513d4fd999784513eb13ad613335f290d8f9393112c3185840e5db980d7
+  attempt_schema_sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  review_schema_sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+  selection_policy_sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+  schedule_schema_sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+retry_policy:
+  transport_retry_limit: 1
+  semantic_retry: false
+  uncertain_request_policy: RECONCILE_BEFORE_RETRY
+configurations:
+- configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-natural-complete-v1
+  prompt_id: edge-imci-phc-natural-complete
+  prompt_version: 2.0.0
+  prompt_sha256: 23d3efda04b3b4c92ef4178da09811bed2c91096fc5230042f8c7ae09b0fd7f9
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2000
+units:
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-011-resp-age-12-rate-40
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-011-resp-age-12-rate-40
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 85603458bd129fd40544df87451a45f5af708a2f7b61c96a1713e02bf3113afd
+  review_item_id: review-e9e121d0426268f90a2a0d5d
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-028-diarrhoea-some-dehydration
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-028-diarrhoea-some-dehydration
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 33b9456d8b7733be16bc67d08855ff1b3e230a736b1bb4f8c3c5312ff883fcc0
+  review_item_id: review-42ae54d347eb66b4cf39c294
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-041-fever-high-positive
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-041-fever-high-positive
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 01b2a22c0b50d03bdf4553fd73dc55e1cfb28cdb11a1cc9aaa656a380b02ad95
+  review_item_id: review-578b687d4944664f46ed8158
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-062-ear-acute-pain
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-062-ear-acute-pain
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: e7c65587d8ddfba21857dbfcbfc1389b354721c58bf0ed1957b5905cb4130d8d
+  review_item_id: review-305e11daffbd3b81808b7576
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-071-incomplete-entry-unknown
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: ff4f2cb831140a511268c98c54b953adbbf300f8c8c2626fadbbe6d973610e6f
+  review_item_id: review-32f7d19f7799fe9d32d36318
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-020-resp-post-bronchodilator-improved
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 410923bffd68b699aeaf339df6968f9021bbd4123671e4df8f0f34a58ee59817
+  review_item_id: review-e5b6b92d334b1330ae1d1fe1
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-014-resp-chest-hiv-positive
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-014-resp-chest-hiv-positive
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 8af78c3b5b8833ac961a812ffa60d31db5fe8682458ec2d92f56889fb872319a
+  review_item_id: review-62be17974789d9aa9d36dfc6
+- request_id: holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-073-incomplete-known-urgent
+  configuration_id: azure-gpt41-20250414__natural-complete-prompt-v2
+  semantic_case_id: hpg-073-incomplete-known-urgent
+  strategy_id: phc-natural-complete-v1
+  source_request_sha256: 554daafda37dd56e0cb123ad12a855adce738b55517183bcb036475155026fcf
+  review_item_id: review-2c5007922f9ec9b8aaf81d7f

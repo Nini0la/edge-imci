@@ -1,0 +1,17 @@
+# Generated from experiments/generation/holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-input-style-pathway-qualification-preflight-v1
+generation_run_id: holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T11:00:00Z'
+authorization_id: edge-imci-pidgin-v1-2-drinking-gate-authorization-v1
+authorization_sha256: 15c8c04778110e4633ce72256e88ccadb5b23a573dde6edc7d31d7f42c761a8b
+selection_sha256: 7560d2db7f76abcac5af499f511816fdf439c40547e6751a27fab4f3947993e6
+scheduled_attempts: 3
+first_gate_attempts: 0
+maximum_budget_usd: 0.15
+maximum_reserved_total_usd: 0.09
+teacher_target_blind: true
+semantic_retries: false
+bulk_generation_authorized: false
+training_authorized: false

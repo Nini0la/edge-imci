@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-002-danger-unable-to-drink-or-breastfeed__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-002-danger-unable-to-drink-or-breastfeed__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+  "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.6",
+    "prompt_sha256": "eccd1753dc27b81027cea9b75ec4ff05a4b44e8721be70954924cedc837e368d"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "9da176321f470eaea92d22a8f1c1b357309901c10adf510f52692f96bb7f2375",
+  "requested_at": "2026-08-23T14:43:07Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

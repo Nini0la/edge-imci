@@ -1,0 +1,129 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-036-diarrhoea-persistent-and-dysentery__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-036-diarrhoea-persistent-and-dysentery__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5",
+  "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.5",
+    "prompt_sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "a1e545de2d570a447c130a6cb3d9fc348b5026897ad145248d4590b94e8d3027",
+  "requested_at": "2026-08-23T14:33:18Z",
+  "completed_at": "2026-08-23T14:33:24Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-036-diarrhoea-persistent-and-dysentery\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey convulse now. Dem never talk say pikin don convulse before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything wey e chop or drink. Blood dey inside pikin stool. Pikin dey drink normal. Pikin no dey restless or irritable. Skin wey dem pinch dey normal. Pikin eye no dey sunken. Diarrhoea don last for fourteen days. Pikin na eighteen months old. Pikin no get cough and e no get wahala to breathe. Pikin get diarrhoea. Pikin no get ear problem. Pikin no get fever.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Dem never talk say pikin don convulse before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin no dey vomit everything wey e chop or drink.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"Blood dey inside pikin stool.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"Pikin dey drink normal.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"Pikin no dey restless or irritable.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"Skin wey dem pinch dey normal.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"Pikin eye no dey sunken.\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"Diarrhoea don last for fourteen days.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin na eighteen months old.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin no get cough and e no get wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin no get fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey convulse now. Dem never talk say pikin don convulse before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything wey e chop or drink. Blood dey inside pikin stool. Pikin dey drink normal. Pikin no dey restless or irritable. Skin wey dem pinch dey normal. Pikin eye no dey sunken. Diarrhoea don last for fourteen days. Pikin na eighteen months old. Pikin no get cough and e no get wahala to breathe. Pikin get diarrhoea. Pikin no get ear problem. Pikin no get fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Dem never talk say pikin don convulse before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin no dey vomit everything wey e chop or drink."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Blood dey inside pikin stool."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Pikin dey drink normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Pikin no dey restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin wey dem pinch dey normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "Pikin eye no dey sunken."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea don last for fourteen days."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin na eighteen months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin no get cough and e no get wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "MEASUREMENT_OR_DURATION_SHIFT"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1211,
+    "output_tokens": 635,
+    "cached_input_tokens": 0,
+    "latency_ms": 5167,
+    "retry_count": 0,
+    "provider_request_id": "resp_0036ac436c9aa522016a8b04af34e4819696925129412ea737",
+    "raw_usage": {
+      "input_tokens": 1211,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 635,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1846
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "compaction_schema_id": "edge-imci-structured-extraction-source-manifest-compaction-v1",
+  "status": "COMPACTED_AFTER_IMMUTABLE_TERMINATION",
+  "reason": "Rendered teacher prompts duplicated the same frozen source material across continuation packages and exhausted local workspace capacity during the authorized campaign.",
+  "preserved_artifacts": ["attempts/*/requested.json", "attempts/*/terminal.json", "schedule.json", "preflight.json", "run_state.json", "termination.json where applicable"],
+  "slot_recovery": {
+    "implementation": "edge_imci.generation.structured_extraction_bulk_wave._completed_slot_from_terminal",
+    "coordinates": ["semantic_case_id", "prompt.strategy_id", "request_id variant suffix"],
+    "exact_slot_continuation_supported_without_source_manifest": true
+  },
+  "removed_manifests": [
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v1", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v1/source_requests.json", "size_bytes": 23571911, "sha256": "30486388587b5570032b1d56a0468e1f31375ef3c24cc739eda7f1b2bae72eb3"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v3/source_requests.json", "size_bytes": 23232878, "sha256": "9aeb7542ed9a8722649dd099f8cf6418dfc72bb43e2364833c97f457a8cd55b4"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v4/source_requests.json", "size_bytes": 17265994, "sha256": "01a1faaf76c944655bdf28d777b0487d5a06851f4679dab0e38417feac90e096"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v5/source_requests.json", "size_bytes": 14043724, "sha256": "b43a950b8ec00ee5cfac6b6fe188d6fae5aa116826d3cb689a99bacd2b244bdc"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v6/source_requests.json", "size_bytes": 13537784, "sha256": "757be3fb63189eac20b3a2069885d42e56ac2679c49558795aca1293ef68f474"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v7", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v7/source_requests.json", "size_bytes": 12319990, "sha256": "5b4601274258047d6af57cb4de03b7826c959a6e2180da6f30892f767257d285"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v8", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v8/source_requests.json", "size_bytes": 12466716, "sha256": "d9fbadd32a7363592c71585e41e651e0d49608954ecdf0a689d349dc8adc99d2"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v9/source_requests.json", "size_bytes": 12602926, "sha256": "b145e8266a78018fb8bc6df8c925bdf379e6f0e10c8b39d8eca8cb1242a9f5b7"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v10", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v10/source_requests.json", "size_bytes": 11847974, "sha256": "824e0d45354810fdff992fd5a9c60bcd372b8adfa29d7475bbd18e353ab9307a"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v11", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v11/source_requests.json", "size_bytes": 11633168, "sha256": "54faeb3e572551b8d64eefb15db3a9f1cb2efe8704ee1164d7fab361d02077c6"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v12/source_requests.json", "size_bytes": 9376714, "sha256": "0f2de870c62b71d7c6fd936ee98e00e5340c31fbb5685c8c4f47bc0bef973d29"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v13", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v13/source_requests.json", "size_bytes": 8646816, "sha256": "6e34a8732099381862b04285d78253e3c87784fef92dbecedb47072fd86ea372"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v14", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v14/source_requests.json", "size_bytes": 8128323, "sha256": "05f5b4887d9816d720d5b27a06156a819494fcca89f7aa6bcdaaf76c28effc0c"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v15", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v15/source_requests.json", "size_bytes": 7155822, "sha256": "7ed1edb1c4363b5cc3371e0e844ac926d9390f01f008f67226efa3b4d5025503"},
+    {"generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v16", "path": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v16/source_requests.json", "size_bytes": 5808896, "sha256": "a5af6fca9d0ed9f5d0833ce2a2006a87c03d7deec3d9abbab2c6e4b6b15fb3ea"}
+  ],
+  "attempt_receipts_removed": false,
+  "clinical_or_semantic_artifacts_removed": false
+}

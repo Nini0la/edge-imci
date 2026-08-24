@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edge-imci.local/schemas/structured-extraction-sft-record-v1.json",
+  "title": "EdgeIMCI canonical structured-extraction SFT record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema_id", "example_id", "source_case_id", "variant_id", "partition",
+    "input", "target", "language_provenance", "provenance", "eligibility"
+  ],
+  "properties": {
+    "record_schema_id": {"const": "edge-imci-structured-extraction-sft-record-v1"},
+    "example_id": {"type": "string", "minLength": 1},
+    "source_case_id": {"type": "string", "minLength": 1},
+    "variant_id": {"type": "string", "minLength": 1},
+    "partition": {"enum": ["TRAIN", "VALIDATION", "TEST"]},
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {
+        "role": {"const": "user"},
+        "content": {"type": "string", "minLength": 1}
+      }
+    },
+    "language_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["variant_style", "noise_profile", "style_contract_id"],
+      "properties": {
+        "variant_style": {
+          "enum": [
+            "CLINICAL_STANDARD_ENGLISH",
+            "NATURAL_CONVERSATIONAL_ENGLISH",
+            "NIGERIAN_ENGLISH",
+            "NIGERIAN_PIDGIN",
+            "NONSTANDARD_ENGLISH",
+            "NOISY_TYPED_ENGLISH",
+            "TELEGRAPHIC_PHC_NOTE",
+            "MIXED_REGISTER"
+          ]
+        },
+        "noise_profile": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ARTICLE_OMISSION",
+              "SUBJECT_VERB_DISAGREEMENT",
+              "TENSE_INCONSISTENCY",
+              "PUNCTUATION_LOSS",
+              "CASING_VARIATION",
+              "SENTENCE_FRAGMENTS",
+              "SPELLING_NOISE",
+              "ABBREVIATION_DENSITY_LOW",
+              "ABBREVIATION_DENSITY_MEDIUM",
+              "TELEGRAPHIC_COMPRESSION"
+            ]
+          }
+        },
+        "style_contract_id": {"const": "edge-imci-input-language-style-contract-v1"}
+      }
+    },
+    "target": {"$ref": "https://edge-imci.local/schemas/model-facing-encounter-v1.json"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_suite_id", "semantic_suite_sha256", "semantic_record_schema_id",
+        "variant_run_id", "teacher_provider", "teacher_model", "teacher_snapshot",
+        "prompt_id", "prompt_version", "prompt_sha256", "target_schema_id",
+        "target_schema_sha256", "target_exporter_id", "dataset_policy_id",
+        "split_policy_id"
+      ],
+      "properties": {
+        "semantic_suite_id": {"type": "string", "minLength": 1},
+        "semantic_suite_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "semantic_record_schema_id": {"type": "string", "minLength": 1},
+        "variant_run_id": {"type": "string", "minLength": 1},
+        "teacher_provider": {"type": "string", "minLength": 1},
+        "teacher_model": {"type": "string", "minLength": 1},
+        "teacher_snapshot": {"type": "string", "minLength": 1},
+        "prompt_id": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "target_schema_id": {"const": "edge-imci-model-facing-encounter-v1"},
+        "target_schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "target_exporter_id": {"const": "edge-imci-model-target-exporter-v1"},
+        "dataset_policy_id": {"const": "edge-imci-structured-extraction-dataset-policy-v1"},
+        "split_policy_id": {"const": "edge-imci-parent-semantic-split-v1"}
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corpus_candidate", "training"],
+      "properties": {
+        "corpus_candidate": {"const": true},
+        "training": {"const": false}
+      }
+    }
+  }
+}

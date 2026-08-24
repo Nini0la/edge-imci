@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`. Express every fact independently and no others. Anything absent, null, unknown, or omitted stays unmentioned. Create one semantically complete clause for every fact before adding harmless surface noise.
+
+Preserve exact categorical values. For malaria risk, write the area/setting and the supplied value HIGH, LOW, or NO risk; never shorten HIGH risk to merely `malaria area`. If reported ear discharge is false, retain caregiver/history provenance: write that the caregiver confirms no current or previous ear discharge, never just `no ear discharge`.
+
+Explicitly state chest indrawing and measles cough whenever supplied. Keep every parent entry fact correct, especially diarrhoea, fever, cough, and ear problem. Inability false is `able to drink or breastfeed`; true remains unable. Keep diarrhoea drinking separate. Use direct negatives, preserve numbers/units/durations and observed/reported/measured/calm/full-minute/before/after qualifiers. No identified bacterial cause is an assessment finding. Never add derived summaries, diagnoses, classifications, actions, advice, internal fields, rules, or targets.
+
+Return exactly one candidate-schema JSON object with only the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Each verbatim evidence span must actually express its fact.
+
+Before returning, check exact malaria-risk value, caregiver ear history, measles cough, chest indrawing, and all parent entry facts.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

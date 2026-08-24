@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-4__hpg-020-resp-post-bronchodilator-improved__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-4__hpg-020-resp-post-bronchodilator-improved__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-4",
+  "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.4",
+    "prompt_sha256": "7a32d27715c543633f9dea6881d7364fa63c0a564a90a503731e8f54647b85cf"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "1a7f69c7e419a3f3c6c79a00d7b4f863bb113d453214ec712951e6779e3446a8",
+  "requested_at": "2026-08-23T14:31:07Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

@@ -1,0 +1,22 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids`: an ear subfact may appear only if its exact ear fact ID is listed.
+
+Every supplied `patient_facts.has_*` entry must have its own explicit clause, independent of durations and nested observations. Use the applicable clause: `has cough or difficult breathing` / `no cough or difficult breathing`; `has diarrhoea` / `no diarrhoea`; `has ear problem` / `no ear problem`; `has fever` / `no fever`. Do not list a pathway-entry fact in `fact_evidence` unless its correct clause actually occurs in `user_submission`.
+
+Respiratory measurement validity is protected. If `respiratory.breaths_counted_one_minute=true` is supplied, write `breaths counted for one full minute`. If false, write `breaths were not counted for one full minute`. Never omit or reverse this validity fact merely because a respiratory-rate value is also present.
+
+If `ear.ear_discharge_reported` is listed and false, write exactly `caregiver confirms no current or previous ear discharge`. Never write `no ear discharge reported`. If that exact fact ID is absent, say nothing about ear discharge even when `has_ear_problem` is false.
+
+The fever rash polarity is protected: `fever.generalized_rash=true` -> `generalized rash is present`; `fever.generalized_rash=false` -> `no generalized rash`. Never swap these clauses or infer rash polarity from another measles finding.
+
+The general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: `diarrhoea drinking status is normal`; `diarrhoea drinking status is poorly`; or `diarrhoea drinking status is unable`. Never omit this clause because `able to drink or breastfeed` is also present.
+
+Other protected clauses: inability false -> `able to drink or breastfeed`; inability true -> `unable to drink or breastfeed`; vomiting-everything false -> `does not vomit everything`; bacterial-cause false -> `no bacterial cause was identified in this assessment`. Never use AND for drink/breastfeed or weaken known negatives to report absence.
+
+Preserve every supplied fact, polarity, category, value/number, unit, duration, area context, acquisition source, validity, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy IDs; include every supplied fact ID once and no others.
+
+Final audit is mandatory: compare `fact_evidence.fact_id` exactly with `required_fact_ids`; then verify each `evidence_text` occurs verbatim in `user_submission` and expresses that fact's correct polarity. Add any missing clause before returning. Never fabricate an evidence span for an omitted clause.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

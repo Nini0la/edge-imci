@@ -1,0 +1,187 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "holistic-input-style-canary-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T09:37:03Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T09:37:03Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 1.0
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "7beacf9eef3303fa779c66984d8a03c7600bac159cae77e929f88f0ed7ad7413",
+    "attempt_schema_sha256": "4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-english-v1",
+      "prompt_id": "edge-imci-phc-nigerian-english",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "f91f2faf6e1a725e0c25916090da066811c45d1e5a5b0ac7e7b16244d0fa2d0d",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "0e7a40358518abed4aeff672d00bd5f1db8ff279c222a3eb524999073dec85a7",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "ffb3a035a2129e996c5b6da9c8282b3a0ea6a168f399d3b5a151f40b649b7e6b",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "prompt_id": "edge-imci-phc-telegraphic-note",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "8530c78502a3b4e9cc6e750767a0921ce00e30a7ed8e08678aaac3a6723a801a",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__hpg-020-resp-post-bronchodilator-improved",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1",
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "de8673031fd6c3106687446290dd51b0bfdacddcd48193210550b6c781ed3d8b",
+      "review_item_id": "review-774211b851a466ff26c7ebaf"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__hpg-041-fever-high-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1",
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "7ef86f44d9a57ffaed02f35973aba5deb9f81699ca7d00867e8aba0489556d04",
+      "review_item_id": "review-f313ec09fa48a339bb58d2b7"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__hpg-071-incomplete-entry-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "899b4036d4f6cc0fad3ba0aa35c4db36dfbb9aa20a243ec07901ff55566be9a6",
+      "review_item_id": "review-56e5a70267b3fabb7df518c7"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__hpg-020-resp-post-bronchodilator-improved",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1",
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "a0cc471b6e4a32c174648567148bcb3b8f71e23da7d0b8468bffa300deb3e4f3",
+      "review_item_id": "review-6a8eea1f7c720e9ffa3bc414"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__hpg-041-fever-high-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1",
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "4309f8e295cb5488a05ad2af94113d13f6ae166fba850de7dac11ecfd7f6f4db",
+      "review_item_id": "review-5b0b06680b7e58c9d1395894"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__hpg-071-incomplete-entry-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "74df4b8248151ffac43d977b743da9c9fcb402f5e662656fe7419b8ca828ae3e",
+      "review_item_id": "review-18a629eb4fc398f89d491e34"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__hpg-020-resp-post-bronchodilator-improved",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1",
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "05da67fcc5b49514367a550eb8463f94f8b44389ae7052367fd758739fc7c295",
+      "review_item_id": "review-1e3744f230dbf89f4b42b566"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__hpg-041-fever-high-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1",
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "94d87b25f8ff5f8a8292fe331fc1b5037be222ad6a3ab380730a6e715944e05f",
+      "review_item_id": "review-e1b50f381fb67896ee83fecd"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__hpg-071-incomplete-entry-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "a69ec7f3ec98b3e4945a068726e5f4bcd89661010bff5267afe0a43844170e91",
+      "review_item_id": "review-f90165286cdf4caf6ecd7349"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__hpg-020-resp-post-bronchodilator-improved",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1",
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "f7803c5fa22fc03885276282030482fbe55462142870f07962b222662ae22e8a",
+      "review_item_id": "review-3e48fed7c78801fa05194cc4"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__hpg-041-fever-high-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1",
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "e7e7a361c18c62566637520fad7d2dfd3aae76a3e612aa13e89c6190cb073f75",
+      "review_item_id": "review-5319c80a1090d03370aef672"
+    },
+    {
+      "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__hpg-071-incomplete-entry-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "a23ec3d625bf33709f62269a377b34f85b87dd8d8216d8e735ad4f61ddc6ac3c",
+      "review_item_id": "review-d9546f227d0d86536ed79741"
+    }
+  ]
+}

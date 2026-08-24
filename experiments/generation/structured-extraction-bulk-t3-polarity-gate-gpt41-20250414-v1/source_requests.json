@@ -1,0 +1,506 @@
+[
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "9a9683f57e9e04863919f29d5a85dcecf8c9edba83f6ecf547f48428f722f6a6",
+    "source_package_sha256": "60efd69b2887a5e828347b0be618f379da851f47a0836c528337b822f62b64dc",
+    "request_sha256": "c6c3403f3f1958b787256f948c85530a1087fd5bd7ef5e6c1ea9ea26518fbbf5",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": true,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. A parent never supplies nested facts, especially ear facts.\n\nThe general danger-sign drinking polarity is protected and must be copied exactly: `danger_signs.unable_to_drink_or_breastfeed=false` -> `Pikin fit drink or breastfeed.`; `danger_signs.unable_to_drink_or_breastfeed=true` -> `Pikin no fit drink or breastfeed.` Never swap these clauses. Other protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; pulse oximeter false -> explicitly unavailable. Mention caregiver ear-discharge history only when its exact fact ID is supplied.\n\nThe general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.` Never omit this clause because the general drinking clause is present.\n\nFor `identified_bacterial_cause_present=false`, write `Dem no identify bacterial cause for this assessment` exactly. Never write that no bacteria or bacterial cause exists. Preserve every polarity, value or unambiguous number word, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Keep drinking domains and wheeze domains separate.\n\nNever add derived summaries, diagnosis, decision, action, advice, or internal metadata. Return one valid candidate-schema JSON object containing only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, compare the source Boolean for `danger_signs.unable_to_drink_or_breastfeed` with the final general drinking clause and reject your draft if its polarity differs.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-002-danger-unable-to-drink-or-breastfeed\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-002-danger-unable-to-drink-or-breastfeed\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": true, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "9a9683f57e9e04863919f29d5a85dcecf8c9edba83f6ecf547f48428f722f6a6",
+    "source_package_sha256": "99b59792f73a4bdf49b2ef81f4784a3d2ad481e8bf85ea3774ffc008f8119090",
+    "request_sha256": "2055804f5c486a096c998c976dde4f948d089c33f8d3cc3f2d594e6daddad96d",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": true,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. A parent never supplies nested facts, especially ear facts.\n\nThe general danger-sign drinking polarity is protected and must be copied exactly: `danger_signs.unable_to_drink_or_breastfeed=false` -> `Pikin fit drink or breastfeed.`; `danger_signs.unable_to_drink_or_breastfeed=true` -> `Pikin no fit drink or breastfeed.` Never swap these clauses. Other protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; pulse oximeter false -> explicitly unavailable. Mention caregiver ear-discharge history only when its exact fact ID is supplied.\n\nThe general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.` Never omit this clause because the general drinking clause is present.\n\nFor `identified_bacterial_cause_present=false`, write `Dem no identify bacterial cause for this assessment` exactly. Never write that no bacteria or bacterial cause exists. Preserve every polarity, value or unambiguous number word, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Keep drinking domains and wheeze domains separate.\n\nNever add derived summaries, diagnosis, decision, action, advice, or internal metadata. Return one valid candidate-schema JSON object containing only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, compare the source Boolean for `danger_signs.unable_to_drink_or_breastfeed` with the final general drinking clause and reject your draft if its polarity differs.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-005-danger-lethargic-or-unconscious\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-005-danger-lethargic-or-unconscious\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": true, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "9a9683f57e9e04863919f29d5a85dcecf8c9edba83f6ecf547f48428f722f6a6",
+    "source_package_sha256": "f9299f0955281ad2d21228e9dad6fcdfe1bc0c3716e80d934f834e58d2a3bfce",
+    "request_sha256": "2c51104a84b8c0a15784e7679dfd1f93a56d49837126fa092d90680cff3e2c82",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": true,
+          "vomits_everything": false
+        },
+        "diarrhoea": {
+          "blood_in_stool": false,
+          "cholera_in_area": null,
+          "dehydration": {
+            "drinking_status": null,
+            "restless_or_irritable": false,
+            "skin_pinch": "NORMAL",
+            "sunken_eyes": true
+          },
+          "duration_days": 3,
+          "post_rehydration": null,
+          "rehydration_stage": null
+        },
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": true,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "diarrhoea.blood_in_stool",
+        "diarrhoea.dehydration.restless_or_irritable",
+        "diarrhoea.dehydration.skin_pinch",
+        "diarrhoea.dehydration.sunken_eyes",
+        "diarrhoea.duration_days",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. A parent never supplies nested facts, especially ear facts.\n\nThe general danger-sign drinking polarity is protected and must be copied exactly: `danger_signs.unable_to_drink_or_breastfeed=false` -> `Pikin fit drink or breastfeed.`; `danger_signs.unable_to_drink_or_breastfeed=true` -> `Pikin no fit drink or breastfeed.` Never swap these clauses. Other protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; pulse oximeter false -> explicitly unavailable. Mention caregiver ear-discharge history only when its exact fact ID is supplied.\n\nThe general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.` Never omit this clause because the general drinking clause is present.\n\nFor `identified_bacterial_cause_present=false`, write `Dem no identify bacterial cause for this assessment` exactly. Never write that no bacteria or bacterial cause exists. Preserve every polarity, value or unambiguous number word, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Keep drinking domains and wheeze domains separate.\n\nNever add derived summaries, diagnosis, decision, action, advice, or internal metadata. Return one valid candidate-schema JSON object containing only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, compare the source Boolean for `danger_signs.unable_to_drink_or_breastfeed` with the final general drinking clause and reject your draft if its polarity differs.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-037-diarrhoea-positive-drinking-reuse\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"diarrhoea.blood_in_stool\", \"diarrhoea.dehydration.restless_or_irritable\", \"diarrhoea.dehydration.skin_pinch\", \"diarrhoea.dehydration.sunken_eyes\", \"diarrhoea.duration_days\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-037-diarrhoea-positive-drinking-reuse\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": true, \"vomits_everything\": false}, \"diarrhoea\": {\"blood_in_stool\": false, \"cholera_in_area\": null, \"dehydration\": {\"drinking_status\": null, \"restless_or_irritable\": false, \"skin_pinch\": \"NORMAL\", \"sunken_eyes\": true}, \"duration_days\": 3, \"post_rehydration\": null, \"rehydration_stage\": null}, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": true, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.12",
+    "prompt_sha256": "4446065b08119dacacc176e8315a400611cacb7d7b174a3ce1369f19ef71c40d",
+    "source_package_sha256": "307f898b435a5edd032dfa828aba20a036810179dceffc38a0255607bd063f24",
+    "request_sha256": "fc54774033c9d4efc48b071b6f2174c65512bc45e0538390ca977adea4fee881",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": {
+          "clouding_of_cornea": false,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": true,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "POSITIVE",
+          "measles_cough": true,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": false,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": false,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.5
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": true
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "fever.clouding_of_cornea",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.mouth_ulcers",
+        "fever.obvious_cause_of_fever_present",
+        "fever.pus_draining_from_eye",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids`: an ear subfact may appear only if its exact ear fact ID is listed.\n\nIf `ear.ear_discharge_reported` is listed and false, write exactly `caregiver confirms no current or previous ear discharge`. Never write `no ear discharge reported`. If that exact fact ID is absent, say nothing about ear discharge even when `has_ear_problem` is false.\n\nThe fever rash polarity is protected: `fever.generalized_rash=true` -> `generalized rash is present`; `fever.generalized_rash=false` -> `no generalized rash`. Never swap these clauses or infer rash polarity from another measles finding.\n\nThe general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: `diarrhoea drinking status is normal`; `diarrhoea drinking status is poorly`; or `diarrhoea drinking status is unable`. Never omit this clause because `able to drink or breastfeed` is also present.\n\nOther protected clauses: inability false -> `able to drink or breastfeed`; inability true -> `unable to drink or breastfeed`; ear problem false -> `no ear problem`; vomiting-everything false -> `does not vomit everything`; bacterial-cause false -> `no bacterial cause was identified in this assessment`. Never use AND for drink/breastfeed or weaken known negatives to report absence.\n\nPreserve every supplied fact, polarity, category, value/number, unit, duration, area context, acquisition source, validity, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must be verbatim and express its fact.\n\nBefore returning, compare the source generalized-rash Boolean to the exact final rash clause and verify every supplied diarrhoea drinking status independently.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-057-fever-malaria-and-measles\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"fever.clouding_of_cornea\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.mouth_ulcers\", \"fever.obvious_cause_of_fever_present\", \"fever.pus_draining_from_eye\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-057-fever-malaria-and-measles\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": {\"clouding_of_cornea\": false, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": true, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"POSITIVE\", \"measles_cough\": true, \"measles_within_last_3_months\": false, \"mouth_ulcers\": false, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": false, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.5}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": true}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "variant_style": "NOISY_TYPED_ENGLISH",
+    "noise_profile": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.12",
+    "prompt_sha256": "4446065b08119dacacc176e8315a400611cacb7d7b174a3ce1369f19ef71c40d",
+    "source_package_sha256": "e66c787555b84f92c7649d36227d05a78646d8991e74e6267e867f01bf8302b8",
+    "request_sha256": "084ba5195418a028d999f364de424fb54eee1959f5d2440b9ba477e2c9205b05",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": {
+          "clouding_of_cornea": false,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": false,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "NEGATIVE",
+          "measles_cough": false,
+          "measles_within_last_3_months": true,
+          "mouth_ulcers": false,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": false,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.0
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": false,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": true
+        },
+        "respiratory": null
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "fever.clouding_of_cornea",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.mouth_ulcers",
+        "fever.obvious_cause_of_fever_present",
+        "fever.pus_draining_from_eye",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids`: an ear subfact may appear only if its exact ear fact ID is listed.\n\nIf `ear.ear_discharge_reported` is listed and false, write exactly `caregiver confirms no current or previous ear discharge`. Never write `no ear discharge reported`. If that exact fact ID is absent, say nothing about ear discharge even when `has_ear_problem` is false.\n\nThe fever rash polarity is protected: `fever.generalized_rash=true` -> `generalized rash is present`; `fever.generalized_rash=false` -> `no generalized rash`. Never swap these clauses or infer rash polarity from another measles finding.\n\nThe general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: `diarrhoea drinking status is normal`; `diarrhoea drinking status is poorly`; or `diarrhoea drinking status is unable`. Never omit this clause because `able to drink or breastfeed` is also present.\n\nOther protected clauses: inability false -> `able to drink or breastfeed`; inability true -> `unable to drink or breastfeed`; ear problem false -> `no ear problem`; vomiting-everything false -> `does not vomit everything`; bacterial-cause false -> `no bacterial cause was identified in this assessment`. Never use AND for drink/breastfeed or weaken known negatives to report absence.\n\nPreserve every supplied fact, polarity, category, value/number, unit, duration, area context, acquisition source, validity, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must be verbatim and express its fact.\n\nBefore returning, compare the source generalized-rash Boolean to the exact final rash clause and verify every supplied diarrhoea drinking status independently.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-058-fever-measles-last-three-months\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"fever.clouding_of_cornea\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.mouth_ulcers\", \"fever.obvious_cause_of_fever_present\", \"fever.pus_draining_from_eye\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\"], \"semantic_case_id\": \"hpg-058-fever-measles-last-three-months\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": {\"clouding_of_cornea\": false, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": false, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"NEGATIVE\", \"measles_cough\": false, \"measles_within_last_3_months\": true, \"mouth_ulcers\": false, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": false, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.0}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": false, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": true}, \"respiratory\": null}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  }
+]

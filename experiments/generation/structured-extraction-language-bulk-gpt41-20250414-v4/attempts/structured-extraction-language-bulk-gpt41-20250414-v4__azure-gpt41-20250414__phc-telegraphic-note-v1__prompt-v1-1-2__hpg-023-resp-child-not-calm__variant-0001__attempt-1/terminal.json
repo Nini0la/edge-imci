@@ -1,0 +1,139 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2__hpg-023-resp-child-not-calm__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2__hpg-023-resp-child-not-calm__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2",
+  "semantic_case_id": "hpg-023-resp-child-not-calm",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.2",
+    "prompt_sha256": "c9556ab58bd210db467b90c841104f6003e59b74d8134696357d003434380ed8"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "b7dcc39ca13518614bba381bbbd01a245aabf1f9b1df2ec4a0fb52e4e9d59036",
+  "requested_at": "2026-08-23T14:06:16Z",
+  "completed_at": "2026-08-23T14:06:27Z",
+  "raw_response": "{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"semantic_case_id\": \"hpg-023-resp-child-not-calm\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"Age 18mo. Cough/diff breathing. Diarrhoea absent. Ear problem absent. Fever absent. Convulsing now absent. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Vomits everything absent. Breaths counted one minute. Child not calm. Chest indrawing absent. Cough 3d. Pulse oximeter unavailable. Respiratory rate 35. Stridor when calm absent. Wheezing absent. Recurrent wheeze absent.\", \"fact_evidence\": [{\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"Age 18mo.\"}, {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"Cough/diff breathing.\"}, {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"Diarrhoea absent.\"}, {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"Ear problem absent.\"}, {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"Fever absent.\"}, {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"Convulsing now absent.\"}, {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"No convulsions.\"}, {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Not lethargic/unconscious.\"}, {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Able to drink or breastfeed.\"}, {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Vomits everything absent.\"}, {\"fact_id\": \"respiratory.breaths_counted_one_minute\", \"evidence_text\": \"Breaths counted one minute.\"}, {\"fact_id\": \"respiratory.child_calm\", \"evidence_text\": \"Child not calm.\"}, {\"fact_id\": \"respiratory.chest_indrawing\", \"evidence_text\": \"Chest indrawing absent.\"}, {\"fact_id\": \"respiratory.cough_duration_days\", \"evidence_text\": \"Cough 3d.\"}, {\"fact_id\": \"respiratory.pulse_oximeter_available\", \"evidence_text\": \"Pulse oximeter unavailable.\"}, {\"fact_id\": \"respiratory.respiratory_rate\", \"evidence_text\": \"Respiratory rate 35.\"}, {\"fact_id\": \"respiratory.stridor_when_calm\", \"evidence_text\": \"Stridor when calm absent.\"}, {\"fact_id\": \"respiratory.wheezing\", \"evidence_text\": \"Wheezing absent.\"}, {\"fact_id\": \"respiratory.recurrent_wheeze\", \"evidence_text\": \"Recurrent wheeze absent.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-023-resp-child-not-calm",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "Age 18mo. Cough/diff breathing. Diarrhoea absent. Ear problem absent. Fever absent. Convulsing now absent. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Vomits everything absent. Breaths counted one minute. Child not calm. Chest indrawing absent. Cough 3d. Pulse oximeter unavailable. Respiratory rate 35. Stridor when calm absent. Wheezing absent. Recurrent wheeze absent.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age 18mo."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Cough/diff breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Diarrhoea absent."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Ear problem absent."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Fever absent."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Convulsing now absent."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic/unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Vomits everything absent."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Breaths counted one minute."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Child not calm."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest indrawing absent."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough 3d."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter unavailable."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Respiratory rate 35."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Stridor when calm absent."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Wheezing absent."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Recurrent wheeze absent."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1315,
+    "output_tokens": 678,
+    "cached_input_tokens": 0,
+    "latency_ms": 11064,
+    "retry_count": 0,
+    "provider_request_id": "resp_0315d973a2e824a7016a8afe5a2ab48190a1dddf679948afc0",
+    "raw_usage": {
+      "input_tokens": 1315,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 678,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1993
+    }
+  }
+}

@@ -17,12 +17,16 @@
     },
     "semantic_case_id": {
       "type": "string",
-      "pattern": "^hpg-[0-9]{3}-.+$"
+      "pattern": "^(?:hpg-[0-9]{3}-.+|oos-extract-(?:young|older)-.+)$"
     },
     "strategy_id": {
       "enum": [
         "phc-concise-complete-v1",
-        "phc-natural-complete-v1"
+        "phc-natural-complete-v1",
+        "phc-nigerian-english-v1",
+        "phc-nigerian-pidgin-v1",
+        "phc-noisy-typed-english-v1",
+        "phc-telegraphic-note-v1"
       ]
     },
     "user_submission": {

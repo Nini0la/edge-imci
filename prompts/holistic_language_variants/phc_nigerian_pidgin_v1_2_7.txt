@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. A parent never supplies nested facts, especially ear facts.
+
+Protected clauses: inability false -> `Pikin fit drink or breastfeed`; inability true -> `Pikin no fit drink or breastfeed`; cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; pulse oximeter false -> explicitly unavailable. Mention caregiver ear-discharge history only when its exact fact ID is supplied.
+
+The general danger-sign drinking fact and diarrhoea drinking status are separate. Always express both when both exact fact IDs are supplied. For `diarrhoea.dehydration.drinking_status`, write the applicable exact independent clause: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.` Never omit this clause because the general `fit drink or breastfeed` clause is present.
+
+For `identified_bacterial_cause_present=false`, write `Dem no identify bacterial cause for this assessment` exactly. Never write that no bacteria or bacterial cause exists. Preserve every polarity, value or unambiguous number word, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Keep drinking domains and wheeze domains separate.
+
+Never add derived summaries, diagnosis, decision, action, advice, or internal metadata. Return one valid candidate-schema JSON object containing only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must occur verbatim and express its fact.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

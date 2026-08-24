@@ -1,0 +1,76 @@
+{
+  "run_state_schema_id": "edge-imci-holistic-teacher-approval-sample-state-v2",
+  "generation_run_id": "holistic-teacher-approval-sample-gpt41-20250414-v2",
+  "updated_at": "2026-08-23T07:05:11Z",
+  "remote_attempts_started": 4,
+  "deterministic_passes": 0,
+  "deterministic_rejections": 0,
+  "reserved_total_usd": 0.08,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 5406,
+    "output_tokens": 4138,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-teacher-approval-sample-gpt41-20250414-v2",
+    "unit_count": 4,
+    "state_counts": {
+      "TERMINAL": 4
+    },
+    "units": [
+      {
+        "request_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v2",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-concise-complete-v2",
+        "source_request_sha256": "ccfdfe8c6bfccffadcc5208c4ff1ee0547e13e5d0b53226c8a062ce2bf0ba62a",
+        "review_item_id": "review-39fd2baa582fbf29c49ab45b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-001-all-negative__attempt-1",
+        "latest_status": "PARSE_FAILED"
+      },
+      {
+        "request_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v2",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-concise-complete-v2",
+        "source_request_sha256": "292ba0d149b027b4d5ce8e8fa9f84267eab03cb4a07b67964f0120d032ad7f04",
+        "review_item_id": "review-bafa11c92ae7f38d17025017",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "PARSE_FAILED"
+      },
+      {
+        "request_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v2",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-natural-complete-v2",
+        "source_request_sha256": "2834532aab37d276a4206b74efe5827145b5505e08838375944f1a8879e5b589",
+        "review_item_id": "review-9fa684e4a9bfd2478e44e840",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative__attempt-1",
+        "latest_status": "PARSE_FAILED"
+      },
+      {
+        "request_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v2",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-natural-complete-v2",
+        "source_request_sha256": "a87471c37bdb51d2b34d70a4fc847df50e9f44f1304f0940c2fdfd3613f71097",
+        "review_item_id": "review-d6b7f5db0548415c4eab3562",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "PARSE_FAILED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

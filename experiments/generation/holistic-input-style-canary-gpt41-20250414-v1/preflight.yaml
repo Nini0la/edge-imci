@@ -1,0 +1,46 @@
+# Generated from experiments/generation/holistic-input-style-canary-gpt41-20250414-v1/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-input-language-style-canary-preflight-v1
+generation_run_id: holistic-input-style-canary-gpt41-20250414-v1
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T09:37:03Z'
+authorization_basis: Project owner authorized the four bounded input-language canaries and hackathon-scoped Pidgin review.
+style_contract_id: edge-imci-input-language-style-contract-v1
+canary_source_pins:
+  style_contract_sha256: 2d925f2ce6b5a677e6b4029d36554b98512091519b43f831c6877f9967d82328
+  style_canary_runner_sha256: 7beacf9eef3303fa779c66984d8a03c7600bac159cae77e929f88f0ed7ad7413
+case_selection:
+- stratum: post_intervention_and_measurement
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+- stratum: connector_and_epistemic_qualifier
+  semantic_case_id: hpg-041-fever-high-positive
+- stratum: unknown_preservation
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+styles:
+- variant_style: NIGERIAN_ENGLISH
+  strategy_id: phc-nigerian-english-v1
+  noise_profile: []
+- variant_style: NIGERIAN_PIDGIN
+  strategy_id: phc-nigerian-pidgin-v1
+  noise_profile: []
+- variant_style: NOISY_TYPED_ENGLISH
+  strategy_id: phc-noisy-typed-english-v1
+  noise_profile:
+  - ARTICLE_OMISSION
+  - PUNCTUATION_LOSS
+  - CASING_VARIATION
+  - SENTENCE_FRAGMENTS
+  - SPELLING_NOISE
+- variant_style: TELEGRAPHIC_PHC_NOTE
+  strategy_id: phc-telegraphic-note-v1
+  noise_profile:
+  - ABBREVIATION_DENSITY_MEDIUM
+  - SENTENCE_FRAGMENTS
+  - TELEGRAPHIC_COMPRESSION
+scheduled_attempts: 12
+maximum_budget_usd: 1.0
+maximum_reserved_total_usd: 0.36
+teacher_target_blind: true
+semantic_retries: false
+bulk_generation_authorized: false
+training_authorized: false

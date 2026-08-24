@@ -1,0 +1,231 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-076-complete-danger-plus-all-pathways__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-076-complete-danger-plus-all-pathways__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5",
+  "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.5",
+    "prompt_sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "cc9218c7735a0e8f8035dae2700b570ea0b22456bf5aeccee5b3c1d73e5d6153",
+  "requested_at": "2026-08-23T14:32:27Z",
+  "completed_at": "2026-08-23T14:32:36Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-076-complete-danger-plus-all-pathways\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin dey vomit everything. Pikin stool no get blood. Pikin dey drink normal as e get diarrhoea. Pikin no dey restless or irritable as e get diarrhoea. Skin wey dem pinch dey normal. Pikin eye no dey sink. Diarrhoea dey happen for 3 days. Caregiver talk say pikin ear never discharge before and e no dey discharge now. Pikin ear no dey pain. Pikin ear no dey pus. Pikin ear no get tender swelling behind. Fever dey happen for 2 days. Pikin body no get rash wey spread. No bacterial cause wey dem identify for fever. Area wey pikin dey get high malaria risk. Malaria test dey available. Malaria test show say e negative. Pikin no get cough as e get measles. Pikin never get measles for last 3 months. Pikin body no show cause of fever wey dey clear. Pikin eye no dey red. Pikin nose no dey run. Pikin neck no stiff. Pikin temperature na 38.0°C. Pikin age na 18 months. Pikin get cough or wahala to breathe. Pikin get diarrhoea. Pikin get ear problem. Pikin get fever. Dem count pikin breath for one minute. Pikin chest no dey sink inside. Pikin calm as dem dey check breath. Pikin cough dey happen for 3 days. Pulse oximeter no dey available. Pikin no dey wheeze again. Pikin dey breathe 35 times for one minute. Pikin no get stridor when e calm. Pikin no dey wheeze.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get convulsion before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin dey vomit everything.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"Pikin stool no get blood.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"Pikin dey drink normal as e get diarrhoea.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"Pikin no dey restless or irritable as e get diarrhoea.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"Skin wey dem pinch dey normal.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"Pikin eye no dey sink.\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"Diarrhoea dey happen for 3 days.\"},{\"fact_id\":\"ear.ear_discharge_reported\",\"evidence_text\":\"Caregiver talk say pikin ear never discharge before and e no dey discharge now.\"},{\"fact_id\":\"ear.ear_pain\",\"evidence_text\":\"Pikin ear no dey pain.\"},{\"fact_id\":\"ear.pus_draining_from_ear\",\"evidence_text\":\"Pikin ear no dey pus.\"},{\"fact_id\":\"ear.tender_swelling_behind_ear\",\"evidence_text\":\"Pikin ear no get tender swelling behind.\"},{\"fact_id\":\"fever.fever_duration_days\",\"evidence_text\":\"Fever dey happen for 2 days.\"},{\"fact_id\":\"fever.generalized_rash\",\"evidence_text\":\"Pikin body no get rash wey spread.\"},{\"fact_id\":\"fever.identified_bacterial_cause_present\",\"evidence_text\":\"No bacterial cause wey dem identify for fever.\"},{\"fact_id\":\"fever.malaria_risk\",\"evidence_text\":\"Area wey pikin dey get high malaria risk.\"},{\"fact_id\":\"fever.malaria_test_available\",\"evidence_text\":\"Malaria test dey available.\"},{\"fact_id\":\"fever.malaria_test_result\",\"evidence_text\":\"Malaria test show say e negative.\"},{\"fact_id\":\"fever.measles_cough\",\"evidence_text\":\"Pikin no get cough as e get measles.\"},{\"fact_id\":\"fever.measles_within_last_3_months\",\"evidence_text\":\"Pikin never get measles for last 3 months.\"},{\"fact_id\":\"fever.obvious_cause_of_fever_present\",\"evidence_text\":\"Pikin body no show cause of fever wey dey clear.\"},{\"fact_id\":\"fever.red_eyes\",\"evidence_text\":\"Pikin eye no dey red.\"},{\"fact_id\":\"fever.runny_nose\",\"evidence_text\":\"Pikin nose no dey run.\"},{\"fact_id\":\"fever.stiff_neck\",\"evidence_text\":\"Pikin neck no stiff.\"},{\"fact_id\":\"fever.temperature_c\",\"evidence_text\":\"Pikin temperature na 38.0°C.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin age na 18 months.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin get cough or wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin get fever.\"},{\"fact_id\":\"respiratory.breaths_counted_one_minute\",\"evidence_text\":\"Dem count pikin breath for one minute.\"},{\"fact_id\":\"respiratory.chest_indrawing\",\"evidence_text\":\"Pikin chest no dey sink inside.\"},{\"fact_id\":\"respiratory.child_calm\",\"evidence_text\":\"Pikin calm as dem dey check breath.\"},{\"fact_id\":\"respiratory.cough_duration_days\",\"evidence_text\":\"Pikin cough dey happen for 3 days.\"},{\"fact_id\":\"respiratory.pulse_oximeter_available\",\"evidence_text\":\"Pulse oximeter no dey available.\"},{\"fact_id\":\"respiratory.recurrent_wheeze\",\"evidence_text\":\"Pikin no dey wheeze again.\"},{\"fact_id\":\"respiratory.respiratory_rate\",\"evidence_text\":\"Pikin dey breathe 35 times for one minute.\"},{\"fact_id\":\"respiratory.stridor_when_calm\",\"evidence_text\":\"Pikin no get stridor when e calm.\"},{\"fact_id\":\"respiratory.wheezing\",\"evidence_text\":\"Pikin no dey wheeze.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin dey vomit everything. Pikin stool no get blood. Pikin dey drink normal as e get diarrhoea. Pikin no dey restless or irritable as e get diarrhoea. Skin wey dem pinch dey normal. Pikin eye no dey sink. Diarrhoea dey happen for 3 days. Caregiver talk say pikin ear never discharge before and e no dey discharge now. Pikin ear no dey pain. Pikin ear no dey pus. Pikin ear no get tender swelling behind. Fever dey happen for 2 days. Pikin body no get rash wey spread. No bacterial cause wey dem identify for fever. Area wey pikin dey get high malaria risk. Malaria test dey available. Malaria test show say e negative. Pikin no get cough as e get measles. Pikin never get measles for last 3 months. Pikin body no show cause of fever wey dey clear. Pikin eye no dey red. Pikin nose no dey run. Pikin neck no stiff. Pikin temperature na 38.0°C. Pikin age na 18 months. Pikin get cough or wahala to breathe. Pikin get diarrhoea. Pikin get ear problem. Pikin get fever. Dem count pikin breath for one minute. Pikin chest no dey sink inside. Pikin calm as dem dey check breath. Pikin cough dey happen for 3 days. Pulse oximeter no dey available. Pikin no dey wheeze again. Pikin dey breathe 35 times for one minute. Pikin no get stridor when e calm. Pikin no dey wheeze.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin dey vomit everything."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Pikin stool no get blood."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Pikin dey drink normal as e get diarrhoea."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Pikin no dey restless or irritable as e get diarrhoea."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin wey dem pinch dey normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "Pikin eye no dey sink."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea dey happen for 3 days."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "Caregiver talk say pikin ear never discharge before and e no dey discharge now."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "Pikin ear no dey pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "Pikin ear no dey pus."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "Pikin ear no get tender swelling behind."
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "Fever dey happen for 2 days."
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "Pikin body no get rash wey spread."
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "No bacterial cause wey dem identify for fever."
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "Area wey pikin dey get high malaria risk."
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "Malaria test dey available."
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "Malaria test show say e negative."
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "Pikin no get cough as e get measles."
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "Pikin never get measles for last 3 months."
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "Pikin body no show cause of fever wey dey clear."
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "Pikin eye no dey red."
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "Pikin nose no dey run."
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "Pikin neck no stiff."
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "Pikin temperature na 38.0°C."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin age na 18 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin get cough or wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Dem count pikin breath for one minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Pikin chest no dey sink inside."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Pikin calm as dem dey check breath."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Pikin cough dey happen for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Pikin no dey wheeze again."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Pikin dey breathe 35 times for one minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Pikin no get stridor when e calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Pikin no dey wheeze."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1810,
+    "output_tokens": 1532,
+    "cached_input_tokens": 0,
+    "latency_ms": 9304,
+    "retry_count": 0,
+    "provider_request_id": "resp_07a15c83fbf8f3f6016a8b047c44d88195854b9dee667276c6",
+    "raw_usage": {
+      "input_tokens": 1810,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1532,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3342
+    }
+  }
+}

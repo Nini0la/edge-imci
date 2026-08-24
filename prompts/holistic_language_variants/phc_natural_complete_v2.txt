@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI whole-encounter semantic record as a natural, coherent submission from a trained frontline PHC worker.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve positive findings, explicit negative findings, measurements, durations, area context, and unknown values that the source explicitly requires you to mention. Never turn an unknown or omitted field into a negative statement.
+
+Do not infer or add diagnoses, classifications, interpretations, urgency, treatments, advice, or summary conclusions, even when they seem logically implied by the findings. For example, do not add phrases such as "no signs of dehydration" unless that exact conclusion is itself a supplied source fact. Describe only the observations supplied in the structured encounter.
+
+Produce only the worker's case submission. Do not produce an EdgeIMCI response: the approved canonical response is attached deterministically after validation. Do not expose field names, schema terms, hashes, rule IDs, policy IDs, or implementation commentary.
+
+Return one JSON object matching the supplied candidate schema. `fact_evidence` must contain every supplied `fact_id` exactly once. Every `evidence_text` must be copied character-for-character as one contiguous substring from `user_submission`. If one combined phrase expresses several facts, you may reuse the same exact larger phrase for each applicable fact ID. Before returning, check every evidence string against the final submission and correct any that is not an exact substring. Do not include unknown fact IDs.
+
+Style: natural and easy to read while remaining complete; vary sentence structure and the ordering of supplied assessment domains where coherence permits; avoid unnecessary repetition, storytelling, greetings, and conclusions.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

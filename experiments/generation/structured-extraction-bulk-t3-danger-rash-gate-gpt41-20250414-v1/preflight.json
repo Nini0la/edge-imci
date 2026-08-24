@@ -1,0 +1,14 @@
+{
+  "preflight_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-preflight-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T15:56:54Z",
+  "authorization_id": "edge-imci-structured-extraction-bulk-t3-danger-rash-gate-v1",
+  "authorization_sha256": "f1e7817253768ff1267f4c6ee1f9b6d801d8e30f05b15ae45a68f473341f4a1e",
+  "scheduled_attempts": 6,
+  "maximum_budget_usd": 0.5,
+  "maximum_reserved_total_usd": 0.18,
+  "teacher_target_blind": true,
+  "training_authorized": false
+}

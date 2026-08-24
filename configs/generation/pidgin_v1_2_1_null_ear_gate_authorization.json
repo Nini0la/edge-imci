@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-pidgin-v1-2-1-null-ear-gate-authorization-v1",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Targeted parent-null remediation after Pidgin v1.2 fixed drinking semantics but invented nested ear-discharge history in two null-ear cases.",
+  "expected_parent_cases_per_style": 2,
+  "expected_styles": 1,
+  "maximum_remote_attempts": 2,
+  "maximum_budget_usd": 0.1,
+  "first_gate_attempts": 0,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false,
+  "scope": "Parent-null boundary gate over hpg-027 and hpg-075 for Nigerian Pidgin prompt v1.2.1."
+}

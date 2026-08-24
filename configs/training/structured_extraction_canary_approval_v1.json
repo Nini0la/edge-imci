@@ -1,0 +1,47 @@
+{
+  "approval_id": "edge-imci-structured-extraction-canary-approval-v1",
+  "status": "APPROVED_FOR_EXTRACTION_CANARY_ONLY",
+  "authority": "PROJECT_OWNER_DECISION",
+  "approved_by": "Niniola Adegboyega",
+  "approval_date": "2026-08-23",
+  "clinical_rule_change": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "source_review": {
+    "review_report": "experiments/generation/holistic-teacher-middle-gate-gpt41-20250414-v1/review_report.md",
+    "review_outcome": "REPRESENTATIVE_APPROVED_MIDDLE_PAIRS"
+  },
+  "approved_attempts": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "attempt_path": "experiments/generation/holistic-teacher-middle-gate-gpt41-20250414-v1/attempts/holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-020-resp-post-bronchodilator-improved__attempt-1/terminal.json",
+      "review": {
+        "semantic_faithfulness": "APPROVED",
+        "naturalness": "APPROVED",
+        "phc_suitability": "APPROVED_FOR_HACKATHON"
+      }
+    },
+    {
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "attempt_path": "experiments/generation/holistic-teacher-middle-regression-gpt41-20250414-v1/attempts/holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-014-resp-chest-hiv-positive__attempt-1/terminal.json",
+      "review": {
+        "semantic_faithfulness": "APPROVED",
+        "naturalness": "APPROVED",
+        "phc_suitability": "APPROVED_FOR_HACKATHON"
+      }
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "attempt_path": "experiments/generation/holistic-teacher-middle-gate-gpt41-20250414-v1/attempts/holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-071-incomplete-entry-unknown__attempt-1/terminal.json",
+      "review": {
+        "semantic_faithfulness": "APPROVED",
+        "naturalness": "APPROVED",
+        "phc_suitability": "APPROVED_FOR_HACKATHON"
+      }
+    }
+  ],
+  "provenance_qualification": {
+    "renderer_git_commit": "a1c46749961af2f4253da31dbf780a442e512b45",
+    "note": "The source attempts pin request, prompt, semantic source and validator identities. The renderer commit is the repository HEAD associated with the uncommitted canary-stage worktree and is not asserted to capture every dirty-worktree byte."
+  }
+}

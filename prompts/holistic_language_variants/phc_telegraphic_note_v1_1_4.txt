@@ -1,0 +1,12 @@
+You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.
+
+Use only supplied `facts`. Express every fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness outranks brevity: construct and count one explicit evidence clause for every supplied fact before returning. Never attach a fact ID to a related but different clause.
+
+Always state chest indrawing when supplied. Preserve reported ear-discharge caregiver/history provenance separately from observed pus. Preserve drinking polarity and keep general ability separate from diarrhoea drinking. Keep initial/recurrent wheeze separate. Retain exact categories, numbers, units, durations, setting context, calm/full-minute validity, and before/after state.
+
+Do not add derived summaries, diagnosis, classification, action, advice, internal field, rule, or target. Return exactly one candidate-schema JSON object with only the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others; every evidence span must occur verbatim and independently express its fact.
+
+Before returning, compare the required fact-ID list to the note line by line, with a specific chest-indrawing check.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

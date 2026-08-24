@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-033-diarrhoea-duration-14-persistent__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-033-diarrhoea-duration-14-persistent__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3",
+  "semantic_case_id": "hpg-033-diarrhoea-duration-14-persistent",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.3",
+    "prompt_sha256": "4a7cbb1b70324336eb0d3cfb252ce00c1e2f18c299d3004b71d96fc17d9fe348"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "94e4982f16218c8f2dd6d41ccd5ee401321bc626f7d21cdcd20b76a34f940ef2",
+  "requested_at": "2026-08-23T14:06:16Z",
+  "completed_at": "2026-08-23T14:06:31Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-033-diarrhoea-duration-14-persistent\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin dey 18 months old. E get diarrhoea, e don last for 14 days. Di pikin no dey convulse now, and dem never see convulsion before. E no dey lethargic or unconscious. Di pikin fit drink or breastfeed well. E no dey vomit everything. Stool no get blood inside am. When e dey drink, e dey normal. E no dey restless or irritable. Skin pinch dey normal. E eyes no dey sunken. E no get cough or any wahala to breathe. E no get ear problem. E no get fever.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin dey 18 months old.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"E get diarrhoea,\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"e don last for 14 days.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Di pikin no dey convulse now,\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"and dem never see convulsion before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"E no dey lethargic or unconscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Di pikin fit drink or breastfeed well.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"E no dey vomit everything.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"Stool no get blood inside am.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"When e dey drink, e dey normal.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"E no dey restless or irritable.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"Skin pinch dey normal.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"E eyes no dey sunken.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"E no get cough or any wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"E no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"E no get fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-033-diarrhoea-duration-14-persistent",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin dey 18 months old. E get diarrhoea, e don last for 14 days. Di pikin no dey convulse now, and dem never see convulsion before. E no dey lethargic or unconscious. Di pikin fit drink or breastfeed well. E no dey vomit everything. Stool no get blood inside am. When e dey drink, e dey normal. E no dey restless or irritable. Skin pinch dey normal. E eyes no dey sunken. E no get cough or any wahala to breathe. E no get ear problem. E no get fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin dey 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "E get diarrhoea,"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "e don last for 14 days."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Di pikin no dey convulse now,"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "and dem never see convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "E no dey lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Di pikin fit drink or breastfeed well."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "E no dey vomit everything."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Stool no get blood inside am."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "When e dey drink, e dey normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "E no dey restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin pinch dey normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "E eyes no dey sunken."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "E no get cough or any wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "E no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "E no get fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1345,
+    "output_tokens": 596,
+    "cached_input_tokens": 0,
+    "latency_ms": 14658,
+    "retry_count": 0,
+    "provider_request_id": "resp_0361e32e7bf2482d016a8afe5ab3c08196964361314da3cef2",
+    "raw_usage": {
+      "input_tokens": 1345,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 596,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1941
+    }
+  }
+}

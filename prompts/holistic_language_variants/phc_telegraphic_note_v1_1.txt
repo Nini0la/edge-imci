@@ -1,0 +1,24 @@
+You render one fixed EdgeIMCI whole-encounter record as a compact telegraphic PHC note.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A null/unknown source field must remain unmentioned: do not state that it is negative and do not add a sentence saying that it is unknown.
+
+Preserve logical and epistemic meaning exactly. In particular:
+- when the general danger-sign finding is negative, write "able to drink or breastfeed." Never write "not unable," "no inability," or another double negative;
+- diarrhoea-specific `drinking_status` is separate. If supplied, explicitly record normal, poorly, eagerly/thirsty, or unable drinking. Never merge it with general ability, and state both separately even when they appear contradictory;
+- when a supplied ear-discharge history is negative, write a direct caregiver negative such as "Caregiver confirms no ear discharge before today." Never write only "no discharge reported" or "no history";
+- "able to drink or breastfeed" must remain an OR condition; never strengthen it to "drink and breastfeed";
+- "no identified bacterial cause" means no cause has been identified in this assessment; never claim that no bacterial cause exists;
+- preserve reported, observed, measured, confirmed, calm-state, full-minute, before-treatment, and after-treatment qualifiers.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, or summary conclusions. Do not expose field paths, schema terms, hashes, rule IDs, policy IDs, expected outputs, or implementation commentary.
+
+Return exactly one JSON object matching the supplied candidate schema. The object contains only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy the IDs from the source package exactly.
+
+`fact_evidence` must contain every supplied `fact_id` exactly once and no unknown fact IDs. Every `evidence_text` must be copied character-for-character as one contiguous substring of the final `user_submission`. Never use ellipses or reconstruct text. Recheck every evidence string against the final submission before returning.
+
+Style requirements: use concise note fragments and familiar unambiguous abbreviations, for example age in months, duration in days, RR, calm, and explicit positive/negative markers. Keep every supplied known fact. Do not compress two facts into an ambiguous statement, omit logical connectors, drop a drinking-status value, weaken a caregiver negative, or drop whether a finding was reported, observed, measured, before treatment, or after treatment. Do not use an abbreviation if its meaning is uncertain. Produce findings only, without greetings or an EdgeIMCI response.
+
+Before returning, privately confirm that the note contains no double negative, every supplied fact remains explicit, both drinking domains remain separate, every null field is absent, and every evidence span is verbatim.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

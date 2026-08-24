@@ -1,0 +1,139 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v9__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-023-resp-child-not-calm__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v9__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-023-resp-child-not-calm__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+  "semantic_case_id": "hpg-023-resp-child-not-calm",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.7",
+    "prompt_sha256": "9fe400ba6a6b0c68ca99b452fa63885540efc69ad19def2886715d810d0d08ad"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "ce3b7407af898b1316e45b74e9d3df5bcb994d0e522537a5afe35cffb5af4563",
+  "requested_at": "2026-08-23T15:16:45Z",
+  "completed_at": "2026-08-23T15:16:59Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-023-resp-child-not-calm\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Pikin no dey get convulsion now. E never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin na 18 months old. Pikin get cough or e dey get wahala to breathe. Pikin no get run belle. Pikin no get ear wahala. Pikin no get fever. Dem count pikin breath for one minute. Pikin chest no dey go inside when e dey breathe. Pikin no calm. Cough don dey for 3 days. Pulse oximeter no dey available. Pikin no dey get wheeze every time. Pikin dey breathe 35 times for one minute. Pikin no dey make stridor when e calm. Pikin no dey wheeze.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"Pikin no dey get convulsion now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"E never get convulsion before.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Pikin no dey lethargic and e dey conscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Pikin fit drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"Pikin no dey vomit everything.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"Pikin na 18 months old.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"Pikin get cough or e dey get wahala to breathe.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"Pikin no get run belle.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"Pikin no get ear wahala.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"Pikin no get fever.\"\n    },\n    {\n      \"fact_id\": \"respiratory.breaths_counted_one_minute\",\n      \"evidence_text\": \"Dem count pikin breath for one minute.\"\n    },\n    {\n      \"fact_id\": \"respiratory.chest_indrawing\",\n      \"evidence_text\": \"Pikin chest no dey go inside when e dey breathe.\"\n    },\n    {\n      \"fact_id\": \"respiratory.child_calm\",\n      \"evidence_text\": \"Pikin no calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.cough_duration_days\",\n      \"evidence_text\": \"Cough don dey for 3 days.\"\n    },\n    {\n      \"fact_id\": \"respiratory.pulse_oximeter_available\",\n      \"evidence_text\": \"Pulse oximeter no dey available.\"\n    },\n    {\n      \"fact_id\": \"respiratory.recurrent_wheeze\",\n      \"evidence_text\": \"Pikin no dey get wheeze every time.\"\n    },\n    {\n      \"fact_id\": \"respiratory.respiratory_rate\",\n      \"evidence_text\": \"Pikin dey breathe 35 times for one minute.\"\n    },\n    {\n      \"fact_id\": \"respiratory.stridor_when_calm\",\n      \"evidence_text\": \"Pikin no dey make stridor when e calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.wheezing\",\n      \"evidence_text\": \"Pikin no dey wheeze.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-023-resp-child-not-calm",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey get convulsion now. E never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin na 18 months old. Pikin get cough or e dey get wahala to breathe. Pikin no get run belle. Pikin no get ear wahala. Pikin no get fever. Dem count pikin breath for one minute. Pikin chest no dey go inside when e dey breathe. Pikin no calm. Cough don dey for 3 days. Pulse oximeter no dey available. Pikin no dey get wheeze every time. Pikin dey breathe 35 times for one minute. Pikin no dey make stridor when e calm. Pikin no dey wheeze.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey get convulsion now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "E never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin no dey vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin na 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin get cough or e dey get wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get run belle."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear wahala."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Dem count pikin breath for one minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Pikin chest no dey go inside when e dey breathe."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Pikin no calm."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough don dey for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Pikin no dey get wheeze every time."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Pikin dey breathe 35 times for one minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Pikin no dey make stridor when e calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Pikin no dey wheeze."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1311,
+    "output_tokens": 911,
+    "cached_input_tokens": 0,
+    "latency_ms": 14009,
+    "retry_count": 0,
+    "provider_request_id": "resp_0d029e1166e2de29016a8b0edf515c81978a450ba24ab774e2",
+    "raw_usage": {
+      "input_tokens": 1311,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 911,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2222
+    }
+  }
+}

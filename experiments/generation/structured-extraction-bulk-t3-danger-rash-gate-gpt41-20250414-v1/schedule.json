@@ -1,0 +1,111 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T15:56:54Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T15:56:54Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.5
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.2.11",
+      "prompt_sha256": "a257e3667891c1fab65c0897d09626deddfee3eb8df8a0f0dd0f2054ba46ca42",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.2.16",
+      "prompt_sha256": "e2310aa197ae0496e7f8773dc81ba1e7be4a8a1dad962314849cd15553e4dd01",
+      "sampling_config": {
+        "temperature": 0.1
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-057-fever-malaria-and-measles",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11",
+      "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "e163ed6e4d083ccf6b7a63982a93aa30cec855cdef0e829c9581f5dd85aad1ac",
+      "review_item_id": "review-f49a5586a6a63fbd1364b2dd"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-058-fever-measles-last-three-months",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11",
+      "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "4ea3313f096a5137c3c4837f7ea7fb433e2ac01da02453f462bf358f77bd87c1",
+      "review_item_id": "review-3e96a803a20b7735b8a48d1c"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "b6cbc91c0853784f52a19918ed2f71376c4d6fa382c17564b612affb5dae291e",
+      "review_item_id": "review-a449bc94e7210949f54d5657"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-003-danger-vomits-everything",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+      "semantic_case_id": "hpg-003-danger-vomits-everything",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "8c89e44bd2bd254a22ca9d00386b829180708bbae07e0fb9e2a0dbabb96e918e",
+      "review_item_id": "review-8cd0dcd8d479964a1199114b"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-005-danger-lethargic-or-unconscious",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+      "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "161904c93041d0ef21845ab672fed5b7c6075cd95078d68221ac23d94b7a7b3a",
+      "review_item_id": "review-864f6f08339363c18b271739"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-076-complete-danger-plus-all-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+      "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "d61f64690b6c77f2c681b9f08f2508d2dc1d19897accd2a5905de568795963bf",
+      "review_item_id": "review-c8e84d242376cd093f4c59af"
+    }
+  ]
+}

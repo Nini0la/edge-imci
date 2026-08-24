@@ -1,0 +1,107 @@
+{
+  "approval_sample_schema_id": "edge-imci-holistic-teacher-owner-approval-samples-v1",
+  "generation_run_id": "holistic-teacher-approval-sample-gpt41-20250414-v2",
+  "status": "READY_FOR_PROJECT_OWNER_LARGE_SCALE_DECISION",
+  "selected_recipe": {
+    "teacher_provider": "AZURE_OPENAI",
+    "teacher_model": "gpt-4.1",
+    "teacher_snapshot": "2025-04-14",
+    "style": "NATURAL_COMPLETE",
+    "prompt_id": "edge-imci-phc-natural-complete",
+    "prompt_version": "2.0.0",
+    "prompt_sha256": "23d3efda04b3b4c92ef4178da09811bed2c91096fc5230042f8c7ae09b0fd7f9",
+    "temperature": 0.7,
+    "max_output_tokens": 2000,
+    "teacher_target_blind": true,
+    "large_scale_strategy_identifier": "phc-natural-complete-v1",
+    "strategy_identifier_note": "Retain the schema-compatible strategy ID; prompt version and hash pin the v2 instruction."
+  },
+  "evaluation": {
+    "concise_v2_disposition": "REJECT_FOR_LARGE_SCALE",
+    "concise_v2_reason": "The complex sample changed cough OR difficult breathing into cough AND difficult breathing.",
+    "natural_v2_disposition": "RECOMMEND_FOR_PROJECT_OWNER_APPROVAL",
+    "large_scale_generation_authorized": false
+  },
+  "samples": [
+    {
+      "sample_id": "owner-sample-1",
+      "semantic_case_id": "hpg-001-all-negative",
+      "source_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative__attempt-1",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "This child is 18 months old. The child is not convulsing now and has not had convulsions. The child is not lethargic or unconscious, and is able to drink or breastfeed. The child does not vomit everything. There is no cough or difficult breathing, no diarrhoea, no ear problem, and no fever."
+        },
+        {
+          "role": "assistant",
+          "content": "Classifications:\n- None of the currently supported classifications is triggered.\n\nManagement:\n- No management action is indicated by the supported assessment."
+        }
+      ],
+      "normalizations": [
+        {
+          "field": "strategy_id",
+          "from": "phc-natural-complete-v2",
+          "to": "phc-natural-complete-v1",
+          "reason": "LOCAL_V1_SCHEMA_IDENTIFIER_COMPATIBILITY_ONLY"
+        }
+      ],
+      "delegated_review": {
+        "semantic_faithfulness": "PASS",
+        "fact_completeness": "PASS",
+        "unknown_preservation": "PASS",
+        "target_leakage": "NONE",
+        "answer_shaped_language": "NONE",
+        "naturalness": "PASS",
+        "phc_suitability": "PASS",
+        "disposition": "APPROVE_AS_OWNER_REVIEW_SAMPLE",
+        "scope": "LANGUAGE_AND_SOURCE_ALIGNMENT_ONLY; NO_NEW_CLINICAL_RULE_REVIEW"
+      }
+    },
+    {
+      "sample_id": "owner-sample-2",
+      "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "source_attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+      "conversation": [
+        {
+          "role": "user",
+          "content": "This child is 18 months old and presents with cough or difficult breathing, diarrhoea, ear problems, and fever. The cough has been present for 3 days. I counted the breaths for one minute while the child was calm and found a respiratory rate of 35 breaths per minute. There is no chest indrawing, no stridor when calm, and no wheezing or recurrent wheeze. A pulse oximeter is not available. Diarrhoea has lasted 3 days, with no blood in the stool. The child's drinking status and skin pinch are normal, with no sunken eyes and the child is not restless or irritable. The child is not convulsing now and has not had convulsions. The child is not lethargic or unconscious and is able to drink or breastfeed. However, the child vomits everything. There is no ear pain, no ear discharge reported, no pus draining from the ear, and no tender swelling behind the ear. The fever has lasted for 2 days, with a measured temperature of 38.0°C. There is no generalized rash, no obvious cause of fever, no identified bacterial cause, and no red eyes or runny nose. There is no history of measles within the last 3 months, no measles cough, and no stiff neck. The malaria risk is high, a malaria test is available and the result is negative."
+        },
+        {
+          "role": "assistant",
+          "content": "URGENT: Act now and do not delay referral.\n\nClassifications:\n- Very severe disease\n- Severe pneumonia or very severe disease\n- No dehydration\n- Very severe febrile disease\n- No ear infection\n\nImmediate management:\n- Complete the remaining assessment quickly.\n- Give the first dose of an appropriate antibiotic.\n- Give the first dose of severe-malaria treatment.\n- Give the indicated pre-referral treatment immediately.\n- Keep the child warm.\n- Prevent low blood sugar.\n- Arrange urgent referral.\n\nDeferred routine care:\n- Routine home-care counselling and scheduled follow-up are deferred so they do not delay or compete with the urgent referral workflow."
+        }
+      ],
+      "normalizations": [
+        {
+          "field": "strategy_id",
+          "from": "phc-natural-complete-v2",
+          "to": "phc-natural-complete-v1",
+          "reason": "LOCAL_V1_SCHEMA_IDENTIFIER_COMPATIBILITY_ONLY"
+        },
+        {
+          "field": "fact_evidence.respiratory.recurrent_wheeze.evidence_text",
+          "from": "no recurrent wheeze",
+          "to": "no wheezing or recurrent wheeze",
+          "reason": "EXACT_SUBSTRING_POINTER_CORRECTION_ONLY"
+        },
+        {
+          "field": "fact_evidence.fever.runny_nose.evidence_text",
+          "from": "no runny nose",
+          "to": "no red eyes or runny nose",
+          "reason": "EXACT_SUBSTRING_POINTER_CORRECTION_ONLY"
+        }
+      ],
+      "delegated_review": {
+        "semantic_faithfulness": "PASS",
+        "fact_completeness": "PASS",
+        "unknown_preservation": "PASS",
+        "target_leakage": "NONE",
+        "answer_shaped_language": "NONE",
+        "naturalness": "PASS",
+        "phc_suitability": "PASS",
+        "disposition": "APPROVE_AS_OWNER_REVIEW_SAMPLE",
+        "scope": "LANGUAGE_AND_SOURCE_ALIGNMENT_ONLY; NO_NEW_CLINICAL_RULE_REVIEW"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-teacher-middle-regression-gpt41-20250414-v1",
+  "attempt_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-041-fever-high-positive__attempt-1",
+  "request_id": "holistic-teacher-middle-regression-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2-1__hpg-041-fever-high-positive",
+  "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2-1",
+  "semantic_case_id": "hpg-041-fever-high-positive",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-natural-complete-v1",
+    "prompt_id": "edge-imci-phc-natural-complete",
+    "prompt_version": "2.1.0",
+    "prompt_sha256": "9489c11c206067199e17ccd9aa7c3b17d42107afdde95c8b590ed9bc5848b8fc"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2000
+  },
+  "request_sha256": "73fdd8d732722e7e5d9621dc34770f3a33b48ac889cbd0d39ac6b001277fcfaa",
+  "requested_at": "2026-08-23T07:30:59Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

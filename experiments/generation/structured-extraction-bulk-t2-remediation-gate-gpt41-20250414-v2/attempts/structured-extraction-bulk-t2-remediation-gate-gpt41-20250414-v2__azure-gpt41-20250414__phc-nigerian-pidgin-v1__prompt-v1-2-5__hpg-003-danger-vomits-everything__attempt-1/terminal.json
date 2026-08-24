@@ -1,0 +1,103 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v2",
+  "attempt_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-003-danger-vomits-everything__attempt-1",
+  "request_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-003-danger-vomits-everything",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5",
+  "semantic_case_id": "hpg-003-danger-vomits-everything",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.5",
+    "prompt_sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "4bb0fc9998dc1fa91464ccd679e424904b15564ab87feff2c8dc2c7d6c2a6fba",
+  "requested_at": "2026-08-23T14:24:37Z",
+  "completed_at": "2026-08-23T14:24:44Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-003-danger-vomits-everything\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey shake or get fit now. Pikin never get fit before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin dey vomit everything. Pikin na 18 months old. Pikin no get cough and e no get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey shake or get fit now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get fit before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin dey vomit everything.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin na 18 months old.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin no get cough and e no get wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin no get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin no get fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-003-danger-vomits-everything",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey shake or get fit now. Pikin never get fit before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin dey vomit everything. Pikin na 18 months old. Pikin no get cough and e no get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey shake or get fit now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get fit before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin dey vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin na 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin no get cough and e no get wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1054,
+    "output_tokens": 409,
+    "cached_input_tokens": 0,
+    "latency_ms": 7028,
+    "retry_count": 0,
+    "provider_request_id": "resp_0d5b2d49dcaf9355016a8b02a65260819593fa6d5c6a74fdda",
+    "raw_usage": {
+      "input_tokens": 1054,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 409,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1463
+    }
+  }
+}

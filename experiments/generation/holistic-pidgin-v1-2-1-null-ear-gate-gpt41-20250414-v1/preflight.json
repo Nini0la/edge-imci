@@ -1,0 +1,18 @@
+{
+  "preflight_schema_id": "edge-imci-input-style-pathway-qualification-preflight-v1",
+  "generation_run_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T11:10:00Z",
+  "authorization_id": "edge-imci-pidgin-v1-2-1-null-ear-gate-authorization-v1",
+  "authorization_sha256": "79f3ddaeb3a989d1037ea168a3fc7aab85d29c6899163401c311efead2c4d07b",
+  "selection_sha256": "7560d2db7f76abcac5af499f511816fdf439c40547e6751a27fab4f3947993e6",
+  "scheduled_attempts": 2,
+  "first_gate_attempts": 0,
+  "maximum_budget_usd": 0.1,
+  "maximum_reserved_total_usd": 0.06,
+  "teacher_target_blind": true,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false
+}

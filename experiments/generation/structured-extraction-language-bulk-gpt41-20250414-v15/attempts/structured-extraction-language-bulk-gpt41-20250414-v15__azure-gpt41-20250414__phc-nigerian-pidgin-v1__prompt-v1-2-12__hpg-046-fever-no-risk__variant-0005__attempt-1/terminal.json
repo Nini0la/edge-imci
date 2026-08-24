@@ -1,0 +1,147 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v15",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v15__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-046-fever-no-risk__variant-0005__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v15__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-046-fever-no-risk__variant-0005",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12",
+  "semantic_case_id": "hpg-046-fever-no-risk",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.12",
+    "prompt_sha256": "000f31f3ad22fd35efc771101d545a1eb58afe51d783aa2254ccc8b34daf6726"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "4ebc8b5cd674da1d0bd2d39c440d8fe9236ff76d4efa2bf28f6ff3ffa28f531c",
+  "requested_at": "2026-08-23T16:11:45Z",
+  "completed_at": "2026-08-23T16:11:51Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-046-fever-no-risk\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin get fever for 2 days. Pikin no get rash wey spread for body. Dem no identify bacterial cause for this assessment. Pikin no get malaria risk. Pikin no get cough wey follow measles. Pikin never get measles within last 3 months. No obvious cause of fever dey. Pikin no get red eye. Pikin no get catarrh. Pikin neck no stiff. Pikin temperature na 38.0°C. Pikin age na 18 months. Pikin no get cough and e no get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin get fever.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get convulsion before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin no dey vomit everything.\"},{\"fact_id\":\"fever.fever_duration_days\",\"evidence_text\":\"Pikin get fever for 2 days.\"},{\"fact_id\":\"fever.generalized_rash\",\"evidence_text\":\"Pikin no get rash wey spread for body.\"},{\"fact_id\":\"fever.identified_bacterial_cause_present\",\"evidence_text\":\"Dem no identify bacterial cause for this assessment.\"},{\"fact_id\":\"fever.malaria_risk\",\"evidence_text\":\"Pikin no get malaria risk.\"},{\"fact_id\":\"fever.measles_cough\",\"evidence_text\":\"Pikin no get cough wey follow measles.\"},{\"fact_id\":\"fever.measles_within_last_3_months\",\"evidence_text\":\"Pikin never get measles within last 3 months.\"},{\"fact_id\":\"fever.obvious_cause_of_fever_present\",\"evidence_text\":\"No obvious cause of fever dey.\"},{\"fact_id\":\"fever.red_eyes\",\"evidence_text\":\"Pikin no get red eye.\"},{\"fact_id\":\"fever.runny_nose\",\"evidence_text\":\"Pikin no get catarrh.\"},{\"fact_id\":\"fever.stiff_neck\",\"evidence_text\":\"Pikin neck no stiff.\"},{\"fact_id\":\"fever.temperature_c\",\"evidence_text\":\"Pikin temperature na 38.0°C.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin age na 18 months.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin no get cough and e no get wahala to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin no get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin get fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-046-fever-no-risk",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin get fever for 2 days. Pikin no get rash wey spread for body. Dem no identify bacterial cause for this assessment. Pikin no get malaria risk. Pikin no get cough wey follow measles. Pikin never get measles within last 3 months. No obvious cause of fever dey. Pikin no get red eye. Pikin no get catarrh. Pikin neck no stiff. Pikin temperature na 38.0°C. Pikin age na 18 months. Pikin no get cough and e no get wahala to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin get fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin no dey vomit everything."
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "Pikin get fever for 2 days."
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "Pikin no get rash wey spread for body."
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "Dem no identify bacterial cause for this assessment."
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "Pikin no get malaria risk."
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "Pikin no get cough wey follow measles."
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "Pikin never get measles within last 3 months."
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "No obvious cause of fever dey."
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "Pikin no get red eye."
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "Pikin no get catarrh."
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "Pikin neck no stiff."
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "Pikin temperature na 38.0°C."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin age na 18 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin no get cough and e no get wahala to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin get fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1505,
+    "output_tokens": 775,
+    "cached_input_tokens": 0,
+    "latency_ms": 6297,
+    "retry_count": 0,
+    "provider_request_id": "resp_0f7f018e25b600ba016a8b1bc2bb188197ad6981df735337dc",
+    "raw_usage": {
+      "input_tokens": 1505,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 775,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2280
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2__hpg-069-cross-urgent-dehydration-ear__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2__hpg-069-cross-urgent-dehydration-ear__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-2",
+  "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.2",
+    "prompt_sha256": "c9556ab58bd210db467b90c841104f6003e59b74d8134696357d003434380ed8"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "deb11cb30caa4970f8e354dad26061bb38edf069f7deaa46f3e8895035e72287",
+  "requested_at": "2026-08-23T14:05:40Z",
+  "completed_at": "2026-08-23T14:05:47Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-069-cross-urgent-dehydration-ear\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"Age 18mo. Diarrhoea 3d. Blood in stool not seen. Poorly drinking. Not restless or irritable. Skin pinch normal. Sunken eyes. No convulsing now. No past convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Does not vomit everything. Cough or difficult breathing not present. Ear problem present. No ear discharge reported. No ear pain. No pus draining from ear. Tender swelling behind ear. No fever.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"Age 18mo.\"},\n    {\"fact_id\": \"diarrhoea.duration_days\", \"evidence_text\": \"Diarrhoea 3d.\"},\n    {\"fact_id\": \"diarrhoea.blood_in_stool\", \"evidence_text\": \"Blood in stool not seen.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.drinking_status\", \"evidence_text\": \"Poorly drinking.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\", \"evidence_text\": \"Not restless or irritable.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.skin_pinch\", \"evidence_text\": \"Skin pinch normal.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.sunken_eyes\", \"evidence_text\": \"Sunken eyes.\"},\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"No convulsing now.\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"No past convulsions.\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Not lethargic or unconscious.\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Able to drink or breastfeed.\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Does not vomit everything.\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"Cough or difficult breathing not present.\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"Diarrhoea 3d.\"},\n    {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"Ear problem present.\"},\n    {\"fact_id\": \"ear.ear_discharge_reported\", \"evidence_text\": \"No ear discharge reported.\"},\n    {\"fact_id\": \"ear.ear_pain\", \"evidence_text\": \"No ear pain.\"},\n    {\"fact_id\": \"ear.pus_draining_from_ear\", \"evidence_text\": \"No pus draining from ear.\"},\n    {\"fact_id\": \"ear.tender_swelling_behind_ear\", \"evidence_text\": \"Tender swelling behind ear.\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"No fever.\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "Age 18mo. Diarrhoea 3d. Blood in stool not seen. Poorly drinking. Not restless or irritable. Skin pinch normal. Sunken eyes. No convulsing now. No past convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Does not vomit everything. Cough or difficult breathing not present. Ear problem present. No ear discharge reported. No ear pain. No pus draining from ear. Tender swelling behind ear. No fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age 18mo."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea 3d."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Blood in stool not seen."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Poorly drinking."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin pinch normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "Sunken eyes."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No past convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Does not vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Cough or difficult breathing not present."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Diarrhoea 3d."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Ear problem present."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "No ear discharge reported."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "No ear pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "No pus draining from ear."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "Tender swelling behind ear."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1301,
+    "output_tokens": 742,
+    "cached_input_tokens": 0,
+    "latency_ms": 7413,
+    "retry_count": 0,
+    "provider_request_id": "resp_01faf903855760cd016a8afe35946c8196932bc9b28cbcab91",
+    "raw_usage": {
+      "input_tokens": 1301,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 742,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2043
+    }
+  }
+}

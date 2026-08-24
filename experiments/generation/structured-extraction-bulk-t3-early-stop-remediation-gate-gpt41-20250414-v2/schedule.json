@@ -1,0 +1,111 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T14:39:17Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T14:39:17Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.5
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.2.9",
+      "prompt_sha256": "b6508cdfb168149399e7616fdbfc34efa29a2c0ce5ed4c4bee5359ff6f9dd24f",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "prompt_id": "edge-imci-phc-telegraphic-note",
+      "prompt_version": "1.1.6",
+      "prompt_sha256": "eccd1753dc27b81027cea9b75ec4ff05a4b44e8721be70954924cedc837e368d",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-016-resp-oximeter-89-9",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "f5cc7d783d5687c407b28540a249e1c53ad8ce4311cbe459cfec86c1c0a5cc0d",
+      "review_item_id": "review-57e820b1482b01b7ebd42858"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "95afe8dd5401bb7d52083f70d1b94fdfaa32469d8d2c293bbab2a3a02f756762",
+      "review_item_id": "review-307a168ecbf0701f48487dfc"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-032-diarrhoea-duration-13",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "16c697d2a07e7906ede364bcb8577da803b3d13626847aff75a045178324e74c",
+      "review_item_id": "review-8022963c757d82ac58104c6e"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-057-fever-malaria-and-measles",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "c5fda103189b841fe46e848a3184b124d9fc6e168a1d6e9b7c94df97d0a35506",
+      "review_item_id": "review-8014bbfbdc64b80a1ade5efa"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-003-danger-vomits-everything",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+      "semantic_case_id": "hpg-003-danger-vomits-everything",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "73103b4a606ef39bef853411b57b8c1ac03066a98f8d8c55f664d3dec2d77c70",
+      "review_item_id": "review-f44456e901f59170f7d3e842"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-060-fever-test-result-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+      "semantic_case_id": "hpg-060-fever-test-result-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "e48a51bd640103089f7dd7cec779647731d7da7d2d0dd07e35d38da157ec8c5b",
+      "review_item_id": "review-329a11e711407bcc6aa7c302"
+    }
+  ]
+}

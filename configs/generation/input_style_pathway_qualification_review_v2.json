@@ -1,0 +1,264 @@
+{
+  "review_schema_id": "edge-imci-input-style-pathway-qualification-review-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "lifecycle": "COMPLETE",
+  "review_policy": {
+    "matched_parents_per_style": 24,
+    "minimum_semantic_approvals": 22,
+    "minimum_rate": "91.7%",
+    "systematic_same-class_semantic_failures_allowed": 0,
+    "annotation_only_rejections_may_be_overridden_but_attempt_evidence_remains_immutable": true
+  },
+  "style_decisions": [
+    {
+      "variant_style": "NIGERIAN_ENGLISH",
+      "attempts": 24,
+      "semantic_approved": 24,
+      "semantic_rejected": 0,
+      "annotation_only_overrides": 2,
+      "minimum_semantic_approvals_required": 22,
+      "systematic_semantic_failure_present": false,
+      "release_decision": "QUALIFIED"
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "attempts": 24,
+      "semantic_approved": 21,
+      "semantic_rejected": 3,
+      "annotation_only_overrides": 4,
+      "minimum_semantic_approvals_required": 22,
+      "systematic_semantic_failure_present": true,
+      "release_decision": "REMEDIATE_AND_REQUALIFY"
+    },
+    {
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "attempts": 24,
+      "semantic_approved": 21,
+      "semantic_rejected": 3,
+      "annotation_only_overrides": 1,
+      "minimum_semantic_approvals_required": 22,
+      "systematic_semantic_failure_present": true,
+      "release_decision": "REMEDIATE_AND_REQUALIFY"
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "attempts": 24,
+      "semantic_approved": 20,
+      "semantic_rejected": 4,
+      "annotation_only_overrides": 1,
+      "minimum_semantic_approvals_required": 22,
+      "systematic_semantic_failure_present": true,
+      "release_decision": "REMEDIATE_AND_REQUALIFY"
+    }
+  ],
+  "exceptions": [
+    {
+      "variant_style": "NIGERIAN_ENGLISH",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-027-diarrhoea-no-dehydration__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_ENGLISH",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-055-fever-severe-measles-cornea__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-021-resp-post-bronchodilator-fast__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-027-diarrhoea-no-dehydration__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING",
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-028-diarrhoea-some-dehydration__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING",
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Diarrhoea-specific eager/thirsty drinking status was omitted."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-046-fever-no-risk__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Wording for the negative lethargy/unconsciousness finding can mean the child is not conscious."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-055-fever-severe-measles-cornea__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-068-cross-four-pathways__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "NIGERIAN_PIDGIN",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-075-contradiction-drinking__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING",
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "The general known-negative drinking danger sign was inverted and the separate diarrhoea-specific drinking status of UNABLE was not preserved."
+    },
+    {
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-028-diarrhoea-some-dehydration__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "FACT_SET_MISMATCH",
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Diarrhoea-specific eager/thirsty drinking status was omitted."
+    },
+    {
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-061-ear-no-infection__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative caregiver ear-discharge history was weakened to absence of a report."
+    },
+    {
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-069-cross-urgent-dehydration-ear__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative caregiver ear-discharge history was weakened to absence of a report."
+    },
+    {
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-075-contradiction-drinking__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-014-resp-chest-hiv-positive__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative danger sign was rendered as the risky double negative 'not unable'."
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-016-resp-oximeter-89-9__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative danger sign was rendered as the risky double negative 'not unable'."
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-031-diarrhoea-severe-age-24-cholera__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative danger sign was rendered as the risky double negative 'not unable'."
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-065-ear-observed-pus-no-history__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Known-negative caregiver ear-discharge history was weakened to absence of a report."
+    },
+    {
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-069-cross-urgent-dehydration-ear__attempt-1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; rejection is confined to evidence-span annotation or guard coverage."
+    }
+  ],
+  "scope_guard": {
+    "bulk_generation_authorized_by_this_review": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

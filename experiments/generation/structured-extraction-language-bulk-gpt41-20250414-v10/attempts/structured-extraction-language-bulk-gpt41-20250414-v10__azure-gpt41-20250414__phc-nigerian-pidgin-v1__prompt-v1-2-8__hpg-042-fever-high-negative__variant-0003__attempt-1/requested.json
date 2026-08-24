@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v10",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v10__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-042-fever-high-negative__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v10__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-042-fever-high-negative__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+  "semantic_case_id": "hpg-042-fever-high-negative",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "9a9683f57e9e04863919f29d5a85dcecf8c9edba83f6ecf547f48428f722f6a6"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "45ba0ebb56c56b17ff83fa69448ac489215d84f6cbd4e203a31c92043b661b12",
+  "requested_at": "2026-08-23T15:26:32Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

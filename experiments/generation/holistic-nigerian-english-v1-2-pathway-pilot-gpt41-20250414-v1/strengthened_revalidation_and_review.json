@@ -1,0 +1,400 @@
+{
+  "review_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-review-v1",
+  "status": "COMPLETE",
+  "immutable_attempts_preserved": true,
+  "attempt_count": 24,
+  "approved_count": 19,
+  "rejected_count": 5,
+  "candidate_results": [
+    {
+      "semantic_case_id": "hpg-001-all-negative",
+      "stratum": "baseline_explicit_negatives",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "stratum": "danger_inability_to_drink",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-006-danger-convulsing-now",
+      "stratum": "danger_active_convulsion",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "stratum": "respiratory_fast_boundary",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "stratum": "respiratory_hiv_referral",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "stratum": "respiratory_oxygen_urgent",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "stratum": "respiratory_post_bronchodilator_persistent",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "stratum": "respiratory_invalid_calm_condition",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "stratum": "diarrhoea_no_dehydration",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "stratum": "diarrhoea_plan_b",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "stratum": "diarrhoea_cholera_context",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "stratum": "diarrhoea_simultaneous",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "stratum": "diarrhoea_unknown_drinking",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "stratum": "fever_high_risk_negative_test",
+      "immutable_attempt_status": "DETERMINISTIC_REJECTED",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE",
+        "EVIDENCE_ANNOTATION_REMEDIATED"
+      ],
+      "evidence_annotation_remediated": true
+    },
+    {
+      "semantic_case_id": "hpg-044-fever-low-obvious-cause",
+      "stratum": "fever_low_risk_obvious_cause",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "stratum": "fever_no_risk",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+      "stratum": "fever_identified_bacterial_cause",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "stratum": "fever_severe_measles",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "stratum": "ear_no_infection",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "stratum": "ear_chronic_duration_boundary",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "stratum": "ear_observed_pus_negative_history",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "stratum": "integrated_all_pathways",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "stratum": "integrated_urgent_dependency",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "stratum": "cross_evidence_contradiction",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T15:22:39Z",
+  "remote_attempts_started": 5,
+  "deterministic_passes": 3,
+  "deterministic_rejections": 2,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 6480,
+    "output_tokens": 3775,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1",
+    "unit_count": 5,
+    "state_counts": {
+      "TERMINAL": 5
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-002-danger-unable-to-drink-or-breastfeed",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "c6c3403f3f1958b787256f948c85530a1087fd5bd7ef5e6c1ea9ea26518fbbf5",
+        "review_item_id": "review-48a867a89097922f045efce4",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-002-danger-unable-to-drink-or-breastfeed__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-005-danger-lethargic-or-unconscious",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "2055804f5c486a096c998c976dde4f948d089c33f8d3cc3f2d594e6daddad96d",
+        "review_item_id": "review-73789c129f99908d23567f51",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-005-danger-lethargic-or-unconscious__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-037-diarrhoea-positive-drinking-reuse",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "2c51104a84b8c0a15784e7679dfd1f93a56d49837126fa092d90680cff3e2c82",
+        "review_item_id": "review-8615f0fddd20e182f8c2ae5e",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-037-diarrhoea-positive-drinking-reuse__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-057-fever-malaria-and-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "fc54774033c9d4efc48b071b6f2174c65512bc45e0538390ca977adea4fee881",
+        "review_item_id": "review-093d22c1f10d4ce8a9843587",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-057-fever-malaria-and-measles__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-058-fever-measles-last-three-months",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "084ba5195418a028d999f364de424fb54eee1959f5d2440b9ba477e2c9205b05",
+        "review_item_id": "review-0c73f19c2ebdcd0bd2ac5df0",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-058-fever-measles-last-three-months__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

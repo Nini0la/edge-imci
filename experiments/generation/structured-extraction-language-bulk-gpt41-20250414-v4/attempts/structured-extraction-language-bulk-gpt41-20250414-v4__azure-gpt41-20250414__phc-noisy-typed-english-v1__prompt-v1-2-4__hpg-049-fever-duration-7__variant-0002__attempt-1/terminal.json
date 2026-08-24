@@ -1,0 +1,155 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4__hpg-049-fever-duration-7__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4__hpg-049-fever-duration-7__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4",
+  "semantic_case_id": "hpg-049-fever-duration-7",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.4",
+    "prompt_sha256": "5c16bdba02aba803b125b88372afdef4a88086eb5552682348dbeff929f1ae5d"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "4d8aeb96b88dbc6c52ab0cd33959af90d53026a83e01c9363a6823bdfb609151",
+  "requested_at": "2026-08-23T14:10:23Z",
+  "completed_at": "2026-08-23T14:10:29Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-049-fever-duration-7\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"child is 18 months old. has fever for 7 days. temp 38.0 c. area malaria risk high. malaria test was available. malaria test result negative. no convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. no generalized rash. no identified bacterial cause. no measles cough. no measles in last 3 months. no obvious cause of fever. no red eyes. no runny nose. no stiff neck. has fever. no cough or difficult breathing. no diarrhoea. no ear problem.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"child is 18 months old\"},{\"fact_id\":\"fever.fever_duration_days\",\"evidence_text\":\"has fever for 7 days\"},{\"fact_id\":\"fever.temperature_c\",\"evidence_text\":\"temp 38.0 c\"},{\"fact_id\":\"fever.malaria_risk\",\"evidence_text\":\"area malaria risk high\"},{\"fact_id\":\"fever.malaria_test_available\",\"evidence_text\":\"malaria test was available\"},{\"fact_id\":\"fever.malaria_test_result\",\"evidence_text\":\"malaria test result negative\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"no convulsing now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"not lethargic or unconscious\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything\"},{\"fact_id\":\"fever.generalized_rash\",\"evidence_text\":\"no generalized rash\"},{\"fact_id\":\"fever.identified_bacterial_cause_present\",\"evidence_text\":\"no identified bacterial cause\"},{\"fact_id\":\"fever.measles_cough\",\"evidence_text\":\"no measles cough\"},{\"fact_id\":\"fever.measles_within_last_3_months\",\"evidence_text\":\"no measles in last 3 months\"},{\"fact_id\":\"fever.obvious_cause_of_fever_present\",\"evidence_text\":\"no obvious cause of fever\"},{\"fact_id\":\"fever.red_eyes\",\"evidence_text\":\"no red eyes\"},{\"fact_id\":\"fever.runny_nose\",\"evidence_text\":\"no runny nose\"},{\"fact_id\":\"fever.stiff_neck\",\"evidence_text\":\"no stiff neck\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"has fever\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"no cough or difficult breathing\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"no diarrhoea\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"no ear problem\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-049-fever-duration-7",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "child is 18 months old. has fever for 7 days. temp 38.0 c. area malaria risk high. malaria test was available. malaria test result negative. no convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. no generalized rash. no identified bacterial cause. no measles cough. no measles in last 3 months. no obvious cause of fever. no red eyes. no runny nose. no stiff neck. has fever. no cough or difficult breathing. no diarrhoea. no ear problem.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "child is 18 months old"
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "has fever for 7 days"
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "temp 38.0 c"
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "area malaria risk high"
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "malaria test was available"
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "malaria test result negative"
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "no convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything"
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "no generalized rash"
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "no identified bacterial cause"
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "no measles cough"
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "no measles in last 3 months"
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "no obvious cause of fever"
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "no red eyes"
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "no runny nose"
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "no stiff neck"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "has fever"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "no diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "no ear problem"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1406,
+    "output_tokens": 679,
+    "cached_input_tokens": 0,
+    "latency_ms": 6053,
+    "retry_count": 0,
+    "provider_request_id": "resp_0604dcf9a1e8f04f016a8aff5052dc8190b063cf818a735b02",
+    "raw_usage": {
+      "input_tokens": 1406,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 679,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2085
+    }
+  }
+}

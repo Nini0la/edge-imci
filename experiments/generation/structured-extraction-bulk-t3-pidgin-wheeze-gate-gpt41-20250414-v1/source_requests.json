@@ -1,0 +1,383 @@
+[
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.13",
+    "prompt_sha256": "26ca9f81f456ec419ee5b33807621fa9f98013e75aefbbc4b9e87c68d35b4f39",
+    "source_package_sha256": "bc0d1d35b0e53f60456e889c78fe833f2a79ff1349572ac6fad9306dc760174b",
+    "request_sha256": "e7873744ed4d3ce2b8b34bd5a5df0e6ff2ec8baa6d10087a9b6b2e54fef48a8e",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 2,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 50,
+          "stridor_when_calm": false,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned.\n\nCurrent wheezing and recurrent-wheeze history are separate protected facts. If supplied, express each independently: `respiratory.wheezing=true` -> `Pikin dey wheeze now.`; false -> `Pikin no dey wheeze now.`; `respiratory.recurrent_wheeze=true` -> `Pikin get history of wheeze wey dey come back.`; false -> `Pikin no get history of wheeze wey dey come back.` Never reuse a present-tense wheeze clause as evidence for recurrent history.\n\nMeasles cough and measles history are separate: cough true -> `Pikin get cough wey follow measles.`; false -> `Pikin no get cough wey follow measles.`; three-month history true -> `Pikin get measles within last 3 months.`; false -> `Pikin never get measles within last 3 months.`\n\nGeneralized rash is protected: true -> `Pikin get rash wey spread for body.`; false -> `Pikin no get rash wey spread for body.`\n\nIf and only if `ear.ear_discharge_reported` is listed, write: false -> `Caregiver confirm say pikin no get ear discharge now and e never get am before.`; true -> `Caregiver talk say pikin get ear discharge.` Otherwise omit ear history.\n\nDanger-sign drinking is protected: unable false -> `Pikin fit drink or breastfeed.`; true -> `Pikin no fit drink or breastfeed.` Diarrhoea drinking status is separate: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.`\n\nOther protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; bacterial-cause false -> `Dem no identify bacterial cause for this assessment`; pulse oximeter false -> explicitly unavailable.\n\nPreserve every polarity, value/number, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy every required fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, audit current wheezing and recurrent history as two independent rows, then audit measles cough/history, rash, drinking, and absent ear history.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-008-resp-age-2-rate-50\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-008-resp-age-2-rate-50\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 2, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 50, \"stridor_when_calm\": false, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.13",
+    "prompt_sha256": "26ca9f81f456ec419ee5b33807621fa9f98013e75aefbbc4b9e87c68d35b4f39",
+    "source_package_sha256": "5555c14af7bfc2a61f46109865b78dc41bbbb0498ac35f9056937a4ed1b9fed4",
+    "request_sha256": "da4dee3f47be3449a14987e295af735744208c876de4c284ccc9e9f71fd58397",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": false
+        },
+        "diarrhoea": null,
+        "ear": null,
+        "fever": null,
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": false,
+          "has_ear_problem": false,
+          "has_fever": false
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": true,
+          "respiratory_rate": 35,
+          "stridor_when_calm": false,
+          "wheezing": true
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned.\n\nCurrent wheezing and recurrent-wheeze history are separate protected facts. If supplied, express each independently: `respiratory.wheezing=true` -> `Pikin dey wheeze now.`; false -> `Pikin no dey wheeze now.`; `respiratory.recurrent_wheeze=true` -> `Pikin get history of wheeze wey dey come back.`; false -> `Pikin no get history of wheeze wey dey come back.` Never reuse a present-tense wheeze clause as evidence for recurrent history.\n\nMeasles cough and measles history are separate: cough true -> `Pikin get cough wey follow measles.`; false -> `Pikin no get cough wey follow measles.`; three-month history true -> `Pikin get measles within last 3 months.`; false -> `Pikin never get measles within last 3 months.`\n\nGeneralized rash is protected: true -> `Pikin get rash wey spread for body.`; false -> `Pikin no get rash wey spread for body.`\n\nIf and only if `ear.ear_discharge_reported` is listed, write: false -> `Caregiver confirm say pikin no get ear discharge now and e never get am before.`; true -> `Caregiver talk say pikin get ear discharge.` Otherwise omit ear history.\n\nDanger-sign drinking is protected: unable false -> `Pikin fit drink or breastfeed.`; true -> `Pikin no fit drink or breastfeed.` Diarrhoea drinking status is separate: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.`\n\nOther protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; bacterial-cause false -> `Dem no identify bacterial cause for this assessment`; pulse oximeter false -> explicitly unavailable.\n\nPreserve every polarity, value/number, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy every required fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, audit current wheezing and recurrent history as two independent rows, then audit measles cough/history, rash, drinking, and absent ear history.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-019-resp-recurrent-wheeze\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-019-resp-recurrent-wheeze\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": false}, \"diarrhoea\": null, \"ear\": null, \"fever\": null, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": false, \"has_ear_problem\": false, \"has_fever\": false}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": true, \"respiratory_rate\": 35, \"stridor_when_calm\": false, \"wheezing\": true}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  },
+  {
+    "experiment_id": "structured-extraction-bulk-t1-remediation-gate-v1",
+    "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "variant_style": "NIGERIAN_PIDGIN",
+    "noise_profile": [],
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.13",
+    "prompt_sha256": "26ca9f81f456ec419ee5b33807621fa9f98013e75aefbbc4b9e87c68d35b4f39",
+    "source_package_sha256": "1fa69f788b3f782abed343ba4fb35a1094a83bee4ad9db2756ca8914a0d58b8b",
+    "request_sha256": "72d4acbcd4ab8b1be912ec77ca44ef4a1d38501ed3f850c96bb62a916a09b867",
+    "source_package": {
+      "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+      "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "structured_encounter": {
+        "danger_signs": {
+          "convulsing_now": false,
+          "had_convulsions": false,
+          "lethargic_or_unconscious": false,
+          "unable_to_drink_or_breastfeed": false,
+          "vomits_everything": true
+        },
+        "diarrhoea": {
+          "blood_in_stool": false,
+          "cholera_in_area": null,
+          "dehydration": {
+            "drinking_status": "NORMAL",
+            "restless_or_irritable": false,
+            "skin_pinch": "NORMAL",
+            "sunken_eyes": false
+          },
+          "duration_days": 3,
+          "post_rehydration": null,
+          "rehydration_stage": null
+        },
+        "ear": {
+          "ear_discharge_duration_days": null,
+          "ear_discharge_reported": false,
+          "ear_pain": false,
+          "pus_draining_from_ear": false,
+          "tender_swelling_behind_ear": false
+        },
+        "fever": {
+          "clouding_of_cornea": null,
+          "fever_duration_days": 2,
+          "fever_present_every_day": null,
+          "generalized_rash": false,
+          "identified_bacterial_cause_present": false,
+          "malaria_risk": "HIGH",
+          "malaria_test_available": true,
+          "malaria_test_result": "NEGATIVE",
+          "measles_cough": false,
+          "measles_within_last_3_months": false,
+          "mouth_ulcers": null,
+          "mouth_ulcers_deep_or_extensive": null,
+          "obvious_cause_of_fever_present": false,
+          "pus_draining_from_eye": null,
+          "red_eyes": false,
+          "runny_nose": false,
+          "stiff_neck": false,
+          "temperature_c": 38.0
+        },
+        "patient_facts": {
+          "age_months": 18,
+          "has_cough_or_difficult_breathing": true,
+          "has_diarrhoea": true,
+          "has_ear_problem": true,
+          "has_fever": true
+        },
+        "respiratory": {
+          "breaths_counted_one_minute": true,
+          "bronchodilator_trial_completed": null,
+          "chest_indrawing": false,
+          "child_calm": true,
+          "cough_duration_days": 3,
+          "hiv_exposed_or_infected": null,
+          "oxygen_saturation_percent": null,
+          "post_bronchodilator_breaths_counted_one_minute": null,
+          "post_bronchodilator_chest_indrawing": null,
+          "post_bronchodilator_child_calm": null,
+          "post_bronchodilator_respiratory_rate": null,
+          "pulse_oximeter_available": false,
+          "recurrent_wheeze": false,
+          "respiratory_rate": 35,
+          "stridor_when_calm": false,
+          "wheezing": false
+        }
+      },
+      "required_fact_ids": [
+        "danger_signs.convulsing_now",
+        "danger_signs.had_convulsions",
+        "danger_signs.lethargic_or_unconscious",
+        "danger_signs.unable_to_drink_or_breastfeed",
+        "danger_signs.vomits_everything",
+        "diarrhoea.blood_in_stool",
+        "diarrhoea.dehydration.drinking_status",
+        "diarrhoea.dehydration.restless_or_irritable",
+        "diarrhoea.dehydration.skin_pinch",
+        "diarrhoea.dehydration.sunken_eyes",
+        "diarrhoea.duration_days",
+        "ear.ear_discharge_reported",
+        "ear.ear_pain",
+        "ear.pus_draining_from_ear",
+        "ear.tender_swelling_behind_ear",
+        "fever.fever_duration_days",
+        "fever.generalized_rash",
+        "fever.identified_bacterial_cause_present",
+        "fever.malaria_risk",
+        "fever.malaria_test_available",
+        "fever.malaria_test_result",
+        "fever.measles_cough",
+        "fever.measles_within_last_3_months",
+        "fever.obvious_cause_of_fever_present",
+        "fever.red_eyes",
+        "fever.runny_nose",
+        "fever.stiff_neck",
+        "fever.temperature_c",
+        "patient_facts.age_months",
+        "patient_facts.has_cough_or_difficult_breathing",
+        "patient_facts.has_diarrhoea",
+        "patient_facts.has_ear_problem",
+        "patient_facts.has_fever",
+        "respiratory.breaths_counted_one_minute",
+        "respiratory.chest_indrawing",
+        "respiratory.child_calm",
+        "respiratory.cough_duration_days",
+        "respiratory.pulse_oximeter_available",
+        "respiratory.recurrent_wheeze",
+        "respiratory.respiratory_rate",
+        "respiratory.stridor_when_calm",
+        "respiratory.wheezing"
+      ],
+      "unknown_values_are_not_negative": true,
+      "teacher_visibility": {
+        "visible": [
+          "STRUCTURED_ENCOUNTER_FINDINGS",
+          "KNOWN_NEGATIVES",
+          "MEASUREMENTS_AND_DURATIONS",
+          "RELEVANT_ENCOUNTER_CONTEXT",
+          "ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER",
+          "UNKNOWN_STATE_REPRESENTATION"
+        ],
+        "hidden": [
+          "CANONICAL_ASSISTANT_RESPONSE",
+          "EXPECTED_CLASSIFICATION_LABELS",
+          "EXPECTED_ACTION_SYNTHESIS",
+          "EXPECTED_URGENCY_WORDING",
+          "EVALUATOR_TRACES_AND_RULE_IDS",
+          "SOURCE_VALUE_HASHES"
+        ]
+      },
+      "output_shape": {
+        "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "user_submission": "string",
+        "fact_evidence": [
+          {
+            "fact_id": "string",
+            "evidence_text": "exact substring of user_submission"
+          }
+        ]
+      }
+    },
+    "rendered_prompt": "You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.\n\nUse only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned.\n\nCurrent wheezing and recurrent-wheeze history are separate protected facts. If supplied, express each independently: `respiratory.wheezing=true` -> `Pikin dey wheeze now.`; false -> `Pikin no dey wheeze now.`; `respiratory.recurrent_wheeze=true` -> `Pikin get history of wheeze wey dey come back.`; false -> `Pikin no get history of wheeze wey dey come back.` Never reuse a present-tense wheeze clause as evidence for recurrent history.\n\nMeasles cough and measles history are separate: cough true -> `Pikin get cough wey follow measles.`; false -> `Pikin no get cough wey follow measles.`; three-month history true -> `Pikin get measles within last 3 months.`; false -> `Pikin never get measles within last 3 months.`\n\nGeneralized rash is protected: true -> `Pikin get rash wey spread for body.`; false -> `Pikin no get rash wey spread for body.`\n\nIf and only if `ear.ear_discharge_reported` is listed, write: false -> `Caregiver confirm say pikin no get ear discharge now and e never get am before.`; true -> `Caregiver talk say pikin get ear discharge.` Otherwise omit ear history.\n\nDanger-sign drinking is protected: unable false -> `Pikin fit drink or breastfeed.`; true -> `Pikin no fit drink or breastfeed.` Diarrhoea drinking status is separate: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.`\n\nOther protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; bacterial-cause false -> `Dem no identify bacterial cause for this assessment`; pulse oximeter false -> explicitly unavailable.\n\nPreserve every polarity, value/number, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy every required fact ID once and no others; every evidence span must occur verbatim and express its fact.\n\nBefore returning, audit current wheezing and recurrent history as two independent rows, then audit measles cough/history, rash, drinking, and absent ear history.\n\nSOURCE_PACKAGE_JSON:\n{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"output_shape\": {\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"fact_evidence\": [{\"evidence_text\": \"exact substring of user_submission\", \"fact_id\": \"string\"}], \"semantic_case_id\": \"hpg-076-complete-danger-plus-all-pathways\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"user_submission\": \"string\"}, \"required_fact_ids\": [\"danger_signs.convulsing_now\", \"danger_signs.had_convulsions\", \"danger_signs.lethargic_or_unconscious\", \"danger_signs.unable_to_drink_or_breastfeed\", \"danger_signs.vomits_everything\", \"diarrhoea.blood_in_stool\", \"diarrhoea.dehydration.drinking_status\", \"diarrhoea.dehydration.restless_or_irritable\", \"diarrhoea.dehydration.skin_pinch\", \"diarrhoea.dehydration.sunken_eyes\", \"diarrhoea.duration_days\", \"ear.ear_discharge_reported\", \"ear.ear_pain\", \"ear.pus_draining_from_ear\", \"ear.tender_swelling_behind_ear\", \"fever.fever_duration_days\", \"fever.generalized_rash\", \"fever.identified_bacterial_cause_present\", \"fever.malaria_risk\", \"fever.malaria_test_available\", \"fever.malaria_test_result\", \"fever.measles_cough\", \"fever.measles_within_last_3_months\", \"fever.obvious_cause_of_fever_present\", \"fever.red_eyes\", \"fever.runny_nose\", \"fever.stiff_neck\", \"fever.temperature_c\", \"patient_facts.age_months\", \"patient_facts.has_cough_or_difficult_breathing\", \"patient_facts.has_diarrhoea\", \"patient_facts.has_ear_problem\", \"patient_facts.has_fever\", \"respiratory.breaths_counted_one_minute\", \"respiratory.chest_indrawing\", \"respiratory.child_calm\", \"respiratory.cough_duration_days\", \"respiratory.pulse_oximeter_available\", \"respiratory.recurrent_wheeze\", \"respiratory.respiratory_rate\", \"respiratory.stridor_when_calm\", \"respiratory.wheezing\"], \"semantic_case_id\": \"hpg-076-complete-danger-plus-all-pathways\", \"strategy_id\": \"phc-nigerian-pidgin-v1\", \"structured_encounter\": {\"danger_signs\": {\"convulsing_now\": false, \"had_convulsions\": false, \"lethargic_or_unconscious\": false, \"unable_to_drink_or_breastfeed\": false, \"vomits_everything\": true}, \"diarrhoea\": {\"blood_in_stool\": false, \"cholera_in_area\": null, \"dehydration\": {\"drinking_status\": \"NORMAL\", \"restless_or_irritable\": false, \"skin_pinch\": \"NORMAL\", \"sunken_eyes\": false}, \"duration_days\": 3, \"post_rehydration\": null, \"rehydration_stage\": null}, \"ear\": {\"ear_discharge_duration_days\": null, \"ear_discharge_reported\": false, \"ear_pain\": false, \"pus_draining_from_ear\": false, \"tender_swelling_behind_ear\": false}, \"fever\": {\"clouding_of_cornea\": null, \"fever_duration_days\": 2, \"fever_present_every_day\": null, \"generalized_rash\": false, \"identified_bacterial_cause_present\": false, \"malaria_risk\": \"HIGH\", \"malaria_test_available\": true, \"malaria_test_result\": \"NEGATIVE\", \"measles_cough\": false, \"measles_within_last_3_months\": false, \"mouth_ulcers\": null, \"mouth_ulcers_deep_or_extensive\": null, \"obvious_cause_of_fever_present\": false, \"pus_draining_from_eye\": null, \"red_eyes\": false, \"runny_nose\": false, \"stiff_neck\": false, \"temperature_c\": 38.0}, \"patient_facts\": {\"age_months\": 18, \"has_cough_or_difficult_breathing\": true, \"has_diarrhoea\": true, \"has_ear_problem\": true, \"has_fever\": true}, \"respiratory\": {\"breaths_counted_one_minute\": true, \"bronchodilator_trial_completed\": null, \"chest_indrawing\": false, \"child_calm\": true, \"cough_duration_days\": 3, \"hiv_exposed_or_infected\": null, \"oxygen_saturation_percent\": null, \"post_bronchodilator_breaths_counted_one_minute\": null, \"post_bronchodilator_chest_indrawing\": null, \"post_bronchodilator_child_calm\": null, \"post_bronchodilator_respiratory_rate\": null, \"pulse_oximeter_available\": false, \"recurrent_wheeze\": false, \"respiratory_rate\": 35, \"stridor_when_calm\": false, \"wheezing\": false}}, \"teacher_visibility\": {\"hidden\": [\"CANONICAL_ASSISTANT_RESPONSE\", \"EXPECTED_CLASSIFICATION_LABELS\", \"EXPECTED_ACTION_SYNTHESIS\", \"EXPECTED_URGENCY_WORDING\", \"EVALUATOR_TRACES_AND_RULE_IDS\", \"SOURCE_VALUE_HASHES\"], \"visible\": [\"STRUCTURED_ENCOUNTER_FINDINGS\", \"KNOWN_NEGATIVES\", \"MEASUREMENTS_AND_DURATIONS\", \"RELEVANT_ENCOUNTER_CONTEXT\", \"ACQUISITION_INFORMATION_WHEN_PRESENT_IN_SOURCE_ENCOUNTER\", \"UNKNOWN_STATE_REPRESENTATION\"]}, \"unknown_values_are_not_negative\": true}\n"
+  }
+]

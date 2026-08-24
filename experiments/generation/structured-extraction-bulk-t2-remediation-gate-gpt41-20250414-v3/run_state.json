@@ -1,0 +1,39 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v3",
+  "updated_at": "2026-08-23T14:26:43Z",
+  "remote_attempts_started": 1,
+  "deterministic_passes": 1,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 1271,
+    "output_tokens": 915,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v3",
+    "unit_count": 1,
+    "state_counts": {
+      "TERMINAL": 1
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-056-fever-severe-stiff-neck",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7",
+        "semantic_case_id": "hpg-056-fever-severe-stiff-neck",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "5f429d44b965d77e1f6a5f14a6d66e299e9a3472fc4a7fcb4658cd3f0f39b6ac",
+        "review_item_id": "review-989257451d7ea4d4db886cd9",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-056-fever-severe-stiff-neck__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

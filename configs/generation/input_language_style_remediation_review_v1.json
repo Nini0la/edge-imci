@@ -1,0 +1,64 @@
+{
+  "review_id": "edge-imci-input-language-style-remediation-review-v1",
+  "review_version": "1.0.0",
+  "status": "COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "reviewer": "Codex, under project-owner delegation",
+  "generation_run_id": "holistic-input-style-remediation-gpt41-20250414-v1",
+  "renderer_git_commit": "a1c46749961af2f4253da31dbf780a442e512b45",
+  "candidate_decisions": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "KNOWN_NEGATIVE_REMEDIATION_PASSED", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "REJECTED",
+      "reason_codes": ["MALARIA_RISK_CONTEXT_SHIFT"]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "KNOWN_NEGATIVE_REMEDIATION_PASSED", "UNKNOWN_PRESERVED", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "DIRECT_NEGATION_PRESERVED", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "DIRECT_NEGATION_PRESERVED", "EPISTEMIC_QUALIFIER_PRESERVED", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "DIRECT_NEGATION_PRESERVED", "UNKNOWN_PRESERVED", "PHC_SUITABLE"]
+    }
+  ],
+  "recipe_decisions": {
+    "NIGERIAN_ENGLISH_V1_1": "REVISE_BEFORE_SCALE",
+    "NIGERIAN_ENGLISH_V1_2": "PREPARED_NOT_YET_VALIDATED",
+    "NOISY_TYPED_ENGLISH_V1_1": "APPROVED_FOR_FURTHER_CONTROLLED_GENERATION"
+  },
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

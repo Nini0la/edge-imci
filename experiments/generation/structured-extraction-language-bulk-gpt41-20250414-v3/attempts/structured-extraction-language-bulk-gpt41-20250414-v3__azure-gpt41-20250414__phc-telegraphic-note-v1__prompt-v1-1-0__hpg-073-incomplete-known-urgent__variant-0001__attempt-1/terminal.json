@@ -1,0 +1,79 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-073-incomplete-known-urgent__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-073-incomplete-known-urgent__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-073-incomplete-known-urgent",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "7e796bf0bd9a59948df2b2fb0aac6179e8e14feedd44a8a4917194fe59bbf317",
+  "requested_at": "2026-08-23T13:33:38Z",
+  "completed_at": "2026-08-23T13:33:41Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-073-incomplete-known-urgent\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"Convulsing now. No history of convulsions. Not lethargic or unconscious. Able to drink or breastfeed.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"Convulsing now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"No history of convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Not lethargic or unconscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Able to drink or breastfeed.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-073-incomplete-known-urgent",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "Convulsing now. No history of convulsions. Not lethargic or unconscious. Able to drink or breastfeed.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1198,
+    "output_tokens": 234,
+    "cached_input_tokens": 0,
+    "latency_ms": 2691,
+    "retry_count": 0,
+    "provider_request_id": "resp_032f50fcb3467fb5016a8af6b3884081968e7208a7e03c4198",
+    "raw_usage": {
+      "input_tokens": 1198,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 234,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1432
+    }
+  }
+}

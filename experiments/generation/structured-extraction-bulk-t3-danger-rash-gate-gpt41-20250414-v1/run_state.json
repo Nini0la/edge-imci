@@ -1,0 +1,99 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T15:57:43Z",
+  "remote_attempts_started": 6,
+  "deterministic_passes": 6,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 8733,
+    "output_tokens": 4948,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1",
+    "unit_count": 6,
+    "state_counts": {
+      "TERMINAL": 6
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-057-fever-malaria-and-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "e163ed6e4d083ccf6b7a63982a93aa30cec855cdef0e829c9581f5dd85aad1ac",
+        "review_item_id": "review-f49a5586a6a63fbd1364b2dd",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-057-fever-malaria-and-measles__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-058-fever-measles-last-three-months",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "4ea3313f096a5137c3c4837f7ea7fb433e2ac01da02453f462bf358f77bd87c1",
+        "review_item_id": "review-3e96a803a20b7735b8a48d1c",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-11__hpg-058-fever-measles-last-three-months__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-002-danger-unable-to-drink-or-breastfeed",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+        "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "b6cbc91c0853784f52a19918ed2f71376c4d6fa382c17564b612affb5dae291e",
+        "review_item_id": "review-a449bc94e7210949f54d5657",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-002-danger-unable-to-drink-or-breastfeed__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-003-danger-vomits-everything",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+        "semantic_case_id": "hpg-003-danger-vomits-everything",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "8c89e44bd2bd254a22ca9d00386b829180708bbae07e0fb9e2a0dbabb96e918e",
+        "review_item_id": "review-8cd0dcd8d479964a1199114b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-003-danger-vomits-everything__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-005-danger-lethargic-or-unconscious",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+        "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "161904c93041d0ef21845ab672fed5b7c6075cd95078d68221ac23d94b7a7b3a",
+        "review_item_id": "review-864f6f08339363c18b271739",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-005-danger-lethargic-or-unconscious__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "d61f64690b6c77f2c681b9f08f2508d2dc1d19897accd2a5905de568795963bf",
+        "review_item_id": "review-c8e84d242376cd093f4c59af",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

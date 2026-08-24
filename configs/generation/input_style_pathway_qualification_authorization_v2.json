@@ -1,0 +1,15 @@
+{
+  "authorization_id": "edge-imci-input-style-pathway-qualification-authorization-v2",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Project owner delegated steps one through five; v2 supersedes only the unstarted remainder of v1 after the seven-case v1.3 gate exposed UNKNOWN-to-negative ear-history invention.",
+  "expected_parent_cases_per_style": 24,
+  "expected_styles": 4,
+  "maximum_remote_attempts": 96,
+  "maximum_budget_usd": 4.0,
+  "first_gate_attempts": 7,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

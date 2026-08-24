@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-input-style-pathway-qualification-authorization-v3",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Project owner explicitly delegated remediation, qualification, contract freeze, the first 2142-attempt bulk wave, and reconciliation/review.",
+  "expected_parent_cases_per_style": 24,
+  "expected_styles": 3,
+  "maximum_remote_attempts": 72,
+  "maximum_budget_usd": 3.0,
+  "first_gate_attempts": 0,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false,
+  "scope": "Full matched-parent requalification of the remediated Nigerian Pidgin v1.1, noisy typed English v1.2, and telegraphic PHC note v1.1 prompts."
+}

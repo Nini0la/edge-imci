@@ -1,0 +1,14 @@
+{
+  "authorization_id": "edge-imci-structured-extraction-bulk-t3-second-early-stop-gate-v1",
+  "status": "AUTHORIZED_FOR_TARGETED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "generation_run_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1",
+  "maximum_remote_attempts": 10,
+  "maximum_budget_usd": 0.75,
+  "reservation_per_started_attempt_usd": 0.03,
+  "maximum_concurrency": 3,
+  "semantic_retries": false,
+  "teacher_target_blind": true,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

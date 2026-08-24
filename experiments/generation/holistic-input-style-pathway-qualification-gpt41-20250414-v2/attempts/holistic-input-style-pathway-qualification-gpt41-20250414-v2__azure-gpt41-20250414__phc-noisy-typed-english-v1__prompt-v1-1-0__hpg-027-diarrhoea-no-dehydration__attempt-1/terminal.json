@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-027-diarrhoea-no-dehydration__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-027-diarrhoea-no-dehydration",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "13ca628fa3f2d10e797b0189dd8f023d146f1351c1a7db01267a7a90e6228168"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "a84190ac434c2b661751cd4ee5df0bc06a7d8a5eae91991e033487f4f362d83a",
+  "requested_at": "2026-08-23T12:27:03Z",
+  "completed_at": "2026-08-23T12:27:10Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-027-diarrhoea-no-dehydration\",\n  \"strategy_id\": \"phc-noisy-typed-english-v1\",\n  \"user_submission\": \"child is 18 months old diarrhoea for 3 days able to drink or breastfeed not convulsing now no history of convulsions not lethargic or unconscious does not vomits everything no blood in stool drinking status normal not restless or irritable skin pinch normal eyes not sunken no cough or difficult breathing no ear problem no fever\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"child is 18 months old\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.duration_days\",\n      \"evidence_text\": \"diarrhoea for 3 days\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.drinking_status\",\n      \"evidence_text\": \"drinking status normal\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.skin_pinch\",\n      \"evidence_text\": \"skin pinch normal\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.sunken_eyes\",\n      \"evidence_text\": \"eyes not sunken\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\",\n      \"evidence_text\": \"not restless or irritable\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"able to drink or breastfeed\"\n    },\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"not convulsing now\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"no history of convulsions\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"not lethargic or unconscious\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"does not vomits everything\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.blood_in_stool\",\n      \"evidence_text\": \"no blood in stool\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"diarrhoea for 3 days\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"no cough or difficult breathing\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"no ear problem\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"no fever\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "child is 18 months old diarrhoea for 3 days able to drink or breastfeed not convulsing now no history of convulsions not lethargic or unconscious does not vomits everything no blood in stool drinking status normal not restless or irritable skin pinch normal eyes not sunken no cough or difficult breathing no ear problem no fever",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "child is 18 months old"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "diarrhoea for 3 days"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "drinking status normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "skin pinch normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "eyes not sunken"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "not restless or irritable"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "not convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomits everything"
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "no blood in stool"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "diarrhoea for 3 days"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "no ear problem"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1457,
+    "output_tokens": 675,
+    "cached_input_tokens": 0,
+    "latency_ms": 7743,
+    "retry_count": 0,
+    "provider_request_id": "resp_04f90a0740a07cdb016a8ae717c2308194832880909b189b06",
+    "raw_usage": {
+      "input_tokens": 1457,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 675,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2132
+    }
+  }
+}

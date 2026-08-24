@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-canary-gpt41-20250414-v1",
+  "attempt_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__hpg-020-resp-post-bronchodilator-improved__attempt-1",
+  "request_id": "holistic-input-style-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__hpg-020-resp-post-bronchodilator-improved",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1",
+  "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.0.0",
+    "prompt_sha256": "ffb3a035a2129e996c5b6da9c8282b3a0ea6a168f399d3b5a151f40b649b7e6b"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "05da67fcc5b49514367a550eb8463f94f8b44389ae7052367fd758739fc7c295",
+  "requested_at": "2026-08-23T09:39:24Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T15:09:39Z",
+  "remote_attempts_started": 6,
+  "deterministic_passes": 3,
+  "deterministic_rejections": 3,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 7368,
+    "output_tokens": 4089,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1",
+    "unit_count": 6,
+    "state_counts": {
+      "TERMINAL": 6
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-027-diarrhoea-no-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+        "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "d54d25b062ac464dd2a2385fe01688b19473282d7e7abb4ae5c079573c7951dd",
+        "review_item_id": "review-e44d7d7a4be30a6b5a754a70",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-027-diarrhoea-no-dehydration__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-029-diarrhoea-severe-plan-c-under-24m",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+        "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "1efc9356235125a637bf55d4fc5fe4c2926b21d39c7fe85b3265fe59c3fead7e",
+        "review_item_id": "review-be917e6761bc6469645ae64e",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-029-diarrhoea-severe-plan-c-under-24m__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-075-contradiction-drinking",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+        "semantic_case_id": "hpg-075-contradiction-drinking",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "d59fb239050b7fac7fcbfe8103006913aed05aced91c7a16fae2f9f1ff8aa5e9",
+        "review_item_id": "review-de6296c68950cc9bffb4302d",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-075-contradiction-drinking__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-027-diarrhoea-no-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+        "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "290c54eff42131c1fc7c358403034c318148238405dacc558eebdf03855f566a",
+        "review_item_id": "review-104986c0c9803fac7848b29e",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-027-diarrhoea-no-dehydration__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-029-diarrhoea-severe-plan-c-under-24m",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+        "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "cb6cab02b16388da0016bc6e10e88cb631b9bbaae4183b23ee45edfacc089e8c",
+        "review_item_id": "review-ed0d25918ca862f96ea72bff",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-029-diarrhoea-severe-plan-c-under-24m__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-075-contradiction-drinking",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+        "semantic_case_id": "hpg-075-contradiction-drinking",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "f7fed82a6c44294ad325507cfb611a1d2268c05959868d508f149dcedcb8fd37",
+        "review_item_id": "review-d1ca9ec7a60829314b52af5b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-075-contradiction-drinking__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

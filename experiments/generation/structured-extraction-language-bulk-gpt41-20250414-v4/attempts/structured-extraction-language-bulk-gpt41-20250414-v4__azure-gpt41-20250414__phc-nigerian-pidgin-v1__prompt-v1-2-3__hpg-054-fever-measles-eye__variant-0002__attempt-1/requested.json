@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-054-fever-measles-eye__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-054-fever-measles-eye__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3",
+  "semantic_case_id": "hpg-054-fever-measles-eye",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.3",
+    "prompt_sha256": "4a7cbb1b70324336eb0d3cfb252ce00c1e2f18c299d3004b71d96fc17d9fe348"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "e7d37a08f359adccfd08949983ce9c7409dab0b51fef016d8a1d0ed07969cb98",
+  "requested_at": "2026-08-23T14:12:58Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

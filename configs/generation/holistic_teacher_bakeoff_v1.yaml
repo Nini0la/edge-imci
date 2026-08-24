@@ -18,28 +18,28 @@ artifact_pins:
   sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
 - artifact_kind: CANDIDATE_SCHEMA
   path: configs/generation/holistic_language_variant_candidate_v1.schema.json
-  sha256: 37f31c2bdeb94b425544761d40b66acbff2f8e0c133aafbc6462d851d1bfa73d
+  sha256: 3d6d2e283b4810e7c67e7ef06a7aa7a9441548c9cb62911481ee827399196675
 - artifact_kind: VARIANT_RECORD_SCHEMA
   path: configs/generation/holistic_language_variant_record_v1.schema.json
-  sha256: e754dd164a92f71fd2a0be17d81c22a0dbbbe2ae208c1ffe00398b7be0e31f57
+  sha256: eb37463ede2f993d8f8a604386b94646783e2f5a33a5493bcc701c3b19d90dd3
 - artifact_kind: ATTEMPT_SCHEMA
   path: configs/generation/holistic_teacher_attempt_v1.schema.json
-  sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  sha256: 8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431
 - artifact_kind: VALIDATOR
   path: src/edge_imci/generation/holistic_variants.py
-  sha256: 3ce521c424ffc8cced9031756ab829cf7c82bd0fca3965dabd303b092bb7387b
+  sha256: d16bbe5740eed28d62688b1f19a49d714e199c5a9548246c2a19c7ec71d72c7a
 - artifact_kind: HUMAN_REVIEW_SCHEMA
   path: configs/generation/holistic_language_variant_review_v1.schema.json
   sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
 - artifact_kind: AUTHORIZED_SCHEDULE_SCHEMA
   path: configs/generation/holistic_teacher_bakeoff_schedule_v1.schema.json
-  sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+  sha256: 063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59
 - artifact_kind: SELECTION_POLICY
   path: configs/generation/holistic_teacher_bakeoff_selection_policy_v1.json
   sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
 - artifact_kind: REVIEW_AND_RESUME_LOGIC
   path: src/edge_imci/generation/holistic_bakeoff.py
-  sha256: f43efe6f84daa72f945622f9b5b52ef45b407bca8d5716964b99aa669d8b30f4
+  sha256: 8f107078f7ee509331fce03cabb0366a4c107e8f6f96a248dd7ab76dca1394fa
 teacher_models: []
 prompt_strategies:
 - strategy_id: phc-concise-complete-v1

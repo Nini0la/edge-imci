@@ -1,0 +1,111 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T15:09:12Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T15:09:12Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.5
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.2.7",
+      "prompt_sha256": "9fe400ba6a6b0c68ca99b452fa63885540efc69ad19def2886715d810d0d08ad",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.2.11",
+      "prompt_sha256": "cdf5c1e58035e79338cbd23e419dd9e093e27d1c288a4135fe67f60ff8ba991e",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "d54d25b062ac464dd2a2385fe01688b19473282d7e7abb4ae5c079573c7951dd",
+      "review_item_id": "review-e44d7d7a4be30a6b5a754a70"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-029-diarrhoea-severe-plan-c-under-24m",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+      "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "1efc9356235125a637bf55d4fc5fe4c2926b21d39c7fe85b3265fe59c3fead7e",
+      "review_item_id": "review-be917e6761bc6469645ae64e"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-7",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "d59fb239050b7fac7fcbfe8103006913aed05aced91c7a16fae2f9f1ff8aa5e9",
+      "review_item_id": "review-de6296c68950cc9bffb4302d"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "290c54eff42131c1fc7c358403034c318148238405dacc558eebdf03855f566a",
+      "review_item_id": "review-104986c0c9803fac7848b29e"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-029-diarrhoea-severe-plan-c-under-24m",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+      "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "cb6cab02b16388da0016bc6e10e88cb631b9bbaae4183b23ee45edfacc089e8c",
+      "review_item_id": "review-ed0d25918ca862f96ea72bff"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-11",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "f7fed82a6c44294ad325507cfb611a1d2268c05959868d508f149dcedcb8fd37",
+      "review_item_id": "review-d1ca9ec7a60829314b52af5b"
+    }
+  ]
+}

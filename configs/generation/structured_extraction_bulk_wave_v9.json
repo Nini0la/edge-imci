@@ -1,0 +1,60 @@
+{
+  "contract_id": "edge-imci-structured-extraction-bulk-wave-v9",
+  "contract_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_GUARDED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Exact-slot continuation after the fourth quality-driven T3 stop and semantically clean NORMAL, POORLY, and UNABLE drinking-domain gates.",
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "out_of_scope_training_parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+    "dataset_policy_sha256": "e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d",
+    "style_release_sha256": "83c90b04f6d89c03be162b9e589fda23724a3f434f3c6de1380271363c242466",
+    "early_stop_review_sha256": "0c2b878f07e962a192d47a52fb3efbe924b926ead207575ad353b07286d3c978",
+    "early_stop_termination_sha256": "0adfc02bfd23a4fbc5bd7e4248d1815d5fe2e2c17e11836c82359cd820f5fbdf"
+  },
+  "continuation": {
+    "prior_generation_run_ids": ["structured-extraction-language-bulk-gpt41-20250414-v1", "structured-extraction-language-bulk-gpt41-20250414-v3", "structured-extraction-language-bulk-gpt41-20250414-v4", "structured-extraction-language-bulk-gpt41-20250414-v5", "structured-extraction-language-bulk-gpt41-20250414-v6", "structured-extraction-language-bulk-gpt41-20250414-v7", "structured-extraction-language-bulk-gpt41-20250414-v8"],
+    "prior_remote_attempts": 740,
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "remaining_remote_attempts": 1402,
+    "combined_remote_attempts": 2142,
+    "prior_attempts_reused_not_regenerated": true
+  },
+  "wave": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9",
+    "deployment_type": "AZURE_GLOBAL_STANDARD",
+    "maximum_remote_attempts": 1402,
+    "semantic_retries_within_run": false,
+    "transport_retry_limit": 1,
+    "maximum_concurrency": 8,
+    "maximum_budget_usd": 50.0,
+    "reservation_per_started_attempt_usd": 0.02,
+    "reservation_is_not_billing_evidence": true,
+    "tranches": [{"tranche_id": "T3", "new_attempts": 1402, "cumulative_attempts": 1402, "combined_cumulative_attempts": 2142}]
+  },
+  "allocation": {
+    "algorithm_id": "EDGE_IMCI_BALANCED_PARENT_STYLE_SLOTS_V1",
+    "seed": "edge-imci-structured-extraction-bulk-wave-v1|2026-08-23",
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "expected_style_attempts": {"NIGERIAN_ENGLISH": 536, "NIGERIAN_PIDGIN": 536, "NOISY_TYPED_ENGLISH": 535, "TELEGRAPHIC_PHC_NOTE": 535},
+    "prior_style_attempts": {"NIGERIAN_ENGLISH": 185, "NIGERIAN_PIDGIN": 186, "NOISY_TYPED_ENGLISH": 185, "TELEGRAPHIC_PHC_NOTE": 184},
+    "continuation_style_attempts": {"NIGERIAN_ENGLISH": 351, "NIGERIAN_PIDGIN": 350, "NOISY_TYPED_ENGLISH": 350, "TELEGRAPHIC_PHC_NOTE": 351}
+  },
+  "quality_gates": {
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "review_all_deterministic_rejections": true,
+    "minimum_semantic_sample_fraction_of_deterministic_passes_per_style_per_tranche": 0.1,
+    "minimum_semantic_sample_count_per_style_per_tranche": 10,
+    "systematic_same_class_semantic_failures_allowed": 0,
+    "individual_rejected_attempts_are_not_promotable": true,
+    "unresolved_requested_receipt_blocks_resume": true
+  },
+  "qualified_prompt_pins": {
+    "NIGERIAN_ENGLISH": {"version": "1.3.5", "sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"},
+    "NIGERIAN_PIDGIN": {"version": "1.2.7", "sha256": "9fe400ba6a6b0c68ca99b452fa63885540efc69ad19def2886715d810d0d08ad"},
+    "NOISY_TYPED_ENGLISH": {"version": "1.2.11", "sha256": "cdf5c1e58035e79338cbd23e419dd9e093e27d1c288a4135fe67f60ff8ba991e"},
+    "TELEGRAPHIC_PHC_NOTE": {"version": "1.1.9", "sha256": "7d4b89a744df3a08244dd303eaba89eebca6f37ccb7a3310f8887246f9570980"}
+  },
+  "teacher_information_boundary": {"target_blind": true, "teacher_outputs": ["user_submission", "fact_evidence"], "teacher_hidden": ["model_facing_target", "classifications", "actions", "urgency", "assistant_response", "rule_ids", "evaluator_traces"]},
+  "authorization": {"bulk_generation_authorized": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

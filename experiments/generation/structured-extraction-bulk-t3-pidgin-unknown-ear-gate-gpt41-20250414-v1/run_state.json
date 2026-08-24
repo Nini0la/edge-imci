@@ -1,0 +1,75 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T15:51:47Z",
+  "remote_attempts_started": 4,
+  "deterministic_passes": 4,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 5345,
+    "output_tokens": 2656,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1",
+    "unit_count": 4,
+    "state_counts": {
+      "TERMINAL": 4
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "c17cc64a906ad5cd62faae64ff3b31d60d1be924755f73c5a63883e2a0caf04b",
+        "review_item_id": "review-c3a9230a46fae7c3ae1d868b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-001-all-negative__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-050-fever-duration-8-not-every-day",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-050-fever-duration-8-not-every-day",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "7be0a67382111e06d39fa935b85a71f21bcc1c9c1896479d2f063fe35fcae1fb",
+        "review_item_id": "review-ed4d2efd420800bbf66336b5",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-050-fever-duration-8-not-every-day__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-065-ear-observed-pus-no-history",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "c48e189e9a27a16c1410406d58a13594ff142de1e3b82d4180991cde2238ede1",
+        "review_item_id": "review-920ff83f33fae14669299224",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-065-ear-observed-pus-no-history__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "1c94e65e43eb17be9b36abd36d0efd2ce98834310bb4d1f48acd2b3548ebc2a9",
+        "review_item_id": "review-74848075814c1c61d93eeaa2",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

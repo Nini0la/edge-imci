@@ -1,0 +1,79 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-4__hpg-073-incomplete-known-urgent__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-4__hpg-073-incomplete-known-urgent__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-4",
+  "semantic_case_id": "hpg-073-incomplete-known-urgent",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-english-v1",
+    "prompt_id": "edge-imci-phc-nigerian-english",
+    "prompt_version": "1.3.4",
+    "prompt_sha256": "49ea6882894e92d54cde164520ec77b832ad44b5d8affd3ad26c015a300165b8"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "8865a24e00a852323fb4f6c3432211ac9219e3dbbb849662ccae67a3ca01e68e",
+  "requested_at": "2026-08-23T14:06:16Z",
+  "completed_at": "2026-08-23T14:06:24Z",
+  "raw_response": "{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"semantic_case_id\": \"hpg-073-incomplete-known-urgent\", \"strategy_id\": \"phc-nigerian-english-v1\", \"user_submission\": \"The child is convulsing now. The child has not had convulsions. The child is not lethargic or unconscious. The child is able to drink or breastfeed.\", \"fact_evidence\": [{\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"The child is convulsing now.\"}, {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"The child has not had convulsions.\"}, {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"The child is not lethargic or unconscious.\"}, {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"The child is able to drink or breastfeed.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-073-incomplete-known-urgent",
+    "strategy_id": "phc-nigerian-english-v1",
+    "user_submission": "The child is convulsing now. The child has not had convulsions. The child is not lethargic or unconscious. The child is able to drink or breastfeed.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "The child is convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "The child has not had convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "The child is not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "The child is able to drink or breastfeed."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1049,
+    "output_tokens": 228,
+    "cached_input_tokens": 0,
+    "latency_ms": 7381,
+    "retry_count": 0,
+    "provider_request_id": "resp_0ba1175cd4b70d1d016a8afe592da8819393c1762d5c812ca9",
+    "raw_usage": {
+      "input_tokens": 1049,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 228,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1277
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Generated from experiments/generation/holistic-input-style-remediation-gpt41-20250414-v1/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-input-language-style-remediation-preflight-v1
+generation_run_id: holistic-input-style-remediation-gpt41-20250414-v1
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T10:12:54Z'
+authorization_id: edge-imci-input-language-style-remediation-authorization-v1
+authorization_sha256: 025eb31ebb88b07ca98009b729b564b682c6ac4ab7196b590c124843c58596eb
+scheduled_attempts: 6
+maximum_budget_usd: 0.5
+maximum_reserved_total_usd: 0.18
+teacher_target_blind: true
+semantic_retries: false
+bulk_generation_authorized: false
+training_authorized: false

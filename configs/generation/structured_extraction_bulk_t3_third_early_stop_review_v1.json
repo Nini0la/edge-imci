@@ -1,0 +1,42 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-third-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v7",
+  "stopped_attempts": 32,
+  "raw_passes": 24,
+  "raw_rejections_reviewed": 8,
+  "semantic_rejections": 1,
+  "annotation_only_overrides": 7,
+  "pass_sample_deferred_to_final_campaign_review": true,
+  "observed_semantic_defect": {
+    "variant_style": "TELEGRAPHIC_PHC_NOTE",
+    "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+    "defect": "The negative identified-bacterial-cause finding lost its assessment/identification qualifier through telegraphic compression."
+  },
+  "remediation_gates": [
+    {
+      "generation_run_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1",
+      "attempts": 5,
+      "semantic_approved": 3,
+      "semantic_rejected": 2,
+      "newly_exposed_boundaries": [
+        "measles-cough omitted despite being distinct from general cough",
+        "pathway-entry fact evidenced by a nested ear observation"
+      ]
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t3-telegraphic-independence-gate-gpt41-20250414-v1",
+      "attempts": 5,
+      "deterministic_passes": 5,
+      "semantic_approved": 5,
+      "semantic_rejected": 0
+    }
+  ],
+  "release_decision": "RELEASE_EXACT_SLOT_1426_ATTEMPT_CONTINUATION",
+  "authorization": {
+    "bulk_continuation_released": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

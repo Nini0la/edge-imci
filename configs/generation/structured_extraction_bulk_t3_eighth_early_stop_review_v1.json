@@ -1,0 +1,16 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-eighth-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12",
+  "candidate_attempts": 80,
+  "transport_failures": 0,
+  "raw_passes": 71,
+  "raw_rejections_reviewed": 9,
+  "semantic_rejections": 1,
+  "annotation_only_overrides": 8,
+  "observed_semantic_defect": {"variant_style": "NIGERIAN_PIDGIN", "semantic_case_id": "hpg-050-fever-duration-8-not-every-day", "defect": "Caregiver ear-discharge history was invented when the exact field was absent."},
+  "boundary_gate": {"generation_run_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1", "attempts": 4, "deterministic_passes": 4, "semantic_approved": 4, "semantic_rejected": 0},
+  "release_decision": "RELEASE_EXACT_SLOT_906_ATTEMPT_CONTINUATION",
+  "authorization": {"bulk_continuation_released": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

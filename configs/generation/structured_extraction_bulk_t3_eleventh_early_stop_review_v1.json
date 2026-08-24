@@ -1,0 +1,15 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-eleventh-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v15",
+  "candidate_attempts": 144,
+  "raw_passes": 125,
+  "raw_rejections_reviewed": 19,
+  "semantic_rejections": 1,
+  "annotation_only_overrides": 18,
+  "observed_semantic_defect": {"variant_style": "NIGERIAN_PIDGIN", "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways", "defect": "Current wheezing and recurrent-wheeze history were collapsed into indistinguishable present-tense clauses."},
+  "boundary_gate": {"generation_run_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1", "attempts": 3, "semantic_approved": 3, "semantic_rejected": 0, "deterministic_passes": 2, "reviewed_annotation_only_overrides": 1},
+  "release_decision": "RELEASE_EXACT_SLOT_626_ATTEMPT_CONTINUATION",
+  "authorization": {"bulk_continuation_released": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

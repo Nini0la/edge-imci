@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v16",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-029-diarrhoea-severe-plan-c-under-24m__variant-0006__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-029-diarrhoea-severe-plan-c-under-24m__variant-0006",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+  "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.16",
+    "prompt_sha256": "e2310aa197ae0496e7f8773dc81ba1e7be4a8a1dad962314849cd15553e4dd01"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.1
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "4282ff7edd3914d3f3e08d244b602aa193e186bd64170f521a3596598e2c8605",
+  "requested_at": "2026-08-23T16:30:08Z",
+  "completed_at": "2026-08-23T16:30:14Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-029-diarrhoea-severe-plan-c-under-24m\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"child is 18 months old. has diarrhoea for 3 days. has no cough or difficult breathing. has no ear problem. has no fever. able to drink or breastfeed. does not vomit everything. not convulsing now and no history of convulsions. not lethargic or unconscious. diarrhoea drinking status is poorly. no blood in stool. not restless or irritable. skin pinch is normal. sunken eyes present.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"child is 18 months old.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"has diarrhoea\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"diarrhoea for 3 days.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"has no cough or difficult breathing.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"has no ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"has no fever.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"not convulsing now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"not lethargic or unconscious.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"diarrhoea drinking status is poorly.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"no blood in stool.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"not restless or irritable.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"skin pinch is normal.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"sunken eyes present.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "child is 18 months old. has diarrhoea for 3 days. has no cough or difficult breathing. has no ear problem. has no fever. able to drink or breastfeed. does not vomit everything. not convulsing now and no history of convulsions. not lethargic or unconscious. diarrhoea drinking status is poorly. no blood in stool. not restless or irritable. skin pinch is normal. sunken eyes present.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "child is 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "has diarrhoea"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "diarrhoea for 3 days."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "has no cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "has no ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "has no fever."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "not convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "diarrhoea drinking status is poorly."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "no blood in stool."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "skin pinch is normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "sunken eyes present."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1378,
+    "output_tokens": 544,
+    "cached_input_tokens": 1280,
+    "latency_ms": 6430,
+    "retry_count": 0,
+    "provider_request_id": "resp_06daeb33400f5911016a8b20118a2081979ffff832c1198132",
+    "raw_usage": {
+      "input_tokens": 1378,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 1280
+      },
+      "output_tokens": 544,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1922
+    }
+  }
+}

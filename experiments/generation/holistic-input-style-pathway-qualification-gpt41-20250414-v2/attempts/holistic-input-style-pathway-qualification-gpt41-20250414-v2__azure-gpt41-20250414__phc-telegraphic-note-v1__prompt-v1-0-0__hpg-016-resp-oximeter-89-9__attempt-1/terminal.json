@@ -1,0 +1,145 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-016-resp-oximeter-89-9__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-016-resp-oximeter-89-9",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+  "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.0.0",
+    "prompt_sha256": "8530c78502a3b4e9cc6e750767a0921ce00e30a7ed8e08678aaac3a6723a801a"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "2940a803057e5bf8ec685c47e619bdf7dac5cef51fc9796af2af700e7aec14bf",
+  "requested_at": "2026-08-23T12:30:56Z",
+  "completed_at": "2026-08-23T12:31:02Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-016-resp-oximeter-89-9\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"18m. No convulsing now. No history convulsions. Not lethargic/unconscious. Not unable to drink or breastfeed. Does not vomit everything. Cough/difficult breathing present. No diarrhoea. No ear problem. No fever. RR 35, counted 1 min, child calm. Cough 3d. Chest indrawing absent. Stridor absent when calm. Wheeze absent. Recurrent wheeze absent. SpO2 89.9%. Pulse oximeter available.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"No convulsing now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"No history convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Not lethargic/unconscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Not unable to drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"Does not vomit everything.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"18m.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"Cough/difficult breathing present.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"No diarrhoea.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"No ear problem.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"No fever.\"\n    },\n    {\n      \"fact_id\": \"respiratory.breaths_counted_one_minute\",\n      \"evidence_text\": \"RR 35, counted 1 min\"\n    },\n    {\n      \"fact_id\": \"respiratory.chest_indrawing\",\n      \"evidence_text\": \"Chest indrawing absent.\"\n    },\n    {\n      \"fact_id\": \"respiratory.child_calm\",\n      \"evidence_text\": \"child calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.cough_duration_days\",\n      \"evidence_text\": \"Cough 3d.\"\n    },\n    {\n      \"fact_id\": \"respiratory.oxygen_saturation_percent\",\n      \"evidence_text\": \"SpO2 89.9%.\"\n    },\n    {\n      \"fact_id\": \"respiratory.pulse_oximeter_available\",\n      \"evidence_text\": \"Pulse oximeter available.\"\n    },\n    {\n      \"fact_id\": \"respiratory.recurrent_wheeze\",\n      \"evidence_text\": \"Recurrent wheeze absent.\"\n    },\n    {\n      \"fact_id\": \"respiratory.respiratory_rate\",\n      \"evidence_text\": \"RR 35\"\n    },\n    {\n      \"fact_id\": \"respiratory.stridor_when_calm\",\n      \"evidence_text\": \"Stridor absent when calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.wheezing\",\n      \"evidence_text\": \"Wheeze absent.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18m. No convulsing now. No history convulsions. Not lethargic/unconscious. Not unable to drink or breastfeed. Does not vomit everything. Cough/difficult breathing present. No diarrhoea. No ear problem. No fever. RR 35, counted 1 min, child calm. Cough 3d. Chest indrawing absent. Stridor absent when calm. Wheeze absent. Recurrent wheeze absent. SpO2 89.9%. Pulse oximeter available.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No history convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic/unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Not unable to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Does not vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18m."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Cough/difficult breathing present."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "RR 35, counted 1 min"
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest indrawing absent."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "child calm."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough 3d."
+      },
+      {
+        "fact_id": "respiratory.oxygen_saturation_percent",
+        "evidence_text": "SpO2 89.9%."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Recurrent wheeze absent."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "RR 35"
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Stridor absent when calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Wheeze absent."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1357,
+    "output_tokens": 825,
+    "cached_input_tokens": 0,
+    "latency_ms": 5519,
+    "retry_count": 0,
+    "provider_request_id": "resp_03c6e127205e1aea016a8ae8014e00819697c18ada0a1aed5b",
+    "raw_usage": {
+      "input_tokens": 1357,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 825,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2182
+    }
+  }
+}

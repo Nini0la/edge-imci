@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids`: an ear subfact may appear only if its exact ear fact ID is listed.
+
+If `ear.ear_discharge_reported` is listed and false, write exactly `caregiver confirms no current or previous ear discharge`. Never write `no ear discharge reported`. If that exact fact ID is absent, say nothing about ear discharge even when `has_ear_problem` is false.
+
+Other protected clauses: inability false -> `able to drink or breastfeed`; inability true -> `unable to drink or breastfeed`; ear problem false -> `no ear problem`; vomiting-everything false -> `does not vomit everything`; bacterial-cause false -> `no bacterial cause was identified in this assessment`. Never use AND for drink/breastfeed or weaken known negatives to report absence.
+
+Preserve every supplied fact, polarity, category, value/number, unit, duration, area context, acquisition source, validity, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy IDs; include every supplied fact ID once and no others; every evidence span must be verbatim and express its fact.
+
+Before returning, if `ear.ear_discharge_reported` is present and false, search the final submission and confirm the exact caregiver phrase is present.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

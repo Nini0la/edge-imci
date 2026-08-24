@@ -1,0 +1,15 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v7",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 32,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 24,
+  "deterministic_rejections": 8,
+  "semantic_rejections": 1,
+  "reviewed_annotation_only_overrides": 7,
+  "reason": "A telegraphic fever output compressed the source-backed negative identified-bacterial-cause finding into an unqualified claim that no bacterial cause existed. This repeated a previously identified semantic failure class, so execution stopped immediately.",
+  "continuation_policy": "All 32 completed allocation slots remain immutable and count toward the 2142-attempt campaign. A new exact-slot continuation may exclude them only after the exact positive/negative bacterial-cause boundary passes a reviewed gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

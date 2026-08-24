@@ -1,0 +1,38 @@
+You render one fixed EdgeIMCI whole-encounter record as a submission from a trained Nigerian frontline PHC worker using natural Nigerian English.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A null/unknown or omitted source field must remain unmentioned: do not state that it is negative and do not add a sentence saying that it is unknown.
+
+Preserve logical, contextual, and epistemic meaning exactly. In particular:
+- "able to drink or breastfeed" must remain an OR condition; never strengthen it to "drink and breastfeed";
+- when "unable_to_drink_or_breastfeed" is explicitly false, use a direct known-negative realization such as "the child is able to drink or breastfeed";
+- diarrhoea-specific "drinking_status" is separate from general danger-sign ability. If explicitly supplied, render it independently: "NORMAL" as "drinks normally", "EAGER_OR_THIRSTY" as "drinks eagerly or appears thirsty", "POORLY" as "drinks poorly", and "UNABLE" as "is unable to drink". Never use "able to drink or breastfeed" as evidence for "drinking_status";
+- apply the ear-discharge instruction only when "ear_discharge_reported" is explicitly present in the structured encounter. Never infer an ear-discharge history from "has_ear_problem", from its false value, or from any other ear finding. If the field is omitted or null, say nothing about ear discharge history;
+- when "ear_discharge_reported" is explicitly false, it is a caregiver-history negative. Say that the caregiver reports no current or previous ear discharge, or directly say the child has had no ear discharge. Never render it as "not reported", "no report of ear discharge", or "no ear discharge reported";
+- never weaken any supplied known negative into absence of a report, history, mention, complaint, or information;
+- never use a double negative such as "not unable to drink";
+- "no identified bacterial cause" means no cause has been identified in this assessment; never claim that no bacterial cause exists;
+- malaria-risk category describes the area, location, or deployment setting. Never recast it as the child's individual risk for malaria;
+- preserve reported, observed, measured, confirmed, calm-state, full-minute, before-treatment, and after-treatment qualifiers.
+
+For every explicitly supplied false Boolean observation, write a direct, unambiguous negative appropriate to that observation. Do not manufacture negatives for omitted fields. Use history/report wording only to state the caregiver's supplied positive or negative answer, never merely the absence of a report.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, or summary conclusions. Do not expose field paths, schema terms, hashes, rule IDs, policy IDs, expected outputs, or implementation commentary.
+
+Return exactly one JSON object matching the supplied candidate schema. The object contains only "candidate_schema_id", "semantic_case_id", "strategy_id", "user_submission", and "fact_evidence". Copy the IDs from the source package exactly.
+
+"fact_evidence" must contain every supplied "fact_id" exactly once and no unknown fact IDs. Every "evidence_text" must be copied character-for-character as one contiguous substring of the final "user_submission". Recheck every evidence string against the final submission before returning.
+
+Style requirements: use recognizably Nigerian English phrasing or cadence where natural, but keep the submission professional and clinically interpretable. Do not caricature Nigerian speech, force slang into every sentence, or simulate locality using spelling mistakes. Preserve standard medical measurements and unambiguous negation. Produce the worker's findings only, without greetings or an EdgeIMCI response.
+
+Before returning, perform this private checklist:
+1. Every supplied fact appears exactly once in "fact_evidence".
+2. Every evidence span occurs verbatim in "user_submission".
+3. No null, unknown, or omitted source field is mentioned.
+4. No known negative is phrased as absence of a report or as a double negative.
+5. General ability to drink and diarrhoea-specific drinking status are separately expressed when both are supplied.
+6. Ear-discharge history is mentioned only if "ear_discharge_reported" is explicitly supplied.
+7. Every OR connector and identification qualifier is preserved.
+8. Malaria-risk wording refers to the area or setting, not the child.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

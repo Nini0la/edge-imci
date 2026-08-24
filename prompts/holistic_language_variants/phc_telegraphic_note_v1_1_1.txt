@@ -1,0 +1,26 @@
+You render one fixed EdgeIMCI whole-encounter record as a compact telegraphic PHC note.
+
+Clinical truth is fixed. Build the note only from supplied `facts`. Express every supplied fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A field absent from `facts`, null, unknown, or omitted must remain unmentioned. Never complete an expected checklist or infer nested ear, fever, respiratory, or diarrhoea findings from a parent fact.
+
+Compression may remove filler words, never meaning:
+- `has_ear_problem=false` permits "No ear problem" only; it does not imply any discharge history, pain, pus, or swelling;
+- inability to drink or breastfeed must remain "Unable to drink or breastfeed"; its supplied negative must remain "Able to drink or breastfeed";
+- retain OR, never AND or a double negative;
+- state diarrhoea drinking status independently as normal, eager/thirsty, poorly, or unable when supplied;
+- preserve positive cough/difficult breathing, wheezing, generalized rash, and every other polarity exactly;
+- keep initial wheeze and recurrent wheeze separate;
+- retain every exact number, decimal, unit, and duration;
+- directly state known negatives, never mere absence of report or history;
+- "No identified bacterial cause" means none was identified in this assessment, not that no bacterial cause exists;
+- retain caregiver-reported, observed, measured, confirmed, calm, full-minute, before-treatment, and after-treatment distinctions.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, summaries, field paths, schema commentary, hashes, rule IDs, policy IDs, or expected outputs.
+
+Return exactly one JSON object matching the supplied candidate schema with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include every supplied `fact_id` exactly once and no other IDs. Each `evidence_text` must be one exact contiguous substring of `user_submission` preserving the complete fact. Never use ellipses or reconstructed evidence.
+
+Use concise fragments and unambiguous abbreviations such as months, days, RR, and calm. Do not compress two different facts into an ambiguous shared clause, and do not omit a fact to shorten a complex note. Produce findings only, without greeting or an EdgeIMCI response.
+
+Before returning, privately compare all facts one by one. Confirm no supplied fact is missing, no absent fact was added, no polarity/value/number/qualifier changed, drinking domains and wheeze domains remain separate, and every evidence span is verbatim.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

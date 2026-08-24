@@ -189,9 +189,15 @@ def build_bakeoff_schedule(
                     f"configuration prompt pin does not match source request: {field}"
                 )
         for request in strategy_requests:
+            request_suffix = request.get("request_id_suffix", "")
+            if request_suffix and (
+                not isinstance(request_suffix, str)
+                or not request_suffix.startswith("__")
+            ):
+                raise ValueError("request_id_suffix must be empty or begin with '__'")
             request_id = (
                 f"{generation_run_id}__{configuration['configuration_id']}__"
-                f"{request['semantic_case_id']}"
+                f"{request['semantic_case_id']}{request_suffix}"
             )
             review_digest = hashlib.sha256(request_id.encode()).hexdigest()[:24]
             units.append(

@@ -1,0 +1,59 @@
+{
+  "run_state_schema_id": "edge-imci-input-style-pathway-qualification-state-v1",
+  "generation_run_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T12:46:15Z",
+  "remote_attempts_started": 2,
+  "deterministic_passes": 1,
+  "deterministic_rejections": 1,
+  "by_style": {
+    "NIGERIAN_PIDGIN": {
+      "attempts": 2,
+      "passes": 1,
+      "rejections": 1
+    }
+  },
+  "reserved_total_usd": 0.06,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 3283,
+    "output_tokens": 1346,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1",
+    "unit_count": 2,
+    "state_counts": {
+      "TERMINAL": 2
+    },
+    "units": [
+      {
+        "request_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-027-diarrhoea-no-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "7e4cade8d7c4992b43f0123ab55a6fcd860d6d090946fa77ebed3c29787a36ce",
+        "review_item_id": "review-148efe3afabf19d762bf4951",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-027-diarrhoea-no-dehydration__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-075-contradiction-drinking",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-075-contradiction-drinking",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "59579b02f6e44baf29a119fc29b37cc5faa2c6bf2e3057cdc1698aa6efb66641",
+        "review_item_id": "review-98363ebed48925137499f3f9",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-pidgin-v1-2-1-null-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-075-contradiction-drinking__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

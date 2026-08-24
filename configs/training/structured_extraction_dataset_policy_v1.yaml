@@ -1,0 +1,66 @@
+# Generated from configs/training/structured_extraction_dataset_policy_v1.json; edit canonical JSON.
+policy_id: edge-imci-structured-extraction-dataset-policy-v1
+policy_version: 1.0.0
+status: APPROVED_FOR_DATASET_DESIGN
+authority: PROJECT_OWNER_DECISION
+clinical_rule_change: false
+source:
+  semantic_suite_id: edge-imci-holistic-product-golden-v1
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  target_schema_id: edge-imci-model-facing-encounter-v1
+split_policy:
+  split_policy_id: edge-imci-parent-semantic-split-v1
+  assignment_unit: PARENT_SEMANTIC_CASE
+  assignment_timing: BEFORE_LANGUAGE_VARIANT_GENERATION_AT_SCALE
+  algorithm: SHA256_BUCKET_10000_V1
+  seed: edge-imci-parent-semantic-split-v1|2026-08-23
+  partitions:
+    TRAIN:
+    - 0
+    - 8000
+    VALIDATION:
+    - 8000
+    - 9000
+    TEST:
+    - 9000
+    - 10000
+  forced_parent_assignments:
+    oos-extract-young-respiratory-001: TRAIN
+    oos-extract-older-fever-001: TRAIN
+    hpg-077-out-of-scope-age-1: TEST
+    hpg-078-out-of-scope-age-60: TEST
+  variant_inheritance_required: true
+  cross_partition_parent_overlap_allowed: false
+out_of_scope_age_policy:
+  extract_truthful_age_and_findings: true
+  scope_decision_owner: DETERMINISTIC_SCOPE_CHECKER
+  small_separately_reviewed_sft_slice_required: true
+  current_evaluation_parent_case_ids:
+  - hpg-077-out-of-scope-age-1
+  - hpg-078-out-of-scope-age-60
+  training_parents_must_be_distinct_from_evaluation_parents: true
+  distinct_training_parent_case_ids:
+  - oos-extract-young-respiratory-001
+  - oos-extract-older-fever-001
+  current_distinct_training_parent_cases_available: true
+  bulk_generation_blocked_only_for_out_of_scope_training_slice: false
+generic_acquisition_mode_policy:
+  add_new_model_target_label: false
+  include_only_when_existing_substrate_explicitly_represents_it_and_downstream_requires_it: true
+  v1_generic_acquisition_mode_support: DEFERRED_UNSUPPORTED
+  v1_evaluation_metric: NOT_APPLICABLE
+longitudinal_reassessment_policy:
+  unsupported_fields:
+  - diarrhoea.rehydration_stage
+  - diarrhoea.post_rehydration
+  non_null_unsupported_fields_are_corpus_eligible: false
+  ordinary_initial_encounters_remain_eligible: true
+  requires_approved_evaluator_before_inclusion: true
+contradiction_policy:
+  model_outputs_underlying_observations: true
+  model_outputs_derived_contradiction_label: false
+  contradiction_owner: DETERMINISTIC_EVALUATOR
+authorization:
+  bulk_generation_authorized: false
+  training_authorized: false
+  production_clinical_use_authorized: false

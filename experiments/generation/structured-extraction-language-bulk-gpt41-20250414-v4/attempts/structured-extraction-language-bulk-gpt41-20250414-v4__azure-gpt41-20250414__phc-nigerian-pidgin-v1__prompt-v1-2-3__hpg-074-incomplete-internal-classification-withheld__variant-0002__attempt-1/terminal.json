@@ -1,0 +1,135 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-074-incomplete-internal-classification-withheld__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-074-incomplete-internal-classification-withheld__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3",
+  "semantic_case_id": "hpg-074-incomplete-internal-classification-withheld",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.3",
+    "prompt_sha256": "4a7cbb1b70324336eb0d3cfb252ce00c1e2f18c299d3004b71d96fc17d9fe348"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "41f777bfd2209a7391baec40935352af2714377da21688f96df689ee7423a62c",
+  "requested_at": "2026-08-23T14:10:00Z",
+  "completed_at": "2026-08-23T14:10:09Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-074-incomplete-internal-classification-withheld\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Di pikin no dey convulse now. Dem never get convulsion before. Di pikin no dey lethargic or unconscious. Di pikin fit drink or breastfeed. Di pikin no dey vomit everything. Di pikin na 18 months old. Di pikin get cough or dey find am hard to breathe. Di pikin no get diarrhoea. Di pikin no get fever. I count di pikin breath for one full minute. Di pikin chest no dey go inside. Di pikin calm when I dey check am. Di cough don last for 3 days. Pulse oximeter no dey available. Di pikin no dey get recurrent wheeze. Di pikin dey breathe 45 times for one minute. Stridor no dey when di pikin calm. Di pikin no dey wheeze.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"Di pikin no dey convulse now.\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"Dem never get convulsion before.\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Di pikin no dey lethargic or unconscious.\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Di pikin fit drink or breastfeed.\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Di pikin no dey vomit everything.\"},\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"Di pikin na 18 months old.\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"Di pikin get cough or dey find am hard to breathe.\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"Di pikin no get diarrhoea.\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"Di pikin no get fever.\"},\n    {\"fact_id\": \"respiratory.breaths_counted_one_minute\", \"evidence_text\": \"I count di pikin breath for one full minute.\"},\n    {\"fact_id\": \"respiratory.chest_indrawing\", \"evidence_text\": \"Di pikin chest no dey go inside.\"},\n    {\"fact_id\": \"respiratory.child_calm\", \"evidence_text\": \"Di pikin calm when I dey check am.\"},\n    {\"fact_id\": \"respiratory.cough_duration_days\", \"evidence_text\": \"Di cough don last for 3 days.\"},\n    {\"fact_id\": \"respiratory.pulse_oximeter_available\", \"evidence_text\": \"Pulse oximeter no dey available.\"},\n    {\"fact_id\": \"respiratory.recurrent_wheeze\", \"evidence_text\": \"Di pikin no dey get recurrent wheeze.\"},\n    {\"fact_id\": \"respiratory.respiratory_rate\", \"evidence_text\": \"Di pikin dey breathe 45 times for one minute.\"},\n    {\"fact_id\": \"respiratory.stridor_when_calm\", \"evidence_text\": \"Stridor no dey when di pikin calm.\"},\n    {\"fact_id\": \"respiratory.wheezing\", \"evidence_text\": \"Di pikin no dey wheeze.\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-074-incomplete-internal-classification-withheld",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Di pikin no dey convulse now. Dem never get convulsion before. Di pikin no dey lethargic or unconscious. Di pikin fit drink or breastfeed. Di pikin no dey vomit everything. Di pikin na 18 months old. Di pikin get cough or dey find am hard to breathe. Di pikin no get diarrhoea. Di pikin no get fever. I count di pikin breath for one full minute. Di pikin chest no dey go inside. Di pikin calm when I dey check am. Di cough don last for 3 days. Pulse oximeter no dey available. Di pikin no dey get recurrent wheeze. Di pikin dey breathe 45 times for one minute. Stridor no dey when di pikin calm. Di pikin no dey wheeze.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Di pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Dem never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Di pikin no dey lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Di pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Di pikin no dey vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Di pikin na 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Di pikin get cough or dey find am hard to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Di pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Di pikin no get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "I count di pikin breath for one full minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Di pikin chest no dey go inside."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Di pikin calm when I dey check am."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Di cough don last for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Di pikin no dey get recurrent wheeze."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Di pikin dey breathe 45 times for one minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Stridor no dey when di pikin calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Di pikin no dey wheeze."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1434,
+    "output_tokens": 820,
+    "cached_input_tokens": 0,
+    "latency_ms": 9552,
+    "retry_count": 0,
+    "provider_request_id": "resp_0158ac12167e4765016a8aff3953248197987b704dd88200bf",
+    "raw_usage": {
+      "input_tokens": 1434,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 820,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2254
+    }
+  }
+}

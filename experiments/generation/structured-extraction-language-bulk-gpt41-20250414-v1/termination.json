@@ -1,0 +1,20 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v1",
+  "status": "SUPERSEDED_AFTER_PRECALL_SCHEMA_BLOCK",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION",
+  "remote_attempts_started": 31,
+  "deterministic_passes": 30,
+  "deterministic_rejections": 1,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "blocking_unit": "oos-extract-young-respiratory-001",
+  "blocking_stage": "LOCAL_ATTEMPT_SCHEMA_VALIDATION_BEFORE_REQUEST_RECEIPT_OR_PROVIDER_CALL",
+  "blocking_reason": "The shared v1 attempt schema accepted only hpg-* semantic IDs and rejected the distinct out-of-scope training parent ID before a remote request began.",
+  "evidence_policy": "All 31 completed attempts remain immutable and count toward the combined 2142-attempt wave. The blocking unit did not consume a remote attempt.",
+  "continuation_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v2",
+  "continuation_remote_attempts": 2111,
+  "combined_remote_attempts": 2142,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

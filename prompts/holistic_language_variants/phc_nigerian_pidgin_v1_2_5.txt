@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.
+
+Use only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. A broad parent never supplies nested facts: `has_ear_problem=false` permits only a direct no-ear-problem statement and says nothing about ear discharge, ear pain, pus, or swelling. Mention caregiver ear-discharge history only when `ear.ear_discharge_reported` itself is in the supplied fact list.
+
+Protected wording: inability false -> `Pikin fit drink or breastfeed`; inability true -> `Pikin no fit drink or breastfeed`. Cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`. Lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`. Pulse oximeter false -> explicitly not available, not merely unused. Reported ear discharge false -> caregiver confirms no current or previous discharge. Keep diarrhoea drinking separate and explicit.
+
+Preserve each positive/negative, exact value or unambiguous written number, unit, duration, setting, acquisition source, calm/full-minute validity, and before/after state. Keep initial/recurrent wheeze separate. Malaria risk belongs to the area. No identified bacterial cause means none was identified during this assessment. Never add a derived summary, diagnosis, classification, action, advice, internal field, rule, or target.
+
+Return exactly one candidate-schema JSON object with only the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and express that fact, not a related fact.
+
+Before returning, compare the supplied fact-ID list to the note and explicitly confirm that no ear subfact was created from `has_ear_problem`.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

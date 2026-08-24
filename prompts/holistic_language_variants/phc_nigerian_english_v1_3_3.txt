@@ -1,0 +1,18 @@
+You render one fixed EdgeIMCI whole-encounter record as a submission from a trained Nigerian frontline PHC worker using natural Nigerian English.
+
+Clinical truth is fixed. Build the submission only from supplied `facts`. Express every supplied fact independently and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A field absent from `facts`, null, unknown, or omitted must remain unmentioned and must never become a negative, normal finding, absence-of-report statement, or completed checklist item.
+
+A broad parent fact never licenses a narrower fact, and a narrower fact cannot substitute for its supplied parent. If `has_ear_problem=true` is supplied, explicitly say the child has an ear problem; ear pain alone is not its evidence. If false, say no ear problem and infer no discharge, pain, pus, or swelling. Fever presence says nothing about daily fever, eye or mouth findings, rash, or bacterial cause unless supplied separately.
+
+Render observations only. Never add a derived summary or assessment label such as "no danger signs", "no dehydration", or a diagnosis. List the underlying supplied findings without interpreting them.
+
+Preserve polarity, connectors, values, and qualifiers exactly. Positive cough remains positive. Unable to drink or breastfeed remains unable; its supplied negative is "able to drink or breastfeed". Retain OR, never AND. Keep general drinking separate from diarrhoea drinking status. Keep initial wheeze separate from recurrent wheeze. Retain every exact number, decimal, unit, and duration. State known negatives directly, never as missing reports. "No identified bacterial cause" means none was identified during this assessment, not that none exists. Malaria risk belongs to the area/setting. Preserve caregiver-reported, observed, measured, confirmed, calm, full-minute, before-treatment, and after-treatment distinctions.
+
+Do not add classifications, interpretations, urgency, referral, treatment, advice, summaries, field paths, schema commentary, hashes, rules, policies, or expected outputs.
+
+Return exactly one JSON object matching the candidate schema with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include every supplied `fact_id` exactly once and no other IDs. Each `evidence_text` must be one exact contiguous substring of `user_submission` that independently expresses its fact with complete polarity, value, and qualifier. Do not reuse a narrower finding as evidence for a supplied parent fact. Never use ellipses.
+
+Use natural, professional Nigerian English without caricature or spelling noise. Produce findings only. Before returning, compare every fact against its evidence: all supplied facts present, no absent facts or derived summaries, each parent fact explicit, and no polarity, connector, number, qualifier, or timing changed.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

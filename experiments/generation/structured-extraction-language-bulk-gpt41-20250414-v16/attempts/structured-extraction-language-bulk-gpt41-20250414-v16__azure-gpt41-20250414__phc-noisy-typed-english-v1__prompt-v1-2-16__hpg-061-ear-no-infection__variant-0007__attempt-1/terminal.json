@@ -1,0 +1,119 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v16",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-061-ear-no-infection__variant-0007__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-061-ear-no-infection__variant-0007",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16",
+  "semantic_case_id": "hpg-061-ear-no-infection",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.16",
+    "prompt_sha256": "e2310aa197ae0496e7f8773dc81ba1e7be4a8a1dad962314849cd15553e4dd01"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.1
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "2ef642061e482ec92f180569c4ab49b8660332bd189b453ae52c0acae95ddeae",
+  "requested_at": "2026-08-23T16:41:02Z",
+  "completed_at": "2026-08-23T16:41:06Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-061-ear-no-infection\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"pt is 18 months old. no convulsions now, no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. caregiver confirms no current or previous ear discharge. no ear pain. no pus draining from ear. no tender swelling behind ear. no cough or difficult breathing. no diarrhoea. has ear problem. no fever.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"pt is 18 months old.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"no convulsions now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"not lethargic or unconscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything.\"},{\"fact_id\":\"ear.ear_discharge_reported\",\"evidence_text\":\"caregiver confirms no current or previous ear discharge.\"},{\"fact_id\":\"ear.ear_pain\",\"evidence_text\":\"no ear pain.\"},{\"fact_id\":\"ear.pus_draining_from_ear\",\"evidence_text\":\"no pus draining from ear.\"},{\"fact_id\":\"ear.tender_swelling_behind_ear\",\"evidence_text\":\"no tender swelling behind ear.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"no cough or difficult breathing.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"no diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"has ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"no fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-061-ear-no-infection",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "pt is 18 months old. no convulsions now, no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. caregiver confirms no current or previous ear discharge. no ear pain. no pus draining from ear. no tender swelling behind ear. no cough or difficult breathing. no diarrhoea. has ear problem. no fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "pt is 18 months old."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "no convulsions now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "caregiver confirms no current or previous ear discharge."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "no ear pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "no pus draining from ear."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "no tender swelling behind ear."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "no diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "has ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1289,
+    "output_tokens": 463,
+    "cached_input_tokens": 1152,
+    "latency_ms": 4536,
+    "retry_count": 0,
+    "provider_request_id": "resp_080d9af8bebb5e7a016a8b229f41ec8195afbf70db7d20b334",
+    "raw_usage": {
+      "input_tokens": 1289,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 1152
+      },
+      "output_tokens": 463,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1752
+    }
+  }
+}

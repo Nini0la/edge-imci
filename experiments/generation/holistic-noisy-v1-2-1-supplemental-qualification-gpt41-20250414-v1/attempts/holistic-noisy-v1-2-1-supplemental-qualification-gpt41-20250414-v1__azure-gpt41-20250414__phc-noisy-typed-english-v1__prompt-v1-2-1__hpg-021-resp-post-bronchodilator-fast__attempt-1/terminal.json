@@ -1,0 +1,159 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-noisy-v1-2-1-supplemental-qualification-gpt41-20250414-v1",
+  "attempt_id": "holistic-noisy-v1-2-1-supplemental-qualification-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-021-resp-post-bronchodilator-fast__attempt-1",
+  "request_id": "holistic-noisy-v1-2-1-supplemental-qualification-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-021-resp-post-bronchodilator-fast",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+  "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.1",
+    "prompt_sha256": "d95f127ddd49be9dd4f4df9bf84f83c0cd4085c7a27d9007e95e2451daec8fee"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "bea0c005a690a1994fcce8879e2e7672880e98d138ab7a151a3f2414e7849303",
+  "requested_at": "2026-08-23T12:56:27Z",
+  "completed_at": "2026-08-23T12:56:39Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-021-resp-post-bronchodilator-fast\",\n  \"strategy_id\": \"phc-noisy-typed-english-v1\",\n  \"user_submission\": \"18 months old. no convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. cough or difficult breathing present. no diarrhoea. no ear problem. no fever. breaths counted for one full minute. child was calm during assessment. cough lasted 3 days. bronchodilator trial completed. breaths counted for full minute after bronchodilator. child calm after bronchodilator. respiratory rate after bronchodilator is 42. no chest indrawing observed. no chest indrawing after bronchodilator. respiratory rate before bronchodilator is 45. wheezing is present. no stridor when calm. recurrent wheeze not observed. pulse oximeter not available.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"no convulsing now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"no history of convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"not lethargic or unconscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"able to drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"does not vomit everything.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"18 months old.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"cough or difficult breathing present.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"no diarrhoea.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"no ear problem.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"no fever.\"\n    },\n    {\n      \"fact_id\": \"respiratory.breaths_counted_one_minute\",\n      \"evidence_text\": \"breaths counted for one full minute.\"\n    },\n    {\n      \"fact_id\": \"respiratory.bronchodilator_trial_completed\",\n      \"evidence_text\": \"bronchodilator trial completed.\"\n    },\n    {\n      \"fact_id\": \"respiratory.chest_indrawing\",\n      \"evidence_text\": \"no chest indrawing observed.\"\n    },\n    {\n      \"fact_id\": \"respiratory.child_calm\",\n      \"evidence_text\": \"child was calm during assessment.\"\n    },\n    {\n      \"fact_id\": \"respiratory.cough_duration_days\",\n      \"evidence_text\": \"cough lasted 3 days.\"\n    },\n    {\n      \"fact_id\": \"respiratory.post_bronchodilator_breaths_counted_one_minute\",\n      \"evidence_text\": \"breaths counted for full minute after bronchodilator.\"\n    },\n    {\n      \"fact_id\": \"respiratory.post_bronchodilator_chest_indrawing\",\n      \"evidence_text\": \"no chest indrawing after bronchodilator.\"\n    },\n    {\n      \"fact_id\": \"respiratory.post_bronchodilator_child_calm\",\n      \"evidence_text\": \"child calm after bronchodilator.\"\n    },\n    {\n      \"fact_id\": \"respiratory.post_bronchodilator_respiratory_rate\",\n      \"evidence_text\": \"respiratory rate after bronchodilator is 42.\"\n    },\n    {\n      \"fact_id\": \"respiratory.pulse_oximeter_available\",\n      \"evidence_text\": \"pulse oximeter not available.\"\n    },\n    {\n      \"fact_id\": \"respiratory.recurrent_wheeze\",\n      \"evidence_text\": \"recurrent wheeze not observed.\"\n    },\n    {\n      \"fact_id\": \"respiratory.respiratory_rate\",\n      \"evidence_text\": \"respiratory rate before bronchodilator is 45.\"\n    },\n    {\n      \"fact_id\": \"respiratory.stridor_when_calm\",\n      \"evidence_text\": \"no stridor when calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.wheezing\",\n      \"evidence_text\": \"wheezing is present.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "18 months old. no convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything. cough or difficult breathing present. no diarrhoea. no ear problem. no fever. breaths counted for one full minute. child was calm during assessment. cough lasted 3 days. bronchodilator trial completed. breaths counted for full minute after bronchodilator. child calm after bronchodilator. respiratory rate after bronchodilator is 42. no chest indrawing observed. no chest indrawing after bronchodilator. respiratory rate before bronchodilator is 45. wheezing is present. no stridor when calm. recurrent wheeze not observed. pulse oximeter not available.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "no convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "cough or difficult breathing present."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "no diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "no ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "breaths counted for one full minute."
+      },
+      {
+        "fact_id": "respiratory.bronchodilator_trial_completed",
+        "evidence_text": "bronchodilator trial completed."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "no chest indrawing observed."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "child was calm during assessment."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "cough lasted 3 days."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_breaths_counted_one_minute",
+        "evidence_text": "breaths counted for full minute after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_chest_indrawing",
+        "evidence_text": "no chest indrawing after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_child_calm",
+        "evidence_text": "child calm after bronchodilator."
+      },
+      {
+        "fact_id": "respiratory.post_bronchodilator_respiratory_rate",
+        "evidence_text": "respiratory rate after bronchodilator is 42."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "pulse oximeter not available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "recurrent wheeze not observed."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "respiratory rate before bronchodilator is 45."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "no stridor when calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "wheezing is present."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1983,
+    "output_tokens": 1047,
+    "cached_input_tokens": 0,
+    "latency_ms": 12136,
+    "retry_count": 0,
+    "provider_request_id": "resp_0b670043fbd9841f016a8aedfba6f881968330274137111344",
+    "raw_usage": {
+      "input_tokens": 1983,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1047,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3030
+    }
+  }
+}

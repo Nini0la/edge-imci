@@ -1,0 +1,69 @@
+{
+  "review_id": "edge-imci-nigerian-english-v1-2-canary-review",
+  "status": "COMPLETE",
+  "immutable_attempts_preserved": true,
+  "attempt_count": 3,
+  "approved_count": 3,
+  "rejected_count": 0,
+  "candidate_results": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.2.0",
+      "immutable_attempt_status": "DETERMINISTIC_REJECTED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "EVIDENCE_ANNOTATION_REMEDIATED",
+        "PRE_POST_INTERVENTION_STATE_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": true
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.2.0",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "AREA_LEVEL_MALARIA_RISK_PRESERVED",
+        "EPISTEMIC_QUALIFIER_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.2.0",
+      "immutable_attempt_status": "PENDING_HUMAN_REVIEW",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    }
+  ]
+}

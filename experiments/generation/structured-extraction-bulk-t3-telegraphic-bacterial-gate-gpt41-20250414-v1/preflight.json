@@ -1,0 +1,14 @@
+{
+  "preflight_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-preflight-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T14:58:59Z",
+  "authorization_id": "edge-imci-structured-extraction-bulk-t3-telegraphic-bacterial-gate-v1",
+  "authorization_sha256": "f2a35cd44e6a88a5efdd61b3d1cdc3976f619bb24399519d3146bb4ec01159a6",
+  "scheduled_attempts": 5,
+  "maximum_budget_usd": 0.4,
+  "maximum_reserved_total_usd": 0.15,
+  "teacher_target_blind": true,
+  "training_authorized": false
+}

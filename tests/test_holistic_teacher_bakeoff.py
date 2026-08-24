@@ -210,6 +210,43 @@ def test_schedule_requires_explicit_authorization_and_covers_all_78_cases() -> N
     assert len(schedule["units"]) == 78
     assert len({item["request_id"] for item in schedule["units"]}) == 78
     assert len({item["review_item_id"] for item in schedule["units"]}) == 78
+
+
+def test_schedule_supports_distinct_variant_slots_for_one_parent() -> None:
+    requests = build_pilot_requests()[:1]
+    first = requests[0]
+    repeated = [
+        {**first, "request_sha256": "a" * 64, "request_id_suffix": "__variant-0001"},
+        {**first, "request_sha256": "b" * 64, "request_id_suffix": "__variant-0002"},
+    ]
+    configuration = {
+        "configuration_id": "test-config",
+        "teacher_provider": "AZURE_OPENAI",
+        "teacher_model": "gpt-4.1",
+        "teacher_snapshot": "2025-04-14",
+        "strategy_id": first["strategy_id"],
+        "prompt_id": first["prompt_id"],
+        "prompt_version": first["prompt_version"],
+        "prompt_sha256": first["prompt_sha256"],
+        "sampling_config": {"temperature": 0.7},
+        "max_output_tokens": 2200,
+    }
+    schedule = build_bakeoff_schedule(
+        generation_run_id="variant-slot-test-v1",
+        created_at="2026-08-23T00:00:00Z",
+        authorization={
+            "project_owner": "Test Owner",
+            "approved_at": "2026-08-23T00:00:00Z",
+            "variant_contract_approved": True,
+            "remote_calls_authorized": True,
+            "budget": {"currency": "USD", "maximum_amount": 1.0},
+        },
+        teacher_configurations=[configuration],
+        source_requests=repeated,
+    )
+    assert len(schedule["units"]) == 2
+    assert schedule["units"][0]["request_id"].endswith("__variant-0001")
+    assert schedule["units"][1]["request_id"].endswith("__variant-0002")
     assert schedule["retry_policy"] == {
         "transport_retry_limit": 1,
         "semantic_retry": False,

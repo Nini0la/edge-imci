@@ -1,0 +1,30 @@
+{
+  "execution_config_id": "edge-imci-azure-foundry-teacher-execution-v1",
+  "config_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_RECORDED_BAKEOFF_ONLY",
+  "remote_calls_authorized": true,
+  "provider": "AZURE_OPENAI",
+  "api": "RESPONSES_V1",
+  "base_url_environment": "AZURE_OPENAI_BASE_URL",
+  "authentication": {
+    "mode": "API_KEY",
+    "api_key_environment": "AZURE_OPENAI_API_KEY"
+  },
+  "deployments": [
+    {
+      "deployment_name": "gpt-4.1",
+      "model_family": "gpt-4.1",
+      "model_snapshot": "2025-04-14",
+      "structured_outputs_supported": true
+    }
+  ],
+  "limits": {
+    "maximum_remote_attempts": 4,
+    "maximum_budget_usd": 0.35
+  },
+  "data_handling": {
+    "store_provider_response": false,
+    "persist_secrets": false,
+    "persist_full_provider_envelope": false
+  }
+}

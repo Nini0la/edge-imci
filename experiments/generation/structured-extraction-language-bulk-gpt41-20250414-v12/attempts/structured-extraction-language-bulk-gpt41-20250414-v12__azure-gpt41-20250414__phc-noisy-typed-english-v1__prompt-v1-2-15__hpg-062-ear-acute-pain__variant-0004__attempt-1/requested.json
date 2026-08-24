@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-062-ear-acute-pain__variant-0004__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-062-ear-acute-pain__variant-0004",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15",
+  "semantic_case_id": "hpg-062-ear-acute-pain",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.15",
+    "prompt_sha256": "62538f0e5696a22ff358c3f3bcf88a613e4cb59e0be5ec3df8a0685797440b57"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "f3183eefbc4b11a0734018b81760e5e8fad8e19ed6ca1649d07adacb6966cfa6",
+  "requested_at": "2026-08-23T15:48:24Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

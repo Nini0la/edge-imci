@@ -1,0 +1,51 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "trigger_review": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v3/reviews/T1_review.json",
+  "gate_lineage": [
+    {
+      "generation_run_id": "structured-extraction-bulk-t1-remediation-gate-gpt41-20250414-v1",
+      "attempts": 15,
+      "transport_failures": 0,
+      "semantic_approved": 10,
+      "semantic_rejected": 5,
+      "decision": "REMEDIATE_FIVE_CASES"
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t1-remediation-gate-gpt41-20250414-v2",
+      "attempts": 5,
+      "transport_failures": 0,
+      "semantic_approved": 2,
+      "semantic_rejected": 3,
+      "decision": "REMEDIATE_THREE_CASES"
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t1-remediation-gate-gpt41-20250414-v3",
+      "attempts": 3,
+      "transport_failures": 0,
+      "semantic_approved": 3,
+      "semantic_rejected": 0,
+      "decision": "RELEASE_LATEST_PROMPT_LINEAGE"
+    }
+  ],
+  "review_method": "Every remediation candidate was compared with its frozen structured source record. Deterministic rejections confined to annotation coverage were overridden only after semantic review; semantic failures remained rejected evidence and were re-gated under a new prompt version without rewriting prior attempts.",
+  "resolved_failure_classes": [
+    "unknown or absent nested facts invented as negatives",
+    "known negatives weakened into absence-of-report wording",
+    "positive versus negative drinking polarity reversal",
+    "current cough entry polarity or tense shift",
+    "initial wheezing conflated with recurrent wheeze",
+    "measurement or duration omission",
+    "generalized-rash polarity reversal",
+    "identified bacterial-cause epistemic qualifier loss",
+    "parent encounter-entry fact conflated with a nested finding",
+    "derived classification summaries introduced into source language"
+  ],
+  "release_decision": "RELEASE_PROMPT_SET_FOR_EXACT_SLOT_BULK_CONTINUATION",
+  "authorization": {
+    "bulk_continuation_released": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

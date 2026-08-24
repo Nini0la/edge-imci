@@ -1,0 +1,40 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t2-remediation-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "trigger_review": "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v4/reviews/T2_review.json",
+  "trigger_semantic_failures": 19,
+  "gate_lineage": [
+    {
+      "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v1",
+      "attempts": 19,
+      "semantic_approved": 12,
+      "semantic_rejected": 5,
+      "transport_or_persistence_failures": 2,
+      "decision": "REGATE_SEVEN_CASES"
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v2",
+      "attempts": 7,
+      "semantic_approved": 6,
+      "semantic_rejected": 1,
+      "transport_or_persistence_failures": 0,
+      "decision": "REGATE_STIFF_NECK_CASE"
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t2-remediation-gate-gpt41-20250414-v3",
+      "attempts": 1,
+      "semantic_approved": 1,
+      "semantic_rejected": 0,
+      "transport_or_persistence_failures": 0,
+      "decision": "RELEASE_LATEST_PROMPT_LINEAGE"
+    }
+  ],
+  "audit_note": "The two unusable v1 receipts were sealed as failures and replaced only by distinct requests under a new prompt version. Earlier candidates and failures remain immutable evidence.",
+  "release_decision": "RELEASE_EXACT_SLOT_T3_CONTINUATION",
+  "authorization": {
+    "bulk_continuation_released": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

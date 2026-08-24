@@ -1,0 +1,100 @@
+{
+  "run_state_schema_id": "edge-imci-input-language-style-remediation-state-v1",
+  "generation_run_id": "holistic-input-style-remediation-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T10:14:10Z",
+  "remote_attempts_started": 6,
+  "deterministic_passes": 6,
+  "deterministic_rejections": 0,
+  "reserved_total_usd": 0.18,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 8908,
+    "output_tokens": 5038,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-input-style-remediation-gpt41-20250414-v1",
+    "unit_count": 6,
+    "state_counts": {
+      "TERMINAL": 6
+    },
+    "units": [
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "324a86cbde3fafc007a55bd7d2ae034d55c2aebfe7b53deec22f7861115427a2",
+        "review_item_id": "review-d82a767cfbd759216d725469",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "c8f3056f7d508a0015bdb7f58b98dcacd986724022cb1f5da2f064522c6db0d9",
+        "review_item_id": "review-e383039275ecab30160a147f",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "2d39ce6ec560675dd5d7a2db02d7f8cc6cd51a4cb3a24b5d218109cf9fc02329",
+        "review_item_id": "review-5fb3a27e477da46ad7b94536",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "4fb13dd6e020c8a16d750def09289f6b14db2ba2eb533234fec55d4d3b1a6653",
+        "review_item_id": "review-4e8f5c7d3c6d62509125533a",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "7e4e5fe80de3a8656ec783400fca9deafef0bea262d4a3e11cf6c9af5d28aee4",
+        "review_item_id": "review-605bcccae64606e922ba9570",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "a1c924a9c1e9c459291362035757591ca01cc056e90e35ada1d98de368286800",
+        "review_item_id": "review-c088208ea45a064d7832fa5a",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

@@ -1,0 +1,16 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`. Express every fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank variation.
+
+Critical ear boundary: inspect the exact `required_fact_ids` list. Write the caregiver ear-discharge clause ONLY if `ear.ear_discharge_reported` is literally present in that list. `patient_facts.has_ear_problem=false` must produce only `no ear problem`; it must NEVER trigger any sentence about caregiver, discharge, pain, pus, or swelling.
+
+Protected clauses: inability false -> `able to drink or breastfeed`; inability true -> `unable to drink or breastfeed`; vomits-everything false -> `does not vomit everything`; known-negative ear problem -> `no ear problem`. Never change OR to AND and never weaken a known negative to reported, mentioned, observed, concerns, or complaints.
+
+For `identified_bacterial_cause_present=false`, write `no bacterial cause was identified in this assessment`; never `identified cause not present`, `no bacterial infection`, or a claim that no bacterial cause exists. Every other positive/negative remains direct. Explicitly state chest indrawing and measles cough when supplied. Preserve categories, values/numbers, units, durations, area risk, acquisition source, validity, and pre/post state.
+
+Never add derived summaries, diagnosis, decision, action, advice, or internal metadata. Return exactly one valid candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied fact ID once and no others; each evidence span must occur verbatim and actually express its fact.
+
+Before returning: compare `required_fact_ids` to output; confirm no ear subfact was added unless its exact ID exists; confirm no known negative uses reported/mentioned; confirm the bacterial clause retains `identified in this assessment`.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

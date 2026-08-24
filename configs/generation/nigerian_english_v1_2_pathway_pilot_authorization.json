@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-authorization",
+  "status": "AUTHORIZED_FOR_CONTROLLED_PILOT",
+  "authority": "PROJECT_OWNER_DECISION",
+  "authorization_basis": "Project owner approved the proposed broader controlled Nigerian English v1.2 pilot after the matched three-case validation passed review.",
+  "variant_style": "NIGERIAN_ENGLISH",
+  "prompt_version": "1.2.0",
+  "distinct_parent_case_count": 24,
+  "maximum_remote_attempts": 24,
+  "maximum_budget_usd": 1.0,
+  "semantic_retries": false,
+  "controlled_pilot_authorized": true,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

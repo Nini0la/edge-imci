@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edge-imci.local/schemas/model-facing-encounter-v1.json",
+  "title": "EdgeIMCI model-facing encounter v1",
+  "description": "Recoverable encounter state only. JSON null means UNKNOWN, never negative.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["patient_facts", "danger_signs", "respiratory", "diarrhoea", "fever", "ear"],
+  "properties": {
+    "patient_facts": {"$ref": "#/$defs/patient_facts"},
+    "danger_signs": {"$ref": "#/$defs/danger_signs"},
+    "respiratory": {"oneOf": [{"$ref": "#/$defs/respiratory"}, {"type": "null"}]},
+    "diarrhoea": {"oneOf": [{"$ref": "#/$defs/diarrhoea"}, {"type": "null"}]},
+    "fever": {"oneOf": [{"$ref": "#/$defs/fever"}, {"type": "null"}]},
+    "ear": {"oneOf": [{"$ref": "#/$defs/ear"}, {"type": "null"}]}
+  },
+  "$defs": {
+    "nullable_boolean": {"type": ["boolean", "null"]},
+    "nullable_nonnegative_integer": {"type": ["integer", "null"], "minimum": 0},
+    "patient_facts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["age_months", "has_cough_or_difficult_breathing", "has_diarrhoea", "has_fever", "has_ear_problem"],
+      "properties": {
+        "age_months": {"type": ["integer", "null"], "minimum": 0},
+        "has_cough_or_difficult_breathing": {"$ref": "#/$defs/nullable_boolean"},
+        "has_diarrhoea": {"$ref": "#/$defs/nullable_boolean"},
+        "has_fever": {"$ref": "#/$defs/nullable_boolean"},
+        "has_ear_problem": {"$ref": "#/$defs/nullable_boolean"}
+      }
+    },
+    "danger_signs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unable_to_drink_or_breastfeed", "vomits_everything", "had_convulsions", "lethargic_or_unconscious", "convulsing_now"],
+      "properties": {
+        "unable_to_drink_or_breastfeed": {"$ref": "#/$defs/nullable_boolean"},
+        "vomits_everything": {"$ref": "#/$defs/nullable_boolean"},
+        "had_convulsions": {"$ref": "#/$defs/nullable_boolean"},
+        "lethargic_or_unconscious": {"$ref": "#/$defs/nullable_boolean"},
+        "convulsing_now": {"$ref": "#/$defs/nullable_boolean"}
+      }
+    },
+    "respiratory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cough_duration_days", "respiratory_rate", "chest_indrawing", "stridor_when_calm",
+        "wheezing", "recurrent_wheeze", "child_calm", "breaths_counted_one_minute",
+        "pulse_oximeter_available", "oxygen_saturation_percent", "hiv_exposed_or_infected",
+        "bronchodilator_trial_completed", "post_bronchodilator_respiratory_rate",
+        "post_bronchodilator_chest_indrawing", "post_bronchodilator_child_calm",
+        "post_bronchodilator_breaths_counted_one_minute"
+      ],
+      "properties": {
+        "cough_duration_days": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "respiratory_rate": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "chest_indrawing": {"$ref": "#/$defs/nullable_boolean"},
+        "stridor_when_calm": {"$ref": "#/$defs/nullable_boolean"},
+        "wheezing": {"$ref": "#/$defs/nullable_boolean"},
+        "recurrent_wheeze": {"$ref": "#/$defs/nullable_boolean"},
+        "child_calm": {"$ref": "#/$defs/nullable_boolean"},
+        "breaths_counted_one_minute": {"$ref": "#/$defs/nullable_boolean"},
+        "pulse_oximeter_available": {"$ref": "#/$defs/nullable_boolean"},
+        "oxygen_saturation_percent": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "hiv_exposed_or_infected": {"$ref": "#/$defs/nullable_boolean"},
+        "bronchodilator_trial_completed": {"$ref": "#/$defs/nullable_boolean"},
+        "post_bronchodilator_respiratory_rate": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "post_bronchodilator_chest_indrawing": {"$ref": "#/$defs/nullable_boolean"},
+        "post_bronchodilator_child_calm": {"$ref": "#/$defs/nullable_boolean"},
+        "post_bronchodilator_breaths_counted_one_minute": {"$ref": "#/$defs/nullable_boolean"}
+      }
+    },
+    "dehydration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["restless_or_irritable", "sunken_eyes", "drinking_status", "skin_pinch"],
+      "properties": {
+        "restless_or_irritable": {"$ref": "#/$defs/nullable_boolean"},
+        "sunken_eyes": {"$ref": "#/$defs/nullable_boolean"},
+        "drinking_status": {"type": ["string", "null"], "enum": ["NORMAL", "EAGER_OR_THIRSTY", "POORLY", "UNABLE", null]},
+        "skin_pinch": {"type": ["string", "null"], "enum": ["NORMAL", "SLOWLY", "VERY_SLOWLY", null]}
+      }
+    },
+    "post_rehydration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lethargic_or_unconscious", "restless_or_irritable", "sunken_eyes", "drinking_status", "skin_pinch"],
+      "properties": {
+        "lethargic_or_unconscious": {"$ref": "#/$defs/nullable_boolean"},
+        "restless_or_irritable": {"$ref": "#/$defs/nullable_boolean"},
+        "sunken_eyes": {"$ref": "#/$defs/nullable_boolean"},
+        "drinking_status": {"type": ["string", "null"], "enum": ["NORMAL", "EAGER_OR_THIRSTY", "POORLY", "UNABLE", null]},
+        "skin_pinch": {"type": ["string", "null"], "enum": ["NORMAL", "SLOWLY", "VERY_SLOWLY", null]}
+      }
+    },
+    "diarrhoea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["duration_days", "blood_in_stool", "dehydration", "cholera_in_area", "rehydration_stage", "post_rehydration"],
+      "properties": {
+        "duration_days": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "blood_in_stool": {"$ref": "#/$defs/nullable_boolean"},
+        "dehydration": {"$ref": "#/$defs/dehydration"},
+        "cholera_in_area": {"$ref": "#/$defs/nullable_boolean"},
+        "rehydration_stage": {"type": ["string", "null"], "enum": ["NOT_STARTED", "IN_PROGRESS", "REASSESSMENT_COMPLETE", null]},
+        "post_rehydration": {"oneOf": [{"$ref": "#/$defs/post_rehydration"}, {"type": "null"}]}
+      }
+    },
+    "fever": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temperature_c", "malaria_risk", "fever_duration_days", "fever_present_every_day", "stiff_neck",
+        "runny_nose", "obvious_cause_of_fever_present", "identified_bacterial_cause_present",
+        "malaria_test_available", "malaria_test_result", "measles_within_last_3_months",
+        "generalized_rash", "measles_cough", "red_eyes", "mouth_ulcers",
+        "mouth_ulcers_deep_or_extensive", "pus_draining_from_eye", "clouding_of_cornea"
+      ],
+      "properties": {
+        "temperature_c": {"type": ["number", "null"]},
+        "malaria_risk": {"type": ["string", "null"], "enum": ["HIGH", "LOW", "NONE_NO_TRAVEL", null]},
+        "fever_duration_days": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "fever_present_every_day": {"$ref": "#/$defs/nullable_boolean"},
+        "stiff_neck": {"$ref": "#/$defs/nullable_boolean"},
+        "runny_nose": {"$ref": "#/$defs/nullable_boolean"},
+        "obvious_cause_of_fever_present": {"$ref": "#/$defs/nullable_boolean"},
+        "identified_bacterial_cause_present": {"$ref": "#/$defs/nullable_boolean"},
+        "malaria_test_available": {"$ref": "#/$defs/nullable_boolean"},
+        "malaria_test_result": {"type": ["string", "null"], "enum": ["POSITIVE", "NEGATIVE", null]},
+        "measles_within_last_3_months": {"$ref": "#/$defs/nullable_boolean"},
+        "generalized_rash": {"$ref": "#/$defs/nullable_boolean"},
+        "measles_cough": {"$ref": "#/$defs/nullable_boolean"},
+        "red_eyes": {"$ref": "#/$defs/nullable_boolean"},
+        "mouth_ulcers": {"$ref": "#/$defs/nullable_boolean"},
+        "mouth_ulcers_deep_or_extensive": {"$ref": "#/$defs/nullable_boolean"},
+        "pus_draining_from_eye": {"$ref": "#/$defs/nullable_boolean"},
+        "clouding_of_cornea": {"$ref": "#/$defs/nullable_boolean"}
+      }
+    },
+    "ear": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ear_pain", "ear_discharge_reported", "ear_discharge_duration_days", "pus_draining_from_ear", "tender_swelling_behind_ear"],
+      "properties": {
+        "ear_pain": {"$ref": "#/$defs/nullable_boolean"},
+        "ear_discharge_reported": {"$ref": "#/$defs/nullable_boolean"},
+        "ear_discharge_duration_days": {"$ref": "#/$defs/nullable_nonnegative_integer"},
+        "pus_draining_from_ear": {"$ref": "#/$defs/nullable_boolean"},
+        "tender_swelling_behind_ear": {"$ref": "#/$defs/nullable_boolean"}
+      }
+    }
+  }
+}

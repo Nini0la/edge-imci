@@ -1,0 +1,131 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-031-diarrhoea-severe-age-24-cholera__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-031-diarrhoea-severe-age-24-cholera__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "2452f6af043d2da484fb97ab783109d8ffd416c6f1bcfb5f9fa1199ac476769c",
+  "requested_at": "2026-08-23T13:29:47Z",
+  "completed_at": "2026-08-23T13:29:52Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-031-diarrhoea-severe-age-24-cholera\",\"strategy_id\":\"phc-telegraphic-note-v1\",\"user_submission\":\"24m. Diarrhoea x3d. Cholera in area. No blood in stool. Poorly drinking. Sunken eyes. Skin pinch normal. Not restless/irritable. Able to drink or breastfeed. Not convulsing now. No convulsions. Not lethargic or unconscious. Not vomiting everything. No cough/difficult breathing. No ear problem. No fever.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"24m\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Diarrhoea x3d.\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"Diarrhoea x3d.\"},{\"fact_id\":\"diarrhoea.cholera_in_area\",\"evidence_text\":\"Cholera in area.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"No blood in stool.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"Poorly drinking.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"Sunken eyes.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"Skin pinch normal.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"Not restless/irritable.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Not convulsing now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"No convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Not lethargic or unconscious.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Not vomiting everything.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"No cough/difficult breathing.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"No ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"No fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "24m. Diarrhoea x3d. Cholera in area. No blood in stool. Poorly drinking. Sunken eyes. Skin pinch normal. Not restless/irritable. Able to drink or breastfeed. Not convulsing now. No convulsions. Not lethargic or unconscious. Not vomiting everything. No cough/difficult breathing. No ear problem. No fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "24m"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Diarrhoea x3d."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea x3d."
+      },
+      {
+        "fact_id": "diarrhoea.cholera_in_area",
+        "evidence_text": "Cholera in area."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "No blood in stool."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Poorly drinking."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "Sunken eyes."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin pinch normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Not restless/irritable."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Not convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Not vomiting everything."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough/difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1433,
+    "output_tokens": 535,
+    "cached_input_tokens": 1408,
+    "latency_ms": 4501,
+    "retry_count": 0,
+    "provider_request_id": "resp_047cbf99c796eb1e016a8af5ccd4388197bb44388e071522ce",
+    "raw_usage": {
+      "input_tokens": 1433,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 1408
+      },
+      "output_tokens": 535,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1968
+    }
+  }
+}

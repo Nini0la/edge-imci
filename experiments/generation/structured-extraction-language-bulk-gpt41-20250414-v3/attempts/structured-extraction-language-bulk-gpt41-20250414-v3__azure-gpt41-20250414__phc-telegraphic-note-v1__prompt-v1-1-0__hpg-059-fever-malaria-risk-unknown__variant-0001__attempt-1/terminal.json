@@ -1,0 +1,151 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-059-fever-malaria-risk-unknown__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-059-fever-malaria-risk-unknown__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-059-fever-malaria-risk-unknown",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "96ffbdebcc2654bd6ef35ed38db7d884be49ba7a0fc3a7e30c641057ed1c7d0e",
+  "requested_at": "2026-08-23T13:33:38Z",
+  "completed_at": "2026-08-23T13:33:48Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-059-fever-malaria-risk-unknown\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"18mo. Fever 2d. Temp 38.0°C. Able to drink or breastfeed. No current convulsions. No history of convulsions. Not lethargic or unconscious. No vomiting everything. No generalized rash. No identified bacterial cause. Malaria test available, result NEGATIVE. No measles cough. No measles within last 3mo. No obvious cause of fever. No red eyes. No runny nose. No stiff neck. No cough or difficult breathing. No diarrhoea. No ear problem. Has fever.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"18mo.\"\n    },\n    {\n      \"fact_id\": \"fever.fever_duration_days\",\n      \"evidence_text\": \"Fever 2d.\"\n    },\n    {\n      \"fact_id\": \"fever.temperature_c\",\n      \"evidence_text\": \"Temp 38.0°C.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Able to drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"No current convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"No history of convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Not lethargic or unconscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"No vomiting everything.\"\n    },\n    {\n      \"fact_id\": \"fever.generalized_rash\",\n      \"evidence_text\": \"No generalized rash.\"\n    },\n    {\n      \"fact_id\": \"fever.identified_bacterial_cause_present\",\n      \"evidence_text\": \"No identified bacterial cause.\"\n    },\n    {\n      \"fact_id\": \"fever.malaria_test_available\",\n      \"evidence_text\": \"Malaria test available\"\n    },\n    {\n      \"fact_id\": \"fever.malaria_test_result\",\n      \"evidence_text\": \"result NEGATIVE.\"\n    },\n    {\n      \"fact_id\": \"fever.measles_cough\",\n      \"evidence_text\": \"No measles cough.\"\n    },\n    {\n      \"fact_id\": \"fever.measles_within_last_3_months\",\n      \"evidence_text\": \"No measles within last 3mo.\"\n    },\n    {\n      \"fact_id\": \"fever.obvious_cause_of_fever_present\",\n      \"evidence_text\": \"No obvious cause of fever.\"\n    },\n    {\n      \"fact_id\": \"fever.red_eyes\",\n      \"evidence_text\": \"No red eyes.\"\n    },\n    {\n      \"fact_id\": \"fever.runny_nose\",\n      \"evidence_text\": \"No runny nose.\"\n    },\n    {\n      \"fact_id\": \"fever.stiff_neck\",\n      \"evidence_text\": \"No stiff neck.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"No cough or difficult breathing.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"No diarrhoea.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"No ear problem.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"Has fever.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-059-fever-malaria-risk-unknown",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18mo. Fever 2d. Temp 38.0°C. Able to drink or breastfeed. No current convulsions. No history of convulsions. Not lethargic or unconscious. No vomiting everything. No generalized rash. No identified bacterial cause. Malaria test available, result NEGATIVE. No measles cough. No measles within last 3mo. No obvious cause of fever. No red eyes. No runny nose. No stiff neck. No cough or difficult breathing. No diarrhoea. No ear problem. Has fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18mo."
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "Fever 2d."
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "Temp 38.0°C."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No current convulsions."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "No vomiting everything."
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "No generalized rash."
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "No identified bacterial cause."
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "Malaria test available"
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "result NEGATIVE."
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "No measles cough."
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "No measles within last 3mo."
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "No obvious cause of fever."
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "No red eyes."
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "No runny nose."
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "No stiff neck."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Has fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1537,
+    "output_tokens": 871,
+    "cached_input_tokens": 0,
+    "latency_ms": 9770,
+    "retry_count": 0,
+    "provider_request_id": "resp_01509788c5c99c9e016a8af6b386888197a2dc525331d27ba4",
+    "raw_usage": {
+      "input_tokens": 1537,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 871,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2408
+    }
+  }
+}

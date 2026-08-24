@@ -1,0 +1,16 @@
+{
+  "preflight_schema_id": "edge-imci-nigerian-english-v1-2-preflight-v1",
+  "generation_run_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T10:57:51Z",
+  "authorization_id": "edge-imci-nigerian-english-v1-2-canary-authorization",
+  "authorization_sha256": "fccd1e83811a72825434b5b24f8ca467f9aa613cdde4a37fa7cce7b0e0ded565",
+  "scheduled_attempts": 3,
+  "maximum_budget_usd": 0.25,
+  "maximum_reserved_total_usd": 0.09,
+  "teacher_target_blind": true,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false
+}

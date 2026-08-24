@@ -1,0 +1,119 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-065-ear-observed-pus-no-history__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3__hpg-065-ear-observed-pus-no-history__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-3",
+  "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.3",
+    "prompt_sha256": "4a7cbb1b70324336eb0d3cfb252ce00c1e2f18c299d3004b71d96fc17d9fe348"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "429a9ecb7f5b14bccbe8d834942af242e838dbfa9a844e721166ebcbfcb9882e",
+  "requested_at": "2026-08-23T14:05:58Z",
+  "completed_at": "2026-08-23T14:06:04Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-065-ear-observed-pus-no-history\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin dey 18 months old. Dem see pus dey comot from pikin ear. Pikin get ear wahala. Pikin no get cough or e no dey breathe hard. Dem no see signs say pikin dey vomit everything. Pikin never get convulsion before. Pikin no dey convulse now. Dem check, pikin no dey weak or e no faint. Pikin fit drink or suck breast. Pikin no get ear pain. Dem no see ear discharge before. Dem no see swelling wey pain behind pikin ear. Pikin no get diarrhoea. Pikin no get fever.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin dey 18 months old.\"},{\"fact_id\":\"ear.pus_draining_from_ear\",\"evidence_text\":\"Dem see pus dey comot from pikin ear.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin get ear wahala.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin no get cough or e no dey breathe hard.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Dem no see signs say pikin dey vomit everything.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get convulsion before.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Dem check, pikin no dey weak or e no faint.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or suck breast.\"},{\"fact_id\":\"ear.ear_pain\",\"evidence_text\":\"Pikin no get ear pain.\"},{\"fact_id\":\"ear.ear_discharge_reported\",\"evidence_text\":\"Dem no see ear discharge before.\"},{\"fact_id\":\"ear.tender_swelling_behind_ear\",\"evidence_text\":\"Dem no see swelling wey pain behind pikin ear.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin no get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin no get fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin dey 18 months old. Dem see pus dey comot from pikin ear. Pikin get ear wahala. Pikin no get cough or e no dey breathe hard. Dem no see signs say pikin dey vomit everything. Pikin never get convulsion before. Pikin no dey convulse now. Dem check, pikin no dey weak or e no faint. Pikin fit drink or suck breast. Pikin no get ear pain. Dem no see ear discharge before. Dem no see swelling wey pain behind pikin ear. Pikin no get diarrhoea. Pikin no get fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin dey 18 months old."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "Dem see pus dey comot from pikin ear."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin get ear wahala."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin no get cough or e no dey breathe hard."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Dem no see signs say pikin dey vomit everything."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Dem check, pikin no dey weak or e no faint."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or suck breast."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "Pikin no get ear pain."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "Dem no see ear discharge before."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "Dem no see swelling wey pain behind pikin ear."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1276,
+    "output_tokens": 554,
+    "cached_input_tokens": 0,
+    "latency_ms": 6123,
+    "retry_count": 0,
+    "provider_request_id": "resp_0b317e0b81e7217f016a8afe47216081939a446da7ef6ecda9",
+    "raw_usage": {
+      "input_tokens": 1276,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 554,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1830
+    }
+  }
+}

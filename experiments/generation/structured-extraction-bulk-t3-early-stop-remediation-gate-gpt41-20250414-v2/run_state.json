@@ -1,0 +1,99 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2",
+  "updated_at": "2026-08-23T14:39:50Z",
+  "remote_attempts_started": 6,
+  "deterministic_passes": 6,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 7397,
+    "output_tokens": 4007,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2",
+    "unit_count": 6,
+    "state_counts": {
+      "TERMINAL": 6
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-016-resp-oximeter-89-9",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+        "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "f5cc7d783d5687c407b28540a249e1c53ad8ce4311cbe459cfec86c1c0a5cc0d",
+        "review_item_id": "review-57e820b1482b01b7ebd42858",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-016-resp-oximeter-89-9__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-023-resp-child-not-calm",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+        "semantic_case_id": "hpg-023-resp-child-not-calm",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "95afe8dd5401bb7d52083f70d1b94fdfaa32469d8d2c293bbab2a3a02f756762",
+        "review_item_id": "review-307a168ecbf0701f48487dfc",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-023-resp-child-not-calm__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-032-diarrhoea-duration-13",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+        "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "16c697d2a07e7906ede364bcb8577da803b3d13626847aff75a045178324e74c",
+        "review_item_id": "review-8022963c757d82ac58104c6e",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-032-diarrhoea-duration-13__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-057-fever-malaria-and-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "c5fda103189b841fe46e848a3184b124d9fc6e168a1d6e9b7c94df97d0a35506",
+        "review_item_id": "review-8014bbfbdc64b80a1ade5efa",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-9__hpg-057-fever-malaria-and-measles__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-003-danger-vomits-everything",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+        "semantic_case_id": "hpg-003-danger-vomits-everything",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "73103b4a606ef39bef853411b57b8c1ac03066a98f8d8c55f664d3dec2d77c70",
+        "review_item_id": "review-f44456e901f59170f7d3e842",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-003-danger-vomits-everything__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-060-fever-test-result-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+        "semantic_case_id": "hpg-060-fever-test-result-unknown",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "e48a51bd640103089f7dd7cec779647731d7da7d2d0dd07e35d38da157ec8c5b",
+        "review_item_id": "review-329a11e711407bcc6aa7c302",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-060-fever-test-result-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

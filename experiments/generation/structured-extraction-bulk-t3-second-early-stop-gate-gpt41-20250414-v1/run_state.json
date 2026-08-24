@@ -1,0 +1,147 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T14:49:51Z",
+  "remote_attempts_started": 10,
+  "deterministic_passes": 8,
+  "deterministic_rejections": 2,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 11251,
+    "output_tokens": 6778,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1",
+    "unit_count": 10,
+    "state_counts": {
+      "TERMINAL": 10
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-6__hpg-058-fever-measles-last-three-months",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-6",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "c60e7fffb4fefd9b6feecf2d2c175c7ca398510a062e218ea7374dea4089bbf1",
+        "review_item_id": "review-93c69913439a1a05e14b3c44",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-6__hpg-058-fever-measles-last-three-months__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-065-ear-observed-pus-no-history",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "59fc76a082c51a5f940966dcc1b814f61b394b0a7210bd410e70ca8b9188ef61",
+        "review_item_id": "review-a279876264a5919683595567",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-065-ear-observed-pus-no-history__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-066-ear-mastoiditis",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-066-ear-mastoiditis",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "59c6979b379f5887c80735cf797eea631be6c70e5a81586189f0da88f05ddf40",
+        "review_item_id": "review-948033a160298a91a39dd5af",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-066-ear-mastoiditis__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "4b5fba7e53a28596b27a318bf29eac85c56a894988d011ecd9a1c3b013815514",
+        "review_item_id": "review-894745145004b89c5686c336",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-10__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "270e597c0734acc6c14e15d6c7914ddd10b12d1411b8b0008370f772cf35741d",
+        "review_item_id": "review-13fda3ecc95606ccc8970a17",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-001-all-negative__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-002-danger-unable-to-drink-or-breastfeed",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "d2b72d23ae66b1a81b00c33a2c3b9f4d9c6dd7bf04638a16c8f27b7422f54793",
+        "review_item_id": "review-daf3cdf99c0f738c28975dd4",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-002-danger-unable-to-drink-or-breastfeed__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-005-danger-lethargic-or-unconscious",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "98fd6c6c18c186b74d3420613921f678fdde1cb5ba9a081b801c8a61ecfcdc8d",
+        "review_item_id": "review-e7cd82062caa5202ae933945",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-005-danger-lethargic-or-unconscious__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-034-diarrhoea-severe-persistent",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-034-diarrhoea-severe-persistent",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "3a2ab029c514b3bb0eda6a0d73b03c329a9c7b1709ce39bbf0b4c52dc0c1b1ed",
+        "review_item_id": "review-6b0f898bcdcd626b346165ec",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-034-diarrhoea-severe-persistent__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "5832781e76344784f233d6d27d8e859f3e69cfbe21ab3d383a4493347ab6a165",
+        "review_item_id": "review-bdaeb32aa2f6307632ad4109",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "ffd9514f0c4f28364a929a48ff85a72d0f2801e57f94288ceadfa85304680a82",
+        "review_item_id": "review-bc73f769a38cb1f0a75a3782",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-second-early-stop-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

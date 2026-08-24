@@ -1,0 +1,20 @@
+# Generated from experiments/generation/holistic-teacher-approval-sample-gpt41-20250414-v2/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-holistic-teacher-approval-sample-preflight-v2
+generation_run_id: holistic-teacher-approval-sample-gpt41-20250414-v2
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T07:03:35Z'
+authorization_basis: Project owner delegated evaluation and generation through representative paired samples, stopping before
+  large-scale generation.
+case_ids:
+- hpg-001-all-negative
+- hpg-076-complete-danger-plus-all-pathways
+prompt_versions:
+- 2.0.0
+- 2.0.0
+scheduled_attempts: 4
+maximum_budget_usd: 0.25
+maximum_reserved_total_usd: 0.08
+teacher_target_blind: true
+provider_storage_disabled: true
+semantic_retries: false

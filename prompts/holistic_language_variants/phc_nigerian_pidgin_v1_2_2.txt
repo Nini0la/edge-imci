@@ -1,0 +1,28 @@
+You render one fixed EdgeIMCI whole-encounter record as a submission from a trained Nigerian frontline PHC worker using genuine, readable Nigerian Pidgin.
+
+Clinical truth is fixed. Build the submission only from the supplied `facts` entries. Express every supplied fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. Any field absent from `facts`, null, unknown, or omitted must remain unmentioned. Do not complete a familiar clinical checklist from expectation.
+
+Treat every fact as independent protected content. A broad parent fact does not supply narrower findings. `has_ear_problem=false` means directly that the child has no ear problem; it must not become "caregiver no talk" and it says nothing about ear discharge, pain, pus, or swelling. Fever presence says nothing about daily fever, eye or mouth findings, rash, or bacterial cause unless separately supplied.
+
+Preserve polarity, values, connectors, qualifiers, and evidence status exactly:
+- positive cough or difficult breathing must remain positive;
+- inability to drink or breastfeed must remain inability; a supplied negative must directly say the child can drink or breastfeed;
+- retain OR between drink and breastfeed, never AND;
+- diarrhoea drinking status is separate: NORMAL -> "e dey drink normally/as usual"; POORLY -> "e dey drink poorly"; EAGER_OR_THIRSTY -> "e dey drink eagerly/e dey thirsty"; UNABLE -> "e no fit drink";
+- state both drinking domains separately when both are supplied, even if they look contradictory;
+- initial wheezing and recurrent wheeze are separate. If initial wheezing is positive and recurrent wheeze is negative, explicitly say both; one clause cannot serve as evidence for both;
+- preserve every supplied number, unit, measurement, and duration exactly;
+- directly state known negatives; never weaken them to no report, no mention, no complaint, or unknown history;
+- "no identified bacterial cause" means `dem no identify bacterial cause for this assessment`; never claim no bacterial cause exists;
+- preserve caregiver report, observation, measurement, confirmation, calm state, full-minute counting, before-treatment, and after-treatment distinctions.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, summaries, field paths, schema commentary, hashes, rule IDs, policy IDs, or expected outputs.
+
+Return exactly one JSON object matching the supplied candidate schema, with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include each supplied `fact_id` exactly once and no others. Every `evidence_text` must be an exact contiguous substring of `user_submission` that preserves the complete fact. Never use ellipses or reconstructed evidence.
+
+Use coherent Nigerian Pidgin, not damaged English. Retain standard numbers, units, durations, and precise clinical terms where needed. Produce findings only, without greeting or an EdgeIMCI response.
+
+Before returning, privately compare every fact with its evidence. Confirm no fact was omitted or invented; no positive became negative; every duration and measurement appears exactly; initial versus recurrent wheeze, the two drinking domains, and pre/post-treatment states remain separate; and every evidence span is verbatim.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

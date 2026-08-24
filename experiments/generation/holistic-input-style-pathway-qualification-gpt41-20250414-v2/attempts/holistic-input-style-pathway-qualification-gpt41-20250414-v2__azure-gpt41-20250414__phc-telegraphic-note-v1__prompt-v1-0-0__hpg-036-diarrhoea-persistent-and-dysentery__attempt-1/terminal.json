@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-036-diarrhoea-persistent-and-dysentery__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-036-diarrhoea-persistent-and-dysentery",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+  "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.0.0",
+    "prompt_sha256": "8530c78502a3b4e9cc6e750767a0921ce00e30a7ed8e08678aaac3a6723a801a"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "6f73c0c256dfd13686b21f367346e4af1224781cf54b224b255bd3a731ba5c9c",
+  "requested_at": "2026-08-23T12:31:25Z",
+  "completed_at": "2026-08-23T12:31:33Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-036-diarrhoea-persistent-and-dysentery\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"18mo. Diarrhoea 14d. Blood in stool. Drinking normal. Skin pinch normal. No sunken eyes. Not restless/irritable. No cough/diff. breathing. No ear problem. No fever. Not convulsing now. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Does not vomit everything.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"18mo\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"Diarrhoea\"},\n    {\"fact_id\": \"diarrhoea.duration_days\", \"evidence_text\": \"14d\"},\n    {\"fact_id\": \"diarrhoea.blood_in_stool\", \"evidence_text\": \"Blood in stool\"},\n    {\"fact_id\": \"diarrhoea.dehydration.drinking_status\", \"evidence_text\": \"Drinking normal\"},\n    {\"fact_id\": \"diarrhoea.dehydration.skin_pinch\", \"evidence_text\": \"Skin pinch normal\"},\n    {\"fact_id\": \"diarrhoea.dehydration.sunken_eyes\", \"evidence_text\": \"No sunken eyes\"},\n    {\"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\", \"evidence_text\": \"Not restless/irritable\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"No cough/diff. breathing\"},\n    {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"No ear problem\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"No fever\"},\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"Not convulsing now\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"No convulsions\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Not lethargic/unconscious\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Able to drink or breastfeed\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Does not vomit everything\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18mo. Diarrhoea 14d. Blood in stool. Drinking normal. Skin pinch normal. No sunken eyes. Not restless/irritable. No cough/diff. breathing. No ear problem. No fever. Not convulsing now. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Does not vomit everything.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18mo"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Diarrhoea"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "14d"
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Blood in stool"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Drinking normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin pinch normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "No sunken eyes"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Not restless/irritable"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough/diff. breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever"
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Not convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic/unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Does not vomit everything"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1249,
+    "output_tokens": 588,
+    "cached_input_tokens": 0,
+    "latency_ms": 7804,
+    "retry_count": 0,
+    "provider_request_id": "resp_020b84c0933f1361016a8ae81e221c8196901af3052d936aee",
+    "raw_usage": {
+      "input_tokens": 1249,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 588,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1837
+    }
+  }
+}

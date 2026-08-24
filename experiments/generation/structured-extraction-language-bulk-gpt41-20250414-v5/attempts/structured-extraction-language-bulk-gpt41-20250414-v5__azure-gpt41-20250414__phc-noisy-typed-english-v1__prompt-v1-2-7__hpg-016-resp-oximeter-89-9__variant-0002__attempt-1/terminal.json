@@ -1,0 +1,146 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-016-resp-oximeter-89-9__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-016-resp-oximeter-89-9__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7",
+  "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.7",
+    "prompt_sha256": "cbc4637fe93964308058c573e29af69bf7015a41b218cf8605ebd6de14979e43"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "6228450a1731c7c7a76e5926ff7b9078d1b92d468cc7b3e0320fffbc50577b20",
+  "requested_at": "2026-08-23T14:31:28Z",
+  "completed_at": "2026-08-23T14:31:34Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-016-resp-oximeter-89-9\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"No convulsing now, no history of convulsions, child is not lethargic or unconscious. Child is able to drink and breastfeed, does not vomit everything. Age is eighteen months. Cough or difficulty breathing is present. No diarrhoea. No ear problems reported. No fever today. I counted breaths for full minute. Chest indrawing is not seen. Child was calm during assessment. Cough has lasted three days. Oxygen saturation measured at 89.9 percent. Pulse oximeter is available here. No recurrent wheeze noted. Respiratory rate is thirty-five. No stridor while calm. Wheezing not present.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"No convulsing now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"child is not lethargic or unconscious\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Child is able to drink and breastfeed\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Age is eighteen months.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Cough or difficulty breathing is present.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"No diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"No ear problems reported.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"No fever today.\"},{\"fact_id\":\"respiratory.breaths_counted_one_minute\",\"evidence_text\":\"I counted breaths for full minute.\"},{\"fact_id\":\"respiratory.chest_indrawing\",\"evidence_text\":\"Chest indrawing is not seen.\"},{\"fact_id\":\"respiratory.child_calm\",\"evidence_text\":\"Child was calm during assessment.\"},{\"fact_id\":\"respiratory.cough_duration_days\",\"evidence_text\":\"Cough has lasted three days.\"},{\"fact_id\":\"respiratory.oxygen_saturation_percent\",\"evidence_text\":\"Oxygen saturation measured at 89.9 percent.\"},{\"fact_id\":\"respiratory.pulse_oximeter_available\",\"evidence_text\":\"Pulse oximeter is available here.\"},{\"fact_id\":\"respiratory.recurrent_wheeze\",\"evidence_text\":\"No recurrent wheeze noted.\"},{\"fact_id\":\"respiratory.respiratory_rate\",\"evidence_text\":\"Respiratory rate is thirty-five.\"},{\"fact_id\":\"respiratory.stridor_when_calm\",\"evidence_text\":\"No stridor while calm.\"},{\"fact_id\":\"respiratory.wheezing\",\"evidence_text\":\"Wheezing not present.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "No convulsing now, no history of convulsions, child is not lethargic or unconscious. Child is able to drink and breastfeed, does not vomit everything. Age is eighteen months. Cough or difficulty breathing is present. No diarrhoea. No ear problems reported. No fever today. I counted breaths for full minute. Chest indrawing is not seen. Child was calm during assessment. Cough has lasted three days. Oxygen saturation measured at 89.9 percent. Pulse oximeter is available here. No recurrent wheeze noted. Respiratory rate is thirty-five. No stridor while calm. Wheezing not present.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "child is not lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Child is able to drink and breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything"
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age is eighteen months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Cough or difficulty breathing is present."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problems reported."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever today."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "I counted breaths for full minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest indrawing is not seen."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Child was calm during assessment."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough has lasted three days."
+      },
+      {
+        "fact_id": "respiratory.oxygen_saturation_percent",
+        "evidence_text": "Oxygen saturation measured at 89.9 percent."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter is available here."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "No recurrent wheeze noted."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Respiratory rate is thirty-five."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "No stridor while calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Wheezing not present."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "LOGICAL_CONNECTOR_OR_TO_AND",
+      "MEASUREMENT_OR_DURATION_SHIFT"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1253,
+    "output_tokens": 670,
+    "cached_input_tokens": 0,
+    "latency_ms": 5831,
+    "retry_count": 0,
+    "provider_request_id": "resp_0581ad1e81c7abfc016a8b04414f1c81939849ca3de22780d3",
+    "raw_usage": {
+      "input_tokens": 1253,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 670,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1923
+    }
+  }
+}

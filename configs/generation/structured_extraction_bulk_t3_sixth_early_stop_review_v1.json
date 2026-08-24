@@ -1,0 +1,27 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-sixth-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v10",
+  "candidate_attempts": 48,
+  "transport_failures": 0,
+  "raw_passes": 40,
+  "raw_rejections_reviewed": 8,
+  "semantic_rejections": 2,
+  "annotation_only_overrides": 6,
+  "pass_sample_deferred_to_final_campaign_review": true,
+  "observed_semantic_defects": [
+    {"variant_style": "NIGERIAN_PIDGIN", "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways", "defect": "Known-negative caregiver ear-discharge history was weakened to absence of report."},
+    {"variant_style": "NOISY_TYPED_ENGLISH", "semantic_case_id": "hpg-024-resp-count-not-one-minute", "defect": "The false one-minute respiratory-count validity observation was omitted."}
+  ],
+  "boundary_gate": {
+    "generation_run_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1",
+    "attempts": 7,
+    "semantic_approved": 7,
+    "semantic_rejected": 0,
+    "deterministic_passes": 6,
+    "reviewed_annotation_only_overrides": 1
+  },
+  "release_decision": "RELEASE_EXACT_SLOT_1250_ATTEMPT_CONTINUATION",
+  "authorization": {"bulk_continuation_released": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

@@ -1,0 +1,231 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v11",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v11__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13__hpg-076-complete-danger-plus-all-pathways__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v11__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13__hpg-076-complete-danger-plus-all-pathways__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13",
+  "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.13",
+    "prompt_sha256": "5129c8ae87d949855e610baf086747b8c734539dee4091230ae7b2510cc723d1"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "8752da6a767a026c6104fc070ad35141d30048bcc7912fe912cc40add0344317",
+  "requested_at": "2026-08-23T15:33:22Z",
+  "completed_at": "2026-08-23T15:33:40Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-076-complete-danger-plus-all-pathways\",\n  \"strategy_id\": \"phc-noisy-typed-english-v1\",\n  \"user_submission\": \"child is 18mo. has cough or difficult breathing. breaths counted for one full minute. respiratory rate 35. child was calm. no chest indrawing. no stridor when calm. no wheezing. no recurrent wheeze. pulse oximeter not available. cough for 3 days. has fever. fever for 2 days. temp 38.0C. malaria risk high. malaria test available, result negative. no obvious cause of fever present. no red eyes. no runny nose. no stiff neck. no generalized rash. no identified bacterial cause was identified in this assessment. no measles cough. no measles within last 3 months. has diarrhoea. diarrhoea for 3 days. no blood in stool. diarrhoea drinking status is normal. not restless or irritable. skin pinch normal. no sunken eyes. has ear problem. caregiver confirms no current or previous ear discharge. no ear pain. no pus draining from ear. no tender swelling behind ear. not convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"child is 18mo.\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"has cough or difficult breathing.\"},\n    {\"fact_id\": \"respiratory.breaths_counted_one_minute\", \"evidence_text\": \"breaths counted for one full minute.\"},\n    {\"fact_id\": \"respiratory.respiratory_rate\", \"evidence_text\": \"respiratory rate 35.\"},\n    {\"fact_id\": \"respiratory.child_calm\", \"evidence_text\": \"child was calm.\"},\n    {\"fact_id\": \"respiratory.chest_indrawing\", \"evidence_text\": \"no chest indrawing.\"},\n    {\"fact_id\": \"respiratory.stridor_when_calm\", \"evidence_text\": \"no stridor when calm.\"},\n    {\"fact_id\": \"respiratory.wheezing\", \"evidence_text\": \"no wheezing.\"},\n    {\"fact_id\": \"respiratory.recurrent_wheeze\", \"evidence_text\": \"no recurrent wheeze.\"},\n    {\"fact_id\": \"respiratory.pulse_oximeter_available\", \"evidence_text\": \"pulse oximeter not available.\"},\n    {\"fact_id\": \"respiratory.cough_duration_days\", \"evidence_text\": \"cough for 3 days.\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"has fever.\"},\n    {\"fact_id\": \"fever.fever_duration_days\", \"evidence_text\": \"fever for 2 days.\"},\n    {\"fact_id\": \"fever.temperature_c\", \"evidence_text\": \"temp 38.0C.\"},\n    {\"fact_id\": \"fever.malaria_risk\", \"evidence_text\": \"malaria risk high.\"},\n    {\"fact_id\": \"fever.malaria_test_available\", \"evidence_text\": \"malaria test available,\"},\n    {\"fact_id\": \"fever.malaria_test_result\", \"evidence_text\": \"result negative.\"},\n    {\"fact_id\": \"fever.obvious_cause_of_fever_present\", \"evidence_text\": \"no obvious cause of fever present.\"},\n    {\"fact_id\": \"fever.red_eyes\", \"evidence_text\": \"no red eyes.\"},\n    {\"fact_id\": \"fever.runny_nose\", \"evidence_text\": \"no runny nose.\"},\n    {\"fact_id\": \"fever.stiff_neck\", \"evidence_text\": \"no stiff neck.\"},\n    {\"fact_id\": \"fever.generalized_rash\", \"evidence_text\": \"no generalized rash.\"},\n    {\"fact_id\": \"fever.identified_bacterial_cause_present\", \"evidence_text\": \"no identified bacterial cause was identified in this assessment.\"},\n    {\"fact_id\": \"fever.measles_cough\", \"evidence_text\": \"no measles cough.\"},\n    {\"fact_id\": \"fever.measles_within_last_3_months\", \"evidence_text\": \"no measles within last 3 months.\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"has diarrhoea.\"},\n    {\"fact_id\": \"diarrhoea.duration_days\", \"evidence_text\": \"diarrhoea for 3 days.\"},\n    {\"fact_id\": \"diarrhoea.blood_in_stool\", \"evidence_text\": \"no blood in stool.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.drinking_status\", \"evidence_text\": \"diarrhoea drinking status is normal.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\", \"evidence_text\": \"not restless or irritable.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.skin_pinch\", \"evidence_text\": \"skin pinch normal.\"},\n    {\"fact_id\": \"diarrhoea.dehydration.sunken_eyes\", \"evidence_text\": \"no sunken eyes.\"},\n    {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"has ear problem.\"},\n    {\"fact_id\": \"ear.ear_discharge_reported\", \"evidence_text\": \"caregiver confirms no current or previous ear discharge.\"},\n    {\"fact_id\": \"ear.ear_pain\", \"evidence_text\": \"no ear pain.\"},\n    {\"fact_id\": \"ear.pus_draining_from_ear\", \"evidence_text\": \"no pus draining from ear.\"},\n    {\"fact_id\": \"ear.tender_swelling_behind_ear\", \"evidence_text\": \"no tender swelling behind ear.\"},\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"not convulsing now.\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"no history of convulsions.\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"not lethargic or unconscious.\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"able to drink or breastfeed.\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"does not vomit everything.\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "child is 18mo. has cough or difficult breathing. breaths counted for one full minute. respiratory rate 35. child was calm. no chest indrawing. no stridor when calm. no wheezing. no recurrent wheeze. pulse oximeter not available. cough for 3 days. has fever. fever for 2 days. temp 38.0C. malaria risk high. malaria test available, result negative. no obvious cause of fever present. no red eyes. no runny nose. no stiff neck. no generalized rash. no identified bacterial cause was identified in this assessment. no measles cough. no measles within last 3 months. has diarrhoea. diarrhoea for 3 days. no blood in stool. diarrhoea drinking status is normal. not restless or irritable. skin pinch normal. no sunken eyes. has ear problem. caregiver confirms no current or previous ear discharge. no ear pain. no pus draining from ear. no tender swelling behind ear. not convulsing now. no history of convulsions. not lethargic or unconscious. able to drink or breastfeed. does not vomit everything.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "child is 18mo."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "has cough or difficult breathing."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "breaths counted for one full minute."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "respiratory rate 35."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "child was calm."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "no chest indrawing."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "no stridor when calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "no wheezing."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "no recurrent wheeze."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "pulse oximeter not available."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "cough for 3 days."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "has fever."
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "fever for 2 days."
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "temp 38.0C."
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "malaria risk high."
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "malaria test available,"
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "result negative."
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "no obvious cause of fever present."
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "no red eyes."
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "no runny nose."
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "no stiff neck."
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "no generalized rash."
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "no identified bacterial cause was identified in this assessment."
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "no measles cough."
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "no measles within last 3 months."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "has diarrhoea."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "diarrhoea for 3 days."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "no blood in stool."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "diarrhoea drinking status is normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "skin pinch normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "no sunken eyes."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "has ear problem."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "caregiver confirms no current or previous ear discharge."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "no ear pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "no pus draining from ear."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "no tender swelling behind ear."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "not convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1960,
+    "output_tokens": 1487,
+    "cached_input_tokens": 0,
+    "latency_ms": 17651,
+    "retry_count": 0,
+    "provider_request_id": "resp_06bbe74d44bfed55016a8b12c30bb08194b8142a2fedb82c89",
+    "raw_usage": {
+      "input_tokens": 1960,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1487,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3447
+    }
+  }
+}

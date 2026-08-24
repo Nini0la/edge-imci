@@ -1,0 +1,36 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-fifth-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9",
+  "terminal_attempts": 112,
+  "candidate_attempts": 104,
+  "transport_failures": 8,
+  "raw_passes": 87,
+  "raw_rejections_reviewed": 17,
+  "semantic_rejections": 2,
+  "annotation_only_overrides": 15,
+  "pass_sample_deferred_to_final_campaign_review": true,
+  "observed_semantic_defects": [
+    {"variant_style": "NIGERIAN_PIDGIN", "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious", "defect": "The general danger-sign drinking observation reversed from able to unable."},
+    {"variant_style": "NOISY_TYPED_ENGLISH", "semantic_case_id": "hpg-057-fever-malaria-and-measles", "defect": "Generalized rash reversed from present to absent."}
+  ],
+  "boundary_gate": {
+    "generation_run_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1",
+    "attempts": 5,
+    "semantic_approved": 5,
+    "semantic_rejected": 0,
+    "deterministic_passes": 3,
+    "reviewed_annotation_only_overrides": 2
+  },
+  "transport_reconciliation": {
+    "policy": "RETRY_SAME_ALLOCATION_SLOT",
+    "transport_failures_do_not_complete_language_slots": true,
+    "candidate_slots_completed_before_next_continuation": 844,
+    "remaining_language_slots": 1298,
+    "total_remote_attempt_ceiling_after_reconciliation": 2150,
+    "maximum_reserved_total_usd": 43.0
+  },
+  "release_decision": "RELEASE_EXACT_SLOT_1298_ATTEMPT_CONTINUATION",
+  "authorization": {"bulk_continuation_released": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

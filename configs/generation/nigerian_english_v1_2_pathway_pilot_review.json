@@ -1,0 +1,51 @@
+{
+  "review_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-review-v1",
+  "review_version": "1.0.0",
+  "status": "COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "reviewer": "Codex, under project-owner delegation",
+  "generation_run_id": "holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1",
+  "renderer_git_commit": "a1c46749961af2f4253da31dbf780a442e512b45",
+  "approved_case_ids": [
+    "hpg-001-all-negative",
+    "hpg-002-danger-unable-to-drink-or-breastfeed",
+    "hpg-006-danger-convulsing-now",
+    "hpg-008-resp-age-2-rate-50",
+    "hpg-014-resp-chest-hiv-positive",
+    "hpg-016-resp-oximeter-89-9",
+    "hpg-021-resp-post-bronchodilator-fast",
+    "hpg-023-resp-child-not-calm",
+    "hpg-027-diarrhoea-no-dehydration",
+    "hpg-031-diarrhoea-severe-age-24-cholera",
+    "hpg-036-diarrhoea-persistent-and-dysentery",
+    "hpg-038-diarrhoea-negative-does-not-reuse",
+    "hpg-042-fever-high-negative",
+    "hpg-044-fever-low-obvious-cause",
+    "hpg-046-fever-no-risk",
+    "hpg-052-fever-identified-bacterial-cause",
+    "hpg-055-fever-severe-measles-cornea",
+    "hpg-064-ear-chronic-discharge-14",
+    "hpg-075-contradiction-drinking"
+  ],
+  "rejected_cases": {
+    "hpg-028-diarrhoea-some-dehydration": ["DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"],
+    "hpg-061-ear-no-infection": ["KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"],
+    "hpg-065-ear-observed-pus-no-history": ["KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"],
+    "hpg-068-cross-four-pathways": ["KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"],
+    "hpg-069-cross-urgent-dehydration-ear": ["KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT"]
+  },
+  "evidence_overrides": {
+    "hpg-042-fever-high-negative": {
+      "fever.runny_nose": "The child does not have red eyes, runny nose, or stiff neck.",
+      "fever.stiff_neck": "The child does not have red eyes, runny nose, or stiff neck."
+    }
+  },
+  "recipe_decision": "REVISE_BEFORE_SCALE",
+  "next_prompt_version": "1.3.0",
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T16:05:36Z",
+  "remote_attempts_started": 3,
+  "deterministic_passes": 3,
+  "deterministic_rejections": 0,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 4677,
+    "output_tokens": 3180,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1",
+    "unit_count": 3,
+    "state_counts": {
+      "TERMINAL": 3
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-053-fever-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12",
+        "semantic_case_id": "hpg-053-fever-measles",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "7c73250f46604ea61a998b46e67fb86ce0d6fd6164f1ef1167f8721ad74ca850",
+        "review_item_id": "review-c00695b9c45efcec4dfd1315",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-053-fever-measles__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-057-fever-malaria-and-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "31d41067aa24ec0b213892255f69de775c16953cf7272c8c8589f98bd6ec8c8d",
+        "review_item_id": "review-68b757c671f6c928fbe60707",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-057-fever-malaria-and-measles__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-058-fever-measles-last-three-months",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "fec5c6e953396b5a26fbd69eef6ad9ea8dd523599a12878c94feff08505b3c16",
+        "review_item_id": "review-d3c8096cde1d8708ee7a942a",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-12__hpg-058-fever-measles-last-three-months__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

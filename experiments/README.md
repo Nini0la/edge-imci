@@ -1,6 +1,6 @@
 # Experiment and edge-profiling guidance
 
-This directory is the home for EdgeIMCI model experiments and their evidence. The primary hackathon research question is now whether a small instruct model can transform free-form findings from a supported whole sick-child encounter into the complete set of classifications and an integrated treatment, referral, follow-up, and management synthesis—while handling incomplete encounters safely.
+This directory is the home for EdgeIMCI model experiments and their evidence. The primary learned-task question is whether a small instruct model can transform free-form findings from a supported whole sick-child encounter into the canonical model-facing encounter JSON without losing positives, negatives, UNKNOWN state, measurements, durations or qualifiers. The deterministic clinical pipeline—not the model—then owns completeness, classification, urgency, referral and action synthesis.
 
 The current expanded substrate is `imci-major-sick-child-v1`, paired with `imci-major-sick-child-holistic-completeness-v2` and the approved hackathon decision set `imci-major-sick-child-review-decisions-v1`. Its scope is children aged `2 <= age_months < 60` across general danger signs, cough/difficult breathing, diarrhoea, fever including measles, and ear problem. This is complete only relative to that supported initial-encounter scope, not every IMCI activity. The 13 blocking clinical/policy questions are resolved for this bounded hackathon representation; this is not production clinical approval. Product-level golden-slice work may proceed after verification, while bulk generation and training remain not started.
 
@@ -8,6 +8,8 @@ Before the project begins running many SFT, RL, quantization, and edge-deploymen
 
 1. an **experiment registry** that records every model/training configuration and links it to its evaluation results; and
 2. a **profiling registry** that stores the ASUS/ADTC edge evidence separately from model-quality results.
+
+Candidate-specific fine-tuning also has a mandatory predecessor: exact model-runtime combinations are admitted on the ASUS Ubuntu deployment computer using a frozen repository checkout, reviewed model checksums, matched task and neutral-speed workloads, and sustained system/thermal profiling. The converted or quantized post-training artifact is then requalified with the same harness. See [`docs/target_device_model_runtime_qualification_plan.md`](../docs/target_device_model_runtime_qualification_plan.md).
 
 The purpose is to make the state of the experimental program explicit and machine-readable. An experiment is discoverable from committed artifacts rather than reconstructed from conversation, filenames, or memory. The matrix is a research map, not a commitment to run every possible branch. The initial rows remain `PLANNED`; this infrastructure implementation did not execute any scientific work or declare the proposed holistic golden set approved.
 
@@ -30,6 +32,8 @@ experiments/
 │       ├── runs/                   # immutable official reports plus sidecars
 │       ├── summaries/              # computed aggregates by edge profile
 │       └── comparisons/            # participant-versus-audit verdicts
+├── qualification/
+│   └── asus/                        # admission and paired post-training evidence
 ├── baselines/                           # untuned model run artifacts
 ├── sft/                                 # supervised fine-tuning artifacts
 └── rl/                                  # later reward/RL artifacts
@@ -104,7 +108,9 @@ Evidence uses repository-relative artifact paths after validated evidence exists
 
 Add fields when needed to identify an experiment unambiguously, but keep detailed per-case results, prompts, runtime metadata, and hardware measurements in their own artifacts. The matrix should remain compact enough to scan and automate against.
 
-Classification and management are separate evaluation axes. A model may return the right labels while producing an unsafe or incomplete management plan. Completeness and urgent-incomplete behavior are likewise separate: early urgent action is authorized when source-required, but early encounter completion is not. Lundin remains a complementary external competence/generalization benchmark and must not be merged with EdgeIMCI product metrics into a single accuracy number.
+Primary model metrics are schema validity, whole-record exact match, field accuracy, positive/negative/UNKNOWN preservation, measurements, durations, qualifiers and intervention-state accuracy. The predicted encounter is also passed through the same deterministic engine for downstream classification, completeness, management, referral and separately visible urgent-action equivalence. Lundin remains a complementary external competence/generalization benchmark and must not be merged with EdgeIMCI product metrics into a single accuracy number.
+
+The canonical dataset policy is `configs/training/structured_extraction_dataset_policy_v1.json`. Splits are assigned to parent semantic encounters, never individual paraphrases. Cases 77 and 78 are reserved out-of-scope TEST parents; the separate `oos-extract-young-respiratory-001` and `oos-extract-older-fever-001` parents are forced to TRAIN and await reviewed language. Longitudinal Plan B/C reassessment state remains corpus-ineligible, generic acquisition mode is not invented as a v1 label, and contradiction state remains a deterministic derived output.
 
 ### Secondary and component evaluation
 
@@ -116,7 +122,7 @@ The older narrow evaluation machinery remains useful for:
 - the existing 14-case component golden suite; and
 - controlled semantic-to-language conversion checks.
 
-These are secondary/component/regression evaluations under the v2 product framing. Preserve their historical artifacts and continue running them where relevant, but do not treat them as substitutes for whole-encounter classification, integrated management, completeness, or urgent-incomplete evaluation. Progressive one-question-at-a-time interaction is a fallback and research mode rather than the primary product axis.
+These are secondary/component/regression evaluations under the current product framing. Preserve their historical artifacts and continue running them where relevant, but do not treat them as substitutes for structured-extraction evaluation and downstream deterministic decision equivalence. Progressive one-question-at-a-time interaction is a fallback and research mode rather than the primary product axis.
 
 ### Priority and lifecycle
 
@@ -148,7 +154,7 @@ Changing lifecycle status must not mutate an experiment into a different model, 
 - Before a row becomes `READY`, its fields or linked versioned configuration must resolve the exact checkpoint revision, dataset version and mixture, training recipe, conversion settings, and deployed precision. A human-readable model name alone is not reproducible identity.
 - Fill evaluation references only after the referenced artifacts exist and have passed their relevant checks.
 - Keep applicable but unavailable evidence references as `null`. Declare non-applicability explicitly; never use placeholder paths or fabricated scores.
-- Keep holistic classification, integrated management, completeness, urgent-incomplete, Lundin, and any secondary/component results separate. Do not collapse incompatible benchmarks into one score.
+- Keep structured extraction, downstream decision equivalence, urgent-action equivalence, Lundin, and any secondary/component results separate. Do not collapse incompatible benchmarks into one score.
 - Treat JSON as canonical. Regenerate YAML after every JSON change and verify semantic equality.
 - Prefer append-only history. If an experiment is superseded, record that state explicitly rather than silently turning its row into another experiment.
 - Validate `priority` and `status` against their fixed enumerations.
@@ -159,9 +165,11 @@ The matrix should show the research landscape without implying that every row wi
 
 **Core / critical path**
 
-- Qwen3-1.7B base holistic baseline;
-- the first Qwen3-1.7B SFT;
-- post-SFT holistic classification, integrated-management, completeness, and urgent-incomplete evaluation;
+- Qwen3-1.7B base structured-extraction baseline;
+- ASUS admission of the exact untuned candidate model-runtime combination;
+- the first Qwen3-1.7B extraction SFT;
+- post-SFT structured extraction and downstream decision-equivalence evaluation;
+- same-ASUS requalification of the exact converted or quantized deployment artifact; and
 - ADTC profiling of the exact deployment representation.
 
 Qwen3-4B may serve as a larger capacity anchor when that comparison is affordable and useful.
@@ -187,31 +195,28 @@ None of these conditional branches is required before the first hackathon submis
 
 The following remains a conceptual scan view. The implemented registry records the currently instantiated definitions as `PLANNED`; neither this view nor those rows claim that an evaluation has run:
 
-| Model | Training | Precision | Priority | Status | Holistic classification | Integrated management | Completeness | Urgent incomplete | Lundin | Edge profile |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Qwen3-1.7B | base | deployment candidate TBD | `CORE` | `PLANNED` | applicable | applicable | applicable | applicable | applicable | applicable |
-| Qwen3-1.7B | sft-v1 | deployment candidate TBD | `CORE` | `PLANNED` | applicable | applicable | applicable | applicable | applicable | applicable |
-| Qwen3-4B | base comparison | Q4_K_M candidate | `CONDITIONAL` | `PLANNED` | conditional | conditional | conditional | conditional | conditional | conditional |
-| Qwen3-0.6B | base lower bound | deployment candidate TBD | `OPTIONAL` | `PLANNED` | optional | optional | optional | optional | optional | optional |
+| Model | Training | Precision | Priority | Status | Structured extraction | Decision equivalence | Urgent-action equivalence | Lundin | Edge profile |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Qwen3-1.7B | base | deployment candidate TBD | `CORE` | `PLANNED` | applicable | applicable | applicable | applicable | applicable |
+| Qwen3-1.7B | sft-v1 | deployment candidate TBD | `CORE` | `PLANNED` | applicable | applicable | applicable | applicable | applicable |
+| Qwen3-4B | base comparison | Q4_K_M candidate | `CONDITIONAL` | `PLANNED` | conditional | conditional | conditional | conditional | conditional |
+| Qwen3-0.6B | base lower bound | deployment candidate TBD | `OPTIONAL` | `PLANNED` | optional | optional | optional | optional | optional |
 
 The cells above describe intended applicability and priority only. They are not result claims or fabricated artifact references.
 
-### Hackathon model versus practical deployment
+### Hackathon and production-oriented separation
 
-For the hackathon, the model itself is the research object:
+The bounded model contribution is structured interpretation:
 
 ```text
 free-form whole-encounter PHC findings
         ↓
-EdgeIMCI instruct model
+EdgeIMCI structured extractor
         ↓
-integrated classifications and management
-+ safe incomplete-assessment behavior
+model-facing encounter JSON
 ```
 
-Do not assume that a hidden deterministic clinical engine will correct the model during hackathon evaluation unless the competition explicitly permits and evaluates that architecture.
-
-A future practical deployment may use a safer separation:
+The end-to-end EdgeIMCI architecture uses that learned output as deterministic clinical input:
 
 ```text
 free-form PHC findings
@@ -225,7 +230,7 @@ classifications and actions
 LLM presentation or explanation
 ```
 
-The registry described here concerns the model-training and hackathon research program. It does not claim that the hackathon architecture is the final production safety architecture.
+The model is not trained to invent or directly predict downstream classifications, actions or urgency. Those results are nevertheless evaluated end to end by running the predicted state through the same deterministic engine used for the gold state.
 
 ## 2. ASUS/ADTC profiling registry
 
@@ -241,10 +246,9 @@ Conceptually:
 EXPERIMENT MATRIX
        |
        |-- model and training configuration
-       |-- holistic-classification evaluation
-       |-- integrated-management evaluation
-       |-- completeness evaluation
-       |-- urgent-incomplete safety evaluation
+       |-- structured-extraction evaluation
+       |-- downstream decision-equivalence evaluation
+       |-- urgent-action equivalence
        |-- Lundin external evaluation result
        |-- secondary/component evidence, when applicable
        `-- edge_profile ----------------------.
@@ -396,7 +400,7 @@ Agents and contributors should use the following sequence:
 1. **Register the configuration.** Add a unique row for the exact model, checkpoint/training state, and precision; set unavailable applicable references to `null`.
 2. **Mark priority and lifecycle.** Record whether the experiment is `CORE`, `CONDITIONAL`, or `OPTIONAL`, and its current status.
 3. **Produce the relevant model artifact.** Preserve exact checkpoint, dataset, training-recipe, and conversion provenance. A base-model evaluation does not require a training artifact.
-4. **Run applicable v2 product evaluations.** Evaluate holistic classification, integrated management, completeness, and urgent-incomplete safety when the experiment is intended to answer those questions.
+4. **Run applicable product evaluations.** Evaluate schema validity, exact/field extraction, UNKNOWN preservation, and downstream decision/urgent-action equivalence when the experiment is intended to answer those questions.
 5. **Run relevant component regressions.** Preserve narrow v0, structured diagnostic, 14-case golden, acquisition, or multi-turn checks when they provide useful regression evidence.
 6. **Run Lundin when appropriate.** Keep the named external revision and scoring policy separate from EdgeIMCI product metrics.
 7. **Profile the deployable representation when relevant.** Run the exact GGUF checkpoint and quantization with a pinned official profiler revision.

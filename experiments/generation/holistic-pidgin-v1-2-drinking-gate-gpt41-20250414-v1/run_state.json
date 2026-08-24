@@ -1,0 +1,71 @@
+{
+  "run_state_schema_id": "edge-imci-input-style-pathway-qualification-state-v1",
+  "generation_run_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T12:44:53Z",
+  "remote_attempts_started": 3,
+  "deterministic_passes": 1,
+  "deterministic_rejections": 2,
+  "by_style": {
+    "NIGERIAN_PIDGIN": {
+      "attempts": 3,
+      "passes": 1,
+      "rejections": 2
+    }
+  },
+  "reserved_total_usd": 0.09,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 4711,
+    "output_tokens": 2151,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1",
+    "unit_count": 3,
+    "state_counts": {
+      "TERMINAL": 3
+    },
+    "units": [
+      {
+        "request_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-027-diarrhoea-no-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0",
+        "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "8bcaa256b85ede35ea65ddff97503133b09b4f123b2b3d1f5bc99ca780b23c91",
+        "review_item_id": "review-da10bd08e3f619c63d60451a",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-027-diarrhoea-no-dehydration__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-028-diarrhoea-some-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0",
+        "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "4319ea33f64b96aa785455a2e52476f295869aeb13e012767d4532db015922ed",
+        "review_item_id": "review-b0aa533e3a0cc41a8ad7d9b3",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-028-diarrhoea-some-dehydration__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-075-contradiction-drinking",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0",
+        "semantic_case_id": "hpg-075-contradiction-drinking",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "a36f1a55bb5e5f2d05e1522e514c28430bbb1716706ab9cdb251c332c408b08d",
+        "review_item_id": "review-bc7b26153ab6221291204003",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-075-contradiction-drinking__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

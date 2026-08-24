@@ -1,0 +1,14 @@
+{
+  "preflight_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-preflight-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-drinking-domain-gate-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T15:09:12Z",
+  "authorization_id": "edge-imci-structured-extraction-bulk-t3-drinking-domain-gate-v1",
+  "authorization_sha256": "f108e0220c42cfe51c635f3b54ce91c65f035650ccc2d015d0edcebebe2f37e3",
+  "scheduled_attempts": 6,
+  "maximum_budget_usd": 0.5,
+  "maximum_reserved_total_usd": 0.18,
+  "teacher_target_blind": true,
+  "training_authorized": false
+}

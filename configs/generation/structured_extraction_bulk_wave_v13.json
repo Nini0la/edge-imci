@@ -1,0 +1,63 @@
+{
+  "contract_id": "edge-imci-structured-extraction-bulk-wave-v13",
+  "contract_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_GUARDED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Exact-slot continuation after the eighth quality stop and clean Pidgin unknown-vs-negative ear-history gate.",
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "out_of_scope_training_parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+    "dataset_policy_sha256": "e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d",
+    "style_release_sha256": "8bf9a5c9758621a75d4f949a71e814e43e6073dc29821b7224337b3853c16f78",
+    "early_stop_review_sha256": "d7212f4424d9026fe0fa8ae5a7015c4f22ffd3f2527cbea29f6ce476651abe2f",
+    "early_stop_termination_sha256": "cf7b09afe51cb6bffd6342af675c89e9ab9a036717cdda478c039ac56ad567e0"
+  },
+  "continuation": {
+    "prior_generation_run_ids": ["structured-extraction-language-bulk-gpt41-20250414-v1", "structured-extraction-language-bulk-gpt41-20250414-v3", "structured-extraction-language-bulk-gpt41-20250414-v4", "structured-extraction-language-bulk-gpt41-20250414-v5", "structured-extraction-language-bulk-gpt41-20250414-v6", "structured-extraction-language-bulk-gpt41-20250414-v7", "structured-extraction-language-bulk-gpt41-20250414-v8", "structured-extraction-language-bulk-gpt41-20250414-v9", "structured-extraction-language-bulk-gpt41-20250414-v10", "structured-extraction-language-bulk-gpt41-20250414-v11", "structured-extraction-language-bulk-gpt41-20250414-v12"],
+    "prior_terminal_receipts": 1244,
+    "prior_completed_candidate_slots": 1236,
+    "prior_transport_only_slots": 8,
+    "skip_mode": "EXACT_COMPLETED_CANDIDATE_SLOTS",
+    "remaining_candidate_slots": 906,
+    "combined_candidate_slots": 2142,
+    "remote_attempt_ceiling_including_transport_retries": 2150,
+    "prior_attempts_reused_not_regenerated": true
+  },
+  "wave": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v13",
+    "deployment_type": "AZURE_GLOBAL_STANDARD",
+    "maximum_remote_attempts": 906,
+    "semantic_retries_within_run": false,
+    "transport_retry_limit": 1,
+    "maximum_concurrency": 8,
+    "maximum_budget_usd": 50.0,
+    "reservation_per_started_attempt_usd": 0.02,
+    "reservation_is_not_billing_evidence": true,
+    "tranches": [{"tranche_id": "T3", "new_attempts": 906, "cumulative_attempts": 906, "combined_candidate_slots": 2142}]
+  },
+  "allocation": {
+    "algorithm_id": "EDGE_IMCI_BALANCED_PARENT_STYLE_SLOTS_V1",
+    "seed": "edge-imci-structured-extraction-bulk-wave-v1|2026-08-23",
+    "skip_mode": "EXACT_COMPLETED_CANDIDATE_SLOTS",
+    "expected_style_attempts": {"NIGERIAN_ENGLISH": 536, "NIGERIAN_PIDGIN": 536, "NOISY_TYPED_ENGLISH": 535, "TELEGRAPHIC_PHC_NOTE": 535},
+    "prior_candidate_style_attempts": {"NIGERIAN_ENGLISH": 309, "NIGERIAN_PIDGIN": 309, "NOISY_TYPED_ENGLISH": 309, "TELEGRAPHIC_PHC_NOTE": 309},
+    "continuation_style_attempts": {"NIGERIAN_ENGLISH": 227, "NIGERIAN_PIDGIN": 227, "NOISY_TYPED_ENGLISH": 226, "TELEGRAPHIC_PHC_NOTE": 226}
+  },
+  "quality_gates": {
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "review_all_deterministic_rejections": true,
+    "minimum_semantic_sample_fraction_of_deterministic_passes_per_style_per_tranche": 0.1,
+    "minimum_semantic_sample_count_per_style_per_tranche": 10,
+    "systematic_same_class_semantic_failures_allowed": 0,
+    "individual_rejected_attempts_are_not_promotable": true,
+    "unresolved_requested_receipt_blocks_resume": true
+  },
+  "qualified_prompt_pins": {
+    "NIGERIAN_ENGLISH": {"version": "1.3.5", "sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"},
+    "NIGERIAN_PIDGIN": {"version": "1.2.10", "sha256": "125caf554ebf2c6cd98d64e3738e56bfda2d889245b6ad607f87bdbdc4476929"},
+    "NOISY_TYPED_ENGLISH": {"version": "1.2.15", "sha256": "62538f0e5696a22ff358c3f3bcf88a613e4cb59e0be5ec3df8a0685797440b57"},
+    "TELEGRAPHIC_PHC_NOTE": {"version": "1.1.9", "sha256": "7d4b89a744df3a08244dd303eaba89eebca6f37ccb7a3310f8887246f9570980"}
+  },
+  "teacher_information_boundary": {"target_blind": true, "teacher_outputs": ["user_submission", "fact_evidence"], "teacher_hidden": ["model_facing_target", "classifications", "actions", "urgency", "assistant_response", "rule_ids", "evaluator_traces"]},
+  "authorization": {"bulk_generation_authorized": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

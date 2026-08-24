@@ -1,0 +1,47 @@
+{
+  "run_state_schema_id": "edge-imci-input-style-pathway-qualification-state-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-replacement-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T12:43:23Z",
+  "remote_attempts_started": 1,
+  "deterministic_passes": 0,
+  "deterministic_rejections": 1,
+  "by_style": {
+    "NIGERIAN_PIDGIN": {
+      "attempts": 1,
+      "passes": 0,
+      "rejections": 1
+    }
+  },
+  "reserved_total_usd": 0.03,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 1486,
+    "output_tokens": 775,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-input-style-pathway-qualification-replacement-gpt41-20250414-v1",
+    "unit_count": 1,
+    "state_counts": {
+      "TERMINAL": 1
+    },
+    "units": [
+      {
+        "request_id": "holistic-input-style-pathway-qualification-replacement-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-1-0__hpg-028-diarrhoea-some-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-1-0",
+        "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "8463f492224ba45978074737e87dda097e6601d6a9490b81be69f86c880d1cb6",
+        "review_item_id": "review-2c57192aee584288cb0b3cd6",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-input-style-pathway-qualification-replacement-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-1-0__hpg-028-diarrhoea-some-dehydration__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

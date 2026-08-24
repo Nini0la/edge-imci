@@ -1,0 +1,45 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v7",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v7__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-055-fever-severe-measles-cornea__variant-0003__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v7__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7__hpg-055-fever-severe-measles-cornea__variant-0003",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-7",
+  "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+  "status": "REQUESTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.7",
+    "prompt_sha256": "ac1646713a13f312bf996579b5065069fe39d0b6ff74af0185c25d3ebc277a74"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "bc57eba2adcc2b97719d10ff3a3e43360ebad767c68a258a99fa8837f9e56b35",
+  "requested_at": "2026-08-23T14:56:21Z",
+  "completed_at": null,
+  "raw_response": null,
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": null,
+    "output_tokens": null,
+    "cached_input_tokens": null,
+    "latency_ms": null,
+    "retry_count": 0,
+    "provider_request_id": null,
+    "raw_usage": null
+  }
+}

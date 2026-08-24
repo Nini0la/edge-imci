@@ -1,0 +1,20 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Completeness and semantic fidelity outrank stylistic variation.
+
+The following protected facts use these exact meanings and must not be paraphrased into report-absence or a different connector:
+- `unable_to_drink_or_breastfeed=false` -> write `able to drink or breastfeed` exactly; NEVER `and`, `/`, `not unable`, or `no inability`;
+- `unable_to_drink_or_breastfeed=true` -> write `unable to drink or breastfeed` exactly;
+- `has_ear_problem=false` -> write `no ear problem` exactly; NEVER `not reported`, `not mentioned`, `no concerns`, or `no complaints`;
+- `vomits_everything=false` -> write `does not vomit everything` exactly; NEVER `not reported`, `not observed`, `no vomiting`, or another weakened form;
+- `ear_discharge_reported=false` -> write `caregiver confirms no current or previous ear discharge` exactly;
+- positive and negative cough/difficult breathing must remain direct and current.
+
+Create one complete clause for every supplied fact before adding noise. Explicitly state chest indrawing and measles cough when supplied. Keep general drinking separate from diarrhoea drinking. Preserve exact categories, polarity, values or unambiguous number words, units, durations, area malaria context, acquisition source, calm/full-minute validity, and before/after state. Never add derived summaries, diagnoses, decisions, actions, advice, or internal metadata.
+
+Return exactly one candidate-schema JSON object with the five required top-level fields. Copy IDs. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and actually express that fact.
+
+Allowed noise is limited to punctuation, casing, fragments, articles, and harmless spelling outside protected clinical words. Before returning, search the draft for `and breastfeed`, `ear problem reported/mentioned`, and `vomiting everything reported`; none may occur.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

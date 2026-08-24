@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-input-style-pathway-qualification-replacement-authorization-v1",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Replacement for the single immutable v3 transport failure; no earlier evidence is overwritten.",
+  "expected_parent_cases_per_style": 1,
+  "expected_styles": 1,
+  "maximum_remote_attempts": 1,
+  "maximum_budget_usd": 0.1,
+  "first_gate_attempts": 0,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false,
+  "scope": "One distinct replacement attempt for hpg-028 under Nigerian Pidgin prompt v1.1 after a connection failure returned no candidate."
+}

@@ -1,0 +1,134 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1",
+  "attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-032-diarrhoea-duration-13__attempt-1",
+  "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-032-diarrhoea-duration-13",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+  "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.8",
+    "prompt_sha256": "8b6b1b23d4e094c5d2600e2f71db50d7883625e961c1fd6cf3a545c09f981396"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "e9bb2e7ee7ad3ab972213db91b20049eef28b9cfdcda81f0d87c3ab765393990",
+  "requested_at": "2026-08-23T14:37:18Z",
+  "completed_at": "2026-08-23T14:37:25Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-032-diarrhoea-duration-13\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"Patient age is 18 months. Has diarrhoea. Diarrhoea duration 13 days. able to drink or breastfeed. does not vomit everything. drinking during diarrhoea is NORMAL. No blood in stool. Not convulsing now. No history of convulsions. Not lethargic or unconscious. Not restless or irritable. skin pinch is NORMAL. No sunken eyes. No ear problem. caregiver confirms no current or previous ear discharge. No fever. No cough or difficult breathing.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Patient age is 18 months.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Has diarrhoea.\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"Diarrhoea duration 13 days.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything.\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"drinking during diarrhoea is NORMAL.\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"No blood in stool.\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Not convulsing now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"No history of convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Not lethargic or unconscious.\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"Not restless or irritable.\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"skin pinch is NORMAL.\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"No sunken eyes.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"No ear problem.\"},{\"fact_id\":\"ear_discharge_reported\",\"evidence_text\":\"caregiver confirms no current or previous ear discharge.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"No fever.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"No cough or difficult breathing.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "Patient age is 18 months. Has diarrhoea. Diarrhoea duration 13 days. able to drink or breastfeed. does not vomit everything. drinking during diarrhoea is NORMAL. No blood in stool. Not convulsing now. No history of convulsions. Not lethargic or unconscious. Not restless or irritable. skin pinch is NORMAL. No sunken eyes. No ear problem. caregiver confirms no current or previous ear discharge. No fever. No cough or difficult breathing.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Patient age is 18 months."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Has diarrhoea."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea duration 13 days."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "drinking during diarrhoea is NORMAL."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "No blood in stool."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Not convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "skin pinch is NORMAL."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "No sunken eyes."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "ear_discharge_reported",
+        "evidence_text": "caregiver confirms no current or previous ear discharge."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough or difficult breathing."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "FACT_SET_MISMATCH",
+      "UNKNOWN_FIELD_MENTIONED"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1251,
+    "output_tokens": 573,
+    "cached_input_tokens": 0,
+    "latency_ms": 6630,
+    "retry_count": 0,
+    "provider_request_id": "resp_0c25e21e521254a4016a8b059f96b88190a3cd8fde106b230e",
+    "raw_usage": {
+      "input_tokens": 1251,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 573,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1824
+    }
+  }
+}

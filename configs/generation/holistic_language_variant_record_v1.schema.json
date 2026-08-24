@@ -28,7 +28,7 @@
     },
     "semantic_case_id": {
       "type": "string",
-      "pattern": "^hpg-[0-9]{3}-.+$"
+      "pattern": "^(?:hpg-[0-9]{3}-.+|oos-extract-(?:young|older)-.+)$"
     },
     "status": {
       "enum": ["PENDING_HUMAN_REVIEW", "APPROVED_CORPUS_CANDIDATE", "REJECTED"]

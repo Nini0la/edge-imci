@@ -1,0 +1,101 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-071-incomplete-entry-unknown__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v6__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6__hpg-071-incomplete-entry-unknown__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-6",
+  "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.6",
+    "prompt_sha256": "eccd1753dc27b81027cea9b75ec4ff05a4b44e8721be70954924cedc837e368d"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "4555ddfcf5deea9664ef297e84efaaa1cee55f165eb03e997fdb14a637e38f64",
+  "requested_at": "2026-08-23T14:43:27Z",
+  "completed_at": "2026-08-23T14:43:33Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-071-incomplete-entry-unknown\",\"strategy_id\":\"phc-telegraphic-note-v1\",\"user_submission\":\"No convulsions now. No prior convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Does not vomit everything. Age 18 months. No cough or difficult breathing. Caregiver confirms no current or previous ear discharge. No fever.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"No convulsions now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"No prior convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Not lethargic or unconscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Does not vomit everything.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Age 18 months.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"No cough or difficult breathing.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Caregiver confirms no current or previous ear discharge.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"No fever.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "No convulsions now. No prior convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Does not vomit everything. Age 18 months. No cough or difficult breathing. Caregiver confirms no current or previous ear discharge. No fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsions now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No prior convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Does not vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age 18 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Caregiver confirms no current or previous ear discharge."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "UNKNOWN_FIELD_MENTIONED"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 945,
+    "output_tokens": 326,
+    "cached_input_tokens": 0,
+    "latency_ms": 5587,
+    "retry_count": 0,
+    "provider_request_id": "resp_0d1d3af1a66dc433016a8b07108f748194b14cab7398722c78",
+    "raw_usage": {
+      "input_tokens": 945,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 326,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1271
+    }
+  }
+}

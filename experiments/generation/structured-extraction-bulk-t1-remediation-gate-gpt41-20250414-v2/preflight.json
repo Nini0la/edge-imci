@@ -1,0 +1,14 @@
+{
+  "preflight_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-preflight-v1",
+  "generation_run_id": "structured-extraction-bulk-t1-remediation-gate-gpt41-20250414-v2",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T13:55:54Z",
+  "authorization_id": "edge-imci-structured-extraction-bulk-t1-remediation-gate-v2",
+  "authorization_sha256": "fe5c0ff76201c8d8fa68e6d2f74e569d89c258634fd80acefad2a5a70805d404",
+  "scheduled_attempts": 5,
+  "maximum_budget_usd": 0.5,
+  "maximum_reserved_total_usd": 0.15,
+  "teacher_target_blind": true,
+  "training_authorized": false
+}

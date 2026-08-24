@@ -1,0 +1,57 @@
+# Generated from experiments/generation/holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1/schedule.json; edit canonical JSON.
+schedule_schema_id: edge-imci-holistic-teacher-bakeoff-schedule-v1
+generation_run_id: holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+created_at: '2026-08-23T10:57:51Z'
+authorization:
+  project_owner: Niniola Adegboyega
+  approved_at: '2026-08-23T10:57:51Z'
+  variant_contract_approved: true
+  remote_calls_authorized: true
+  budget:
+    currency: USD
+    maximum_amount: 0.25
+source_pins:
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
+  validator_sha256: 01a1e7098812578a48bccbb2ca7910279c9cd44f416827d3d4e9ef1d1bba3e24
+  attempt_schema_sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  review_schema_sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+  selection_policy_sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+  schedule_schema_sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+retry_policy:
+  transport_retry_limit: 1
+  semantic_retry: false
+  uncertain_request_policy: RECONCILE_BEFORE_RETRY
+configurations:
+- configuration_id: azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-nigerian-english-v1
+  prompt_id: edge-imci-phc-nigerian-english
+  prompt_version: 1.2.0
+  prompt_sha256: ffc846fe4e83188f913b25754b09e2087aa1059f755c5d310eff496824de747b
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2200
+units:
+- request_id: holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-020-resp-post-bronchodilator-improved
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: 9401e03439cb35b95631178fb92b2c6be41a8acdd9e594ba289cebc5222861a2
+  review_item_id: review-5bb5aa558b3e57969d4828c1
+- request_id: holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-041-fever-high-positive
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2
+  semantic_case_id: hpg-041-fever-high-positive
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: 90c8d4d913c0be304d640d4e363629e3da84f6131cf54b0125d96a14cb3af8b2
+  review_item_id: review-ffd843b5b6f9d3c2de2f373f
+- request_id: holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-071-incomplete-entry-unknown
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: 5b4a2a2844dc44ad5060b4edc1ca6e92824ed9677b7276d0a72771b76ef778fc
+  review_item_id: review-1e692e4b3d7cb5b603925370

@@ -1,0 +1,101 @@
+{
+  "contract_id": "edge-imci-structured-extraction-bulk-wave-v1",
+  "contract_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_GUARDED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Project owner explicitly delegated prompt qualification, contract freeze, execution of the 2142-attempt Global Standard wave, and reconciliation/review.",
+  "learning_task": "FREE_FORM_PHC_FINDINGS_TO_MODEL_FACING_ENCOUNTER_JSON",
+  "teacher_task": "FROZEN_STRUCTURED_ENCOUNTER_TO_TARGET_BLIND_PHC_LANGUAGE",
+  "source_pins": {
+    "semantic_suite_id": "edge-imci-holistic-product-golden-v1",
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "out_of_scope_training_parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+    "dataset_policy_sha256": "e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d",
+    "style_release_sha256": "804c7ecfdbd52c37e4331122495415973a751c2ff6c073b351d70c2c1bdab602"
+  },
+  "parent_scope": {
+    "campaign_parent_count": 78,
+    "included_frozen_parent_range": ["hpg-001", "hpg-076"],
+    "included_frozen_parent_count": 76,
+    "included_distinct_out_of_scope_training_parents": [
+      "oos-extract-young-respiratory-001",
+      "oos-extract-older-fever-001"
+    ],
+    "evaluation_only_frozen_parents_excluded_from_bulk_training_campaign": [
+      "hpg-077-out-of-scope-age-1",
+      "hpg-078-out-of-scope-age-60"
+    ],
+    "evaluation_only_parents_remain_preserved": true,
+    "variant_partition_inherits_parent": true,
+    "cross_partition_parent_overlap_allowed": false
+  },
+  "campaign_target": {
+    "eventual_accepted_example_target": 8580,
+    "accepted_examples_per_campaign_parent": 110,
+    "this_wave_is_an_attempt_wave_not_an_acceptance_guarantee": true,
+    "replenishment_requires_a_distinct_versioned_run": true
+  },
+  "wave": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v1",
+    "deployment_type": "AZURE_GLOBAL_STANDARD",
+    "maximum_remote_attempts": 2142,
+    "semantic_retries_within_run": false,
+    "transport_retry_limit": 1,
+    "maximum_concurrency": 8,
+    "maximum_budget_usd": 50.0,
+    "reservation_per_started_attempt_usd": 0.02,
+    "reservation_is_not_billing_evidence": true,
+    "tranches": [
+      {"tranche_id": "T1", "new_attempts": 250, "cumulative_attempts": 250},
+      {"tranche_id": "T2", "new_attempts": 250, "cumulative_attempts": 500},
+      {"tranche_id": "T3", "new_attempts": 1642, "cumulative_attempts": 2142}
+    ]
+  },
+  "allocation": {
+    "algorithm_id": "EDGE_IMCI_BALANCED_PARENT_STYLE_SLOTS_V1",
+    "seed": "edge-imci-structured-extraction-bulk-wave-v1|2026-08-23",
+    "attempts_per_parent": {"minimum": 27, "maximum": 28},
+    "parents_with_28_attempts": 36,
+    "parents_with_27_attempts": 42,
+    "attempts_per_parent_style": {"minimum": 6, "maximum": 7},
+    "expected_style_attempts": {
+      "NIGERIAN_ENGLISH": 536,
+      "NIGERIAN_PIDGIN": 536,
+      "NOISY_TYPED_ENGLISH": 535,
+      "TELEGRAPHIC_PHC_NOTE": 535
+    },
+    "first_78_scheduled_units_cover_every_campaign_parent_once": true
+  },
+  "quality_gates": {
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "review_all_deterministic_rejections": true,
+    "minimum_semantic_sample_fraction_of_deterministic_passes_per_style_per_tranche": 0.1,
+    "minimum_semantic_sample_count_per_style_per_tranche": 10,
+    "systematic_same_class_semantic_failures_allowed": 0,
+    "systematic_failure_definition": "TWO_OR_MORE_SEMANTIC_FAILURES_OF_THE_SAME_CLASS_WITHIN_ONE_STYLE",
+    "zero_tolerance_failure_classes": [
+      "TARGET_SIDE_INFORMATION_LEAKAGE",
+      "LOGICAL_CONNECTOR_OR_TO_AND",
+      "MEASUREMENT_OR_DURATION_SHIFT",
+      "MALARIA_RISK_CONTEXT_SHIFT"
+    ],
+    "individual_rejected_attempts_are_not_promotable": true,
+    "unresolved_requested_receipt_blocks_resume": true
+  },
+  "qualified_prompt_pins": {
+    "NIGERIAN_ENGLISH": {"version": "1.3.1", "sha256": "ecc08d6cdb55dfcfc84f8e9a62dc5d75175b0a608a450d2e28a11621976051aa"},
+    "NIGERIAN_PIDGIN": {"version": "1.2.1", "sha256": "10faa12984776ec9ada0b5d7d8a0740216fc51b775b0845abc7d8e9c196e8c48"},
+    "NOISY_TYPED_ENGLISH": {"version": "1.2.1", "sha256": "d95f127ddd49be9dd4f4df9bf84f83c0cd4085c7a27d9007e95e2451daec8fee"},
+    "TELEGRAPHIC_PHC_NOTE": {"version": "1.1.0", "sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"}
+  },
+  "teacher_information_boundary": {
+    "target_blind": true,
+    "teacher_outputs": ["user_submission", "fact_evidence"],
+    "teacher_hidden": ["model_facing_target", "classifications", "actions", "urgency", "assistant_response", "rule_ids", "evaluator_traces"]
+  },
+  "authorization": {
+    "bulk_generation_authorized": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

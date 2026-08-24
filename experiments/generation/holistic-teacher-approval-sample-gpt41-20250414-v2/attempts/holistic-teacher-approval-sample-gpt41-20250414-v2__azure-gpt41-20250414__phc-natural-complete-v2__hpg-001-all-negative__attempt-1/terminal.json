@@ -1,0 +1,58 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-teacher-approval-sample-gpt41-20250414-v2",
+  "attempt_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative__attempt-1",
+  "request_id": "holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative",
+  "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v2",
+  "semantic_case_id": "hpg-001-all-negative",
+  "status": "PARSE_FAILED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-natural-complete-v2",
+    "prompt_id": "edge-imci-phc-natural-complete",
+    "prompt_version": "2.0.0",
+    "prompt_sha256": "23d3efda04b3b4c92ef4178da09811bed2c91096fc5230042f8c7ae09b0fd7f9"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2000
+  },
+  "request_sha256": "2834532aab37d276a4206b74efe5827145b5505e08838375944f1a8879e5b589",
+  "requested_at": "2026-08-23T07:04:42Z",
+  "completed_at": "2026-08-23T07:04:50Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-001-all-negative\",\n  \"strategy_id\": \"phc-natural-complete-v2\",\n  \"user_submission\": \"This child is 18 months old. The child is not convulsing now and has not had convulsions. The child is not lethargic or unconscious, and is able to drink or breastfeed. The child does not vomit everything. There is no cough or difficult breathing, no diarrhoea, no ear problem, and no fever.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"This child is 18 months old\"\n    },\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"The child is not convulsing now\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"has not had convulsions\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"The child is not lethargic or unconscious\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"is able to drink or breastfeed\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"does not vomit everything\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"There is no cough or difficult breathing\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"no diarrhoea\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"no ear problem\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"no fever\"\n    }\n  ]\n}",
+  "candidate": null,
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "SCHEMA_INVALID"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 970,
+    "output_tokens": 473,
+    "cached_input_tokens": 0,
+    "latency_ms": 7888,
+    "retry_count": 0,
+    "provider_request_id": "resp_0aa49805c552f156016a8a9b8b1c108194bf811a814328684f",
+    "raw_usage": {
+      "input_tokens": 970,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 473,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1443
+    }
+  }
+}

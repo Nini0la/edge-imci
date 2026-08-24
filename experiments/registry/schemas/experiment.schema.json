@@ -48,7 +48,7 @@
       "properties": {
         "experiment_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
         "definition_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
-        "experiment_type": {"enum": ["TRAINING", "CLINICAL_EVAL", "SYNTHETIC_GENERATION", "EDGE_PROFILE", "COMPRESSION", "ALIGNMENT", "EXTERNAL_EVAL"]},
+        "experiment_type": {"enum": ["TRAINING", "CLINICAL_EVAL", "SYNTHETIC_GENERATION", "MODEL_RUNTIME_QUALIFICATION", "EDGE_PROFILE", "COMPRESSION", "ALIGNMENT", "EXTERNAL_EVAL"]},
         "priority": {"enum": ["CORE", "CONDITIONAL", "OPTIONAL"]},
         "status": {"enum": ["PLANNED", "READY", "RUNNING", "COMPLETE", "SUPERSEDED", "FAILED"]},
         "hypothesis": {"type": "string", "minLength": 1},

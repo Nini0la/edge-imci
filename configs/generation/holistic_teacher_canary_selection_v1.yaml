@@ -4,7 +4,7 @@ selection_version: 1.0.0
 status: SELECTED_NOT_AUTHORIZED_FOR_REMOTE_CALLS
 source_pins:
   semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
-  teacher_bakeoff_config_sha256: 469510200095527736bd7e93b05f33f3d83fb185e9396e9389b2d315ffa14814
+  teacher_bakeoff_config_sha256: 732e529adbfae44d8eb3f9c18122924c7ca60339df9c21e34da764454876e195
   language_variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
 prompt_strategy_ids:
 - phc-concise-complete-v1

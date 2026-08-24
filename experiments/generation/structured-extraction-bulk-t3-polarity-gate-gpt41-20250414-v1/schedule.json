@@ -1,0 +1,103 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T15:22:06Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T15:22:06Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.4
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.2.8",
+      "prompt_sha256": "9a9683f57e9e04863919f29d5a85dcecf8c9edba83f6ecf547f48428f722f6a6",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.2.12",
+      "prompt_sha256": "4446065b08119dacacc176e8315a400611cacb7d7b174a3ce1369f19ef71c40d",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "c6c3403f3f1958b787256f948c85530a1087fd5bd7ef5e6c1ea9ea26518fbbf5",
+      "review_item_id": "review-48a867a89097922f045efce4"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-005-danger-lethargic-or-unconscious",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+      "semantic_case_id": "hpg-005-danger-lethargic-or-unconscious",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "2055804f5c486a096c998c976dde4f948d089c33f8d3cc3f2d594e6daddad96d",
+      "review_item_id": "review-73789c129f99908d23567f51"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8__hpg-037-diarrhoea-positive-drinking-reuse",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-8",
+      "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "2c51104a84b8c0a15784e7679dfd1f93a56d49837126fa092d90680cff3e2c82",
+      "review_item_id": "review-8615f0fddd20e182f8c2ae5e"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-057-fever-malaria-and-measles",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12",
+      "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "fc54774033c9d4efc48b071b6f2174c65512bc45e0538390ca977adea4fee881",
+      "review_item_id": "review-093d22c1f10d4ce8a9843587"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-polarity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12__hpg-058-fever-measles-last-three-months",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-12",
+      "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "084ba5195418a028d999f364de424fb54eee1959f5d2440b9ba477e2c9205b05",
+      "review_item_id": "review-0c73f19c2ebdcd0bd2ac5df0"
+    }
+  ]
+}

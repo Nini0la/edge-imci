@@ -1,0 +1,43 @@
+{
+  "approval_id": "edge-imci-structured-extraction-canary-approval-v1",
+  "assets": {
+    "data/canary/structured_extraction_v1/canonical_records.jsonl": {
+      "record_count": 3,
+      "sha256": "121f8a0f525a4655fd04e9753819d600bbacf4823af1e7e6f55b26ec01af9f8a"
+    },
+    "data/canary/structured_extraction_v1/chat_messages.jsonl": {
+      "record_count": 3,
+      "sha256": "99784ad3a56293230a3a7ec7c542a9ef43dc776f13569f951b0a0c1d7f274905"
+    },
+    "data/canary/structured_extraction_v1/language_variants.jsonl": {
+      "record_count": 3,
+      "sha256": "61250ddf5707e3d8929885c019577741466f8207e71cc30eef858fbb3de6f87e"
+    }
+  },
+  "authorization": {
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  },
+  "canary_id": "edge-imci-structured-extraction-canary-v1",
+  "dataset_policy_id": "edge-imci-structured-extraction-dataset-policy-v1",
+  "parent_case_count": 3,
+  "partition_counts": {
+    "TEST": 0,
+    "TRAIN": 3,
+    "VALIDATION": 0
+  },
+  "record_count": 3,
+  "record_schema_id": "edge-imci-structured-extraction-sft-record-v1",
+  "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+  "semantic_source_file_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+  "semantic_suite_id": "edge-imci-holistic-product-golden-v1",
+  "split_policy_id": "edge-imci-parent-semantic-split-v1",
+  "status": "APPROVED_EXTRACTION_CANARY",
+  "validation": {
+    "approved_language_only": true,
+    "chat_assistant_is_json_target_only": true,
+    "frozen_assistant_response_excluded_from_sft": true,
+    "parent_split_inheritance": true,
+    "target_is_deterministic_projection": true
+  }
+}

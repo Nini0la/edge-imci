@@ -1,0 +1,23 @@
+{
+  "release_schema_id": "edge-imci-input-style-qualification-release-v3",
+  "status": "FROZEN_FOR_GUARDED_T3_CONTINUATION",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "supersedes": "edge-imci-input-style-qualification-release-v2",
+  "remediation_review": "configs/generation/structured_extraction_bulk_t2_remediation_review_v1.json",
+  "qualified_prompts": [
+    {"variant_style": "NIGERIAN_ENGLISH", "strategy_id": "phc-nigerian-english-v1", "prompt_id": "edge-imci-phc-nigerian-english", "prompt_version": "1.3.5", "prompt_path": "prompts/holistic_language_variants/phc_nigerian_english_v1_3_5.txt", "prompt_sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"},
+    {"variant_style": "NIGERIAN_PIDGIN", "strategy_id": "phc-nigerian-pidgin-v1", "prompt_id": "edge-imci-phc-nigerian-pidgin", "prompt_version": "1.2.5", "prompt_path": "prompts/holistic_language_variants/phc_nigerian_pidgin_v1_2_5.txt", "prompt_sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"},
+    {"variant_style": "NOISY_TYPED_ENGLISH", "strategy_id": "phc-noisy-typed-english-v1", "prompt_id": "edge-imci-phc-noisy-typed-english", "prompt_version": "1.2.7", "prompt_path": "prompts/holistic_language_variants/phc_noisy_typed_english_v1_2_7.txt", "prompt_sha256": "cbc4637fe93964308058c573e29af69bf7015a41b218cf8605ebd6de14979e43"},
+    {"variant_style": "TELEGRAPHIC_PHC_NOTE", "strategy_id": "phc-telegraphic-note-v1", "prompt_id": "edge-imci-phc-telegraphic-note", "prompt_version": "1.1.4", "prompt_path": "prompts/holistic_language_variants/phc_telegraphic_note_v1_1_4.txt", "prompt_sha256": "7a32d27715c543633f9dea6881d7364fa63c0a564a90a503731e8f54647b85cf"}
+  ],
+  "validator_pin": {
+    "path": "src/edge_imci/generation/language_semantic_guards.py",
+    "sha256": "1fd50764686c9a2914d19f01da2d930dc195b00fa99e638eb2345b3f804ef024"
+  },
+  "scope_guard": {
+    "teacher_target_blind": true,
+    "continuation_must_exclude_exact_completed_slots": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

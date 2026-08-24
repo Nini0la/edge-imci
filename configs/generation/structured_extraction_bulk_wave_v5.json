@@ -1,0 +1,93 @@
+{
+  "contract_id": "edge-imci-structured-extraction-bulk-wave-v5",
+  "contract_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_GUARDED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Exact-slot T3 continuation after review of 500 completed campaign slots and successful T2 remediation.",
+  "learning_task": "FREE_FORM_PHC_FINDINGS_TO_MODEL_FACING_ENCOUNTER_JSON",
+  "teacher_task": "FROZEN_STRUCTURED_ENCOUNTER_TO_TARGET_BLIND_PHC_LANGUAGE",
+  "source_pins": {
+    "semantic_suite_id": "edge-imci-holistic-product-golden-v1",
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "out_of_scope_training_parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+    "dataset_policy_sha256": "e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d",
+    "style_release_sha256": "b1a5930d17cf3be6deb48ad155c47ec2097874b03422ee67edc3acfc3509fc4a",
+    "t2_review_sha256": "c7f48079823d42136b238748faf193559597935eb7ba1025a1faaae23544f07a",
+    "t2_remediation_review_sha256": "dac911b3bc035d308d31f561471f54a706b6ec7af061175706e7e647f0a5b7d8",
+    "prior_v4_run_state_sha256": "d5f814f1963f05d4e7be5874860fd54e154f0b79a8220901388c20d1bbd6ba78"
+  },
+  "continuation": {
+    "prior_generation_run_ids": [
+      "structured-extraction-language-bulk-gpt41-20250414-v1",
+      "structured-extraction-language-bulk-gpt41-20250414-v3",
+      "structured-extraction-language-bulk-gpt41-20250414-v4"
+    ],
+    "prior_remote_attempts": 500,
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "remaining_remote_attempts": 1642,
+    "combined_remote_attempts": 2142,
+    "prior_attempts_reused_not_regenerated": true
+  },
+  "wave": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+    "deployment_type": "AZURE_GLOBAL_STANDARD",
+    "maximum_remote_attempts": 1642,
+    "semantic_retries_within_run": false,
+    "transport_retry_limit": 1,
+    "maximum_concurrency": 8,
+    "maximum_budget_usd": 50.0,
+    "reservation_per_started_attempt_usd": 0.02,
+    "reservation_is_not_billing_evidence": true,
+    "tranches": [
+      {"tranche_id": "T3", "new_attempts": 1642, "cumulative_attempts": 1642, "combined_cumulative_attempts": 2142}
+    ]
+  },
+  "allocation": {
+    "algorithm_id": "EDGE_IMCI_BALANCED_PARENT_STYLE_SLOTS_V1",
+    "seed": "edge-imci-structured-extraction-bulk-wave-v1|2026-08-23",
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "expected_style_attempts": {
+      "NIGERIAN_ENGLISH": 536,
+      "NIGERIAN_PIDGIN": 536,
+      "NOISY_TYPED_ENGLISH": 535,
+      "TELEGRAPHIC_PHC_NOTE": 535
+    },
+    "prior_style_attempts": {
+      "NIGERIAN_ENGLISH": 125,
+      "NIGERIAN_PIDGIN": 126,
+      "NOISY_TYPED_ENGLISH": 125,
+      "TELEGRAPHIC_PHC_NOTE": 124
+    },
+    "continuation_style_attempts": {
+      "NIGERIAN_ENGLISH": 411,
+      "NIGERIAN_PIDGIN": 410,
+      "NOISY_TYPED_ENGLISH": 410,
+      "TELEGRAPHIC_PHC_NOTE": 411
+    }
+  },
+  "quality_gates": {
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "review_all_deterministic_rejections": true,
+    "minimum_semantic_sample_fraction_of_deterministic_passes_per_style_per_tranche": 0.1,
+    "minimum_semantic_sample_count_per_style_per_tranche": 10,
+    "systematic_same_class_semantic_failures_allowed": 0,
+    "individual_rejected_attempts_are_not_promotable": true,
+    "unresolved_requested_receipt_blocks_resume": true
+  },
+  "qualified_prompt_pins": {
+    "NIGERIAN_ENGLISH": {"version": "1.3.5", "sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"},
+    "NIGERIAN_PIDGIN": {"version": "1.2.5", "sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"},
+    "NOISY_TYPED_ENGLISH": {"version": "1.2.7", "sha256": "cbc4637fe93964308058c573e29af69bf7015a41b218cf8605ebd6de14979e43"},
+    "TELEGRAPHIC_PHC_NOTE": {"version": "1.1.4", "sha256": "7a32d27715c543633f9dea6881d7364fa63c0a564a90a503731e8f54647b85cf"}
+  },
+  "teacher_information_boundary": {
+    "target_blind": true,
+    "teacher_outputs": ["user_submission", "fact_evidence"],
+    "teacher_hidden": ["model_facing_target", "classifications", "actions", "urgency", "assistant_response", "rule_ids", "evaluator_traces"]
+  },
+  "authorization": {
+    "bulk_generation_authorized": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1",
+  "attempt_id": "holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__pathway-pilot__hpg-069-cross-urgent-dehydration-ear__attempt-1",
+  "request_id": "holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__pathway-pilot__hpg-069-cross-urgent-dehydration-ear",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__pathway-pilot",
+  "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-english-v1",
+    "prompt_id": "edge-imci-phc-nigerian-english",
+    "prompt_version": "1.2.0",
+    "prompt_sha256": "ffc846fe4e83188f913b25754b09e2087aa1059f755c5d310eff496824de747b"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "3d650ca43ca4b11388250300a3c079757cfc41271a33a06b3488e490ea80f100",
+  "requested_at": "2026-08-23T11:18:25Z",
+  "completed_at": "2026-08-23T11:18:37Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-069-cross-urgent-dehydration-ear\",\n  \"strategy_id\": \"phc-nigerian-english-v1\",\n  \"user_submission\": \"This child is 18 months old. The child is able to drink or breastfeed. The drinking status is poor. The child is not convulsing now. There is no history of convulsions. The child is not lethargic or unconscious. The child does not vomit everything. There is no blood seen in the stool. The child is not restless or irritable. The skin pinch returns to normal. The child has sunken eyes. Diarrhoea has been present for 3 days. There is no ear discharge reported. The child does not have ear pain. There is no pus draining from the ear. There is tender swelling behind the ear. The child does not have cough or difficult breathing. The child has diarrhoea. The child has an ear problem. The child does not have fever.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"This child is 18 months old.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"The child is able to drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.drinking_status\",\n      \"evidence_text\": \"The drinking status is poor.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"The child is not convulsing now.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"There is no history of convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"The child is not lethargic or unconscious.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"The child does not vomit everything.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.blood_in_stool\",\n      \"evidence_text\": \"There is no blood seen in the stool.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\",\n      \"evidence_text\": \"The child is not restless or irritable.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.skin_pinch\",\n      \"evidence_text\": \"The skin pinch returns to normal.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.dehydration.sunken_eyes\",\n      \"evidence_text\": \"The child has sunken eyes.\"\n    },\n    {\n      \"fact_id\": \"diarrhoea.duration_days\",\n      \"evidence_text\": \"Diarrhoea has been present for 3 days.\"\n    },\n    {\n      \"fact_id\": \"ear.ear_discharge_reported\",\n      \"evidence_text\": \"There is no ear discharge reported.\"\n    },\n    {\n      \"fact_id\": \"ear.ear_pain\",\n      \"evidence_text\": \"The child does not have ear pain.\"\n    },\n    {\n      \"fact_id\": \"ear.pus_draining_from_ear\",\n      \"evidence_text\": \"There is no pus draining from the ear.\"\n    },\n    {\n      \"fact_id\": \"ear.tender_swelling_behind_ear\",\n      \"evidence_text\": \"There is tender swelling behind the ear.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"The child does not have cough or difficult breathing.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"The child has diarrhoea.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"The child has an ear problem.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"The child does not have fever.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+    "strategy_id": "phc-nigerian-english-v1",
+    "user_submission": "This child is 18 months old. The child is able to drink or breastfeed. The drinking status is poor. The child is not convulsing now. There is no history of convulsions. The child is not lethargic or unconscious. The child does not vomit everything. There is no blood seen in the stool. The child is not restless or irritable. The skin pinch returns to normal. The child has sunken eyes. Diarrhoea has been present for 3 days. There is no ear discharge reported. The child does not have ear pain. There is no pus draining from the ear. There is tender swelling behind the ear. The child does not have cough or difficult breathing. The child has diarrhoea. The child has an ear problem. The child does not have fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "This child is 18 months old."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "The child is able to drink or breastfeed."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "The drinking status is poor."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "The child is not convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "There is no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "The child is not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "The child does not vomit everything."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "There is no blood seen in the stool."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "The child is not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "The skin pinch returns to normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "The child has sunken eyes."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Diarrhoea has been present for 3 days."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "There is no ear discharge reported."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "The child does not have ear pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "There is no pus draining from the ear."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "There is tender swelling behind the ear."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "The child does not have cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "The child has diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "The child has an ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "The child does not have fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1574,
+    "output_tokens": 941,
+    "cached_input_tokens": 0,
+    "latency_ms": 11352,
+    "retry_count": 0,
+    "provider_request_id": "resp_0f9abf0d71a10b99016a8ad702d93c81948b8419afcb225b31",
+    "raw_usage": {
+      "input_tokens": 1574,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 941,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2515
+    }
+  }
+}

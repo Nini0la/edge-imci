@@ -1,0 +1,40 @@
+{
+  "selection_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-selection-v1",
+  "selection_version": "1.0.0",
+  "status": "FROZEN_FOR_CONTROLLED_PILOT",
+  "selection_policy": {
+    "distinct_parent_encounters": true,
+    "exclude_prior_v1_2_validation_parents": true,
+    "exclude_schema_rejections": true,
+    "preserve_parent_partition": true,
+    "selection_method": "DETERMINISTIC_EXPERT_COVERAGE_SAMPLE",
+    "random_sampling": false
+  },
+  "cases": [
+    {"stratum": "baseline_explicit_negatives", "semantic_case_id": "hpg-001-all-negative", "purpose": "Complete all-negative baseline"},
+    {"stratum": "danger_inability_to_drink", "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed", "purpose": "Positive danger sign and urgent state"},
+    {"stratum": "danger_active_convulsion", "semantic_case_id": "hpg-006-danger-convulsing-now", "purpose": "Active danger finding"},
+    {"stratum": "respiratory_fast_boundary", "semantic_case_id": "hpg-008-resp-age-2-rate-50", "purpose": "Age-specific respiratory-rate boundary"},
+    {"stratum": "respiratory_hiv_referral", "semantic_case_id": "hpg-014-resp-chest-hiv-positive", "purpose": "Non-urgent HIV/chest-indrawing referral distinction"},
+    {"stratum": "respiratory_oxygen_urgent", "semantic_case_id": "hpg-016-resp-oximeter-89-9", "purpose": "Oxygen measurement and urgent threshold"},
+    {"stratum": "respiratory_post_bronchodilator_persistent", "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast", "purpose": "Persistent fast breathing after completed reassessment"},
+    {"stratum": "respiratory_invalid_calm_condition", "semantic_case_id": "hpg-023-resp-child-not-calm", "purpose": "Invalid measurement condition and derived contradiction"},
+    {"stratum": "diarrhoea_no_dehydration", "semantic_case_id": "hpg-027-diarrhoea-no-dehydration", "purpose": "Complete no-dehydration state"},
+    {"stratum": "diarrhoea_plan_b", "semantic_case_id": "hpg-028-diarrhoea-some-dehydration", "purpose": "Some dehydration initial-treatment state"},
+    {"stratum": "diarrhoea_cholera_context", "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera", "purpose": "Cholera-area context without invented medicine"},
+    {"stratum": "diarrhoea_simultaneous", "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery", "purpose": "Persistent diarrhoea and dysentery observations"},
+    {"stratum": "diarrhoea_unknown_drinking", "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse", "purpose": "One-directional evidence reuse and UNKNOWN preservation"},
+    {"stratum": "fever_high_risk_negative_test", "semantic_case_id": "hpg-042-fever-high-negative", "purpose": "Area-level high malaria risk with negative test"},
+    {"stratum": "fever_low_risk_obvious_cause", "semantic_case_id": "hpg-044-fever-low-obvious-cause", "purpose": "Area-level low malaria risk with obvious cause"},
+    {"stratum": "fever_no_risk", "semantic_case_id": "hpg-046-fever-no-risk", "purpose": "Area-level no-malaria-risk context"},
+    {"stratum": "fever_identified_bacterial_cause", "semantic_case_id": "hpg-052-fever-identified-bacterial-cause", "purpose": "Identified-cause epistemic qualifier"},
+    {"stratum": "fever_severe_measles", "semantic_case_id": "hpg-055-fever-severe-measles-cornea", "purpose": "Severe observed measles complication"},
+    {"stratum": "ear_no_infection", "semantic_case_id": "hpg-061-ear-no-infection", "purpose": "Complete negative ear assessment"},
+    {"stratum": "ear_chronic_duration_boundary", "semantic_case_id": "hpg-064-ear-chronic-discharge-14", "purpose": "Fourteen-day discharge boundary"},
+    {"stratum": "ear_observed_pus_negative_history", "semantic_case_id": "hpg-065-ear-observed-pus-no-history", "purpose": "Observed-versus-reported evidence distinction"},
+    {"stratum": "integrated_all_pathways", "semantic_case_id": "hpg-068-cross-four-pathways", "purpose": "Complete four-pathway encounter"},
+    {"stratum": "integrated_urgent_dependency", "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear", "purpose": "Urgent cross-pathway observations"},
+    {"stratum": "cross_evidence_contradiction", "semantic_case_id": "hpg-075-contradiction-drinking", "purpose": "Conflicting underlying drinking observations without derived-label leakage"}
+  ],
+  "expected_case_count": 24
+}

@@ -1,0 +1,33 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "stopped_attempts": 80,
+  "raw_passes": 55,
+  "raw_rejections_reviewed": 25,
+  "semantic_rejections": 15,
+  "annotation_only_overrides": 10,
+  "pass_sample_deferred_to_final_campaign_review": true,
+  "remediation_gates": [
+    {
+      "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1",
+      "attempts": 15,
+      "semantic_approved": 9,
+      "semantic_rejected": 6
+    },
+    {
+      "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v2",
+      "attempts": 6,
+      "semantic_approved": 6,
+      "semantic_rejected": 0,
+      "sampling_temperature": 0.3
+    }
+  ],
+  "release_decision": "RELEASE_EXACT_SLOT_1562_ATTEMPT_CONTINUATION",
+  "authorization": {
+    "bulk_continuation_released": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "approved_record_count": 19,
+  "assets": {
+    "data/pilot/nigerian_english_v1_2_pathway_pilot/canonical_records.jsonl": {
+      "sha256": "c536ca129fa40b21ff26e419cfef90eeadbd9d93a617ec35f38b44e8283745bc"
+    },
+    "data/pilot/nigerian_english_v1_2_pathway_pilot/chat_messages.jsonl": {
+      "sha256": "41e58f2b63890a00ec59882575ee8847aa7e31f91e05fbfbc069fbf39e06871d"
+    },
+    "data/pilot/nigerian_english_v1_2_pathway_pilot/language_variants.jsonl": {
+      "sha256": "a3e8c93b8f17d80472d079547b8c4adf862e32a66c42116914ea44345d5a262b"
+    }
+  },
+  "attempt_count": 24,
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "production_clinical_use_authorized": false,
+    "training_authorized": false
+  },
+  "next_prompt_version": "1.3.0",
+  "pilot_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-v1",
+  "recipe_decision": "REVISE_BEFORE_SCALE",
+  "rejected_record_count": 5,
+  "review_id": "edge-imci-nigerian-english-v1-2-pathway-pilot-review-v1",
+  "status": "REVIEW_COMPLETE",
+  "validation": {
+    "annotation_remediation_separate_and_auditable": true,
+    "diarrhoea_drinking_status_distinction_checked": true,
+    "immutable_attempt_evidence_preserved": true,
+    "negative_ear_history_strength_checked": true,
+    "target_side_information_excluded": true,
+    "unknown_preservation_checked": true
+  }
+}

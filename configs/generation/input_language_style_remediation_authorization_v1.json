@@ -1,0 +1,17 @@
+{
+  "authorization_id": "edge-imci-input-language-style-remediation-authorization-v1",
+  "status": "AUTHORIZED_FOR_BOUNDED_REMEDIATION_CANARY",
+  "authority": "PROJECT_OWNER_DECISION",
+  "authorization_basis": "Project owner said Go after the proposed local prompt fixes and newly bounded validation canary were described.",
+  "authorized_styles": [
+    "NIGERIAN_ENGLISH",
+    "NOISY_TYPED_ENGLISH"
+  ],
+  "matched_parent_case_count": 3,
+  "maximum_remote_attempts": 6,
+  "maximum_budget_usd": 0.5,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

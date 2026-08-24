@@ -1,0 +1,62 @@
+{
+  "contract_id": "edge-imci-input-language-style-contract-v1",
+  "contract_version": "1.0.0",
+  "status": "APPROVED_FOR_BOUNDED_CANARIES",
+  "authority": "PROJECT_OWNER_DECISION",
+  "clinical_rule_change": false,
+  "target_schema_id": "edge-imci-model-facing-encounter-v1",
+  "variant_styles": [
+    "CLINICAL_STANDARD_ENGLISH",
+    "NATURAL_CONVERSATIONAL_ENGLISH",
+    "NIGERIAN_ENGLISH",
+    "NIGERIAN_PIDGIN",
+    "NONSTANDARD_ENGLISH",
+    "NOISY_TYPED_ENGLISH",
+    "TELEGRAPHIC_PHC_NOTE",
+    "MIXED_REGISTER"
+  ],
+  "noise_profiles": [
+    "ARTICLE_OMISSION",
+    "SUBJECT_VERB_DISAGREEMENT",
+    "TENSE_INCONSISTENCY",
+    "PUNCTUATION_LOSS",
+    "CASING_VARIATION",
+    "SENTENCE_FRAGMENTS",
+    "SPELLING_NOISE",
+    "ABBREVIATION_DENSITY_LOW",
+    "ABBREVIATION_DENSITY_MEDIUM",
+    "TELEGRAPHIC_COMPRESSION"
+  ],
+  "canary_styles": {
+    "NIGERIAN_ENGLISH": [],
+    "NIGERIAN_PIDGIN": [],
+    "NOISY_TYPED_ENGLISH": [
+      "ARTICLE_OMISSION",
+      "PUNCTUATION_LOSS",
+      "CASING_VARIATION",
+      "SENTENCE_FRAGMENTS",
+      "SPELLING_NOISE"
+    ],
+    "TELEGRAPHIC_PHC_NOTE": [
+      "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ]
+  },
+  "semantic_invariants": {
+    "known_fact_set_exact": true,
+    "unknown_remains_unknown": true,
+    "logical_connectors_preserved": true,
+    "epistemic_qualifiers_preserved": true,
+    "measurement_validity_preserved": true,
+    "pre_post_intervention_state_preserved": true,
+    "target_side_information_hidden": true
+  },
+  "authorization": {
+    "bounded_canary_remote_calls_authorized": true,
+    "maximum_remote_attempts": 12,
+    "maximum_budget_usd": 1.0,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

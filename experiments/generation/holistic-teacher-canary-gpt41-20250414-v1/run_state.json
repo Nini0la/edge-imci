@@ -1,0 +1,175 @@
+{
+  "run_state_schema_id": "edge-imci-holistic-teacher-canary-run-state-v1",
+  "generation_run_id": "holistic-teacher-canary-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T06:25:12Z",
+  "evidence_model": "APPEND_ONLY_REQUESTED_AND_TERMINAL_RECORDS",
+  "remote_attempts_started": 2,
+  "terminal_attempts": 2,
+  "deterministically_reviewable_attempts": 1,
+  "reservation_per_started_attempt_usd": 0.02,
+  "reserved_total_usd": 0.04,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 2481,
+    "output_tokens": 1900,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-teacher-canary-gpt41-20250414-v1",
+    "unit_count": 12,
+    "state_counts": {
+      "PENDING": 10,
+      "TERMINAL": 2
+    },
+    "units": [
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "7e353efe0971cb51961e465394507b1bc5b81fdd4fec2a3da5ae05d9eb0ed875",
+        "review_item_id": "review-321da2a3ceeff33b9626b88d",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-001-all-negative__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "e7a2a8dcb64eca3368154ac5004b6aedf089b858526df2b61cb53d75efa9ebee",
+        "review_item_id": "review-8378546b7f4bb2051277b888",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-068-cross-four-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-068-cross-four-pathways",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "215c9d57dcc0d18a8591149ed5337754c0bf54a71b7a0f6a642c5521e111d760",
+        "review_item_id": "review-f4ff074591fbc6ce68b6fb4a",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "3b8d43033ef98a968f97b6b3744f062a5ab42309da5f980a94bf9f46ff6a84cb",
+        "review_item_id": "review-08cbec17d940950599ac767d",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-072-incomplete-multiple-groups",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-072-incomplete-multiple-groups",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "f7f766ace302761780aa7aa39f45c9ced7636fb2d2a208949a8ed129413c8e48",
+        "review_item_id": "review-ef622724bf42d067d75479c6",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-concise-complete-v1__hpg-073-incomplete-known-urgent",
+        "configuration_id": "azure-gpt41-20250414__phc-concise-complete-v1",
+        "semantic_case_id": "hpg-073-incomplete-known-urgent",
+        "strategy_id": "phc-concise-complete-v1",
+        "source_request_sha256": "1a87be3ceb95b01be106197de9fb7974be3e03da8c3eaacbc7307507caab7217",
+        "review_item_id": "review-df9f56d8c6b39cbc5fdd07c8",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "e1aadfa67098505e0de72f6276b40b465704b35c762de1756aeb8edefd463132",
+        "review_item_id": "review-cad6b2ee9d9747f7e276873b",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "81855155733a3c45acd3c4410e4ee532b2e953f65057dd767681b587553e1913",
+        "review_item_id": "review-d9de4bf1257750766032a949",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-068-cross-four-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-068-cross-four-pathways",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "a88fadd8488e037fc5e83193ddb41c9888416c904a913a765a5a67f6948cb891",
+        "review_item_id": "review-b68c300463b355501116d296",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "f0e9239a2272bd94edbab60203708206706c921434f9c15a77c7aa613514df7e",
+        "review_item_id": "review-4a591d27139a889ac58766b9",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-072-incomplete-multiple-groups",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-072-incomplete-multiple-groups",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "503230f81a9a4eacc958187c3ccef265383fd24c1a94ec13153965bc1c31d226",
+        "review_item_id": "review-b6bceca3b3f9ee8860f8139b",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      },
+      {
+        "request_id": "holistic-teacher-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-natural-complete-v1__hpg-073-incomplete-known-urgent",
+        "configuration_id": "azure-gpt41-20250414__phc-natural-complete-v1",
+        "semantic_case_id": "hpg-073-incomplete-known-urgent",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "b5af5257374c79acd54ace9055d41d7457ea53eaaf6a44ade3bd4ed965e401dc",
+        "review_item_id": "review-502518bb301c123278b23b91",
+        "resume_state": "PENDING",
+        "attempt_count": 0,
+        "latest_attempt_id": null,
+        "latest_status": null
+      }
+    ],
+    "execution_complete": false,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "review_id": "edge-imci-input-language-style-remediation-review-v1",
+  "attempt_count": 6,
+  "approved_count": 5,
+  "rejected_count": 1,
+  "candidate_results": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "KNOWN_NEGATIVE_REMEDIATION_PASSED",
+        "PHC_SUITABLE"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "MALARIA_RISK_CONTEXT_SHIFT"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "MALARIA_RISK_CONTEXT_SHIFT"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "KNOWN_NEGATIVE_REMEDIATION_PASSED",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "DIRECT_NEGATION_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "DIRECT_NEGATION_PRESERVED",
+        "EPISTEMIC_QUALIFIER_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "prompt_version": "1.1.0",
+      "original_attempt_status": "PENDING_HUMAN_REVIEW",
+      "current_validation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "DIRECT_NEGATION_PRESERVED",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    }
+  ]
+}

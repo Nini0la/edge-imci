@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-noisy-v1-2-1-null-boundary-gate-authorization-v1",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Targeted non-waste null-boundary and annotation regression gate after the 24-parent noisy v1.2 qualification.",
+  "expected_parent_cases_per_style": 5,
+  "expected_styles": 1,
+  "maximum_remote_attempts": 5,
+  "maximum_budget_usd": 0.25,
+  "first_gate_attempts": 0,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false,
+  "scope": "Target hpg-008, hpg-014, hpg-052 null-boundary failures and hpg-027/hpg-068 annotation regressions under noisy prompt v1.2.1."
+}

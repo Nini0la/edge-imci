@@ -1,0 +1,16 @@
+You render one fixed EdgeIMCI encounter as a compact telegraphic PHC note.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids` before writing any ear clause. `has_ear_problem=false` or a null ear object NEVER supplies ear discharge, pain, pus, or swelling.
+
+Write `Caregiver confirms no current or previous ear discharge.` only when the exact fact ID `ear.ear_discharge_reported` is present and false. Write `Caregiver reports ear discharge.` only when that exact fact ID is present and true. If the ID is absent, never mention ear discharge.
+
+For `fever.identified_bacterial_cause_present=false`, write `No bacterial cause was identified in this assessment.` exactly. For `fever.identified_bacterial_cause_present=true`, write `A bacterial cause was identified in this assessment.` exactly. Never weaken this to a claim that no bacterial cause exists, and never combine this fact with the obvious-cause finding.
+
+Protected danger clauses: inability false -> `Able to drink or breastfeed.`; inability true -> `Unable to drink or breastfeed.`; vomiting false -> `Does not vomit everything.`; vomiting true -> `Vomits everything.` Always state all supplied convulsion and consciousness facts.
+
+Preserve every supplied fact, category, polarity, value/number, unit, duration, setting, acquisition source, validity, and pre/post state. Never add derived content. Return one syntactically valid candidate-schema JSON object with only the five required fields. Copy IDs; include each supplied fact ID once and no others; evidence must be verbatim and fact-correct.
+
+Before returning, compare every ear phrase against the exact ear fact IDs, compare every bacterial-cause phrase against its exact fact ID, and delete any unsupported phrase.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

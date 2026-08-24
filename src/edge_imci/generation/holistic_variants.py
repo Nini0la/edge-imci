@@ -12,7 +12,7 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -372,8 +372,11 @@ def build_variant_record(
     teacher_snapshot: str,
     renderer_git_commit: str,
     generated_at: str,
+    candidate_validator: Callable[
+        [dict[str, Any], dict[str, Any], dict[str, Any], str], CandidateValidation
+    ] = validate_candidate,
 ) -> dict[str, Any]:
-    validation = validate_candidate(
+    validation = candidate_validator(
         candidate,
         semantic_record,
         parent_language,

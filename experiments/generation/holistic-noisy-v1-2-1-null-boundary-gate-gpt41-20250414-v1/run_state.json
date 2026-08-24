@@ -1,0 +1,95 @@
+{
+  "run_state_schema_id": "edge-imci-input-style-pathway-qualification-state-v1",
+  "generation_run_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T12:55:01Z",
+  "remote_attempts_started": 5,
+  "deterministic_passes": 4,
+  "deterministic_rejections": 1,
+  "by_style": {
+    "NOISY_TYPED_ENGLISH": {
+      "attempts": 5,
+      "passes": 4,
+      "rejections": 1
+    }
+  },
+  "reserved_total_usd": 0.15,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 10030,
+    "output_tokens": 4160,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1",
+    "unit_count": 5,
+    "state_counts": {
+      "TERMINAL": 5
+    },
+    "units": [
+      {
+        "request_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-008-resp-age-2-rate-50",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "010b8bec21330865ae0b615e81c082be62c095ce3815e09711c27fc6db647c3b",
+        "review_item_id": "review-b888147b1f3466667a972820",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-008-resp-age-2-rate-50__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-014-resp-chest-hiv-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "a21007146837de6c5557a87a60b4279744d9efd8b3c7d4031b5a5af0510d7e90",
+        "review_item_id": "review-0492cdf4e5dfbab36a27dbba",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-014-resp-chest-hiv-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-052-fever-identified-bacterial-cause",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "138545236bea9bd6518f291ec60d667ec85792edefb944ef5c392ae7f59d1c4c",
+        "review_item_id": "review-114dc36d3c5f5b95052d9178",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-052-fever-identified-bacterial-cause__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-027-diarrhoea-no-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "77a24f086a10592f956823cb0af1355ce2876bb4de8f19fed79e3c3cf0f1ad32",
+        "review_item_id": "review-b54d15b67a69a4c468ad8443",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-027-diarrhoea-no-dehydration__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-068-cross-four-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1",
+        "semantic_case_id": "hpg-068-cross-four-pathways",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "241875904411aaffd6e9d863a18519fd3b9f6838aa9b244b00c23ab3ab770803",
+        "review_item_id": "review-a9e7ac99eee665a7f3af6464",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-noisy-v1-2-1-null-boundary-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-068-cross-four-pathways__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

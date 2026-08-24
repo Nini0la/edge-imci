@@ -1,0 +1,87 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T14:59:28Z",
+  "remote_attempts_started": 5,
+  "deterministic_passes": 3,
+  "deterministic_rejections": 2,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 7153,
+    "output_tokens": 4996,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1",
+    "unit_count": 5,
+    "state_counts": {
+      "TERMINAL": 5
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "8a2bedc1bac3f4e1ada8cc996aa7d156513d0630b33acbb5f11e78c3130ed40d",
+        "review_item_id": "review-60f1cdaf0e1685d9daef96a6",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-052-fever-identified-bacterial-cause",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8",
+        "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "b6b9a7a7057b5aa0e98416c707aec0651ff8580be4093d4208ff9646446e653b",
+        "review_item_id": "review-cc25073e678bfd1a15d60a0c",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-052-fever-identified-bacterial-cause__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-055-fever-severe-measles-cornea",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8",
+        "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "b99b262ad1944760b9b64a5c331a9a5a107b1f9c2d41a7da0eeba8b16e8c3613",
+        "review_item_id": "review-37edad15658bfc39bb0f2f6d",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-055-fever-severe-measles-cornea__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-058-fever-measles-last-three-months",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8",
+        "semantic_case_id": "hpg-058-fever-measles-last-three-months",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "b79a1b16b6298a1e7f57993b2ef343f5ca1905b6aed605426db75b4aab87d6ff",
+        "review_item_id": "review-62dba67ad6523d233e9d3264",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-058-fever-measles-last-three-months__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "5da93c91e1520c31649691976ede6c29b025c6ba023f86c0fe486c755de55d68",
+        "review_item_id": "review-bbaa2af576bd8882027796cc",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-telegraphic-bacterial-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-8__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

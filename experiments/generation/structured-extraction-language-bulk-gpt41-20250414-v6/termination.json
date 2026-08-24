@@ -1,0 +1,13 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 104,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 88,
+  "deterministic_rejections": 16,
+  "reason": "The first 104 completed slots exposed repeatable qualifier loss in Nigerian Pidgin and ear-history fabrication in noisy typed English and telegraphic notes. Generation stopped before spending the remaining allocation on prompts with known defects.",
+  "continuation_policy": "All 104 completed allocation slots remain immutable and count toward the 2142-attempt campaign. A new exact-slot continuation may exclude them after prompt remediation and a reviewed boundary gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

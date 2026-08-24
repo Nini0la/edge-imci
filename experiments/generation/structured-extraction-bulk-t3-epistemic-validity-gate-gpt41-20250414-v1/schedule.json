@@ -1,0 +1,119 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T15:29:00Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T15:29:00Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.55
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.2.9",
+      "prompt_sha256": "9f9492c5b09b90f271fbc23556edf37c983f4dcaf9168ddc9f3a2c98351351d8",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.2.13",
+      "prompt_sha256": "5129c8ae87d949855e610baf086747b8c734539dee4091230ae7b2510cc723d1",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-063-ear-acute-discharge-13",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-063-ear-acute-discharge-13",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "b065114553e8278a66d4cb1a286591accd501744e0f1f666de1362d257949664",
+      "review_item_id": "review-9afb535526b24c6b7f2128c7"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "8fa8480a38beb5d809628cf9dfe07dee4291e22e12d866fdc96c5a096c090d45",
+      "review_item_id": "review-a4c564d944b692ff50bd6b34"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-066-ear-mastoiditis",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-066-ear-mastoiditis",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "05dbe7089ab633f7d8779ac5f739ac310a7ff37a2c42cee59e39dfa2c7a2cf52",
+      "review_item_id": "review-76e0490ed7841be6d215ae7f"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-076-complete-danger-plus-all-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+      "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "56a253a284d3893f62a6359497bff8deb2dba5c790a7ac86995451946325e763",
+      "review_item_id": "review-7c4ddbf202e8f4d21815ced3"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13__hpg-008-resp-age-2-rate-50",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "2223758900038cfb940973a46122884500c4d6758f8d25ebda7a75acec7c9f7c",
+      "review_item_id": "review-d2f4faa3b04081c35617a329"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "ac6f7c4b8de3e1449c2b9e708e9755ef8615bd147b63c530c245219159f13d08",
+      "review_item_id": "review-c8b290a8360e7f6ff46387ce"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-epistemic-validity-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13__hpg-024-resp-count-not-one-minute",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-13",
+      "semantic_case_id": "hpg-024-resp-count-not-one-minute",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "fe8b4b5297fc8c87d5aa3720016f0578f534822a4013c8f62abf3ad644ee7394",
+      "review_item_id": "review-274c480108dea299d69960dd"
+    }
+  ]
+}

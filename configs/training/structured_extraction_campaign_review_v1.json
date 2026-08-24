@@ -1,0 +1,61 @@
+{
+  "review_id": "edge-imci-structured-extraction-campaign-review-v1",
+  "status": "APPROVED_FOR_CORPUS_EXPORT",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "campaign_contract_id": "edge-imci-structured-extraction-bulk-wave-v1",
+  "campaign_receipts": {
+    "remote_terminal_receipts": 2150,
+    "candidate_bearing_allocation_slots": 2142,
+    "transport_only_receipts": 8,
+    "unresolved_requested_receipts": 0
+  },
+  "pre_remediation_review_sources": [
+    "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v3/reviews/T1_review.json",
+    "experiments/generation/structured-extraction-language-bulk-gpt41-20250414-v4/reviews/T2_review.json"
+  ],
+  "t3_pass_sample": {
+    "selection_algorithm": "SHA256_ASCENDING_V1",
+    "seed": "edge-imci-T3-final-sample-v1",
+    "fraction_per_style": 0.1,
+    "counts": {
+      "phc-nigerian-english-v1": 38,
+      "phc-nigerian-pidgin-v1": 29,
+      "phc-noisy-typed-english-v1": 38,
+      "phc-telegraphic-note-v1": 40
+    },
+    "reviewed": 145,
+    "semantic_approved": 144,
+    "semantic_rejected_attempt_ids": [
+      "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-5__hpg-076-complete-danger-plus-all-pathways__variant-0002__attempt-1"
+    ],
+    "rejection_reason": "Current wheezing and recurrent-wheeze history were not expressed as independent states."
+  },
+  "final_run_rejection_review": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v16",
+    "non_pass_receipts_reviewed": 66,
+    "promotion_decision": "EXCLUDE_ALL_NON_PASS_RECEIPTS",
+    "clear_semantic_defect_attempt_ids": [
+      "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-043-fever-high-test-unavailable__variant-0006__attempt-1",
+      "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-058-fever-measles-last-three-months__variant-0007__attempt-1",
+      "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-072-incomplete-multiple-groups__variant-0007__attempt-1",
+      "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-042-fever-high-negative__variant-0007__attempt-1",
+      "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-16__hpg-075-contradiction-drinking__variant-0007__attempt-1"
+    ],
+    "parse_failure_count": 1,
+    "note": "Conservative annotation/lexical rejections were not salvaged in this export because the campaign contract makes rejected attempts non-promotable."
+  },
+  "promotion_policy": {
+    "T1_T2": "ONLY_EXPLICIT_PENDING_PASS_SEMANTIC_APPROVALS_FROM_EXISTING_TRANCHE_REVIEWS",
+    "T3": "ALL_DETERMINISTIC_PASSES_EXCEPT_REVIEWED_SEMANTIC_REJECTIONS",
+    "deterministic_rejections": "EXCLUDE",
+    "parse_failures": "EXCLUDE",
+    "transport_failures": "NOT_ALLOCATION_CANDIDATES",
+    "unreviewed_T1_T2_passes": "CONSERVATIVE_HOLD",
+    "parent_split_inheritance_required": true
+  },
+  "authorization": {
+    "corpus_export_authorized": true,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

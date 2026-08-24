@@ -1,0 +1,207 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T14:37:49Z",
+  "remote_attempts_started": 15,
+  "deterministic_passes": 7,
+  "deterministic_rejections": 8,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 18711,
+    "output_tokens": 10729,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1",
+    "unit_count": 15,
+    "state_counts": {
+      "TERMINAL": 15
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-001-all-negative",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-001-all-negative",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "f05c32d49499da0a5cb6ff27352e06fd24c85e38ce113f215a6e7c78b515aa5f",
+        "review_item_id": "review-65620048a4a1910dd4c5deda",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-001-all-negative__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-016-resp-oximeter-89-9",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "a0dca869dfc9a276a8da507ecf315792c9c0cf72bd1abd64be5a6108f250ab95",
+        "review_item_id": "review-0f3bab5eb3c5b4243f6d56f8",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-016-resp-oximeter-89-9__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-023-resp-child-not-calm",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-023-resp-child-not-calm",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "45a95406084f2c57841f3a2e6f0429bb3b397170278f41bba91fe3491b70cdcc",
+        "review_item_id": "review-8eb40a923c6c6d76b4f67c95",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-023-resp-child-not-calm__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-028-diarrhoea-some-dehydration",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "5e5bf5f6bf853a1f3a06681f183aa425934a7339a6030b265c0da168b5782b93",
+        "review_item_id": "review-54e653e9cef7624b15b1e86b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-028-diarrhoea-some-dehydration__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-032-diarrhoea-duration-13",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "e9bb2e7ee7ad3ab972213db91b20049eef28b9cfdcda81f0d87c3ab765393990",
+        "review_item_id": "review-0744428943e4757a53cd5a70",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-032-diarrhoea-duration-13__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-039-diarrhoea-duration-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "1b6657cb974fdd627de608be7e5c3831ea7d67af6c6c9fc8a5885dc7ef6f7205",
+        "review_item_id": "review-f7934543aeb3d59a334b61fa",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-039-diarrhoea-duration-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-048-fever-temperature-38-5",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-048-fever-temperature-38-5",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "6ff51735c454e60c9266dcd473a9774cc06094249a320361a0de3343f1eb17b0",
+        "review_item_id": "review-8f3699bc80a601172d1f8cb3",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-048-fever-temperature-38-5__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-057-fever-malaria-and-measles",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-057-fever-malaria-and-measles",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "0d5fd8adcc0394f3cab9caf9c5b0e79c9e551a8cd7ce48824204c32eec148280",
+        "review_item_id": "review-58f6bdd4a01fdf8b98100697",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-057-fever-malaria-and-measles__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-noisy-typed-english-v1",
+        "source_request_sha256": "5c1d7200d2af4993f6142d5bcf0e663ea544e4e1c0e1d4a24f4aa7956276ece7",
+        "review_item_id": "review-bf517bfb42818c1480e2aa66",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-8__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-003-danger-vomits-everything",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-003-danger-vomits-everything",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "60a0c74215d91f07269a79d3dcf332972cf9abd7329ef782e88d54d11567522d",
+        "review_item_id": "review-e6f760528e504503d99050cb",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-003-danger-vomits-everything__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-007-resp-age-2-rate-49",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-007-resp-age-2-rate-49",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "48d58a70fa6f7dccccc70566d115d15548b910df5025156f7420c57c32d14de3",
+        "review_item_id": "review-e1dd77f0593e22cbb9990f0b",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-007-resp-age-2-rate-49__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-021-resp-post-bronchodilator-fast",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "f45c5b4cb58e66a0d62942ac3a143319df79c182d68888a5ea69e7411f9df92d",
+        "review_item_id": "review-f4279381a42b5df2a1dbdcac",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-021-resp-post-bronchodilator-fast__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-060-fever-test-result-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-060-fever-test-result-unknown",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "7280bd150836adc3b61fecd356ea4610b676e4767d3f210823644554573cb599",
+        "review_item_id": "review-3ff7770c138b26d508eeea36",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-060-fever-test-result-unknown__attempt-1",
+        "latest_status": "PARSE_FAILED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-061-ear-no-infection",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-061-ear-no-infection",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "195f8d87b5d3ffcd9f1e9067d8107251c1ed03fde6e735ebc92cea3eedf11cb9",
+        "review_item_id": "review-91ee6876d9409380af041348",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-061-ear-no-infection__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-070-cross-multiple-urgent",
+        "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5",
+        "semantic_case_id": "hpg-070-cross-multiple-urgent",
+        "strategy_id": "phc-telegraphic-note-v1",
+        "source_request_sha256": "a3a0eea7fdb0ee7fc92ecaaa7e621134c1400f7be8476823ee7c0b8f88657fbb",
+        "review_item_id": "review-4128fd600d92c33490cd4d70",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-early-stop-remediation-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-5__hpg-070-cross-multiple-urgent__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

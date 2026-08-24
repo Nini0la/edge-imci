@@ -1,0 +1,17 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 80,
+  "candidate_attempts": 80,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 71,
+  "deterministic_rejections": 9,
+  "semantic_rejections": 1,
+  "reviewed_annotation_only_overrides": 8,
+  "reason": "A Pidgin fever-only candidate invented caregiver ear-discharge history although the exact ear-history field was absent.",
+  "continuation_policy": "All 80 completed allocation slots remain immutable. Continue only after absent, known-negative, and positive caregiver ear-history boundaries pass a targeted Pidgin gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v3",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-075-contradiction-drinking__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-075-contradiction-drinking",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-075-contradiction-drinking",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "54191ac7d96ee2c5d838940b8e642cf10d5a71a74b2a26d7f4e5379b7aaa3993",
+  "requested_at": "2026-08-23T12:53:55Z",
+  "completed_at": "2026-08-23T12:54:02Z",
+  "raw_response": "{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"semantic_case_id\": \"hpg-075-contradiction-drinking\", \"strategy_id\": \"phc-telegraphic-note-v1\", \"user_submission\": \"18 mo. Has diarrhoea 3 days. No cough or difficult breathing. No ear problem. No fever. Not convulsing now. No convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Vomiting everything negative. Blood in stool negative. Diarrhoea: unable to drink. Not restless or irritable. Skin pinch normal. No sunken eyes.\", \"fact_evidence\": [{\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"18 mo.\"}, {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"Has diarrhoea 3 days.\"}, {\"fact_id\": \"diarrhoea.duration_days\", \"evidence_text\": \"Has diarrhoea 3 days.\"}, {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"No cough or difficult breathing.\"}, {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"No ear problem.\"}, {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"No fever.\"}, {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"Not convulsing now.\"}, {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"No convulsions.\"}, {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Not lethargic or unconscious.\"}, {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Able to drink or breastfeed.\"}, {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Vomiting everything negative.\"}, {\"fact_id\": \"diarrhoea.blood_in_stool\", \"evidence_text\": \"Blood in stool negative.\"}, {\"fact_id\": \"diarrhoea.dehydration.drinking_status\", \"evidence_text\": \"Diarrhoea: unable to drink.\"}, {\"fact_id\": \"diarrhoea.dehydration.restless_or_irritable\", \"evidence_text\": \"Not restless or irritable.\"}, {\"fact_id\": \"diarrhoea.dehydration.skin_pinch\", \"evidence_text\": \"Skin pinch normal.\"}, {\"fact_id\": \"diarrhoea.dehydration.sunken_eyes\", \"evidence_text\": \"No sunken eyes.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-075-contradiction-drinking",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18 mo. Has diarrhoea 3 days. No cough or difficult breathing. No ear problem. No fever. Not convulsing now. No convulsions. Not lethargic or unconscious. Able to drink or breastfeed. Vomiting everything negative. Blood in stool negative. Diarrhoea: unable to drink. Not restless or irritable. Skin pinch normal. No sunken eyes.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18 mo."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Has diarrhoea 3 days."
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "Has diarrhoea 3 days."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Not convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Vomiting everything negative."
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "Blood in stool negative."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "Diarrhoea: unable to drink."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "Not restless or irritable."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "Skin pinch normal."
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "No sunken eyes."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1407,
+    "output_tokens": 589,
+    "cached_input_tokens": 0,
+    "latency_ms": 6609,
+    "retry_count": 0,
+    "provider_request_id": "resp_0d873c09fb426e75016a8aed64cca08196b9a12f607f096573",
+    "raw_usage": {
+      "input_tokens": 1407,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 589,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1996
+    }
+  }
+}

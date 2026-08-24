@@ -1,0 +1,67 @@
+{
+  "contract_id": "edge-imci-structured-extraction-bulk-wave-v6",
+  "contract_version": "1.0.0",
+  "status": "AUTHORIZED_FOR_GUARDED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Exact-slot continuation after quality-driven T3 early stop and successful lower-temperature remediation.",
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "out_of_scope_training_parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+    "dataset_policy_sha256": "e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d",
+    "style_release_sha256": "5857c7b62c58fc5d543a7f0b1364fa680987e370457f59ab768bf970369d39ea",
+    "early_stop_review_sha256": "f124275f861ce20be059fb25fcde5d74dfe577c9e113edf63a462074b1ad7d1a",
+    "early_stop_termination_sha256": "b2b66abf237bce51ede0c409027b1312624c1c486d9d53cea042c3ac4f266b92"
+  },
+  "continuation": {
+    "prior_generation_run_ids": [
+      "structured-extraction-language-bulk-gpt41-20250414-v1",
+      "structured-extraction-language-bulk-gpt41-20250414-v3",
+      "structured-extraction-language-bulk-gpt41-20250414-v4",
+      "structured-extraction-language-bulk-gpt41-20250414-v5"
+    ],
+    "prior_remote_attempts": 580,
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "remaining_remote_attempts": 1562,
+    "combined_remote_attempts": 2142,
+    "prior_attempts_reused_not_regenerated": true
+  },
+  "wave": {
+    "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v6",
+    "deployment_type": "AZURE_GLOBAL_STANDARD",
+    "maximum_remote_attempts": 1562,
+    "semantic_retries_within_run": false,
+    "transport_retry_limit": 1,
+    "maximum_concurrency": 8,
+    "maximum_budget_usd": 50.0,
+    "reservation_per_started_attempt_usd": 0.02,
+    "reservation_is_not_billing_evidence": true,
+    "tranches": [
+      {"tranche_id": "T3", "new_attempts": 1562, "cumulative_attempts": 1562, "combined_cumulative_attempts": 2142}
+    ]
+  },
+  "allocation": {
+    "algorithm_id": "EDGE_IMCI_BALANCED_PARENT_STYLE_SLOTS_V1",
+    "seed": "edge-imci-structured-extraction-bulk-wave-v1|2026-08-23",
+    "skip_mode": "EXACT_COMPLETED_ALLOCATION_SLOTS",
+    "expected_style_attempts": {"NIGERIAN_ENGLISH": 536, "NIGERIAN_PIDGIN": 536, "NOISY_TYPED_ENGLISH": 535, "TELEGRAPHIC_PHC_NOTE": 535},
+    "prior_style_attempts": {"NIGERIAN_ENGLISH": 145, "NIGERIAN_PIDGIN": 145, "NOISY_TYPED_ENGLISH": 145, "TELEGRAPHIC_PHC_NOTE": 145},
+    "continuation_style_attempts": {"NIGERIAN_ENGLISH": 391, "NIGERIAN_PIDGIN": 391, "NOISY_TYPED_ENGLISH": 390, "TELEGRAPHIC_PHC_NOTE": 390}
+  },
+  "quality_gates": {
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "review_all_deterministic_rejections": true,
+    "minimum_semantic_sample_fraction_of_deterministic_passes_per_style_per_tranche": 0.1,
+    "minimum_semantic_sample_count_per_style_per_tranche": 10,
+    "systematic_same_class_semantic_failures_allowed": 0,
+    "individual_rejected_attempts_are_not_promotable": true,
+    "unresolved_requested_receipt_blocks_resume": true
+  },
+  "qualified_prompt_pins": {
+    "NIGERIAN_ENGLISH": {"version": "1.3.5", "sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"},
+    "NIGERIAN_PIDGIN": {"version": "1.2.5", "sha256": "f07e9245f64561f39862d077fcd69bb5f969d5f54ca39a534305397f1d739ca9"},
+    "NOISY_TYPED_ENGLISH": {"version": "1.2.9", "sha256": "b6508cdfb168149399e7616fdbfc34efa29a2c0ce5ed4c4bee5359ff6f9dd24f"},
+    "TELEGRAPHIC_PHC_NOTE": {"version": "1.1.6", "sha256": "eccd1753dc27b81027cea9b75ec4ff05a4b44e8721be70954924cedc837e368d"}
+  },
+  "teacher_information_boundary": {"target_blind": true, "teacher_outputs": ["user_submission", "fact_evidence"], "teacher_hidden": ["model_facing_target", "classifications", "actions", "urgency", "assistant_response", "rule_ids", "evaluator_traces"]},
+  "authorization": {"bulk_generation_authorized": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

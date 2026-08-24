@@ -1,0 +1,17 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v13",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 32,
+  "candidate_attempts": 32,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 27,
+  "deterministic_rejections": 5,
+  "semantic_rejections": 3,
+  "reviewed_annotation_only_overrides": 2,
+  "reason": "Pidgin omitted generalized-rash absence; noisy English weakened able-to-drink and reversed vomits-everything polarity in separate candidates.",
+  "continuation_policy": "All 32 completed allocation slots remain immutable. Continue only after positive/negative rash, drinking, and vomiting boundaries pass a targeted gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

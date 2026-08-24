@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/structured_extraction_out_of_scope_parent_v1.schema.json",
+  "title": "EdgeIMCI extraction-only out-of-scope training parent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "parent_record_schema_id",
+    "parent_case_id",
+    "corpus_role",
+    "partition",
+    "model_facing_target",
+    "expected_adapter_outcome",
+    "source_provenance",
+    "language_generation_status",
+    "authorization"
+  ],
+  "properties": {
+    "parent_record_schema_id": {
+      "const": "edge-imci-structured-extraction-out-of-scope-parent-v1"
+    },
+    "parent_case_id": {
+      "type": "string",
+      "pattern": "^oos-extract-.+$"
+    },
+    "corpus_role": {
+      "const": "STRUCTURED_EXTRACTION_TRAINING_PARENT"
+    },
+    "partition": {
+      "const": "TRAIN"
+    },
+    "model_facing_target": {
+      "$ref": "https://edge-imci.local/schemas/model-facing-encounter-v1.json"
+    },
+    "expected_adapter_outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "kind", "error"],
+      "properties": {
+        "owner": {"const": "DETERMINISTIC_SCOPE_CHECKER"},
+        "kind": {"const": "SCHEMA_REJECTION"},
+        "error": {"const": "age_months must be at least 2 and less than 60"}
+      }
+    },
+    "source_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_suite_id",
+        "semantic_suite_sha256",
+        "base_frozen_case_id",
+        "base_frozen_record_sha256",
+        "transformation"
+      ],
+      "properties": {
+        "semantic_suite_id": {"const": "edge-imci-holistic-product-golden-v1"},
+        "semantic_suite_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "base_frozen_case_id": {"type": "string", "pattern": "^hpg-[0-9]{3}-.+$"},
+        "base_frozen_record_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "transformation": {"const": "AGE_ONLY_REPLACEMENT_FOR_SCOPE_EXTRACTION"}
+      }
+    },
+    "language_generation_status": {
+      "const": "NOT_STARTED_REVIEWED_VARIANT_REQUIRED"
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bulk_generation_authorized", "training_authorized"],
+      "properties": {
+        "bulk_generation_authorized": {"const": false},
+        "training_authorized": {"const": false}
+      }
+    }
+  }
+}

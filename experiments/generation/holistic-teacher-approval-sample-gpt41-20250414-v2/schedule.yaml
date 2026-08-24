@@ -1,0 +1,74 @@
+# Generated from experiments/generation/holistic-teacher-approval-sample-gpt41-20250414-v2/schedule.json; edit canonical JSON.
+schedule_schema_id: edge-imci-holistic-teacher-bakeoff-schedule-v1
+generation_run_id: holistic-teacher-approval-sample-gpt41-20250414-v2
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+created_at: '2026-08-23T07:03:35Z'
+authorization:
+  project_owner: Niniola Adegboyega
+  approved_at: '2026-08-23T07:03:35Z'
+  variant_contract_approved: true
+  remote_calls_authorized: true
+  budget:
+    currency: USD
+    maximum_amount: 0.25
+source_pins:
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
+  validator_sha256: 16c516dd7cabef3d9020f1ccef073f82193c625bbe7d528b2dbfce73e222e47a
+  attempt_schema_sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  review_schema_sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+  selection_policy_sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+  schedule_schema_sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+retry_policy:
+  transport_retry_limit: 1
+  semantic_retry: false
+  uncertain_request_policy: RECONCILE_BEFORE_RETRY
+configurations:
+- configuration_id: azure-gpt41-20250414__phc-concise-complete-v2
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-concise-complete-v2
+  prompt_id: edge-imci-phc-concise-complete
+  prompt_version: 2.0.0
+  prompt_sha256: e1d16fedf5af2e417a11f3ca81e18199bdc94d6aa2b66418a1bb6330d572a460
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2000
+- configuration_id: azure-gpt41-20250414__phc-natural-complete-v2
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-natural-complete-v2
+  prompt_id: edge-imci-phc-natural-complete
+  prompt_version: 2.0.0
+  prompt_sha256: 23d3efda04b3b4c92ef4178da09811bed2c91096fc5230042f8c7ae09b0fd7f9
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2000
+units:
+- request_id: holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-001-all-negative
+  configuration_id: azure-gpt41-20250414__phc-concise-complete-v2
+  semantic_case_id: hpg-001-all-negative
+  strategy_id: phc-concise-complete-v2
+  source_request_sha256: ccfdfe8c6bfccffadcc5208c4ff1ee0547e13e5d0b53226c8a062ce2bf0ba62a
+  review_item_id: review-39fd2baa582fbf29c49ab45b
+- request_id: holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-concise-complete-v2__hpg-076-complete-danger-plus-all-pathways
+  configuration_id: azure-gpt41-20250414__phc-concise-complete-v2
+  semantic_case_id: hpg-076-complete-danger-plus-all-pathways
+  strategy_id: phc-concise-complete-v2
+  source_request_sha256: 292ba0d149b027b4d5ce8e8fa9f84267eab03cb4a07b67964f0120d032ad7f04
+  review_item_id: review-bafa11c92ae7f38d17025017
+- request_id: holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-001-all-negative
+  configuration_id: azure-gpt41-20250414__phc-natural-complete-v2
+  semantic_case_id: hpg-001-all-negative
+  strategy_id: phc-natural-complete-v2
+  source_request_sha256: 2834532aab37d276a4206b74efe5827145b5505e08838375944f1a8879e5b589
+  review_item_id: review-9fa684e4a9bfd2478e44e840
+- request_id: holistic-teacher-approval-sample-gpt41-20250414-v2__azure-gpt41-20250414__phc-natural-complete-v2__hpg-076-complete-danger-plus-all-pathways
+  configuration_id: azure-gpt41-20250414__phc-natural-complete-v2
+  semantic_case_id: hpg-076-complete-danger-plus-all-pathways
+  strategy_id: phc-natural-complete-v2
+  source_request_sha256: a87471c37bdb51d2b34d70a4fc847df50e9f44f1304f0940c2fdfd3613f71097
+  review_item_id: review-d6b7f5db0548415c4eab3562

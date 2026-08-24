@@ -1,0 +1,58 @@
+{
+  "review_id": "edge-imci-nigerian-english-v1-2-canary-review",
+  "review_version": "1.0.0",
+  "status": "COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "reviewer": "Codex, under project-owner delegation",
+  "generation_run_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1",
+  "renderer_git_commit": "a1c46749961af2f4253da31dbf780a442e512b45",
+  "candidate_decisions": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "EVIDENCE_ANNOTATION_REMEDIATED",
+        "PRE_POST_INTERVENTION_STATE_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_overrides": {
+        "patient_facts.has_ear_problem": "The child does not have diarrhoea, ear problem, or fever.",
+        "patient_facts.has_fever": "The child does not have diarrhoea, ear problem, or fever.",
+        "respiratory.post_bronchodilator_child_calm": "The child was calm after the bronchodilator"
+      }
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "AREA_LEVEL_MALARIA_RISK_PRESERVED",
+        "EPISTEMIC_QUALIFIER_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ]
+    }
+  ],
+  "recipe_decision": "APPROVED_FOR_FURTHER_CONTROLLED_GENERATION",
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/structured-extraction-language-variant-v1.json",
+  "title": "EdgeIMCI target-blind structured-extraction language variant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_schema_id", "variant_id", "semantic_case_id", "status", "input",
+    "fact_evidence", "generation_provenance", "review", "eligibility"
+  ],
+  "properties": {
+    "record_schema_id": {"const": "edge-imci-structured-extraction-language-variant-v1"},
+    "variant_id": {"type": "string", "minLength": 1},
+    "semantic_case_id": {"type": "string", "pattern": "^(?:hpg-[0-9]{3}-.+|oos-extract-(?:young|older)-.+)$"},
+    "status": {"const": "APPROVED_CORPUS_CANDIDATE"},
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {"role": {"const": "user"}, "content": {"type": "string", "minLength": 1}}
+    },
+    "fact_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "evidence_text", "source_value_sha256"],
+        "properties": {
+          "fact_id": {"type": "string", "minLength": 1},
+          "evidence_text": {"type": "string", "minLength": 1},
+          "source_value_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "generation_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generation_run_id", "attempt_id", "request_id", "request_sha256",
+        "teacher_provider", "teacher_model", "teacher_snapshot", "strategy_id",
+        "prompt_id", "prompt_version", "prompt_sha256", "generated_at"
+      ],
+      "properties": {
+        "generation_run_id": {"type": "string", "minLength": 1},
+        "attempt_id": {"type": "string", "minLength": 1},
+        "request_id": {"type": "string", "minLength": 1},
+        "request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "teacher_provider": {"type": "string", "minLength": 1},
+        "teacher_model": {"type": "string", "minLength": 1},
+        "teacher_snapshot": {"type": "string", "minLength": 1},
+        "strategy_id": {"type": "string", "minLength": 1},
+        "prompt_id": {"type": "string", "minLength": 1},
+        "prompt_version": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "generated_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_faithfulness", "naturalness", "phc_suitability", "reviewer", "review_basis"],
+      "properties": {
+        "semantic_faithfulness": {"const": "APPROVED"},
+        "naturalness": {"const": "APPROVED"},
+        "phc_suitability": {"const": "APPROVED_FOR_HACKATHON"},
+        "reviewer": {"type": "string", "minLength": 1},
+        "review_basis": {"enum": ["INDIVIDUAL_T1_T2_REVIEW", "T3_QUALIFIED_STYLE_AND_STRATIFIED_REVIEW"]}
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["corpus_candidate", "training"],
+      "properties": {"corpus_candidate": {"const": true}, "training": {"const": false}}
+    }
+  }
+}

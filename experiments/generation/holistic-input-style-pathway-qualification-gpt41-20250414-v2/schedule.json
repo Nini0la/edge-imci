@@ -1,0 +1,859 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T12:17:31Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T12:17:31Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 4.0
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "e65d0b72073ea545d3bf294ac1012b3329d9142065568bdff1b21ec93e3723b1",
+    "attempt_schema_sha256": "4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-english-v1",
+      "prompt_id": "edge-imci-phc-nigerian-english",
+      "prompt_version": "1.3.1",
+      "prompt_sha256": "ecc08d6cdb55dfcfc84f8e9a62dc5d75175b0a608a450d2e28a11621976051aa",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "0e7a40358518abed4aeff672d00bd5f1db8ff279c222a3eb524999073dec85a7",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "prompt_id": "edge-imci-phc-noisy-typed-english",
+      "prompt_version": "1.1.0",
+      "prompt_sha256": "13ca628fa3f2d10e797b0189dd8f023d146f1351c1a7db01267a7a90e6228168",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    },
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "prompt_id": "edge-imci-phc-telegraphic-note",
+      "prompt_version": "1.0.0",
+      "prompt_sha256": "8530c78502a3b4e9cc6e750767a0921ce00e30a7ed8e08678aaac3a6723a801a",
+      "sampling_config": {
+        "temperature": 0.7
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-028-diarrhoea-some-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "3807ef70a3e47ceda56231e6415087bbae053bbeb87a8049dc97c37b3f1f8fcf",
+      "review_item_id": "review-7967b219d3ff677a4f515647"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-061-ear-no-infection",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "2911e1d693b333805177ab7dd3c9515a0aa7fc793e80db45007dbe31839a4f27",
+      "review_item_id": "review-16130189268263d1d1fdda84"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "9df4c5425aec21f3294a840c719f66d1c60e4c69529d30468844fa5c2e3529c6",
+      "review_item_id": "review-ac2cdd290033e637f22cb4ac"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-068-cross-four-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "b77e4343d3eba5519e392b31d6a3981b892b4cd1e2450f1ba87d81c20b3f7c5a",
+      "review_item_id": "review-1d4a6caddaaf02b2f7f1e5df"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-069-cross-urgent-dehydration-ear",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "8ffb97e8638578e9f1bcfc58107687b70b0b9eb593f81d24920fe62772d85eff",
+      "review_item_id": "review-57c1c78bc0dec138cde27223"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "561806efc54302d15ed391b31c13f508f4bdddd464f66b5874913e859a7d4fbc",
+      "review_item_id": "review-16a268c821654a84964c7783"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-064-ear-chronic-discharge-14",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "a9ab55b503854cf181783337a4a0ba1f82818632b1316fc1b59a900567094e8d",
+      "review_item_id": "review-b43d9ae0a6d944d3676c5da3"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-001-all-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "b61d5c9b3cd9d61e27648a6eacd0a02f97b04e74227274fa23073282e43adae7",
+      "review_item_id": "review-913ae8657923ea3454eb68aa"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "e3ed903e6b0ae65c7f4ffe1c872ac539def2730344b749517a3c8628dd45f150",
+      "review_item_id": "review-5e7817dd88d28db9b2a83ba3"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-006-danger-convulsing-now",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-006-danger-convulsing-now",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "15c22618feefef4eda6b6cbbf2ae5515df0e417ca6bf7af19f9cff83d6092173",
+      "review_item_id": "review-b353193f65cd86fe25a024db"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-008-resp-age-2-rate-50",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "de3dad261dba14f3e90f94f899c47d2d32910e189508323a775fbdb7527889fb",
+      "review_item_id": "review-b2b65d5da537ef27aa9ffd74"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-014-resp-chest-hiv-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "838d27ad54b2b1db1148b998637fae3e9a105fe4ca3ebcd0955d85986708cbe0",
+      "review_item_id": "review-b0645362fc30fa09b674a662"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-016-resp-oximeter-89-9",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "56cf7b9fd81da57d10c904f8af77b1605cfbc4dc34b7bd291b498124db1522ba",
+      "review_item_id": "review-58ebca1f3fddc936a6f3120d"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-021-resp-post-bronchodilator-fast",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "e5f85ade5d35550d0a9d9354dccdc67d32347cd9d18723b40a2f4100e63d0fbd",
+      "review_item_id": "review-b916dfd5e4ef061691a9a8f5"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "8c7fe677c4e8dafad4419d68697601d4123ae35a1298164fead49d31eaf83baf",
+      "review_item_id": "review-114d515307c7b3c4b7d41fda"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-031-diarrhoea-severe-age-24-cholera",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "81f85993ebcd3d4376a4687d7ae4fe9d99cd38785eb2f32aaeda3a324bf42e1c",
+      "review_item_id": "review-e876dd165c627126278478c7"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-036-diarrhoea-persistent-and-dysentery",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "6db33b0dc98a1b81f3ea417af22fb14d74b16e3611e621ec132181f7cabd6d31",
+      "review_item_id": "review-28aeffdaefc59693a0c46f2a"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-038-diarrhoea-negative-does-not-reuse",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "afbbf454c4d8d619d1ad7b56c1b5955b470da810c025a6cc39fa11974562c9f1",
+      "review_item_id": "review-12757d003e3ac9a40c8a24cd"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-042-fever-high-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "4d51d52d97e0fa09b96d64c7447bcb3e22c9a681a43696f13ba66d71e930627d",
+      "review_item_id": "review-b475e5c7889286cb4ba30438"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-044-fever-low-obvious-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-044-fever-low-obvious-cause",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "45549fd7cce9f6b2658945e5741238fb64fe04466f3f1bc80626967ba21a177a",
+      "review_item_id": "review-19fd18a053df6769541955ba"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-046-fever-no-risk",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "17162fb138f9b39dfd61be967a22106933476207a7b4bda3bf14325a4c9a2c41",
+      "review_item_id": "review-79e91f1fab0e8211a7af2109"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-052-fever-identified-bacterial-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "0ab50f69d5c1a70867953ada5067b6b0355c4edc6daffc803fef106dafdcbeb3",
+      "review_item_id": "review-db0bffb2e15c29fcaca671f9"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-055-fever-severe-measles-cornea",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "eeaf277206ce01d9dc828299c40c7642a9e412ae5199f35c673638e0bd1a339b",
+      "review_item_id": "review-d15018cbbea2a094046dd944"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-nigerian-english-v1",
+      "source_request_sha256": "5049c4a751f1ce54d549fda488f00b79e36ecac81ed46b142b2326cbbfc85d5e",
+      "review_item_id": "review-3ba7fb6b3a0e19cec8152265"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-028-diarrhoea-some-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "900ec0b10e2927e9019ad53ac6fe76a131e64c730a8d405e970bb2116858a819",
+      "review_item_id": "review-c19f8139f66cff62210e0cdb"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-061-ear-no-infection",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "5952781d7a60d0061fbb9d02c36ebb3b62d36921eea27b0e2611783e6351e931",
+      "review_item_id": "review-eefb833c3a3e5939adf9dda5"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "da8d198a59d8189cff285154e4f8fe8e570c7cce9056fafe1606975c484537a7",
+      "review_item_id": "review-d236b9b13fdcd44fe34e358d"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-068-cross-four-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "2bdd3f2dc8274253d994de4dc9f5eff6d25f102db199aba31905fd07f2dbab9b",
+      "review_item_id": "review-7bf82df904888b36992c7dbe"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-069-cross-urgent-dehydration-ear",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "2032008e4f3ae4a2899022658660937268c2900a8e5a3db770f21ee7f58eed6e",
+      "review_item_id": "review-4abed1a77a25de2b0c279bff"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "9e721037abff937933b059d6197370d4c8c40fd8eaee7c42c18dfc1fdb3d2c55",
+      "review_item_id": "review-dd86676f050cee26ca12a9c6"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-064-ear-chronic-discharge-14",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "00496aa9a561e15410eb8087da8bdc8c7393386cc7b50d038d2fbcefa796aa61",
+      "review_item_id": "review-ae9061ef2bdd1e2f7e8d1337"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-001-all-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "57b8bef4fa7dab028ec09f04ec29245ff2d970bb559574c8b507ca3405281440",
+      "review_item_id": "review-35a7682f297f72901490b116"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "e23a78d3d10791d94b755b175c7d6454343494c5374d6652326370b78a82658e",
+      "review_item_id": "review-462fe6170798ceb691821132"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-006-danger-convulsing-now",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-006-danger-convulsing-now",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "d532bab7c2fe5c66f285438c3f9796d358c1ecf3cc6c95deb4596a0d6b32b0fe",
+      "review_item_id": "review-8ff868776fb249dcac5ed118"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-008-resp-age-2-rate-50",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "e341df2a73c43086e8758838940c4ed43ea566dda634c6fbed4a4d0361327c71",
+      "review_item_id": "review-1454c1a4df6f5c478b629bf9"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-014-resp-chest-hiv-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "8933f76597ae1b45c3c23292620b6b6daa0e2fc80c7ed60ccb610156d3550504",
+      "review_item_id": "review-589a12e10c4d0bf771febfca"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-016-resp-oximeter-89-9",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "4d04ff805d74cccc95be14f7ffc2b12f4f99d65b14ff80cc6676b8d962968965",
+      "review_item_id": "review-3350ed8598a5267dbf723286"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-021-resp-post-bronchodilator-fast",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "363342276e87031f170db15cbd61982f9c1e20279f3866e8d1eb6358c8ee7a72",
+      "review_item_id": "review-967bda242474445ba3bfd765"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "991120c557c7e39a38f180bf43856dcd0698c3074529d0ffc9d2591c489d616f",
+      "review_item_id": "review-f90c49d4cf069e33fd136c70"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-031-diarrhoea-severe-age-24-cholera",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "9e65038d2b4793a2bc93ae1ab04245584ae746e5c6718f82b6ee130be6adebf9",
+      "review_item_id": "review-55856536abdf1323d6f59a29"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-036-diarrhoea-persistent-and-dysentery",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "4bc7a263c936db402427b9eadd4c73c0cb14508c169ca3b38aa30c53af92d2d2",
+      "review_item_id": "review-827506f0129d67bb1b651d03"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-038-diarrhoea-negative-does-not-reuse",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "05297321eea8116383dbdcb31796338f9aaa8784576cb138c76827634e851e41",
+      "review_item_id": "review-2f6a0fcf8b3db39d0357f76f"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-042-fever-high-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "ac3622466b145ce92ec93e73e25f79286cd3e487307022eeb5cba57459d7e091",
+      "review_item_id": "review-0a21f5ab62e61fe83569291e"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-044-fever-low-obvious-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-044-fever-low-obvious-cause",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "411bc7f9e9065bf357932d31b7c7f2a900bd05b48927470933447f7f9cd1717e",
+      "review_item_id": "review-8b0169f13f9c8877119d9397"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-046-fever-no-risk",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "4393a7d4b12deeed416183a4f713d14ce065b4b0c076056ff0d1286be7d63934",
+      "review_item_id": "review-0016f6f0e0c54ce7878b4a82"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-052-fever-identified-bacterial-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "c0654ec0b6fb75e5766065ac3c52abe01797a698d713919fe78951ad5f6c6ed8",
+      "review_item_id": "review-2148078a91f77a9a641335ae"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-055-fever-severe-measles-cornea",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "7e490d380a5f5058fbf794374e661298e5eb90c797e7b676cfc6f0dba3a5ef4d",
+      "review_item_id": "review-ab9c560fb40b29c933b04295"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "cc9fec03f5cf2dea1fed8f860961be6a1f3c677582660edb986e8f8adb1d89cc",
+      "review_item_id": "review-f965be8186c77c505b47877e"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-028-diarrhoea-some-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "aa3bcbc7f585ee9a974a6f13e51da196bd1ab4bd22bb44f063f2d6465f9aa794",
+      "review_item_id": "review-fb4887fa1e3021e149796590"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-061-ear-no-infection",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "651a0911b87d23bcacd576d30557cdf6b1043f8d5b9d92146bc89f6eccfecb0d",
+      "review_item_id": "review-0f58f89a006792cf85040a04"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "cc70afa7bb6da1edd13df5def21136f940214531fe9d08abf3cc3456f8bb0921",
+      "review_item_id": "review-6a9a139d131a20e5087554f3"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-068-cross-four-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "503ad82945c365171836c238a70ac7d8c73b29bf828740492e692be9aa52093c",
+      "review_item_id": "review-fd0879345a325e13c972033e"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-069-cross-urgent-dehydration-ear",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "ad31d2c68253d7432565aee48eb2870355341f21cb04b39f84156a15f0f47ccd",
+      "review_item_id": "review-46d32287dac0674aad3b4613"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "a84190ac434c2b661751cd4ee5df0bc06a7d8a5eae91991e033487f4f362d83a",
+      "review_item_id": "review-9c9db5c6936d08e29eaf360b"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-064-ear-chronic-discharge-14",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "9e49d1c6430b45c7d943a6873c7064e2ef4fa5beea1b85bda4bd6a27fb892b26",
+      "review_item_id": "review-b8cd5d2ff44295a8333e8808"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-001-all-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "fd0b016181fb0bf12a72da8f64efc1af642f2de5bb2744f26ff6d7083c88e7f6",
+      "review_item_id": "review-e9572ff4f15dcf55fcebddc5"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "dcca0e81a77977ef64bdc7c32778c07c30a746ca90dd17480e5e7dc4118a8e33",
+      "review_item_id": "review-91dce017eb2311d069042dc1"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-006-danger-convulsing-now",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-006-danger-convulsing-now",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "381cfb4230bfc7a90bd719fa91af8aa8c3b38fb71ded5584f7f25ab39da4a5d2",
+      "review_item_id": "review-ac60f2a340e0cc68e701e74c"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-008-resp-age-2-rate-50",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "08bc573c57db59f27ca16a6878d43033457106691b22790b5e8eb33455ca4ec6",
+      "review_item_id": "review-af307bf0bf8c5f01151337a6"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-014-resp-chest-hiv-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "6a60c0735ec7be9eb85ff9ec3aa6ad5eb7af7de7bd6ce4dd96a5da632534cf31",
+      "review_item_id": "review-68423c2516edb482b391c219"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-016-resp-oximeter-89-9",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "5b20befd99c8e77e87441ca5f65d4c48120d5e3c065dab4f04a71e0d6867c9bc",
+      "review_item_id": "review-618fba642907affaf2468dc3"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-021-resp-post-bronchodilator-fast",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "9dcecabf484ca7144db388ed93eca8015a472e7f4161ff31451a97866e45a456",
+      "review_item_id": "review-9a88ea3405cb52e391fd4fc1"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "8b53288448ea3cfbe01ff8a63aed7048e735f8303d84475857cd9e9543a04517",
+      "review_item_id": "review-b10f7e3bd552bcc4498f64b6"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-031-diarrhoea-severe-age-24-cholera",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "3737cf7b9a987330d9707914b441a5344ff4910b35092af07e7a93ea135422a1",
+      "review_item_id": "review-3dbd5b613351be657bd451a1"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-036-diarrhoea-persistent-and-dysentery",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "a7922d7ed819722cfee1103d70c49af127aa95c47cd37268d238474d69b53b76",
+      "review_item_id": "review-33d0a91b31cc9420a3697c64"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-038-diarrhoea-negative-does-not-reuse",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "2b6fcc4945fce71d46399a8b61e0726aae3d677dc2d6830e6af674df7ce6fdcd",
+      "review_item_id": "review-3e42820136a906769eb5e7fa"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-042-fever-high-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "04d9ca71e14366ebe0cf8ea61930e8e779b96f0486a7f88015eb6ff29512ad77",
+      "review_item_id": "review-9a91b3e0a4287d24612a4fa8"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-044-fever-low-obvious-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-044-fever-low-obvious-cause",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "0233ce1fa8e317518a94e69893b05331cd8382dc0f513992d9591e3ca8d9cebf",
+      "review_item_id": "review-26dff7989b2d8449221f011f"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-046-fever-no-risk",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "6294d6e5edda183d245991b78ace026c92fe122f8874dc4acf9e47439716cd10",
+      "review_item_id": "review-be586dcb4c1ecfbbcb3a46ef"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-052-fever-identified-bacterial-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "422fefbcba640bcbb248368dcfb71e50e728ccb8e3e7e16825e83d94954074ff",
+      "review_item_id": "review-f0a77663ed3c5c246af9e981"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-055-fever-severe-measles-cornea",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "331fce2d71a4504e8866a497cfd389184a0f54207a18106fce80c616dae49a87",
+      "review_item_id": "review-196c3bd3da157573d50dd275"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1-0",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "source_request_sha256": "00f0802ae47de228c70f6fecd3474f8c14a867f25ad66b531fe9f8e67f4dec71",
+      "review_item_id": "review-0f3ed3494df953809515a202"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-028-diarrhoea-some-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "75fb5203d56bbae36ba3f46c6e6f0cb04a26c95dc93a0c608304c7c6bbfe9789",
+      "review_item_id": "review-0a6e2c383082d42392468c87"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-061-ear-no-infection",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-061-ear-no-infection",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "ef72e51ac00f9546624147786ebbbf2bc464d3308fbb040c8a582f01d0d3056f",
+      "review_item_id": "review-b5aa2eee97821c6130897fb8"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "2e16d6ba11578ea354c166ad9d5aa7d73dfef6ec6305352f352f30f984e6e760",
+      "review_item_id": "review-ffd7acca02683a31d86d1f72"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-068-cross-four-pathways",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "513d89c1dfb3cdab5e76a359c7fa7c7ce6d5cbd4768f26c05b63d50f3964b072",
+      "review_item_id": "review-0940212c933a4497afb39ed9"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-069-cross-urgent-dehydration-ear",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-069-cross-urgent-dehydration-ear",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "3986235bdb2da0de324a99c5bd874f726933ef201d864ca472a245759036e201",
+      "review_item_id": "review-5dd8e0bcbddbf66f1b79d9be"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-027-diarrhoea-no-dehydration",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "02429996926c8148c06a7e16f410cdd77312625f92b744f404cdddd32f4547b8",
+      "review_item_id": "review-acf33ad3a84810be14190c99"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-064-ear-chronic-discharge-14",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "940a21e7325eda8ea985efb69e4dde9e800ef1e496c2c0673a99fe1d7b6d5b2b",
+      "review_item_id": "review-260ea9ac320638615d4b0e5f"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-001-all-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "4c761fda31ec93af03e6b963b2e8f875d5f92eea477e347302f00ee9b11c8f72",
+      "review_item_id": "review-36cc26d23367c06fb99b192f"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-002-danger-unable-to-drink-or-breastfeed",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-002-danger-unable-to-drink-or-breastfeed",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "b1dc93ef01b0e129e76a67d15b7b4f6ed3897704e7047e7ecf827bcbd9913778",
+      "review_item_id": "review-d374e270dc5389933f136533"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-006-danger-convulsing-now",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-006-danger-convulsing-now",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "a8d6a4f9de5ee01ba2e9e6266d0574c14baa46454d7beb582406fb299dde683e",
+      "review_item_id": "review-2fe98936c6a103632f423883"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-008-resp-age-2-rate-50",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "061b2e29a602cc01c839fe2bf723c20f82af8e4a1a9688d0b4169f558b85b816",
+      "review_item_id": "review-46ae899e9f6cdea5b3682afc"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-014-resp-chest-hiv-positive",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "a3257fbc68801a3356f6b3e8159a811123394532c3cd89d917b11beec40a396e",
+      "review_item_id": "review-4c5599195d622071b908f039"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-016-resp-oximeter-89-9",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "2940a803057e5bf8ec685c47e619bdf7dac5cef51fc9796af2af700e7aec14bf",
+      "review_item_id": "review-213d34e3ca7d7dca8fcaecd5"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-021-resp-post-bronchodilator-fast",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "03972283bf9d748e0473f8965c7d5e555d1390c52daede4dab3977dddd461c04",
+      "review_item_id": "review-78ca521db46250c7ee1ca673"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-023-resp-child-not-calm",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-023-resp-child-not-calm",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "617a2a595cc2d769e43037c55d4cfd3fc75174a0294822093afc8f87e68c907d",
+      "review_item_id": "review-485754d9307bc55456c24c88"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-031-diarrhoea-severe-age-24-cholera",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-031-diarrhoea-severe-age-24-cholera",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "7505b738560342ab90935f221200dde124a3528e59ef681f837992d808b80a04",
+      "review_item_id": "review-961c01da372852503b8e96e2"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-036-diarrhoea-persistent-and-dysentery",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "6f73c0c256dfd13686b21f367346e4af1224781cf54b224b255bd3a731ba5c9c",
+      "review_item_id": "review-d2dffa1d0b06dea8223d3985"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-038-diarrhoea-negative-does-not-reuse",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "ae47c40ce0ad76eb21b80eb11009b9da9e8c5d85a441fa8a7c7169204e6437b1",
+      "review_item_id": "review-3d27956b3ad0f11dc1d319a1"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-042-fever-high-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "e6675226d270fbee5cc26826bdb372cb760eba736dd89b5796abace03dabadd8",
+      "review_item_id": "review-6dd6853ec04221a178f4e15a"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-044-fever-low-obvious-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-044-fever-low-obvious-cause",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "02aa93a75718f29fbb7a7d261a56afffa6f55ff5dc99acc06ad906f373edbbb9",
+      "review_item_id": "review-59f6690b4cc33d7822aa9ab8"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-046-fever-no-risk",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-046-fever-no-risk",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "f41b30efd8c0b000a79838919be0d1aa9b1678008dbf1c1676507894734b8fc5",
+      "review_item_id": "review-11f1d46fa2d4a4a739ec196a"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-052-fever-identified-bacterial-cause",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-052-fever-identified-bacterial-cause",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "3975f24ff6499dedf5f0f5c160e51203e5e31e7782d561278e08a3cd32d819ca",
+      "review_item_id": "review-284921a736256a033a21e79d"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-055-fever-severe-measles-cornea",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-055-fever-severe-measles-cornea",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "86d4aa1da9a290a48f3f32a7f3f7774b492fcb5b35782b4e92079b50aeeeba82",
+      "review_item_id": "review-48ecaf413da26008080c5b8e"
+    },
+    {
+      "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-075-contradiction-drinking",
+      "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "source_request_sha256": "f6640bd81dfc2bfeab6edf3af55b08cb00920c5b539b511e00d90651321a5907",
+      "review_item_id": "review-d67f82009443241f48c81584"
+    }
+  ]
+}

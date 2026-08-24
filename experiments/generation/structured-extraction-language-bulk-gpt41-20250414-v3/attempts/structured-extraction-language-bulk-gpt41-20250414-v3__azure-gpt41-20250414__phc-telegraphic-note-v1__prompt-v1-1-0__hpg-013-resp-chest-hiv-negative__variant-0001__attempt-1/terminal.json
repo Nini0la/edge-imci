@@ -1,0 +1,143 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-013-resp-chest-hiv-negative__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-013-resp-chest-hiv-negative__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0",
+  "semantic_case_id": "hpg-013-resp-chest-hiv-negative",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.1.0",
+    "prompt_sha256": "96a5096aa248ce6a6f90d290ca5b54e09faa4b43ef3e9019c0c7398a275ee409"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "d05968531aa911ba0421622ca26f660196799aad206864d2265f3ee07be07fa3",
+  "requested_at": "2026-08-23T13:32:27Z",
+  "completed_at": "2026-08-23T13:32:38Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-013-resp-chest-hiv-negative\",\n  \"strategy_id\": \"phc-telegraphic-note-v1\",\n  \"user_submission\": \"18 mo. Cough/diff breathing. No convulsing now. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Does not vomit everything. Cough 3 days. Breaths counted 1 min, child calm. RR 35. Chest indrawing. No stridor when calm. No wheezing. No recurrent wheeze. Not HIV-exposed/infected. No diarrhoea. No ear problem. No fever. Pulse oximeter unavailable.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"18 mo.\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"Cough/diff breathing.\"},\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"No convulsing now.\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"No convulsions.\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Not lethargic/unconscious.\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"Able to drink or breastfeed.\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"Does not vomit everything.\"},\n    {\"fact_id\": \"respiratory.cough_duration_days\", \"evidence_text\": \"Cough 3 days.\"},\n    {\"fact_id\": \"respiratory.breaths_counted_one_minute\", \"evidence_text\": \"Breaths counted 1 min, child calm.\"},\n    {\"fact_id\": \"respiratory.child_calm\", \"evidence_text\": \"child calm.\"},\n    {\"fact_id\": \"respiratory.respiratory_rate\", \"evidence_text\": \"RR 35.\"},\n    {\"fact_id\": \"respiratory.chest_indrawing\", \"evidence_text\": \"Chest indrawing.\"},\n    {\"fact_id\": \"respiratory.stridor_when_calm\", \"evidence_text\": \"No stridor when calm.\"},\n    {\"fact_id\": \"respiratory.wheezing\", \"evidence_text\": \"No wheezing.\"},\n    {\"fact_id\": \"respiratory.recurrent_wheeze\", \"evidence_text\": \"No recurrent wheeze.\"},\n    {\"fact_id\": \"respiratory.hiv_exposed_or_infected\", \"evidence_text\": \"Not HIV-exposed/infected.\"},\n    {\"fact_id\": \"respiratory.pulse_oximeter_available\", \"evidence_text\": \"Pulse oximeter unavailable.\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"No diarrhoea.\"},\n    {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"No ear problem.\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"No fever.\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-013-resp-chest-hiv-negative",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18 mo. Cough/diff breathing. No convulsing now. No convulsions. Not lethargic/unconscious. Able to drink or breastfeed. Does not vomit everything. Cough 3 days. Breaths counted 1 min, child calm. RR 35. Chest indrawing. No stridor when calm. No wheezing. No recurrent wheeze. Not HIV-exposed/infected. No diarrhoea. No ear problem. No fever. Pulse oximeter unavailable.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18 mo."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Cough/diff breathing."
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsing now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "No convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Not lethargic/unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Does not vomit everything."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough 3 days."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Breaths counted 1 min, child calm."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "child calm."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "RR 35."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest indrawing."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "No stridor when calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "No wheezing."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "No recurrent wheeze."
+      },
+      {
+        "fact_id": "respiratory.hiv_exposed_or_infected",
+        "evidence_text": "Not HIV-exposed/infected."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter unavailable."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1522,
+    "output_tokens": 733,
+    "cached_input_tokens": 0,
+    "latency_ms": 10352,
+    "retry_count": 0,
+    "provider_request_id": "resp_0fa0b7407d0162b0016a8af66cf7988190a77a0de8c492b393",
+    "raw_usage": {
+      "input_tokens": 1522,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 733,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2255
+    }
+  }
+}

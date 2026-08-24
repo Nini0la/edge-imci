@@ -1,0 +1,103 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v4",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4__hpg-004-danger-had-convulsions__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v4__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4__hpg-004-danger-had-convulsions__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-4",
+  "semantic_case_id": "hpg-004-danger-had-convulsions",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.4",
+    "prompt_sha256": "5c16bdba02aba803b125b88372afdef4a88086eb5552682348dbeff929f1ae5d"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "063f100e449c23bbf5aaa0a2985f01ca0dea97f6a6dd6d3c9058abe70755969b",
+  "requested_at": "2026-08-23T14:13:30Z",
+  "completed_at": "2026-08-23T14:13:36Z",
+  "raw_response": "{\"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\", \"semantic_case_id\": \"hpg-004-danger-had-convulsions\", \"strategy_id\": \"phc-noisy-typed-english-v1\", \"user_submission\": \"not convulsing now child had convulsions not lethargic or unconscious able to drink or breastfeed not vomiting everything age 18 months no cough or difficult breathing no diarrhoea no ear problem no fever\", \"fact_evidence\": [{\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"not convulsing now\"}, {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"child had convulsions\"}, {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"not lethargic or unconscious\"}, {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"able to drink or breastfeed\"}, {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"not vomiting everything\"}, {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"age 18 months\"}, {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"no cough or difficult breathing\"}, {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"no diarrhoea\"}, {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"no ear problem\"}, {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"no fever\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-004-danger-had-convulsions",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "not convulsing now child had convulsions not lethargic or unconscious able to drink or breastfeed not vomiting everything age 18 months no cough or difficult breathing no diarrhoea no ear problem no fever",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "not convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "child had convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "not vomiting everything"
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "age 18 months"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "no diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "no ear problem"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1129,
+    "output_tokens": 369,
+    "cached_input_tokens": 0,
+    "latency_ms": 6158,
+    "retry_count": 0,
+    "provider_request_id": "resp_0036779a2929f5d3016a8b000b612c8194b4d7cbeb9b2498f4",
+    "raw_usage": {
+      "input_tokens": 1129,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 369,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1498
+    }
+  }
+}

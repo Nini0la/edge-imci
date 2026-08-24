@@ -1,0 +1,33 @@
+{
+  "approved_record_count": 3,
+  "assets": {
+    "data/canary/nigerian_english_v1_2/canonical_records.jsonl": {
+      "sha256": "c98ec532ac9e551ecf4947a5b870e6cff2d721deabbce8e9db02d1d1fc1457ce"
+    },
+    "data/canary/nigerian_english_v1_2/chat_messages.jsonl": {
+      "sha256": "28e6ff1a0bdde9d632e1ede9ccc776f87d9a9bba05acb4861a4434db0fb3b219"
+    },
+    "data/canary/nigerian_english_v1_2/language_variants.jsonl": {
+      "sha256": "f4725fc16aef194223b9a60e192747d7c541415b61f558e475454dc7841b79a1"
+    }
+  },
+  "attempt_count": 3,
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "production_clinical_use_authorized": false,
+    "training_authorized": false
+  },
+  "canary_id": "edge-imci-nigerian-english-v1-2-canary",
+  "recipe_decision": "APPROVED_FOR_FURTHER_CONTROLLED_GENERATION",
+  "rejected_record_count": 0,
+  "review_id": "edge-imci-nigerian-english-v1-2-canary-review",
+  "status": "REVIEW_COMPLETE",
+  "validation": {
+    "annotation_remediation_separate_and_auditable": true,
+    "immutable_attempt_evidence_preserved": true,
+    "malaria_risk_area_context_checked": true,
+    "target_side_information_excluded": true,
+    "unknown_preservation_checked": true
+  }
+}

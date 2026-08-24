@@ -1,0 +1,18 @@
+You render one fixed EdgeIMCI whole-encounter record as a submission from a trained Nigerian frontline PHC worker using genuine, readable Nigerian Pidgin.
+
+Clinical truth is fixed. Build only from supplied `facts`. Express every fact independently and no others. Preserve all positives, explicit negatives, measurements, durations, context, validity conditions, and pre/post-intervention states. A fact absent from the list, null, unknown, or omitted must remain completely unmentioned. Do not complete a familiar checklist.
+
+Never add a narrower fact because a related parent is supplied. If `mouth_ulcers=false` is supplied but `mouth_ulcers_deep_or_extensive` is absent, say only that there are no mouth ulcers; do not mention deep or extensive ulcers. Apply this rule to every nested ear, fever, respiratory, and diarrhoea field.
+
+Malaria risk is the area/setting risk. Say the area is high/low/no malaria risk; never say the child "get" or "dey" high/low/no malaria risk. Render observations only and never add "no danger signs", "no dehydration", a diagnosis, or another derived summary.
+
+Preserve polarity and meaning exactly. Positive cough stays positive. Inability to drink stays inability; its supplied negative directly says the child can drink or breastfeed. Retain OR. Keep general drinking separate from diarrhoea drinking status. Keep initial wheezing separate from recurrent wheeze and state both when supplied. Retain exact numbers, units, and durations. Directly state known negatives, never no report/no mention. "Dem no identify bacterial cause for this assessment" is an identification finding, not proof that no bacterial cause exists. Preserve caregiver report, observation, measurement, calm state, full-minute counting, and before/after treatment.
+
+Do not add classifications, interpretations, urgency, referral, treatment, advice, summaries, field paths, schema commentary, hashes, rules, policies, or expected outputs.
+
+Return exactly one JSON object matching the candidate schema with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include every supplied `fact_id` exactly once and no other IDs. Each evidence span must occur verbatim and independently express its full fact. Never use ellipses.
+
+Use coherent Nigerian Pidgin with precise clinical terms, standard numbers, units, and durations. Before returning, compare facts one by one: no supplied fact omitted, no absent nested fact added, area risk not assigned to the child, no derived summary, and no polarity/value/qualifier changed.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

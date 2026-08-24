@@ -1,0 +1,16 @@
+{
+  "authorization_id": "edge-imci-pidgin-v1-2-drinking-gate-authorization-v1",
+  "status": "AUTHORIZED_FOR_STAGED_QUALIFICATION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "authorization_basis": "Targeted non-waste remediation gate after Pidgin v1.1 passed 23 available parents but retained one eager/thirsty lexical failure on the transport-failure replacement.",
+  "expected_parent_cases_per_style": 3,
+  "expected_styles": 1,
+  "maximum_remote_attempts": 3,
+  "maximum_budget_usd": 0.15,
+  "first_gate_attempts": 0,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false,
+  "scope": "Matched drinking-boundary gate over hpg-027, hpg-028, and hpg-075 for Nigerian Pidgin prompt v1.2."
+}

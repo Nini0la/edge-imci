@@ -1,0 +1,63 @@
+{
+  "run_state_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-state-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T16:15:43Z",
+  "remote_attempts_started": 3,
+  "deterministic_passes": 2,
+  "deterministic_rejections": 1,
+  "transport_failures": 0,
+  "usage": {
+    "input_tokens": 5043,
+    "output_tokens": 3566,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1",
+    "unit_count": 3,
+    "state_counts": {
+      "TERMINAL": 3
+    },
+    "units": [
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-008-resp-age-2-rate-50",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13",
+        "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "e7873744ed4d3ce2b8b34bd5a5df0e6ff2ec8baa6d10087a9b6b2e54fef48a8e",
+        "review_item_id": "review-91ce364ffc4c1e7ac7e10327",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-008-resp-age-2-rate-50__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-019-resp-recurrent-wheeze",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13",
+        "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "da4dee3f47be3449a14987e295af735744208c876de4c284ccc9e9f71fd58397",
+        "review_item_id": "review-73991edbb768e852f58f52ea",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-019-resp-recurrent-wheeze__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-076-complete-danger-plus-all-pathways",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13",
+        "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+        "strategy_id": "phc-nigerian-pidgin-v1",
+        "source_request_sha256": "72d4acbcd4ab8b1be912ec77ca44ef4a1d38501ed3f850c96bb62a916a09b867",
+        "review_item_id": "review-58748ba6827bc4a632fee383",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "structured-extraction-bulk-t3-pidgin-wheeze-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-13__hpg-076-complete-danger-plus-all-pathways__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

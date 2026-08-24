@@ -1,0 +1,57 @@
+# Generated from experiments/generation/holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1/schedule.json; edit canonical JSON.
+schedule_schema_id: edge-imci-holistic-teacher-bakeoff-schedule-v1
+generation_run_id: holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+created_at: '2026-08-23T11:00:00Z'
+authorization:
+  project_owner: Niniola Adegboyega
+  approved_at: '2026-08-23T11:00:00Z'
+  variant_contract_approved: true
+  remote_calls_authorized: true
+  budget:
+    currency: USD
+    maximum_amount: 0.15
+source_pins:
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
+  validator_sha256: 08816d505812292b6421bed3e5dd682f7a813e52523059765d6af12fd2008022
+  attempt_schema_sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  review_schema_sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+  selection_policy_sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+  schedule_schema_sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+retry_policy:
+  transport_retry_limit: 1
+  semantic_retry: false
+  uncertain_request_policy: RECONCILE_BEFORE_RETRY
+configurations:
+- configuration_id: azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-nigerian-pidgin-v1
+  prompt_id: edge-imci-phc-nigerian-pidgin
+  prompt_version: 1.2.0
+  prompt_sha256: 48de2a44bff56a7521f290cc4085c631076bb6825c1737a415fdef5c355cd90a
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2200
+units:
+- request_id: holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-027-diarrhoea-no-dehydration
+  configuration_id: azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0
+  semantic_case_id: hpg-027-diarrhoea-no-dehydration
+  strategy_id: phc-nigerian-pidgin-v1
+  source_request_sha256: 8bcaa256b85ede35ea65ddff97503133b09b4f123b2b3d1f5bc99ca780b23c91
+  review_item_id: review-da10bd08e3f619c63d60451a
+- request_id: holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-028-diarrhoea-some-dehydration
+  configuration_id: azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0
+  semantic_case_id: hpg-028-diarrhoea-some-dehydration
+  strategy_id: phc-nigerian-pidgin-v1
+  source_request_sha256: 4319ea33f64b96aa785455a2e52476f295869aeb13e012767d4532db015922ed
+  review_item_id: review-b0aa533e3a0cc41a8ad7d9b3
+- request_id: holistic-pidgin-v1-2-drinking-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0__hpg-075-contradiction-drinking
+  configuration_id: azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-0
+  semantic_case_id: hpg-075-contradiction-drinking
+  strategy_id: phc-nigerian-pidgin-v1
+  source_request_sha256: a36f1a55bb5e5f2d05e1522e514c28430bbb1716706ab9cdb251c332c408b08d
+  review_item_id: review-bc7b26153ab6221291204003

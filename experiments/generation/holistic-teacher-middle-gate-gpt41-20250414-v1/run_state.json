@@ -1,0 +1,124 @@
+{
+  "run_state_schema_id": "edge-imci-holistic-teacher-middle-gate-state-v1",
+  "generation_run_id": "holistic-teacher-middle-gate-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T07:27:18Z",
+  "remote_attempts_started": 8,
+  "deterministic_passes": 6,
+  "deterministic_rejections": 2,
+  "reserved_total_usd": 0.16,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 9129,
+    "output_tokens": 5967,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-teacher-middle-gate-gpt41-20250414-v1",
+    "unit_count": 8,
+    "state_counts": {
+      "TERMINAL": 8
+    },
+    "units": [
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-011-resp-age-12-rate-40",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-011-resp-age-12-rate-40",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "85603458bd129fd40544df87451a45f5af708a2f7b61c96a1713e02bf3113afd",
+        "review_item_id": "review-e9e121d0426268f90a2a0d5d",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-011-resp-age-12-rate-40__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-028-diarrhoea-some-dehydration",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-028-diarrhoea-some-dehydration",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "33b9456d8b7733be16bc67d08855ff1b3e230a736b1bb4f8c3c5312ff883fcc0",
+        "review_item_id": "review-42ae54d347eb66b4cf39c294",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-028-diarrhoea-some-dehydration__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "01b2a22c0b50d03bdf4553fd73dc55e1cfb28cdb11a1cc9aaa656a380b02ad95",
+        "review_item_id": "review-578b687d4944664f46ed8158",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-062-ear-acute-pain",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-062-ear-acute-pain",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "e7c65587d8ddfba21857dbfcbfc1389b354721c58bf0ed1957b5905cb4130d8d",
+        "review_item_id": "review-305e11daffbd3b81808b7576",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-062-ear-acute-pain__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "ff4f2cb831140a511268c98c54b953adbbf300f8c8c2626fadbbe6d973610e6f",
+        "review_item_id": "review-32f7d19f7799fe9d32d36318",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "410923bffd68b699aeaf339df6968f9021bbd4123671e4df8f0f34a58ee59817",
+        "review_item_id": "review-e5b6b92d334b1330ae1d1fe1",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-020-resp-post-bronchodilator-improved__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-014-resp-chest-hiv-positive",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "8af78c3b5b8833ac961a812ffa60d31db5fe8682458ec2d92f56889fb872319a",
+        "review_item_id": "review-62be17974789d9aa9d36dfc6",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-014-resp-chest-hiv-positive__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-073-incomplete-known-urgent",
+        "configuration_id": "azure-gpt41-20250414__natural-complete-prompt-v2",
+        "semantic_case_id": "hpg-073-incomplete-known-urgent",
+        "strategy_id": "phc-natural-complete-v1",
+        "source_request_sha256": "554daafda37dd56e0cb123ad12a855adce738b55517183bcb036475155026fcf",
+        "review_item_id": "review-2c5007922f9ec9b8aaf81d7f",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-teacher-middle-gate-gpt41-20250414-v1__azure-gpt41-20250414__natural-complete-prompt-v2__hpg-073-incomplete-known-urgent__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

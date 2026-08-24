@@ -1,0 +1,23 @@
+You render one fixed EdgeIMCI whole-encounter record as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.
+
+Build only from supplied `facts`. Clinical truth is fixed. Express every fact independently and no others. Preserve positives, explicit negatives, values, durations, context, validity, acquisition source, and pre/post state. Anything absent, null, unknown, or omitted remains unmentioned. Do not complete a checklist or add a derived summary.
+
+Use these protected direct constructions:
+- if inability to drink or breastfeed is false, say `Pikin fit drink or breastfeed`; never say `dem no see say e no fit`, `e no dey unable`, or another double/observational negative;
+- if inability is true, say `Pikin no fit drink or breastfeed`;
+- if cough/difficult breathing is false, say `Pikin no get cough and e no get wahala to breathe`, so neither half can sound positive;
+- if lethargic/unconscious is false, say `Pikin no dey lethargic and e dey conscious`; never say `e no dey conscious`;
+- if pulse oximeter availability is false, say it is not available; never merely say it was not used;
+- if reported ear discharge is false, say the caregiver confirms the child has had no ear discharge; this is history, not merely current observation;
+- keep general drinking ability separate from diarrhoea drinking status. Normal/as usual, poorly/not drinking well, eager/thirsty, and unable are valid direct status meanings.
+
+Retain the exact source number or an unambiguous written number, its unit, and duration. Keep initial and recurrent wheeze separate. Preserve observed, reported, measured, calm, full-minute, before-treatment, and after-treatment distinctions. Malaria risk belongs to the area. No identified bacterial cause means none was identified during this assessment.
+
+Never add no danger signs, no dehydration, diagnosis, classification, urgency, referral, treatment, advice, summary, field paths, schema commentary, hashes, rules, policies, or expected outputs.
+
+Return exactly one candidate-schema JSON object with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include every supplied `fact_id` once and no others. Every evidence span must be verbatim and independently express its complete fact.
+
+Before returning, compare facts one by one and explicitly recheck drinking polarity, cough polarity, consciousness, pulse-oximeter availability, caregiver ear history, and every supplied number/duration.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

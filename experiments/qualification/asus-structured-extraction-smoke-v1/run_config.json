@@ -1,0 +1,31 @@
+{
+  "config_id": "edge-imci-asus-structured-extraction-smoke-config-v1",
+  "fixture_id": "edge-imci-asus-structured-extraction-smoke-v1",
+  "purpose": "APPLICATION_TASK_SMOKE_ONLY",
+  "sampling": {
+    "temperature": 0.0,
+    "seed": 42,
+    "max_output_tokens": 1024,
+    "thinking": "DISABLED"
+  },
+  "attempt_policy": {
+    "attempts": 1,
+    "automatic_retries": 0
+  },
+  "required_capture": [
+    "model_source_and_revision",
+    "artifact_sha256",
+    "runtime_identity",
+    "runtime_configuration",
+    "raw_model_output",
+    "input_token_count",
+    "output_token_count",
+    "prompt_processing_tokens_per_second",
+    "generation_tokens_per_second",
+    "time_to_first_token_ms",
+    "total_latency_ms",
+    "cold_start_ms",
+    "peak_process_rss_mb",
+    "steady_state_process_rss_mb"
+  ]
+}

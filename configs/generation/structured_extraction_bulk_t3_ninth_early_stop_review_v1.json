@@ -1,0 +1,19 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-t3-ninth-early-stop-review-v1",
+  "status": "REMEDIATION_COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_EXECUTION_AND_REVIEW",
+  "stopped_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v13",
+  "candidate_attempts": 32,
+  "raw_passes": 27,
+  "raw_rejections_reviewed": 5,
+  "semantic_rejections": 3,
+  "annotation_only_overrides": 2,
+  "observed_semantic_defects": [
+    {"variant_style": "NIGERIAN_PIDGIN", "semantic_case_id": "hpg-058-fever-measles-last-three-months", "defect": "Generalized-rash absence was omitted."},
+    {"variant_style": "NOISY_TYPED_ENGLISH", "semantic_case_id": "hpg-014-resp-chest-hiv-positive", "defect": "Able-to-drink was weakened to absence of inability."},
+    {"variant_style": "NOISY_TYPED_ENGLISH", "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways", "defect": "Vomits-everything polarity was reversed."}
+  ],
+  "boundary_gate": {"generation_run_id": "structured-extraction-bulk-t3-danger-rash-gate-gpt41-20250414-v1", "attempts": 6, "deterministic_passes": 6, "semantic_approved": 6, "semantic_rejected": 0},
+  "release_decision": "RELEASE_EXACT_SLOT_874_ATTEMPT_CONTINUATION",
+  "authorization": {"bulk_continuation_released": true, "training_authorized": false, "production_clinical_use_authorized": false}
+}

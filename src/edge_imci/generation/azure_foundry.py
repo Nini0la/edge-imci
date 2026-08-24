@@ -304,11 +304,12 @@ def execute_authorized_unit(
     transport: AzureResponsesTransport,
     persist_attempt: Callable[[dict[str, Any]], None],
     requested_at: str,
-    completed_at: str,
+    completed_at: str | Callable[[], str],
     retry_count: int,
     remote_attempts_already_started: int,
     accounted_cost_usd: Decimal,
     maximum_next_attempt_cost_usd: Decimal,
+    candidate_validator: Callable[[dict[str, Any], dict[str, Any], dict[str, Any], str], Any] = validate_candidate,
 ) -> dict[str, Any]:
     """Execute one bounded unit after persisting its REQUESTED receipt.
 
@@ -362,12 +363,14 @@ def execute_authorized_unit(
         deployment_name=deployment_name,
     )
     response = transport.create(payload)
+    terminal_timestamp = completed_at() if callable(completed_at) else completed_at
     completed = complete_attempt_from_response(
         receipt=receipt,
         response=response,
-        completed_at=completed_at,
+        completed_at=terminal_timestamp,
         semantic_record=semantic_record,
         parent_language=parent_language,
+        candidate_validator=candidate_validator,
     )
     persist_attempt(copy.deepcopy(completed))
     return completed
@@ -380,6 +383,7 @@ def complete_attempt_from_response(
     completed_at: str,
     semantic_record: Mapping[str, Any],
     parent_language: Mapping[str, Any],
+    candidate_validator: Callable[[dict[str, Any], dict[str, Any], dict[str, Any], str], Any] = validate_candidate,
 ) -> dict[str, Any]:
     """Normalize one provider result into the canonical immutable attempt shape."""
 
@@ -405,7 +409,7 @@ def complete_attempt_from_response(
         attempt["status"] = "PARSE_FAILED"
         attempt["validation"]["error_codes"] = ["TEACHER_OUTPUT_PARSE_FAILED"]
     else:
-        validation = validate_candidate(
+        validation = candidate_validator(
             candidate,
             dict(semantic_record),
             dict(parent_language),

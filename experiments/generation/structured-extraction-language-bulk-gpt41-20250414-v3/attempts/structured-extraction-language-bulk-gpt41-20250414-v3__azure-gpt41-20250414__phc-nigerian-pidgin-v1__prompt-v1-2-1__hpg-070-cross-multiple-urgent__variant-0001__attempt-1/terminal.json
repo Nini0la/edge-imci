@@ -1,0 +1,207 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-070-cross-multiple-urgent__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-070-cross-multiple-urgent__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1",
+  "semantic_case_id": "hpg-070-cross-multiple-urgent",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.1",
+    "prompt_sha256": "10faa12984776ec9ada0b5d7d8a0740216fc51b775b0845abc7d8e9c196e8c48"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "e8bd51f6262c1581e430a921f067fd2559fb118e9f0540648d10148d76fba238",
+  "requested_at": "2026-08-23T13:28:20Z",
+  "completed_at": "2026-08-23T13:28:37Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-070-cross-multiple-urgent\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Pikin dey convulse now. Dem never get convulsion before. Di pikin no dey lethargic and e dey conscious. E fit drink or breastfeed. E no dey vomit everything. Di caregiver talk say e never get ear discharge before. E no get ear pain. Pus no dey come out from ear. Swelling wey dey pain dey for back of ear. Fever don last for 2 days. E no get rash for body. No identified bacterial cause for di fever. Malaria risk dey high. Malaria test dey available. Malaria test show negative. No cough dey with measles. Dem no get measles for di past 3 months. No obvious cause of fever. Eye no red. E no get catarrh for nose. Neck stiff. Temperature na 38.0°C. Age na 18 months. Di pikin get cough or e dey breathe with difficulty. E no get diarrhoea. E get ear problem. E get fever. Dem count breath for one minute. Chest no dey go inside. Di pikin calm when dem dey check am. Cough don last for 3 days. Pulse oximeter no dey. E no dey get wheeze everytime. Respiratory rate na 35. E get stridor when e calm. E no dey wheeze.\",\n  \"fact_evidence\": [\n    {\"fact_id\": \"danger_signs.convulsing_now\", \"evidence_text\": \"Pikin dey convulse now.\"},\n    {\"fact_id\": \"danger_signs.had_convulsions\", \"evidence_text\": \"Dem never get convulsion before.\"},\n    {\"fact_id\": \"danger_signs.lethargic_or_unconscious\", \"evidence_text\": \"Di pikin no dey lethargic and e dey conscious.\"},\n    {\"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\", \"evidence_text\": \"E fit drink or breastfeed.\"},\n    {\"fact_id\": \"danger_signs.vomits_everything\", \"evidence_text\": \"E no dey vomit everything.\"},\n    {\"fact_id\": \"ear.ear_discharge_reported\", \"evidence_text\": \"Di caregiver talk say e never get ear discharge before.\"},\n    {\"fact_id\": \"ear.ear_pain\", \"evidence_text\": \"E no get ear pain.\"},\n    {\"fact_id\": \"ear.pus_draining_from_ear\", \"evidence_text\": \"Pus no dey come out from ear.\"},\n    {\"fact_id\": \"ear.tender_swelling_behind_ear\", \"evidence_text\": \"Swelling wey dey pain dey for back of ear.\"},\n    {\"fact_id\": \"fever.fever_duration_days\", \"evidence_text\": \"Fever don last for 2 days.\"},\n    {\"fact_id\": \"fever.generalized_rash\", \"evidence_text\": \"E no get rash for body.\"},\n    {\"fact_id\": \"fever.identified_bacterial_cause_present\", \"evidence_text\": \"No identified bacterial cause for di fever.\"},\n    {\"fact_id\": \"fever.malaria_risk\", \"evidence_text\": \"Malaria risk dey high.\"},\n    {\"fact_id\": \"fever.malaria_test_available\", \"evidence_text\": \"Malaria test dey available.\"},\n    {\"fact_id\": \"fever.malaria_test_result\", \"evidence_text\": \"Malaria test show negative.\"},\n    {\"fact_id\": \"fever.measles_cough\", \"evidence_text\": \"No cough dey with measles.\"},\n    {\"fact_id\": \"fever.measles_within_last_3_months\", \"evidence_text\": \"Dem no get measles for di past 3 months.\"},\n    {\"fact_id\": \"fever.obvious_cause_of_fever_present\", \"evidence_text\": \"No obvious cause of fever.\"},\n    {\"fact_id\": \"fever.red_eyes\", \"evidence_text\": \"Eye no red.\"},\n    {\"fact_id\": \"fever.runny_nose\", \"evidence_text\": \"E no get catarrh for nose.\"},\n    {\"fact_id\": \"fever.stiff_neck\", \"evidence_text\": \"Neck stiff.\"},\n    {\"fact_id\": \"fever.temperature_c\", \"evidence_text\": \"Temperature na 38.0°C.\"},\n    {\"fact_id\": \"patient_facts.age_months\", \"evidence_text\": \"Age na 18 months.\"},\n    {\"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\", \"evidence_text\": \"Di pikin get cough or e dey breathe with difficulty.\"},\n    {\"fact_id\": \"patient_facts.has_diarrhoea\", \"evidence_text\": \"E no get diarrhoea.\"},\n    {\"fact_id\": \"patient_facts.has_ear_problem\", \"evidence_text\": \"E get ear problem.\"},\n    {\"fact_id\": \"patient_facts.has_fever\", \"evidence_text\": \"E get fever.\"},\n    {\"fact_id\": \"respiratory.breaths_counted_one_minute\", \"evidence_text\": \"Dem count breath for one minute.\"},\n    {\"fact_id\": \"respiratory.chest_indrawing\", \"evidence_text\": \"Chest no dey go inside.\"},\n    {\"fact_id\": \"respiratory.child_calm\", \"evidence_text\": \"Di pikin calm when dem dey check am.\"},\n    {\"fact_id\": \"respiratory.cough_duration_days\", \"evidence_text\": \"Cough don last for 3 days.\"},\n    {\"fact_id\": \"respiratory.pulse_oximeter_available\", \"evidence_text\": \"Pulse oximeter no dey.\"},\n    {\"fact_id\": \"respiratory.recurrent_wheeze\", \"evidence_text\": \"E no dey get wheeze everytime.\"},\n    {\"fact_id\": \"respiratory.respiratory_rate\", \"evidence_text\": \"Respiratory rate na 35.\"},\n    {\"fact_id\": \"respiratory.stridor_when_calm\", \"evidence_text\": \"E get stridor when e calm.\"},\n    {\"fact_id\": \"respiratory.wheezing\", \"evidence_text\": \"E no dey wheeze.\"}\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-070-cross-multiple-urgent",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin dey convulse now. Dem never get convulsion before. Di pikin no dey lethargic and e dey conscious. E fit drink or breastfeed. E no dey vomit everything. Di caregiver talk say e never get ear discharge before. E no get ear pain. Pus no dey come out from ear. Swelling wey dey pain dey for back of ear. Fever don last for 2 days. E no get rash for body. No identified bacterial cause for di fever. Malaria risk dey high. Malaria test dey available. Malaria test show negative. No cough dey with measles. Dem no get measles for di past 3 months. No obvious cause of fever. Eye no red. E no get catarrh for nose. Neck stiff. Temperature na 38.0°C. Age na 18 months. Di pikin get cough or e dey breathe with difficulty. E no get diarrhoea. E get ear problem. E get fever. Dem count breath for one minute. Chest no dey go inside. Di pikin calm when dem dey check am. Cough don last for 3 days. Pulse oximeter no dey. E no dey get wheeze everytime. Respiratory rate na 35. E get stridor when e calm. E no dey wheeze.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Dem never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Di pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "E fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "E no dey vomit everything."
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "Di caregiver talk say e never get ear discharge before."
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "E no get ear pain."
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "Pus no dey come out from ear."
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "Swelling wey dey pain dey for back of ear."
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "Fever don last for 2 days."
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "E no get rash for body."
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "No identified bacterial cause for di fever."
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "Malaria risk dey high."
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "Malaria test dey available."
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "Malaria test show negative."
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "No cough dey with measles."
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "Dem no get measles for di past 3 months."
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "No obvious cause of fever."
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "Eye no red."
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "E no get catarrh for nose."
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "Neck stiff."
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "Temperature na 38.0°C."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age na 18 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Di pikin get cough or e dey breathe with difficulty."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "E no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "E get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "E get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Dem count breath for one minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest no dey go inside."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Di pikin calm when dem dey check am."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough don last for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "E no dey get wheeze everytime."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Respiratory rate na 35."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "E get stridor when e calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "E no dey wheeze."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 2101,
+    "output_tokens": 1402,
+    "cached_input_tokens": 0,
+    "latency_ms": 17158,
+    "retry_count": 0,
+    "provider_request_id": "resp_03444c4bdc51451b016a8af575bfe481949a3dad7f87726130",
+    "raw_usage": {
+      "input_tokens": 2101,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1402,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3503
+    }
+  }
+}

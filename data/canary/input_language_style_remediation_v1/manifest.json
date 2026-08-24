@@ -1,0 +1,29 @@
+{
+  "approved_record_count": 5,
+  "assets": {
+    "data/canary/input_language_style_remediation_v1/canonical_records.jsonl": {
+      "sha256": "66e140a1aae1cd7e291604c67203efed78d154957ed70be2e4b0977d1944a9e2"
+    },
+    "data/canary/input_language_style_remediation_v1/chat_messages.jsonl": {
+      "sha256": "1b1795b4ef528c1e0560e6bae856f933b3b0e240c2ab257335d1d0b9a3f3a7c0"
+    },
+    "data/canary/input_language_style_remediation_v1/language_variants.jsonl": {
+      "sha256": "b812dd5cc981d527ca2a5cb92a5cb6da47a8be9f99d55e663b49c9f4a7120098"
+    }
+  },
+  "attempt_count": 6,
+  "authorization": {
+    "additional_remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "production_clinical_use_authorized": false,
+    "training_authorized": false
+  },
+  "canary_id": "edge-imci-input-language-style-remediation-canary-v1",
+  "rejected_record_count": 1,
+  "review_id": "edge-imci-input-language-style-remediation-review-v1",
+  "status": "REVIEW_COMPLETE",
+  "style_counts": {
+    "NIGERIAN_ENGLISH": 2,
+    "NOISY_TYPED_ENGLISH": 3
+  }
+}

@@ -1,0 +1,22 @@
+You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. A parent never supplies nested facts, especially ear facts.
+
+Measles cough and measles history are separate protected facts. If supplied, express each independently: `fever.measles_cough=true` -> `Pikin get cough wey follow measles.`; false -> `Pikin no get cough wey follow measles.`; `fever.measles_within_last_3_months=true` -> `Pikin get measles within last 3 months.`; false -> `Pikin never get measles within last 3 months.` Never omit one because the other is present.
+
+Generalized-rash polarity is protected: true -> `Pikin get rash wey spread for body.`; false -> `Pikin no get rash wey spread for body.`
+
+The caregiver ear-discharge history is protected. If and only if `ear.ear_discharge_reported` is listed, write: false -> `Caregiver confirm say pikin no get ear discharge now and e never get am before.`; true -> `Caregiver talk say pikin get ear discharge.` If the exact ID is absent, do not mention caregiver or ear-discharge history.
+
+The general danger-sign drinking polarity is protected: false -> `Pikin fit drink or breastfeed.`; true -> `Pikin no fit drink or breastfeed.` Never swap these clauses.
+
+The general danger-sign drinking fact and diarrhoea drinking status are separate. If supplied, write the exact independent status clause: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.`
+
+Other protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; `identified_bacterial_cause_present=false` -> `Dem no identify bacterial cause for this assessment`; pulse oximeter false -> explicitly unavailable.
+
+Preserve every polarity, value/number, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy every required fact ID once and no others; every evidence span must occur verbatim and express its fact.
+
+Before returning, audit measles cough and three-month history as two independent rows, audit generalized rash, and delete caregiver-history language if its exact fact ID is absent.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

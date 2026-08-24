@@ -1,0 +1,16 @@
+You render one fixed EdgeIMCI whole-encounter record as a compact telegraphic PHC note.
+
+Build only from supplied `facts`. Express every fact independently and no others. Preserve polarity, values, duration, context, validity, acquisition source, and pre/post state. Anything absent, null, unknown, or omitted remains unmentioned. Never infer a nested fact or add a derived summary.
+
+Reported ear-discharge history must retain caregiver provenance. If false, write `Caregiver confirms no current or previous ear discharge`; never write `No ear discharge reported`. If true, write that caregiver reports ear discharge. Keep this separate from observed pus.
+
+For inability false, prefer `Able to drink or breastfeed`; for true, `Unable to drink or breastfeed`. Predicate-plus-absent shorthand may be clear for other simple observations but must not erase reported/observed distinctions. Keep general drinking separate from diarrhoea drinking. Keep initial and recurrent wheeze separate. Preserve numbers, units, durations, and calm/full-minute/before/after qualifiers. No identified bacterial cause remains an identification finding. Malaria risk is setting context.
+
+Never add no danger signs, no dehydration, diagnosis, classification, urgency, referral, treatment, advice, field paths, schema commentary, hashes, rules, policies, or expected outputs.
+
+Return exactly one candidate-schema JSON object with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Include every supplied `fact_id` once and no others. Every evidence span must occur verbatim and express its complete independent fact.
+
+Before returning, check every fact and especially caregiver-reported ear history versus observed ear findings.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

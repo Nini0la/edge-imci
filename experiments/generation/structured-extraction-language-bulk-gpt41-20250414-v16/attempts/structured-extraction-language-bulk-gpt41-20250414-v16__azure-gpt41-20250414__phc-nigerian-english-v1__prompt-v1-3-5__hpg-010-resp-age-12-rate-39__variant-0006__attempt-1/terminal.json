@@ -1,0 +1,139 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v16",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-5__hpg-010-resp-age-12-rate-39__variant-0006__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v16__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-5__hpg-010-resp-age-12-rate-39__variant-0006",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-5",
+  "semantic_case_id": "hpg-010-resp-age-12-rate-39",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-english-v1",
+    "prompt_id": "edge-imci-phc-nigerian-english",
+    "prompt_version": "1.3.5",
+    "prompt_sha256": "9c3c818ab50477c68d43dc51e2319828744ad3e43d79a36c41aff18f6f0750f4"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "6e1f505b24a61a3131759448fe9a47f9a1817f50c51cb4574dfbbcdb300ef537",
+  "requested_at": "2026-08-23T16:33:08Z",
+  "completed_at": "2026-08-23T16:33:15Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-010-resp-age-12-rate-39\",\"strategy_id\":\"phc-nigerian-english-v1\",\"user_submission\":\"The child is not convulsing at the moment. There is no history of convulsions. The child is not lethargic or unconscious. The child is able to drink or breastfeed. The child does not vomit everything. The child's age is 12 months. The child currently has cough or difficult breathing. The child does not have diarrhoea. The child does not have any ear problem. The child does not have fever. Breaths were counted for one full minute. Chest indrawing is not present. The child was calm during the assessment. The cough has lasted for 3 days. Pulse oximeter is not available. The child does not have recurrent wheeze. The respiratory rate is 39 breaths per minute. Stridor was not observed when the child was calm. Wheezing was not observed.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"The child is not convulsing at the moment.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"There is no history of convulsions.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"The child is not lethargic or unconscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"The child is able to drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"The child does not vomit everything.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"The child's age is 12 months.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"The child currently has cough or difficult breathing.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"The child does not have diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"The child does not have any ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"The child does not have fever.\"},{\"fact_id\":\"respiratory.breaths_counted_one_minute\",\"evidence_text\":\"Breaths were counted for one full minute.\"},{\"fact_id\":\"respiratory.chest_indrawing\",\"evidence_text\":\"Chest indrawing is not present.\"},{\"fact_id\":\"respiratory.child_calm\",\"evidence_text\":\"The child was calm during the assessment.\"},{\"fact_id\":\"respiratory.cough_duration_days\",\"evidence_text\":\"The cough has lasted for 3 days.\"},{\"fact_id\":\"respiratory.pulse_oximeter_available\",\"evidence_text\":\"Pulse oximeter is not available.\"},{\"fact_id\":\"respiratory.recurrent_wheeze\",\"evidence_text\":\"The child does not have recurrent wheeze.\"},{\"fact_id\":\"respiratory.respiratory_rate\",\"evidence_text\":\"The respiratory rate is 39 breaths per minute.\"},{\"fact_id\":\"respiratory.stridor_when_calm\",\"evidence_text\":\"Stridor was not observed when the child was calm.\"},{\"fact_id\":\"respiratory.wheezing\",\"evidence_text\":\"Wheezing was not observed.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-010-resp-age-12-rate-39",
+    "strategy_id": "phc-nigerian-english-v1",
+    "user_submission": "The child is not convulsing at the moment. There is no history of convulsions. The child is not lethargic or unconscious. The child is able to drink or breastfeed. The child does not vomit everything. The child's age is 12 months. The child currently has cough or difficult breathing. The child does not have diarrhoea. The child does not have any ear problem. The child does not have fever. Breaths were counted for one full minute. Chest indrawing is not present. The child was calm during the assessment. The cough has lasted for 3 days. Pulse oximeter is not available. The child does not have recurrent wheeze. The respiratory rate is 39 breaths per minute. Stridor was not observed when the child was calm. Wheezing was not observed.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "The child is not convulsing at the moment."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "There is no history of convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "The child is not lethargic or unconscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "The child is able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "The child does not vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "The child's age is 12 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "The child currently has cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "The child does not have diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "The child does not have any ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "The child does not have fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Breaths were counted for one full minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Chest indrawing is not present."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "The child was calm during the assessment."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "The cough has lasted for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter is not available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "The child does not have recurrent wheeze."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "The respiratory rate is 39 breaths per minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Stridor was not observed when the child was calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Wheezing was not observed."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1362,
+    "output_tokens": 722,
+    "cached_input_tokens": 1280,
+    "latency_ms": 6843,
+    "retry_count": 0,
+    "provider_request_id": "resp_0d8a6527f84da42f016a8b20c524f481968efbf32a742c88b8",
+    "raw_usage": {
+      "input_tokens": 1362,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 1280
+      },
+      "output_tokens": 722,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2084
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-008-resp-age-2-rate-50__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-008-resp-age-2-rate-50__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7",
+  "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.7",
+    "prompt_sha256": "cbc4637fe93964308058c573e29af69bf7015a41b218cf8605ebd6de14979e43"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "bdb23d7d2b515420a9abaa0d3f489719f4942ddd381e28dd71dc418297ee3ac2",
+  "requested_at": "2026-08-23T14:32:11Z",
+  "completed_at": "2026-08-23T14:32:17Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-008-resp-age-2-rate-50\",\n  \"strategy_id\": \"phc-noisy-typed-english-v1\",\n  \"user_submission\": \"No convulsing at this moment. Caregiver denies child has had convulsions. Child not lethargic or unconscious, alert at time of exam. Child is able to drink or breastfeed. Not vomiting everything taken. Age of pt is 2 months. Child currently has cough or difficult breathing. No diarrhea reported by caregiver. There is no reported ear problem. No fever present at time of visit. I counted breaths for a full minute. No chest indrawing observed. Child was calm during exam. Cough has been there for 3 days. No pulse oximeter available here. No history of recurrent wheeze. Respiratory rate is 50 breaths per minute. No stridor when calm. Not wheezing noted.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"No convulsing at this moment.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"Caregiver denies child has had convulsions.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"Child not lethargic or unconscious, alert at time of exam.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"Child is able to drink or breastfeed.\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"Not vomiting everything taken.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"Age of pt is 2 months.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"Child currently has cough or difficult breathing.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"No diarrhea reported by caregiver.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"There is no reported ear problem.\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"No fever present at time of visit.\"\n    },\n    {\n      \"fact_id\": \"respiratory.breaths_counted_one_minute\",\n      \"evidence_text\": \"I counted breaths for a full minute.\"\n    },\n    {\n      \"fact_id\": \"respiratory.chest_indrawing\",\n      \"evidence_text\": \"No chest indrawing observed.\"\n    },\n    {\n      \"fact_id\": \"respiratory.child_calm\",\n      \"evidence_text\": \"Child was calm during exam.\"\n    },\n    {\n      \"fact_id\": \"respiratory.cough_duration_days\",\n      \"evidence_text\": \"Cough has been there for 3 days.\"\n    },\n    {\n      \"fact_id\": \"respiratory.pulse_oximeter_available\",\n      \"evidence_text\": \"No pulse oximeter available here.\"\n    },\n    {\n      \"fact_id\": \"respiratory.recurrent_wheeze\",\n      \"evidence_text\": \"No history of recurrent wheeze.\"\n    },\n    {\n      \"fact_id\": \"respiratory.respiratory_rate\",\n      \"evidence_text\": \"Respiratory rate is 50 breaths per minute.\"\n    },\n    {\n      \"fact_id\": \"respiratory.stridor_when_calm\",\n      \"evidence_text\": \"No stridor when calm.\"\n    },\n    {\n      \"fact_id\": \"respiratory.wheezing\",\n      \"evidence_text\": \"Not wheezing noted.\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-008-resp-age-2-rate-50",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "No convulsing at this moment. Caregiver denies child has had convulsions. Child not lethargic or unconscious, alert at time of exam. Child is able to drink or breastfeed. Not vomiting everything taken. Age of pt is 2 months. Child currently has cough or difficult breathing. No diarrhea reported by caregiver. There is no reported ear problem. No fever present at time of visit. I counted breaths for a full minute. No chest indrawing observed. Child was calm during exam. Cough has been there for 3 days. No pulse oximeter available here. No history of recurrent wheeze. Respiratory rate is 50 breaths per minute. No stridor when calm. Not wheezing noted.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsing at this moment."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Caregiver denies child has had convulsions."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Child not lethargic or unconscious, alert at time of exam."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Child is able to drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Not vomiting everything taken."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Age of pt is 2 months."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Child currently has cough or difficult breathing."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhea reported by caregiver."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "There is no reported ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "No fever present at time of visit."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "I counted breaths for a full minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "No chest indrawing observed."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Child was calm during exam."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough has been there for 3 days."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "No pulse oximeter available here."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "No history of recurrent wheeze."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Respiratory rate is 50 breaths per minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "No stridor when calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "Not wheezing noted."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1237,
+    "output_tokens": 874,
+    "cached_input_tokens": 0,
+    "latency_ms": 5938,
+    "retry_count": 0,
+    "provider_request_id": "resp_080b031347c6033b016a8b046b86a88196bc3a319abe8098ef",
+    "raw_usage": {
+      "input_tokens": 1237,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 874,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2111
+    }
+  }
+}

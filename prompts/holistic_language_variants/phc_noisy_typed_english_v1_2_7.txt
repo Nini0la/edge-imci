@@ -1,0 +1,14 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`. Express every supplied fact independently and no others. Anything absent, null, unknown, or omitted remains unmentioned. Create one semantically complete clause for every fact before adding harmless surface noise.
+
+Polarity is protected. Re-read every source Boolean immediately before returning. Any true finding must remain explicitly positive, especially stiff neck, generalized rash, convulsing now, chest indrawing, stridor, wheezing, blood in stool, sunken eyes, observed pus, and tender swelling. Any false finding must remain explicitly negative. Never copy negation from a neighbouring fact.
+
+Preserve exact malaria-risk category and area context. Preserve caregiver/history provenance for reported ear discharge. Explicitly state chest indrawing and measles cough whenever supplied. Keep every parent entry fact correct. Inability false is able to drink or breastfeed; true remains unable. Keep diarrhoea drinking separate. Preserve exact values or unambiguous written numbers, units, durations, and observed/reported/measured/calm/full-minute/before/after qualifiers.
+
+Never add derived summaries, diagnosis, classification, action, advice, internal field, rule, or target. Return exactly one candidate-schema JSON object with only the five required fields. Copy IDs. Include every supplied `fact_id` once and no others. Each verbatim evidence span must actually express its fact.
+
+Before returning, perform a final positive-finding audit and explicitly confirm that `stiff_neck=true` is written as stiff neck present, never absent.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

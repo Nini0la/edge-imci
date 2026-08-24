@@ -8,8 +8,10 @@ This document records practical guidance, teacher-model options, and experimenta
 
 EdgeIMCI separates:
 
-- **deterministic clinical semantics** — whole-encounter truth, explicit completeness, classifications, integrated actions, urgency, reassessment, and trace logic;
-- **LLM-generated language** — realistic whole-assessment PHC documentation, grouped omission responses, urgent incomplete responses, and faithful integrated final answers.
+- **frozen encounter semantics** — source observations, explicit negatives, UNKNOWN state, measurements, durations and qualifiers;
+- **LLM-generated teacher language** — realistic whole-assessment PHC documentation of those source observations;
+- **learned student extraction** — free-form PHC language to model-facing encounter JSON; and
+- **deterministic clinical semantics** — completeness, classifications, integrated actions, urgency, reassessment and trace logic.
 
 The language-generation layer is therefore a **core part of the dataset factory** and should be treated as an experimental component of model training.
 
@@ -22,17 +24,13 @@ Do not ask an LLM to invent the medicine.
 Generate in this direction:
 
 ```text
-structured clinical truth
+frozen model-recoverable encounter state
         ↓
-whole-encounter applicability and completeness
+teacher LLM → natural-language PHC submission
+        +
+deterministic projection → model-facing JSON target
         ↓
-deterministic classification/action-synthesis oracle
-        ↓
-structured expected assistant semantics
-        ↓
-teacher LLM
-        ↓
-natural-language realization
+canonical extraction training record
 ```
 
 The structured whole encounter is the durable primary asset. Natural-language realizations can be regenerated with different teachers, prompts, styles, and sampling settings without changing clinical truth.
@@ -47,13 +45,12 @@ Progressive partial-reveal trajectories remain a secondary corpus track for guid
 
 The teacher should perform **controlled semantic-to-language transformation**, not generic paraphrasing.
 
-Primary rendering modes should include:
+Primary teacher rendering modes should include:
 
 - complete free-form PHC whole-assessment input;
-- integrated classification and management response;
-- incomplete whole-assessment input with grouped missing-elements response;
-- incomplete encounter with an immediate urgent/pre-referral response and final synthesis withheld;
-- simultaneous-classification and cross-pathway action synthesis.
+- incomplete whole-assessment input with the intended source omissions preserved;
+- urgent or severe findings described as observations rather than leaked decisions; and
+- simultaneous multi-pathway findings expressed coherently.
 
 Secondary rendering modes may include:
 
@@ -64,7 +61,7 @@ Secondary rendering modes may include:
 - clinician-observation interaction;
 - guided incomplete multi-turn dialogue;
 - urgent-escalation dialogue;
-- final classification/action response.
+- separately authorized presentation-layer language, if that later becomes an experiment.
 
 The rendering prompt itself may matter as much as, or more than, simply choosing a larger teacher model once the teacher is capable enough.
 
@@ -108,13 +105,12 @@ Track generation-level metrics such as:
 
 But ultimately compare teacher/rendering choices by the resulting student model. Primary whole-encounter metrics include:
 
-- complete-versus-incomplete detection;
-- false conversion of omissions into negative findings;
-- grouped missing-element accuracy;
-- correct withholding of final holistic synthesis;
-- encounter-level simultaneous-classification accuracy;
-- integrated action, precedence, interaction, urgency, and referral correctness;
-- faithfulness of free-form extraction and final language to the canonical encounter.
+- schema-valid output rate and whole-record exact match;
+- field-level accuracy and known-positive precision/recall;
+- false conversion of UNKNOWN observations into negative findings;
+- measurement, duration and qualifier preservation;
+- pre/post-intervention state preservation; and
+- downstream completeness, classification, action, urgency and referral equivalence through the deterministic engine.
 
 Secondary guided-interaction metrics may still include:
 
@@ -169,12 +165,12 @@ A canonical semantic whole encounter should be reusable.
 Example:
 
 ```text
-whole encounter #1842
-        ↓
-renderer A → concise complete PHC note + integrated answer
-renderer B → conversational complete PHC note + integrated answer
-renderer C → clinically plausible omission + grouped missing-elements response
-renderer D → terse worker shorthand + faithful integrated answer
+whole encounter #1842 → deterministic model-facing JSON target
+        ↑
+renderer A → concise complete PHC note
+renderer B → conversational complete PHC note
+renderer C → controlled incomplete PHC note
+renderer D → terse worker wording
 ```
 
 This means later fine-tuning experiments can change the language distribution without regenerating the clinical substrate.
@@ -437,7 +433,7 @@ These are hypotheses to test, not assumptions:
 2. Rendering-prompt design may matter more than teacher size after a capability threshold.
 3. Multiple controlled variants per semantic trajectory may improve robustness.
 4. Deterministic semantic truth may make filtering / Best-of-N unusually valuable for EdgeIMCI.
-5. Teacher quality should ultimately be judged by student-model improvement.
+5. Teacher quality should ultimately be judged by student extraction and downstream decision-equivalence improvement.
 6. The optimal corpus size may be relatively modest because the current clinical scope is bounded.
 7. The five-area major sick-child expansion should reuse the same structured-first language-generation infrastructure after its clinical substrate is approved.
 
@@ -455,12 +451,12 @@ whole-encounter semantic truth
 × sampling strategy
 × variants per trajectory
 × corpus size
-→ student performance
+→ structured-extraction and downstream decision-equivalence performance
 ```
 
 The objective is not to generate the largest dataset possible.
 
-The objective is to find the **cheapest, fastest, semantically faithful generation setup that produces the best student model on complete holistic encounters, omissions, and urgent incomplete cases**.
+The objective is to find the **cheapest, fastest, semantically faithful generation setup that produces the best language-to-structured-state student across complete encounters, controlled omissions, and urgent findings**.
 
 ---
 

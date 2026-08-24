@@ -1,0 +1,15 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v8",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 24,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 18,
+  "deterministic_rejections": 6,
+  "semantic_rejections": 2,
+  "reviewed_annotation_only_overrides": 4,
+  "reason": "One Nigerian Pidgin and one noisy-English output omitted the diarrhoea-specific drinking status while retaining the separate general danger-sign drinking observation.",
+  "continuation_policy": "All 24 completed allocation slots remain immutable and count toward the 2142-attempt campaign. A new exact-slot continuation may exclude them after both affected styles pass NORMAL, POORLY, and UNABLE drinking-status boundaries.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

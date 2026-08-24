@@ -1,0 +1,12 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v2",
+  "status": "SUPERSEDED_BEFORE_REMOTE_EXECUTION",
+  "remote_attempts_started": 0,
+  "reason": "The prepared continuation excluded a 31-unit schedule prefix, but the concurrent v1 microbatch completed 31 non-contiguous units around one locally blocked out-of-scope unit.",
+  "correction": "Continuation v3 excludes the exact 31 completed v1 request hashes and schedules every other campaign unit exactly once.",
+  "storage_compaction": "The superseded zero-call source_requests.json and schedule.json were removed after termination because they contained no provider receipts or generated evidence and were reproducible from the pinned executor state.",
+  "continuation_generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

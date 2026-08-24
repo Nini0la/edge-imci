@@ -1,0 +1,17 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v9",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 112,
+  "candidate_attempts": 104,
+  "transport_failures": 8,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 87,
+  "deterministic_rejections": 17,
+  "semantic_rejections": 2,
+  "reviewed_annotation_only_overrides": 15,
+  "reason": "One Nigerian Pidgin candidate reversed the general danger-sign drinking polarity and one noisy-English candidate reversed generalized-rash polarity. The initial eight slots were explicit sandbox connection failures and produced no candidates.",
+  "continuation_policy": "Preserve all receipts. Candidate-producing slots count toward the campaign allocation. Transport-only failures require an explicit same-slot transport reconciliation policy before final campaign closure.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

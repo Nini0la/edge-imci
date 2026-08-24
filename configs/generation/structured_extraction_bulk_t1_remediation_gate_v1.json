@@ -1,0 +1,18 @@
+{
+  "authorization_id": "edge-imci-structured-extraction-bulk-t1-remediation-gate-v1",
+  "status": "AUTHORIZED_FOR_TARGETED_EXECUTION",
+  "authority": "PROJECT_OWNER_DELEGATION",
+  "generation_run_id": "structured-extraction-bulk-t1-remediation-gate-gpt41-20250414-v1",
+  "teacher_provider": "AZURE_OPENAI",
+  "teacher_model": "gpt-4.1",
+  "teacher_snapshot": "2025-04-14",
+  "maximum_remote_attempts": 15,
+  "maximum_budget_usd": 1.0,
+  "reservation_per_started_attempt_usd": 0.03,
+  "maximum_concurrency": 4,
+  "semantic_retries": false,
+  "teacher_target_blind": true,
+  "bulk_continuation_authorized_only_if_gate_released": true,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

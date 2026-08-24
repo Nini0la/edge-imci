@@ -1,0 +1,158 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-048-fever-temperature-38-5__variant-0002__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v5__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7__hpg-048-fever-temperature-38-5__variant-0002",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-7",
+  "semantic_case_id": "hpg-048-fever-temperature-38-5",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.7",
+    "prompt_sha256": "cbc4637fe93964308058c573e29af69bf7015a41b218cf8605ebd6de14979e43"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "7094d5a8858b843b3d0b61b64c94269296e1d4ec507f55c2b54cb7139aff1d2e",
+  "requested_at": "2026-08-23T14:33:18Z",
+  "completed_at": "2026-08-23T14:33:24Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-048-fever-temperature-38-5\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"No convulsions seen during consult, and no history of convulsions reported. Child is alert, not lethargic or unconscious. Able to drink and breastfeed well at present. Vomiting not observed, does not vomit everything. Fever has lasted two days so far. No generalized rash found on skin. No clear bacterial cause of fever identified. This area is HIGH malaria risk. Malaria test was done and results came back NEGATIVE. No signs of measles cough. No history of measles within the past three months. No obvious cause of fever seen on assessment. Eyes not red. No runny nose. Stiff neck absent. Temperature measured was 38.5°C. Child is aged 18 months. No cough or difficult breathing reported. No diarrhoea noted. No ear problems reported. Fever present currently.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"No convulsions seen during consult\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions reported\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Child is alert, not lethargic or unconscious\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Able to drink and breastfeed well at present\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Vomiting not observed, does not vomit everything\"},{\"fact_id\":\"fever.fever_duration_days\",\"evidence_text\":\"Fever has lasted two days so far\"},{\"fact_id\":\"fever.generalized_rash\",\"evidence_text\":\"No generalized rash found on skin\"},{\"fact_id\":\"fever.identified_bacterial_cause_present\",\"evidence_text\":\"No clear bacterial cause of fever identified\"},{\"fact_id\":\"fever.malaria_risk\",\"evidence_text\":\"This area is HIGH malaria risk\"},{\"fact_id\":\"fever.malaria_test_available\",\"evidence_text\":\"Malaria test was done\"},{\"fact_id\":\"fever.malaria_test_result\",\"evidence_text\":\"results came back NEGATIVE\"},{\"fact_id\":\"fever.measles_cough\",\"evidence_text\":\"No signs of measles cough\"},{\"fact_id\":\"fever.measles_within_last_3_months\",\"evidence_text\":\"No history of measles within the past three months\"},{\"fact_id\":\"fever.obvious_cause_of_fever_present\",\"evidence_text\":\"No obvious cause of fever seen on assessment\"},{\"fact_id\":\"fever.red_eyes\",\"evidence_text\":\"Eyes not red\"},{\"fact_id\":\"fever.runny_nose\",\"evidence_text\":\"No runny nose\"},{\"fact_id\":\"fever.stiff_neck\",\"evidence_text\":\"Stiff neck absent\"},{\"fact_id\":\"fever.temperature_c\",\"evidence_text\":\"Temperature measured was 38.5°C\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Child is aged 18 months\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"No cough or difficult breathing reported\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"No diarrhoea noted\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"No ear problems reported\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Fever present currently\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-048-fever-temperature-38-5",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "No convulsions seen during consult, and no history of convulsions reported. Child is alert, not lethargic or unconscious. Able to drink and breastfeed well at present. Vomiting not observed, does not vomit everything. Fever has lasted two days so far. No generalized rash found on skin. No clear bacterial cause of fever identified. This area is HIGH malaria risk. Malaria test was done and results came back NEGATIVE. No signs of measles cough. No history of measles within the past three months. No obvious cause of fever seen on assessment. Eyes not red. No runny nose. Stiff neck absent. Temperature measured was 38.5°C. Child is aged 18 months. No cough or difficult breathing reported. No diarrhoea noted. No ear problems reported. Fever present currently.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "No convulsions seen during consult"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions reported"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Child is alert, not lethargic or unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Able to drink and breastfeed well at present"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Vomiting not observed, does not vomit everything"
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "Fever has lasted two days so far"
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "No generalized rash found on skin"
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "No clear bacterial cause of fever identified"
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "This area is HIGH malaria risk"
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "Malaria test was done"
+      },
+      {
+        "fact_id": "fever.malaria_test_result",
+        "evidence_text": "results came back NEGATIVE"
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "No signs of measles cough"
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "No history of measles within the past three months"
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "No obvious cause of fever seen on assessment"
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "Eyes not red"
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "No runny nose"
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "Stiff neck absent"
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "Temperature measured was 38.5°C"
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Child is aged 18 months"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "No cough or difficult breathing reported"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "No diarrhoea noted"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "No ear problems reported"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Fever present currently"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "LOGICAL_CONNECTOR_OR_TO_AND",
+      "MEASUREMENT_OR_DURATION_SHIFT"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1271,
+    "output_tokens": 762,
+    "cached_input_tokens": 0,
+    "latency_ms": 5686,
+    "retry_count": 0,
+    "provider_request_id": "resp_0eab5baee5d558c0016a8b04af47bc8196ac88ae763fc63289",
+    "raw_usage": {
+      "input_tokens": 1271,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 762,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2033
+    }
+  }
+}

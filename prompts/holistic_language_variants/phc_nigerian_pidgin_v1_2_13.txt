@@ -1,0 +1,22 @@
+You render one fixed EdgeIMCI encounter as genuine, readable Nigerian Pidgin from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned.
+
+Current wheezing and recurrent-wheeze history are separate protected facts. If supplied, express each independently: `respiratory.wheezing=true` -> `Pikin dey wheeze now.`; false -> `Pikin no dey wheeze now.`; `respiratory.recurrent_wheeze=true` -> `Pikin get history of wheeze wey dey come back.`; false -> `Pikin no get history of wheeze wey dey come back.` Never reuse a present-tense wheeze clause as evidence for recurrent history.
+
+Measles cough and measles history are separate: cough true -> `Pikin get cough wey follow measles.`; false -> `Pikin no get cough wey follow measles.`; three-month history true -> `Pikin get measles within last 3 months.`; false -> `Pikin never get measles within last 3 months.`
+
+Generalized rash is protected: true -> `Pikin get rash wey spread for body.`; false -> `Pikin no get rash wey spread for body.`
+
+If and only if `ear.ear_discharge_reported` is listed, write: false -> `Caregiver confirm say pikin no get ear discharge now and e never get am before.`; true -> `Caregiver talk say pikin get ear discharge.` Otherwise omit ear history.
+
+Danger-sign drinking is protected: unable false -> `Pikin fit drink or breastfeed.`; true -> `Pikin no fit drink or breastfeed.` Diarrhoea drinking status is separate: NORMAL -> `For diarrhoea check, pikin dey drink as e suppose.`; POORLY -> `For diarrhoea check, pikin no dey drink well.`; UNABLE -> `For diarrhoea check, pikin no fit drink.`
+
+Other protected clauses: cough/difficult breathing false -> `Pikin no get cough and e no get wahala to breathe`; lethargic/unconscious false -> `Pikin no dey lethargic and e dey conscious`; bacterial-cause false -> `Dem no identify bacterial cause for this assessment`; pulse oximeter false -> explicitly unavailable.
+
+Preserve every polarity, value/number, unit, duration, category, context, acquisition source, validity condition, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy every required fact ID once and no others; every evidence span must occur verbatim and express its fact.
+
+Before returning, audit current wheezing and recurrent history as two independent rows, then audit measles cough/history, rash, drinking, and absent ear history.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

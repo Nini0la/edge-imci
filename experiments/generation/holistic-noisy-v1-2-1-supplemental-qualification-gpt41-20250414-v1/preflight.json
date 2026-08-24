@@ -1,0 +1,18 @@
+{
+  "preflight_schema_id": "edge-imci-input-style-pathway-qualification-preflight-v1",
+  "generation_run_id": "holistic-noisy-v1-2-1-supplemental-qualification-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T11:40:00Z",
+  "authorization_id": "edge-imci-noisy-v1-2-1-supplemental-qualification-authorization-v1",
+  "authorization_sha256": "8719afc13fd2dcca9927d22378d046c4b02e7f88fbc06eeda80b1182aaeeae0b",
+  "selection_sha256": "7560d2db7f76abcac5af499f511816fdf439c40547e6751a27fab4f3947993e6",
+  "scheduled_attempts": 19,
+  "first_gate_attempts": 0,
+  "maximum_budget_usd": 0.8,
+  "maximum_reserved_total_usd": 0.57,
+  "teacher_target_blind": true,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false
+}

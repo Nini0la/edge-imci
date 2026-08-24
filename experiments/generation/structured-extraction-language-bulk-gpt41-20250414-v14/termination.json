@@ -1,0 +1,17 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v14",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 104,
+  "candidate_attempts": 104,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 93,
+  "deterministic_rejections": 11,
+  "semantic_rejections": 1,
+  "reviewed_annotation_only_overrides": 10,
+  "reason": "A Pidgin measles case omitted the negative three-month measles-history fact while preserving the separate measles-cough fact.",
+  "continuation_policy": "All 104 completed slots remain immutable. Continue only after positive/negative measles cough and three-month-history boundaries pass a targeted gate.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

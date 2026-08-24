@@ -16,3 +16,9 @@ Current state: `VALIDATED_NOT_STARTED`.
 Canonical JSON files are authoritative; YAML siblings are generated readability mirrors.
 
 No request receipt, provider response, generated candidate, usage record, review record, or charge exists in this directory. Those artifacts may be created only when execution starts in a later explicit step.
+
+When execution is authorized, `python -m edge_imci.generation.holistic_canary_execute`
+runs the simple gate, then the complex all-pathway gate, then the remaining units.
+Each attempt directory preserves `requested.json` before network I/O and a separate
+`terminal.json` after a provider response. `run_state.json` is derived resumable
+state; it is not billing evidence. A lone requested receipt blocks automatic retry.

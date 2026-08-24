@@ -1,0 +1,23 @@
+{
+  "authorization": {
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  },
+  "clinical_outputs_in_model_target": false,
+  "evaluation_parent_case_ids": [
+    "hpg-077-out-of-scope-age-1",
+    "hpg-078-out-of-scope-age-60"
+  ],
+  "next_gate": "GENERATE_AND_REVIEW_INPUT_LANGUAGE_BEFORE_SFT_PAIRING",
+  "parent_case_ids": [
+    "oos-extract-young-respiratory-001",
+    "oos-extract-older-fever-001"
+  ],
+  "parent_count": 2,
+  "parents_sha256": "2932551267ca4a25c0f523ecc5a55b3e922873e34ab569d6a5d8039cd9673353",
+  "partition": "TRAIN",
+  "scope_decision_owner": "DETERMINISTIC_SCOPE_CHECKER",
+  "source_set_id": "edge-imci-structured-extraction-out-of-scope-parents-v1",
+  "status": "PARENTS_READY_LANGUAGE_NOT_GENERATED",
+  "training_and_evaluation_parents_disjoint": true
+}

@@ -1,0 +1,14 @@
+{
+  "preflight_schema_id": "edge-imci-structured-extraction-bulk-t1-remediation-preflight-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-pidgin-measles-gate-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T16:04:49Z",
+  "authorization_id": "edge-imci-structured-extraction-bulk-t3-pidgin-measles-gate-v1",
+  "authorization_sha256": "d41e824b3b1f05841c9184cea29a752338455ec7c706145a315ff002b9eefe58",
+  "scheduled_attempts": 3,
+  "maximum_budget_usd": 0.3,
+  "maximum_reserved_total_usd": 0.09,
+  "teacher_target_blind": true,
+  "training_authorized": false
+}

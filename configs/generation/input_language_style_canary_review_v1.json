@@ -1,0 +1,122 @@
+{
+  "review_id": "edge-imci-input-language-style-canary-review-v1",
+  "review_version": "1.0.0",
+  "status": "COMPLETE",
+  "authority": "PROJECT_OWNER_DELEGATED_HACKATHON_REVIEW",
+  "reviewer": "Codex, under project-owner delegation",
+  "generation_run_id": "holistic-input-style-canary-gpt41-20250414-v1",
+  "renderer_git_commit": "a1c46749961af2f4253da31dbf780a442e512b45",
+  "review_scope": {
+    "semantic_faithfulness": true,
+    "phc_input_suitability": true,
+    "nigerian_pidgin_standard": "HACKATHON_SCOPED_PLAUSIBILITY_REVIEW_NOT_EXPERT_LINGUISTIC_CERTIFICATION",
+    "clinical_rule_review": false
+  },
+  "infrastructure_remediation": {
+    "issue": "The immutable attempts were recorded as SCHEMA_INVALID because the closed candidate strategy enum had not yet admitted the four canary strategy IDs.",
+    "raw_responses_may_be_revalidated": true,
+    "attempt_records_must_remain_immutable": true,
+    "remote_retry_allowed": false,
+    "corrected_candidate_schema": "configs/generation/holistic_language_variant_candidate_v1.schema.json"
+  },
+  "candidate_decisions": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "REJECTED",
+      "reason_codes": ["NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "UNKNOWN_PRESERVED", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE", "HACKATHON_PIDGIN_REVIEW_PASSED"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE", "HACKATHON_PIDGIN_REVIEW_PASSED", "EVIDENCE_SPAN_ANNOTATION_REPAIRED"],
+      "evidence_overrides": {
+        "patient_facts.has_cough_or_difficult_breathing": "E get fever but e no get cough or difficult breathing."
+      }
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "UNKNOWN_PRESERVED", "PHC_SUITABLE", "HACKATHON_PIDGIN_REVIEW_PASSED"]
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "REJECTED",
+      "reason_codes": ["NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "decision": "REJECTED",
+      "reason_codes": ["NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"]
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "PHC_SUITABLE"]
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": ["SEMANTICALLY_FAITHFUL", "UNKNOWN_PRESERVED", "PHC_SUITABLE"]
+    }
+  ],
+  "recipe_decisions": {
+    "NIGERIAN_ENGLISH": "REVISE_BEFORE_SCALE",
+    "NIGERIAN_PIDGIN": "APPROVED_FOR_FURTHER_CONTROLLED_GENERATION",
+    "NOISY_TYPED_ENGLISH": "REVISE_BEFORE_SCALE",
+    "TELEGRAPHIC_PHC_NOTE": "APPROVED_FOR_FURTHER_CONTROLLED_GENERATION"
+  },
+  "authorization": {
+    "bulk_generation_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

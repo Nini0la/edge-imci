@@ -26,7 +26,8 @@ experiments:
         - phc-concise-complete-v1
         - phc-natural-complete-v1
       teacher_output: USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY
-      assistant_target: ATTACH_FROZEN_CANONICAL_RESPONSE
+      preserved_reference_attachment: FROZEN_CANONICAL_RESPONSE
+      primary_student_target: DETERMINISTIC_MODEL_FACING_ENCOUNTER_JSON
     reproducibility:
       required_reference_kinds:
         - CONFIG
@@ -39,7 +40,7 @@ experiments:
           reference_id: holistic-teacher-bakeoff-v1-config
           version: 1.0.0
           location: configs/generation/holistic_teacher_bakeoff_v1.json
-          sha256: 469510200095527736bd7e93b05f33f3d83fb185e9396e9389b2d315ffa14814
+          sha256: 732e529adbfae44d8eb3f9c18122924c7ca60339df9c21e34da764454876e195
           remote_only: false
           role: INPUT
         - reference_kind: DATASET
@@ -74,7 +75,7 @@ experiments:
           reference_id: edge-imci-holistic-language-variant-validator-v1
           version: 1.0.0
           location: src/edge_imci/generation/holistic_variants.py
-          sha256: 3ce521c424ffc8cced9031756ab829cf7c82bd0fca3965dabd303b092bb7387b
+          sha256: d16bbe5740eed28d62688b1f19a49d714e199c5a9548246c2a19c7ec71d72c7a
           remote_only: false
           role: EVALUATOR
       unresolved_inputs:
@@ -121,6 +122,8 @@ experiments:
         - 500
         - 1000
       semantic_unit: WHOLE_ENCOUNTER
+      teacher_output: USER_SUBMISSION_AND_FACT_EVIDENCE_ONLY
+      dataset_pairing: DETERMINISTIC_MODEL_FACING_ENCOUNTER_JSON
     reproducibility:
       required_reference_kinds:
         - CONFIG
@@ -153,7 +156,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: The untuned Qwen3-1.7B baseline establishes the matched starting point for holistic student comparisons.
     decision_question: How does the exact base checkpoint perform on the approved holistic evaluation battery?
     branch_id: qwen3-1.7b-base-baseline
@@ -198,7 +201,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: TRAINING
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: Whole-encounter supervised fine-tuning improves the 1.7B model on the approved clinical product
       task.
     decision_question: Does SFT-v1 produce a viable first EdgeIMCI student checkpoint?
@@ -239,7 +242,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: SFT-v1 improves simultaneous whole-encounter classification over the matched base checkpoint.
     decision_question: Does SFT-v1 meet the holistic classification target?
     branch_id: core-clinical-evaluations
@@ -271,7 +274,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: SFT-v1 improves integrated management without collapsing distinct source-backed actions.
     decision_question: Does SFT-v1 meet the integrated-management target?
     branch_id: core-clinical-evaluations
@@ -303,7 +306,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: SFT-v1 preserves unknowns and withholds final synthesis until the supported assessment is complete.
     decision_question: Does SFT-v1 meet completeness and withholding requirements?
     branch_id: core-clinical-evaluations
@@ -335,7 +338,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: SFT-v1 surfaces known urgent actions without falsely declaring an incomplete assessment complete.
     decision_question: Does SFT-v1 meet urgent-incomplete safety requirements?
     branch_id: core-clinical-evaluations
@@ -363,38 +366,389 @@ experiments:
         applicability: APPLICABLE
         artifact_ref: null
     run_ids: []
+  - experiment_id: qwen3-1.7b-base-structured-extraction-baseline-v1
+    definition_version: 1.0.0
+    experiment_type: CLINICAL_EVAL
+    priority: CORE
+    status: PLANNED
+    hypothesis: The untuned Qwen3-1.7B baseline establishes the matched starting point for model-facing encounter
+      extraction.
+    decision_question: How accurately does the exact base checkpoint map PHC language to the versioned encounter
+      contract?
+    branch_id: qwen3-1.7b-base-baseline
+    prerequisites:
+      - Frozen evaluation semantics
+      - Approved held-out PHC language inputs
+      - Pinned model-facing target contract
+    branch_trigger: null
+    material_configuration:
+      model_family: Qwen3-1.7B
+      training_state: BASE
+      learned_task: FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
+      target_schema_id: edge-imci-model-facing-encounter-v1
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+        - VALIDATOR
+      references:
+        - reference_kind: CONFIG
+          reference_id: model-facing-encounter-schema-v1
+          version: 1.0.0
+          location: configs/model_io/model_facing_encounter_v1.schema.json
+          sha256: f793d54bf18aecf747a06b6facb6f1c29a3626cb081d190f079d60220ceba335
+          remote_only: false
+          role: INPUT
+        - reference_kind: VALIDATOR
+          reference_id: structured-extraction-evaluator-v1
+          version: 1.0.0
+          location: src/edge_imci/evaluation/structured_extraction.py
+          remote_only: false
+          role: EVALUATOR
+      unresolved_inputs:
+        - exact model revision
+        - approved held-out extraction evaluation dataset
+        - evaluation configuration
+        - validator source digest
+    evidence:
+      - evidence_id: structured_extraction_baseline
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: downstream_decision_equivalence_baseline
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+    run_ids: []
+  - experiment_id: candidate-model-runtime-asus-admission-v1
+    definition_version: 1.0.0
+    experiment_type: MODEL_RUNTIME_QUALIFICATION
+    priority: CORE
+    status: PLANNED
+    hypothesis: At least one exact untuned candidate model-runtime combination has sufficient baseline structured-extraction
+      capability and acceptable deployability on the ASUS Ubuntu target to justify fine-tuning.
+    decision_question: Which checksum-pinned candidate model-runtime combinations, if any, are admitted to fine-tuning
+      after matched target-device quality, reliability, speed, memory and thermal qualification?
+    branch_id: candidate-model-runtime-admission
+    prerequisites:
+      - Frozen representative evaluation workload and scoring policy
+      - Pinned candidate model and tokenizer revisions
+      - Pinned target runtime identities
+      - Predeclared admission thresholds
+      - Available ASUS Ubuntu deployment computer
+    branch_trigger: null
+    material_configuration:
+      measurement_designation: INTENDED_DEPLOYMENT_DEVICE
+      device: ASUS_UBUNTU
+      qualification_unit: MODEL_SOURCE_ARTIFACT_PLUS_RUNTIME_PLUS_INFERENCE_CONFIG
+      training_state: BASE_UNTUNED
+      comparison_policy: MATCHED_FROZEN_HARNESS
+      required_axes:
+        - TASK_QUALITY
+        - INSTRUCTION_FOLLOWING
+        - STRUCTURED_OUTPUT
+        - RETRIES
+        - TIME_TO_VALID
+        - NEUTRAL_INFERENCE_SPEED
+        - COLD_START
+        - PROCESS_MEMORY
+        - WHOLE_SYSTEM_MEMORY
+        - SWAP
+        - CPU
+        - TEMPERATURE
+        - THERMAL_THROTTLING
+        - SUSTAINED_LOAD
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+        - PROMPT
+        - VALIDATOR
+        - ARTIFACT
+      references:
+        - reference_kind: CONFIG
+          reference_id: target-device-model-runtime-qualification-plan-v1
+          version: 1.0.0
+          location: docs/target_device_model_runtime_qualification_plan.md
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: model-facing-encounter-schema-v1
+          version: 1.0.0
+          location: configs/model_io/model_facing_encounter_v1.schema.json
+          sha256: f793d54bf18aecf747a06b6facb6f1c29a3626cb081d190f079d60220ceba335
+          remote_only: false
+          role: INPUT
+        - reference_kind: VALIDATOR
+          reference_id: structured-extraction-evaluator-v1
+          version: 1.0.0
+          location: src/edge_imci/evaluation/structured_extraction.py
+          remote_only: false
+          role: EVALUATOR
+      unresolved_inputs:
+        - frozen evaluation repository commit and clean-checkout policy
+        - candidate matrix with full Hugging Face revisions and reviewed SHA-256 manifests
+        - exact ASUS hardware, firmware, OS and power-state identity
+        - pinned runtime builds and deployment artifact representations
+        - approved held-out qualification workload and prompt hashes
+        - neutral benchmark and sustained-load configuration
+        - predeclared admission thresholds
+        - ADTC profiler and schema revisions if used
+        - qualification runner and validator source digests
+    evidence:
+      - evidence_id: candidate_integrity_and_runtime_identity
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: baseline_task_and_structured_output
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: neutral_speed_and_time_to_valid
+        evidence_class: PROFILE
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: asus_cold_start_memory_cpu_thermal_profile
+        evidence_class: PROFILE
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: fine_tuning_admission_decision
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+    run_ids: []
+  - experiment_id: qwen3-1.7b-structured-extraction-sft-v1-modal
+    definition_version: 1.0.0
+    experiment_type: TRAINING
+    priority: CORE
+    status: PLANNED
+    hypothesis: Supervised fine-tuning on many faithful PHC language variants mapped to canonical encounter JSON
+      improves structured clinical interpretation.
+    decision_question: Does extraction SFT-v1 produce a viable first EdgeIMCI checkpoint?
+    branch_id: qwen3-1.7b-sft-v1
+    prerequisites:
+      - Approved canonical extraction dataset and split
+      - Pinned model-facing target and training-record contracts
+      - Candidate model-runtime combination admitted by matched ASUS qualification
+    branch_trigger: null
+    material_configuration:
+      model_family: Qwen3-1.7B
+      training_stage: STRUCTURED_EXTRACTION_SFT_V1
+      learned_task: FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
+      preferred_environment: MODAL
+      parent_admission_required: true
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+      references:
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-record-schema-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_sft_record_v1.schema.json
+          sha256: 798c399841a43a81caf070a8b37168345ce1d92b127e89606d8607cd2ab26942
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-dataset-policy-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_dataset_policy_v1.json
+          sha256: e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d
+          remote_only: false
+          role: INPUT
+      unresolved_inputs:
+        - ASUS admission decision and admitted base model-runtime identity
+        - base checkpoint revision
+        - approved extraction dataset and split
+        - training recipe
+        - pinned Qwen chat template/tokenizer
+        - Modal image/config
+    evidence:
+      - evidence_id: training_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: checkpoint
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: modal_execution
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: null
+    run_ids: []
+  - experiment_id: qwen3-1.7b-structured-extraction-eval-v1
+    definition_version: 1.0.0
+    experiment_type: CLINICAL_EVAL
+    priority: CORE
+    status: PLANNED
+    hypothesis: Extraction SFT-v1 improves exact and field-level encounter interpretation over the matched base
+      checkpoint while preserving UNKNOWN and qualifiers.
+    decision_question: Does SFT-v1 meet the versioned structured-extraction targets?
+    branch_id: core-clinical-evaluations
+    prerequisites:
+      - Extraction SFT-v1 checkpoint
+      - Approved held-out PHC language evaluation set
+    branch_trigger: null
+    material_configuration:
+      evaluation_axis: STRUCTURED_EXTRACTION
+      target_schema_id: edge-imci-model-facing-encounter-v1
+      comparison: QWEN3_1.7B_BASE_VS_EXTRACTION_SFT_V1
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - CHECKPOINT
+        - DATASET
+        - VALIDATOR
+      references:
+        - reference_kind: CONFIG
+          reference_id: model-facing-encounter-schema-v1
+          version: 1.0.0
+          location: configs/model_io/model_facing_encounter_v1.schema.json
+          sha256: f793d54bf18aecf747a06b6facb6f1c29a3626cb081d190f079d60220ceba335
+          remote_only: false
+          role: INPUT
+        - reference_kind: VALIDATOR
+          reference_id: structured-extraction-evaluator-v1
+          version: 1.0.0
+          location: src/edge_imci/evaluation/structured_extraction.py
+          remote_only: false
+          role: EVALUATOR
+      unresolved_inputs:
+        - SFT-v1 checkpoint
+        - approved held-out evaluation dataset
+        - evaluation configuration
+        - validator source digest
+    evidence:
+      - evidence_id: schema_validity
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: whole_record_and_field_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: epistemic_and_qualifier_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+    run_ids: []
+  - experiment_id: qwen3-1.7b-downstream-decision-equivalence-eval-v1
+    definition_version: 1.0.0
+    experiment_type: CLINICAL_EVAL
+    priority: CORE
+    status: PLANNED
+    hypothesis: Encounter JSON predicted by extraction SFT-v1 yields deterministic clinical results equivalent to
+      gold state, including urgent action.
+    decision_question: Do predicted structured encounters preserve downstream completeness, classifications, referral
+      and management?
+    branch_id: core-clinical-evaluations
+    prerequisites:
+      - Extraction SFT-v1 checkpoint
+      - Approved held-out PHC language evaluation set
+      - Pinned deterministic clinical pipeline
+    branch_trigger: null
+    material_configuration:
+      evaluation_axis: DOWNSTREAM_DECISION_EQUIVALENCE
+      engine: EXISTING_DETERMINISTIC_HOLISTIC_EVALUATOR
+      urgent_action_reported_separately: true
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - CHECKPOINT
+        - DATASET
+        - VALIDATOR
+      references:
+        - reference_kind: VALIDATOR
+          reference_id: structured-extraction-evaluator-v1
+          version: 1.0.0
+          location: src/edge_imci/evaluation/structured_extraction.py
+          remote_only: false
+          role: EVALUATOR
+      unresolved_inputs:
+        - SFT-v1 checkpoint
+        - approved held-out evaluation dataset
+        - evaluation configuration
+        - validator and deterministic-engine source digests
+    evidence:
+      - evidence_id: classification_equivalence
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: management_and_referral_equivalence
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: urgent_action_equivalence
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+    run_ids: []
   - experiment_id: selected-artifact-target-profile-v1
     definition_version: 1.0.0
     experiment_type: EDGE_PROFILE
     priority: CORE
     status: PLANNED
-    hypothesis: The selected exact deployment artifact is usable on the ASUS participant-laptop proxy.
-    decision_question: Does the selected artifact meet the observed target-runtime, memory, and latency needs?
+    hypothesis: The exact converted or quantized post-training deployment artifact remains qualified on the ASUS
+      against the frozen pre-training admission harness.
+    decision_question: Does the post-training deployment tuple pass the same ASUS qualification, and what changed
+      relative to its admitted base tuple?
     branch_id: target-hardware-profile
     prerequisites:
-      - Selected checkpoint and exact deployable representation
+      - Admitted base model-runtime qualification evidence
+      - Selected fine-tuned checkpoint and exact converted or quantized deployable representation
       - Core clinical evaluation evidence
+      - Same frozen evaluation repository and qualification policy
     branch_trigger: null
     material_configuration:
-      measurement_designation: PARTICIPANT_PROXY
-      device: ASUS
-      runtime: LLAMA_CPP
+      measurement_designation: INTENDED_DEPLOYMENT_DEVICE
+      device: ASUS_UBUNTU
+      runtime: UNRESOLVED
       artifact: UNRESOLVED
+      comparison: ADMITTED_BASE_VS_POST_TRAINING_DEPLOYMENT
+      frozen_harness_required: true
     reproducibility:
       required_reference_kinds:
         - CONFIG
+        - MODEL
+        - CHECKPOINT
+        - DATASET
+        - PROMPT
+        - VALIDATOR
         - ARTIFACT
-      references: []
+      references:
+        - reference_kind: CONFIG
+          reference_id: target-device-model-runtime-qualification-plan-v1
+          version: 1.0.0
+          location: docs/target_device_model_runtime_qualification_plan.md
+          remote_only: false
+          role: INPUT
       unresolved_inputs:
-        - selected deployable artifact and digest
-        - pinned profiler/runtime configuration
+        - admitted base qualification evidence
+        - fine-tuned checkpoint and digest
+        - conversion or quantization provenance
+        - selected deployment artifact file manifest and digest
+        - same pinned runtime and inference configuration or matched base control under any required new runtime
+        - frozen workload, prompt, validator and threshold identities
         - recorded ASUS environment
+        - ADTC profiler and schema revisions if used
     evidence:
-      - evidence_id: target_profile_summary
+      - evidence_id: post_training_qualification_summary
         evidence_class: PROFILE
         applicability: APPLICABLE
         artifact_ref: null
-      - evidence_id: matched_clinical_quality
+      - evidence_id: matched_before_after_quality_and_reliability
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: conversion_quantization_provenance
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: null
+      - evidence_id: paired_deployment_decision
         evidence_class: SCIENTIFIC
         applicability: APPLICABLE
         artifact_ref: null

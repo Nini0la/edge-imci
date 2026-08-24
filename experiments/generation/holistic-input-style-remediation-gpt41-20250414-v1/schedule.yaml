@@ -1,0 +1,86 @@
+# Generated from experiments/generation/holistic-input-style-remediation-gpt41-20250414-v1/schedule.json; edit canonical JSON.
+schedule_schema_id: edge-imci-holistic-teacher-bakeoff-schedule-v1
+generation_run_id: holistic-input-style-remediation-gpt41-20250414-v1
+experiment_id: holistic-teacher-prompt-bakeoff-v1
+created_at: '2026-08-23T10:12:54Z'
+authorization:
+  project_owner: Niniola Adegboyega
+  approved_at: '2026-08-23T10:12:54Z'
+  variant_contract_approved: true
+  remote_calls_authorized: true
+  budget:
+    currency: USD
+    maximum_amount: 0.5
+source_pins:
+  semantic_cases_sha256: 9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f
+  frozen_language_renderings_sha256: 9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0
+  variant_contract_sha256: e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0
+  validator_sha256: 47bceeb924a2d892439710d6f6003363388824554ecfe976be4210c77c22003e
+  attempt_schema_sha256: 4781a5f7c62381b1deb8e3cf68c16a0ce70aa0158ed4a0f4d8d9fa544acd7759
+  review_schema_sha256: 4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2
+  selection_policy_sha256: de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe
+  schedule_schema_sha256: 2b38347357dbb3d05c0e92eb78d71d9100a2bc1b5ab0ffe11043516831e61437
+retry_policy:
+  transport_retry_limit: 1
+  semantic_retry: false
+  uncertain_request_policy: RECONCILE_BEFORE_RETRY
+configurations:
+- configuration_id: azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-nigerian-english-v1
+  prompt_id: edge-imci-phc-nigerian-english
+  prompt_version: 1.1.0
+  prompt_sha256: 12e758f4a23cd8253a233d8e2be63d1df48973fab6b6dab1a983d3b32375f737
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2200
+- configuration_id: azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1
+  teacher_provider: AZURE_OPENAI
+  teacher_model: gpt-4.1
+  teacher_snapshot: '2025-04-14'
+  strategy_id: phc-noisy-typed-english-v1
+  prompt_id: edge-imci-phc-noisy-typed-english
+  prompt_version: 1.1.0
+  prompt_sha256: 13ca628fa3f2d10e797b0189dd8f023d146f1351c1a7db01267a7a90e6228168
+  sampling_config:
+    temperature: 0.7
+  max_output_tokens: 2200
+units:
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: 324a86cbde3fafc007a55bd7d2ae034d55c2aebfe7b53deec22f7861115427a2
+  review_item_id: review-d82a767cfbd759216d725469
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-041-fever-high-positive
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1
+  semantic_case_id: hpg-041-fever-high-positive
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: c8f3056f7d508a0015bdb7f58b98dcacd986724022cb1f5da2f064522c6db0d9
+  review_item_id: review-e383039275ecab30160a147f
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown
+  configuration_id: azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-1
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+  strategy_id: phc-nigerian-english-v1
+  source_request_sha256: 2d39ce6ec560675dd5d7a2db02d7f8cc6cd51a4cb3a24b5d218109cf9fc02329
+  review_item_id: review-5fb3a27e477da46ad7b94536
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-020-resp-post-bronchodilator-improved
+  configuration_id: azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+  strategy_id: phc-noisy-typed-english-v1
+  source_request_sha256: 4fb13dd6e020c8a16d750def09289f6b14db2ba2eb533234fec55d4d3b1a6653
+  review_item_id: review-4e8f5c7d3c6d62509125533a
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-041-fever-high-positive
+  configuration_id: azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1
+  semantic_case_id: hpg-041-fever-high-positive
+  strategy_id: phc-noisy-typed-english-v1
+  source_request_sha256: 7e4e5fe80de3a8656ec783400fca9deafef0bea262d4a3e11cf6c9af5d28aee4
+  review_item_id: review-605bcccae64606e922ba9570
+- request_id: holistic-input-style-remediation-gpt41-20250414-v1__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1__hpg-071-incomplete-entry-unknown
+  configuration_id: azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-1
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+  strategy_id: phc-noisy-typed-english-v1
+  source_request_sha256: a1c924a9c1e9c459291362035757591ca01cc056e90e35ada1d98de368286800
+  review_item_id: review-c088208ea45a064d7832fa5a

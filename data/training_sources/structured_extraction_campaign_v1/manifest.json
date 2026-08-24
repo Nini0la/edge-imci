@@ -1,0 +1,61 @@
+{
+  "approved_style_counts": {
+    "NIGERIAN_ENGLISH": 390,
+    "NIGERIAN_PIDGIN": 300,
+    "NOISY_TYPED_ENGLISH": 394,
+    "TELEGRAPHIC_PHC_NOTE": 413
+  },
+  "assets": {
+    "data/training_sources/structured_extraction_campaign_v1/canonical_records.jsonl": {
+      "record_count": 1497,
+      "sha256": "24834514b2f6ca3107151a5e1c0e63997ac9d7002793151c184c856aefeb59a2"
+    },
+    "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl": {
+      "record_count": 1497,
+      "sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0"
+    },
+    "data/training_sources/structured_extraction_campaign_v1/excluded_receipts.jsonl": {
+      "record_count": 653,
+      "sha256": "0f069d24d7f385fa61a3f6793310feb2029abe17c071f2ac936f97b2ce77127a"
+    },
+    "data/training_sources/structured_extraction_campaign_v1/language_variants.jsonl": {
+      "record_count": 1497,
+      "sha256": "fb201edaa525a878e79e425709c08599c79d1cd481a1f7ee5008a176f20f23a2"
+    }
+  },
+  "authorization": {
+    "production_clinical_use_authorized": false,
+    "training_authorized": false
+  },
+  "campaign_id": "edge-imci-structured-extraction-language-campaign-v1",
+  "candidate_bearing_allocation_slots": 2142,
+  "dataset_policy_id": "edge-imci-structured-extraction-dataset-policy-v1",
+  "excluded_receipt_count": 653,
+  "parent_case_count": 78,
+  "partition_counts": {
+    "TEST": 143,
+    "TRAIN": 1239,
+    "VALIDATION": 115
+  },
+  "record_count": 1497,
+  "record_schema_id": "edge-imci-structured-extraction-sft-record-v1",
+  "remote_terminal_receipts": 2150,
+  "review": {
+    "all_final_run_non_pass_receipts_reviewed": true,
+    "t3_sample_reviewed": 145,
+    "t3_sample_semantic_approved": 144,
+    "t3_sample_semantic_rejected": 1
+  },
+  "review_id": "edge-imci-structured-extraction-campaign-review-v1",
+  "split_policy_id": "edge-imci-parent-semantic-split-v1",
+  "status": "CORPUS_EXPORT_COMPLETE",
+  "transport_only_receipts": 8,
+  "validation": {
+    "canonical_target_deterministic": true,
+    "clinical_outputs_excluded_from_target": true,
+    "parent_split_inheritance": true,
+    "teacher_target_blind": true,
+    "training_authorized": false,
+    "unknown_not_inferred_negative": true
+  }
+}

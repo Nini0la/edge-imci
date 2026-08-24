@@ -1,0 +1,145 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-014-resp-chest-hiv-positive__variant-0004__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9__hpg-014-resp-chest-hiv-positive__variant-0004",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-9",
+  "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.9",
+    "prompt_sha256": "9f9492c5b09b90f271fbc23556edf37c983f4dcaf9168ddc9f3a2c98351351d8"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "51bc47041e8b4a9b3c515732f483b13f056ba4fabd9f99f1ec24a2d26b5a8c6a",
+  "requested_at": "2026-08-23T15:47:58Z",
+  "completed_at": "2026-08-23T15:48:04Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-014-resp-chest-hiv-positive\",\"strategy_id\":\"phc-nigerian-pidgin-v1\",\"user_submission\":\"Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin dey 18 months old. Pikin get cough or e dey find am hard to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever. Dem count pikin breath for one minute. Pikin chest dey go inside when e dey breathe. Pikin dey calm. Cough don dey for 3 days. Pikin dey exposed or e get HIV. Pulse oximeter no dey available. Pikin no dey wheeze again and e no dey wheeze now. Pikin dey breathe 35 times for one minute. Pikin no get stridor when e dey calm.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"Pikin no dey convulse now.\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"Pikin never get convulsion before.\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"Pikin no dey lethargic and e dey conscious.\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"Pikin fit drink or breastfeed.\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"Pikin no dey vomit everything.\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"Pikin dey 18 months old.\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"Pikin get cough or e dey find am hard to breathe.\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"Pikin no get diarrhoea.\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"Pikin no get ear problem.\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"Pikin no get fever.\"},{\"fact_id\":\"respiratory.breaths_counted_one_minute\",\"evidence_text\":\"Dem count pikin breath for one minute.\"},{\"fact_id\":\"respiratory.chest_indrawing\",\"evidence_text\":\"Pikin chest dey go inside when e dey breathe.\"},{\"fact_id\":\"respiratory.child_calm\",\"evidence_text\":\"Pikin dey calm.\"},{\"fact_id\":\"respiratory.cough_duration_days\",\"evidence_text\":\"Cough don dey for 3 days.\"},{\"fact_id\":\"respiratory.hiv_exposed_or_infected\",\"evidence_text\":\"Pikin dey exposed or e get HIV.\"},{\"fact_id\":\"respiratory.pulse_oximeter_available\",\"evidence_text\":\"Pulse oximeter no dey available.\"},{\"fact_id\":\"respiratory.recurrent_wheeze\",\"evidence_text\":\"Pikin no dey wheeze again.\"},{\"fact_id\":\"respiratory.respiratory_rate\",\"evidence_text\":\"Pikin dey breathe 35 times for one minute.\"},{\"fact_id\":\"respiratory.stridor_when_calm\",\"evidence_text\":\"Pikin no get stridor when e dey calm.\"},{\"fact_id\":\"respiratory.wheezing\",\"evidence_text\":\"E no dey wheeze now.\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-014-resp-chest-hiv-positive",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin no dey convulse now. Pikin never get convulsion before. Pikin no dey lethargic and e dey conscious. Pikin fit drink or breastfeed. Pikin no dey vomit everything. Pikin dey 18 months old. Pikin get cough or e dey find am hard to breathe. Pikin no get diarrhoea. Pikin no get ear problem. Pikin no get fever. Dem count pikin breath for one minute. Pikin chest dey go inside when e dey breathe. Pikin dey calm. Cough don dey for 3 days. Pikin dey exposed or e get HIV. Pulse oximeter no dey available. Pikin no dey wheeze again and e no dey wheeze now. Pikin dey breathe 35 times for one minute. Pikin no get stridor when e dey calm.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "Pikin no dey convulse now."
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "Pikin never get convulsion before."
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "Pikin no dey lethargic and e dey conscious."
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "Pikin fit drink or breastfeed."
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "Pikin no dey vomit everything."
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin dey 18 months old."
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "Pikin get cough or e dey find am hard to breathe."
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "Pikin no get diarrhoea."
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "Pikin no get ear problem."
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "Pikin no get fever."
+      },
+      {
+        "fact_id": "respiratory.breaths_counted_one_minute",
+        "evidence_text": "Dem count pikin breath for one minute."
+      },
+      {
+        "fact_id": "respiratory.chest_indrawing",
+        "evidence_text": "Pikin chest dey go inside when e dey breathe."
+      },
+      {
+        "fact_id": "respiratory.child_calm",
+        "evidence_text": "Pikin dey calm."
+      },
+      {
+        "fact_id": "respiratory.cough_duration_days",
+        "evidence_text": "Cough don dey for 3 days."
+      },
+      {
+        "fact_id": "respiratory.hiv_exposed_or_infected",
+        "evidence_text": "Pikin dey exposed or e get HIV."
+      },
+      {
+        "fact_id": "respiratory.pulse_oximeter_available",
+        "evidence_text": "Pulse oximeter no dey available."
+      },
+      {
+        "fact_id": "respiratory.recurrent_wheeze",
+        "evidence_text": "Pikin no dey wheeze again."
+      },
+      {
+        "fact_id": "respiratory.respiratory_rate",
+        "evidence_text": "Pikin dey breathe 35 times for one minute."
+      },
+      {
+        "fact_id": "respiratory.stridor_when_calm",
+        "evidence_text": "Pikin no get stridor when e dey calm."
+      },
+      {
+        "fact_id": "respiratory.wheezing",
+        "evidence_text": "E no dey wheeze now."
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "EVIDENCE_SPAN_MISSING"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1481,
+    "output_tokens": 756,
+    "cached_input_tokens": 0,
+    "latency_ms": 5907,
+    "retry_count": 0,
+    "provider_request_id": "resp_0396e2c3ad1f5893016a8b162f21288193a63189c159abc2fb",
+    "raw_usage": {
+      "input_tokens": 1481,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 756,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2237
+    }
+  }
+}

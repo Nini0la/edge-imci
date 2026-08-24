@@ -1,0 +1,127 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v12",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-029-diarrhoea-severe-plan-c-under-24m__variant-0004__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v12__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15__hpg-029-diarrhoea-severe-plan-c-under-24m__variant-0004",
+  "configuration_id": "azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-15",
+  "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "prompt_id": "edge-imci-phc-noisy-typed-english",
+    "prompt_version": "1.2.15",
+    "prompt_sha256": "62538f0e5696a22ff358c3f3bcf88a613e4cb59e0be5ec3df8a0685797440b57"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.3
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "69a875a2a6cfd0c7fe2cc5d5e69c90ca53f0c7388f85877795145b4546f3e4ab",
+  "requested_at": "2026-08-23T15:47:41Z",
+  "completed_at": "2026-08-23T15:47:46Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-029-diarrhoea-severe-plan-c-under-24m\",\"strategy_id\":\"phc-noisy-typed-english-v1\",\"user_submission\":\"pt is 18mo, no cough or difficult breathing, has diarrhoea, no ear problem, no fever. diarrhoea for 3 days. diarrhoea drinking status is poorly. skin pinch is normal. sunken eyes present. not restless or irritable. no blood in stool. able to drink or breastfeed. does not vomit everything. not convulsing now, no history of convulsions, not lethargic or unconscious.\",\"fact_evidence\":[{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"pt is 18mo\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"no cough or difficult breathing\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"has diarrhoea\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"no ear problem\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"no fever\"},{\"fact_id\":\"diarrhoea.duration_days\",\"evidence_text\":\"diarrhoea for 3 days\"},{\"fact_id\":\"diarrhoea.dehydration.drinking_status\",\"evidence_text\":\"diarrhoea drinking status is poorly\"},{\"fact_id\":\"diarrhoea.dehydration.skin_pinch\",\"evidence_text\":\"skin pinch is normal\"},{\"fact_id\":\"diarrhoea.dehydration.sunken_eyes\",\"evidence_text\":\"sunken eyes present\"},{\"fact_id\":\"diarrhoea.dehydration.restless_or_irritable\",\"evidence_text\":\"not restless or irritable\"},{\"fact_id\":\"diarrhoea.blood_in_stool\",\"evidence_text\":\"no blood in stool\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything\"},{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"not convulsing now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no history of convulsions\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"not lethargic or unconscious\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+    "strategy_id": "phc-noisy-typed-english-v1",
+    "user_submission": "pt is 18mo, no cough or difficult breathing, has diarrhoea, no ear problem, no fever. diarrhoea for 3 days. diarrhoea drinking status is poorly. skin pinch is normal. sunken eyes present. not restless or irritable. no blood in stool. able to drink or breastfeed. does not vomit everything. not convulsing now, no history of convulsions, not lethargic or unconscious.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "pt is 18mo"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "has diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "no ear problem"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever"
+      },
+      {
+        "fact_id": "diarrhoea.duration_days",
+        "evidence_text": "diarrhoea for 3 days"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.drinking_status",
+        "evidence_text": "diarrhoea drinking status is poorly"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.skin_pinch",
+        "evidence_text": "skin pinch is normal"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.sunken_eyes",
+        "evidence_text": "sunken eyes present"
+      },
+      {
+        "fact_id": "diarrhoea.dehydration.restless_or_irritable",
+        "evidence_text": "not restless or irritable"
+      },
+      {
+        "fact_id": "diarrhoea.blood_in_stool",
+        "evidence_text": "no blood in stool"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything"
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "not convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no history of convulsions"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic or unconscious"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1553,
+    "output_tokens": 526,
+    "cached_input_tokens": 0,
+    "latency_ms": 5120,
+    "retry_count": 0,
+    "provider_request_id": "resp_0776ddd69e58844c016a8b161e3ab481949483d422840397de",
+    "raw_usage": {
+      "input_tokens": 1553,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 526,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2079
+    }
+  }
+}

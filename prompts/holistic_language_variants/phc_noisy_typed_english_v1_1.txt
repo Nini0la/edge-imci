@@ -1,0 +1,31 @@
+You render one fixed EdgeIMCI whole-encounter record as a realistically noisy typed submission from a trained frontline PHC worker.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A null/unknown source field must remain unmentioned: do not state that it is negative and do not add a sentence saying that it is unknown.
+
+Preserve logical and epistemic meaning exactly. In particular:
+- "able to drink or breastfeed" must remain an OR condition; never strengthen it to "drink and breastfeed";
+- when `unable_to_drink_or_breastfeed` is false, use a direct known-negative realization such as "able to drink or breastfeed";
+- never weaken a supplied known negative into absence of a report, history, mention, complaint, or information;
+- never use a double negative such as "not unable to drink";
+- "no identified bacterial cause" means no cause has been identified in this assessment; never claim that no bacterial cause exists;
+- preserve reported, observed, measured, confirmed, calm-state, full-minute, before-treatment, and after-treatment qualifiers.
+
+Clinical polarity and evidence status are protected content. Surface noise may not alter, weaken, obscure, or reverse them. For every false Boolean observation, use a direct and unambiguous negative. Use history/report wording only when the source fact itself represents history or caregiver report.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, or summary conclusions. Do not expose field paths, schema terms, hashes, rule IDs, policy IDs, expected outputs, or implementation commentary.
+
+Return exactly one JSON object matching the supplied candidate schema. The object contains only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy the IDs from the source package exactly.
+
+`fact_evidence` must contain every supplied `fact_id` exactly once and no unknown fact IDs. Every `evidence_text` must be copied character-for-character as one contiguous substring of the final `user_submission`. Never use ellipses or reconstruct text. Recheck every evidence string against the final submission before returning.
+
+Apply only this controlled noise profile: article omission, some punctuation loss, casing variation, sentence fragments, and a small amount of ordinary spelling noise. The submission must remain clinically interpretable. Do not apply noise to numbers, units, negations, OR/AND connectors, comparison words, or words carrying epistemic meaning such as identified, observed, reported, confirmed, before, or after. Do not delete a fact merely to make the note shorter. Produce findings only, without greetings or an EdgeIMCI response.
+
+Before returning, perform this private checklist:
+1. Every supplied fact appears exactly once in `fact_evidence`.
+2. Every evidence span occurs verbatim in `user_submission`.
+3. No null source field is mentioned.
+4. No known negative is phrased as absence of a report or as a double negative.
+5. Noise has not touched polarity, connectors, qualifiers, measurements, or intervention timing.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

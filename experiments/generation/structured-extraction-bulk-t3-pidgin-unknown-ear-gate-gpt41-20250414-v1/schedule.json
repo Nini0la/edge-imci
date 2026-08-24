@@ -1,0 +1,81 @@
+{
+  "schedule_schema_id": "edge-imci-holistic-teacher-bakeoff-schedule-v1",
+  "generation_run_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1",
+  "experiment_id": "holistic-teacher-prompt-bakeoff-v1",
+  "created_at": "2026-08-23T15:51:12Z",
+  "authorization": {
+    "project_owner": "Niniola Adegboyega",
+    "approved_at": "2026-08-23T15:51:12Z",
+    "variant_contract_approved": true,
+    "remote_calls_authorized": true,
+    "budget": {
+      "currency": "USD",
+      "maximum_amount": 0.35
+    }
+  },
+  "source_pins": {
+    "semantic_cases_sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f",
+    "frozen_language_renderings_sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0",
+    "variant_contract_sha256": "e21b629670ac321e3f6858559ffa35df19819a782fcf7deb1a871ec919b3f3f0",
+    "validator_sha256": "8ba2937022473a4341d940e36f81e99be929989c29b0a2b65abc3178faa7704b",
+    "attempt_schema_sha256": "8bf1227012bc0f2ca4e44717a8e67af7db0d6fda5ae9dd51443c7634399bf431",
+    "review_schema_sha256": "4769f85df373e794645399af14e0bbcd5a8d557ddd96c46a2a976991f8ec35b2",
+    "selection_policy_sha256": "de3e70434242c9d3eab641887cf3e9ab3b113b65cb9149b8db1541c479fd46fe",
+    "schedule_schema_sha256": "063cfb6071277c47e25b4fa28c22eb02b6e2a21847252b5e8ee3721962caff59"
+  },
+  "retry_policy": {
+    "transport_retry_limit": 1,
+    "semantic_retry": false,
+    "uncertain_request_policy": "RECONCILE_BEFORE_RETRY"
+  },
+  "configurations": [
+    {
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+      "teacher_provider": "AZURE_OPENAI",
+      "teacher_model": "gpt-4.1",
+      "teacher_snapshot": "2025-04-14",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "prompt_id": "edge-imci-phc-nigerian-pidgin",
+      "prompt_version": "1.2.10",
+      "prompt_sha256": "125caf554ebf2c6cd98d64e3738e56bfda2d889245b6ad607f87bdbdc4476929",
+      "sampling_config": {
+        "temperature": 0.3
+      },
+      "max_output_tokens": 2200
+    }
+  ],
+  "units": [
+    {
+      "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-001-all-negative",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "c17cc64a906ad5cd62faae64ff3b31d60d1be924755f73c5a63883e2a0caf04b",
+      "review_item_id": "review-c3a9230a46fae7c3ae1d868b"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-050-fever-duration-8-not-every-day",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+      "semantic_case_id": "hpg-050-fever-duration-8-not-every-day",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "7be0a67382111e06d39fa935b85a71f21bcc1c9c1896479d2f063fe35fcae1fb",
+      "review_item_id": "review-ed4d2efd420800bbf66336b5"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-065-ear-observed-pus-no-history",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+      "semantic_case_id": "hpg-065-ear-observed-pus-no-history",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "c48e189e9a27a16c1410406d58a13594ff142de1e3b82d4180991cde2238ede1",
+      "review_item_id": "review-920ff83f33fae14669299224"
+    },
+    {
+      "request_id": "structured-extraction-bulk-t3-pidgin-unknown-ear-gate-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10__hpg-071-incomplete-entry-unknown",
+      "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-10",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "source_request_sha256": "1c94e65e43eb17be9b36abd36d0efd2ce98834310bb4d1f48acd2b3548ebc2a9",
+      "review_item_id": "review-74848075814c1c61d93eeaa2"
+    }
+  ]
+}

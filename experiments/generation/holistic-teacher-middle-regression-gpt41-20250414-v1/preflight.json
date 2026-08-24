@@ -1,0 +1,20 @@
+{
+  "preflight_schema_id": "edge-imci-holistic-teacher-middle-regression-preflight-v1",
+  "generation_run_id": "holistic-teacher-middle-regression-gpt41-20250414-v1",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T07:30:31Z",
+  "authorization_basis": "Targeted remediation is within the project owner's delegated middle-gate review scope.",
+  "case_ids": [
+    "hpg-011-resp-age-12-rate-40",
+    "hpg-041-fever-high-positive",
+    "hpg-014-resp-chest-hiv-positive",
+    "hpg-062-ear-acute-pain"
+  ],
+  "prompt_version": "2.1.0",
+  "scheduled_attempts": 4,
+  "maximum_budget_usd": 0.25,
+  "maximum_reserved_total_usd": 0.08,
+  "teacher_target_blind": true,
+  "semantic_retries": false
+}

@@ -1,0 +1,153 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v3",
+  "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-060-fever-test-result-unknown__variant-0001__attempt-1",
+  "request_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-060-fever-test-result-unknown__variant-0001",
+  "configuration_id": "azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1",
+  "semantic_case_id": "hpg-060-fever-test-result-unknown",
+  "status": "DETERMINISTIC_REJECTED",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "prompt_id": "edge-imci-phc-nigerian-pidgin",
+    "prompt_version": "1.2.1",
+    "prompt_sha256": "10faa12984776ec9ada0b5d7d8a0740216fc51b775b0845abc7d8e9c196e8c48"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "c42e0d396ad9387cd6f3252de4f81c99859272ec71228b3a0ff477c176153014",
+  "requested_at": "2026-08-23T13:30:16Z",
+  "completed_at": "2026-08-23T13:30:29Z",
+  "raw_response": "{\n  \"candidate_schema_id\": \"edge-imci-holistic-language-variant-candidate-v1\",\n  \"semantic_case_id\": \"hpg-060-fever-test-result-unknown\",\n  \"strategy_id\": \"phc-nigerian-pidgin-v1\",\n  \"user_submission\": \"Pikin na 18 months. E get fever for 2 days. E body hot reach 38.0°C. Di pikin dey for area wey malaria risk high, and malaria test dey available. E get fever but no cough or difficult breathing, e no get diarrhoea, and e never get ear problem before. E never dey convulse now and e never get convulsion before. Di pikin no dey lethargic and e dey conscious. E dey fit drink or breastfeed. E no dey vomit everything. No sign say rash dey body, no sign say bacteria cause dey, and dem never see any obvious cause for di fever. E no get cough for measles, e never get measles for di last 3 months. E eye no red, e no get catarrh, and neck no stiff.\",\n  \"fact_evidence\": [\n    {\n      \"fact_id\": \"patient_facts.age_months\",\n      \"evidence_text\": \"Pikin na 18 months\"\n    },\n    {\n      \"fact_id\": \"fever.fever_duration_days\",\n      \"evidence_text\": \"E get fever for 2 days\"\n    },\n    {\n      \"fact_id\": \"fever.temperature_c\",\n      \"evidence_text\": \"E body hot reach 38.0°C\"\n    },\n    {\n      \"fact_id\": \"fever.malaria_risk\",\n      \"evidence_text\": \"malaria risk high\"\n    },\n    {\n      \"fact_id\": \"fever.malaria_test_available\",\n      \"evidence_text\": \"malaria test dey available\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_fever\",\n      \"evidence_text\": \"E get fever\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_cough_or_difficult_breathing\",\n      \"evidence_text\": \"no cough or difficult breathing\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_diarrhoea\",\n      \"evidence_text\": \"e no get diarrhoea\"\n    },\n    {\n      \"fact_id\": \"patient_facts.has_ear_problem\",\n      \"evidence_text\": \"e never get ear problem before\"\n    },\n    {\n      \"fact_id\": \"danger_signs.convulsing_now\",\n      \"evidence_text\": \"E never dey convulse now\"\n    },\n    {\n      \"fact_id\": \"danger_signs.had_convulsions\",\n      \"evidence_text\": \"e never get convulsion before\"\n    },\n    {\n      \"fact_id\": \"danger_signs.lethargic_or_unconscious\",\n      \"evidence_text\": \"no dey lethargic and e dey conscious\"\n    },\n    {\n      \"fact_id\": \"danger_signs.unable_to_drink_or_breastfeed\",\n      \"evidence_text\": \"E dey fit drink or breastfeed\"\n    },\n    {\n      \"fact_id\": \"danger_signs.vomits_everything\",\n      \"evidence_text\": \"E no dey vomit everything\"\n    },\n    {\n      \"fact_id\": \"fever.generalized_rash\",\n      \"evidence_text\": \"No sign say rash dey body\"\n    },\n    {\n      \"fact_id\": \"fever.identified_bacterial_cause_present\",\n      \"evidence_text\": \"no sign say bacteria cause dey\"\n    },\n    {\n      \"fact_id\": \"fever.obvious_cause_of_fever_present\",\n      \"evidence_text\": \"dem never see any obvious cause for di fever\"\n    },\n    {\n      \"fact_id\": \"fever.measles_cough\",\n      \"evidence_text\": \"no get cough for measles\"\n    },\n    {\n      \"fact_id\": \"fever.measles_within_last_3_months\",\n      \"evidence_text\": \"e never get measles for di last 3 months\"\n    },\n    {\n      \"fact_id\": \"fever.red_eyes\",\n      \"evidence_text\": \"E eye no red\"\n    },\n    {\n      \"fact_id\": \"fever.runny_nose\",\n      \"evidence_text\": \"e no get catarrh\"\n    },\n    {\n      \"fact_id\": \"fever.stiff_neck\",\n      \"evidence_text\": \"neck no stiff\"\n    }\n  ]\n}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-060-fever-test-result-unknown",
+    "strategy_id": "phc-nigerian-pidgin-v1",
+    "user_submission": "Pikin na 18 months. E get fever for 2 days. E body hot reach 38.0°C. Di pikin dey for area wey malaria risk high, and malaria test dey available. E get fever but no cough or difficult breathing, e no get diarrhoea, and e never get ear problem before. E never dey convulse now and e never get convulsion before. Di pikin no dey lethargic and e dey conscious. E dey fit drink or breastfeed. E no dey vomit everything. No sign say rash dey body, no sign say bacteria cause dey, and dem never see any obvious cause for di fever. E no get cough for measles, e never get measles for di last 3 months. E eye no red, e no get catarrh, and neck no stiff.",
+    "fact_evidence": [
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "Pikin na 18 months"
+      },
+      {
+        "fact_id": "fever.fever_duration_days",
+        "evidence_text": "E get fever for 2 days"
+      },
+      {
+        "fact_id": "fever.temperature_c",
+        "evidence_text": "E body hot reach 38.0°C"
+      },
+      {
+        "fact_id": "fever.malaria_risk",
+        "evidence_text": "malaria risk high"
+      },
+      {
+        "fact_id": "fever.malaria_test_available",
+        "evidence_text": "malaria test dey available"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "E get fever"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough or difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "e no get diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "e never get ear problem before"
+      },
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "E never dey convulse now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "e never get convulsion before"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "no dey lethargic and e dey conscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "E dey fit drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "E no dey vomit everything"
+      },
+      {
+        "fact_id": "fever.generalized_rash",
+        "evidence_text": "No sign say rash dey body"
+      },
+      {
+        "fact_id": "fever.identified_bacterial_cause_present",
+        "evidence_text": "no sign say bacteria cause dey"
+      },
+      {
+        "fact_id": "fever.obvious_cause_of_fever_present",
+        "evidence_text": "dem never see any obvious cause for di fever"
+      },
+      {
+        "fact_id": "fever.measles_cough",
+        "evidence_text": "no get cough for measles"
+      },
+      {
+        "fact_id": "fever.measles_within_last_3_months",
+        "evidence_text": "e never get measles for di last 3 months"
+      },
+      {
+        "fact_id": "fever.red_eyes",
+        "evidence_text": "E eye no red"
+      },
+      {
+        "fact_id": "fever.runny_nose",
+        "evidence_text": "e no get catarrh"
+      },
+      {
+        "fact_id": "fever.stiff_neck",
+        "evidence_text": "neck no stiff"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": false,
+    "error_codes": [
+      "EPISTEMIC_QUALIFIER_DROPPED"
+    ],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1765,
+    "output_tokens": 971,
+    "cached_input_tokens": 0,
+    "latency_ms": 12840,
+    "retry_count": 0,
+    "provider_request_id": "resp_07c3d489fe0c3d21016a8af5ea4bc4819493ba2799ba728fd0",
+    "raw_usage": {
+      "input_tokens": 1765,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 971,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 2736
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "attempt_schema_id": "edge-imci-holistic-teacher-attempt-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2",
+  "attempt_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-061-ear-no-infection__attempt-1",
+  "request_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v2__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0__hpg-061-ear-no-infection",
+  "configuration_id": "azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-0-0",
+  "semantic_case_id": "hpg-061-ear-no-infection",
+  "status": "PENDING_HUMAN_REVIEW",
+  "teacher": {
+    "provider": "AZURE_OPENAI",
+    "model": "gpt-4.1",
+    "snapshot": "2025-04-14"
+  },
+  "prompt": {
+    "strategy_id": "phc-telegraphic-note-v1",
+    "prompt_id": "edge-imci-phc-telegraphic-note",
+    "prompt_version": "1.0.0",
+    "prompt_sha256": "8530c78502a3b4e9cc6e750767a0921ce00e30a7ed8e08678aaac3a6723a801a"
+  },
+  "generation_parameters": {
+    "sampling_config": {
+      "temperature": 0.7
+    },
+    "max_output_tokens": 2200
+  },
+  "request_sha256": "ef72e51ac00f9546624147786ebbbf2bc464d3308fbb040c8a582f01d0d3056f",
+  "requested_at": "2026-08-23T12:29:28Z",
+  "completed_at": "2026-08-23T12:29:35Z",
+  "raw_response": "{\"candidate_schema_id\":\"edge-imci-holistic-language-variant-candidate-v1\",\"semantic_case_id\":\"hpg-061-ear-no-infection\",\"strategy_id\":\"phc-telegraphic-note-v1\",\"user_submission\":\"18mo, ear problem reported, no convulsing now, no convulsion hx, not lethargic/unconscious, able to drink or breastfeed, does not vomit everything, no ear discharge, no ear pain, no pus draining from ear, no tender swelling behind ear, no cough/difficult breathing, no diarrhoea, no fever.\",\"fact_evidence\":[{\"fact_id\":\"danger_signs.convulsing_now\",\"evidence_text\":\"no convulsing now\"},{\"fact_id\":\"danger_signs.had_convulsions\",\"evidence_text\":\"no convulsion hx\"},{\"fact_id\":\"danger_signs.lethargic_or_unconscious\",\"evidence_text\":\"not lethargic/unconscious\"},{\"fact_id\":\"danger_signs.unable_to_drink_or_breastfeed\",\"evidence_text\":\"able to drink or breastfeed\"},{\"fact_id\":\"danger_signs.vomits_everything\",\"evidence_text\":\"does not vomit everything\"},{\"fact_id\":\"ear.ear_discharge_reported\",\"evidence_text\":\"no ear discharge\"},{\"fact_id\":\"ear.ear_pain\",\"evidence_text\":\"no ear pain\"},{\"fact_id\":\"ear.pus_draining_from_ear\",\"evidence_text\":\"no pus draining from ear\"},{\"fact_id\":\"ear.tender_swelling_behind_ear\",\"evidence_text\":\"no tender swelling behind ear\"},{\"fact_id\":\"patient_facts.age_months\",\"evidence_text\":\"18mo\"},{\"fact_id\":\"patient_facts.has_cough_or_difficult_breathing\",\"evidence_text\":\"no cough/difficult breathing\"},{\"fact_id\":\"patient_facts.has_diarrhoea\",\"evidence_text\":\"no diarrhoea\"},{\"fact_id\":\"patient_facts.has_ear_problem\",\"evidence_text\":\"ear problem reported\"},{\"fact_id\":\"patient_facts.has_fever\",\"evidence_text\":\"no fever\"}]}",
+  "candidate": {
+    "candidate_schema_id": "edge-imci-holistic-language-variant-candidate-v1",
+    "semantic_case_id": "hpg-061-ear-no-infection",
+    "strategy_id": "phc-telegraphic-note-v1",
+    "user_submission": "18mo, ear problem reported, no convulsing now, no convulsion hx, not lethargic/unconscious, able to drink or breastfeed, does not vomit everything, no ear discharge, no ear pain, no pus draining from ear, no tender swelling behind ear, no cough/difficult breathing, no diarrhoea, no fever.",
+    "fact_evidence": [
+      {
+        "fact_id": "danger_signs.convulsing_now",
+        "evidence_text": "no convulsing now"
+      },
+      {
+        "fact_id": "danger_signs.had_convulsions",
+        "evidence_text": "no convulsion hx"
+      },
+      {
+        "fact_id": "danger_signs.lethargic_or_unconscious",
+        "evidence_text": "not lethargic/unconscious"
+      },
+      {
+        "fact_id": "danger_signs.unable_to_drink_or_breastfeed",
+        "evidence_text": "able to drink or breastfeed"
+      },
+      {
+        "fact_id": "danger_signs.vomits_everything",
+        "evidence_text": "does not vomit everything"
+      },
+      {
+        "fact_id": "ear.ear_discharge_reported",
+        "evidence_text": "no ear discharge"
+      },
+      {
+        "fact_id": "ear.ear_pain",
+        "evidence_text": "no ear pain"
+      },
+      {
+        "fact_id": "ear.pus_draining_from_ear",
+        "evidence_text": "no pus draining from ear"
+      },
+      {
+        "fact_id": "ear.tender_swelling_behind_ear",
+        "evidence_text": "no tender swelling behind ear"
+      },
+      {
+        "fact_id": "patient_facts.age_months",
+        "evidence_text": "18mo"
+      },
+      {
+        "fact_id": "patient_facts.has_cough_or_difficult_breathing",
+        "evidence_text": "no cough/difficult breathing"
+      },
+      {
+        "fact_id": "patient_facts.has_diarrhoea",
+        "evidence_text": "no diarrhoea"
+      },
+      {
+        "fact_id": "patient_facts.has_ear_problem",
+        "evidence_text": "ear problem reported"
+      },
+      {
+        "fact_id": "patient_facts.has_fever",
+        "evidence_text": "no fever"
+      }
+    ]
+  },
+  "validation": {
+    "deterministic_pass": true,
+    "error_codes": [],
+    "requires_human_semantic_review": true
+  },
+  "usage": {
+    "input_tokens": 1165,
+    "output_tokens": 427,
+    "cached_input_tokens": 0,
+    "latency_ms": 6656,
+    "retry_count": 0,
+    "provider_request_id": "resp_031de201925df395016a8ae7a9846881969c2c1eb9dd14f8ec",
+    "raw_usage": {
+      "input_tokens": 1165,
+      "input_tokens_details": {
+        "cache_write_tokens": 0,
+        "cached_tokens": 0
+      },
+      "output_tokens": 427,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 1592
+    }
+  }
+}

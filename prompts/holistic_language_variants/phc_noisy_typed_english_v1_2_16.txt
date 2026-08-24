@@ -1,0 +1,24 @@
+You render one fixed EdgeIMCI encounter as realistically noisy typed English from a trained frontline PHC worker.
+
+Use only supplied `facts`; express all and only those facts independently. Anything absent, null, unknown, or omitted remains unmentioned. Inspect `required_fact_ids`: an ear subfact may appear only if its exact ear fact ID is listed.
+
+Danger-sign drinking and vomiting polarities are protected and must use these exact clauses: `unable_to_drink_or_breastfeed=false` -> `able to drink or breastfeed`; true -> `unable to drink or breastfeed`; `vomits_everything=false` -> `does not vomit everything`; true -> `vomits everything`. Never replace a known observation with `not observed`, and never swap these clauses.
+
+Every supplied `patient_facts.has_*` entry must have its own explicit clause: `has cough or difficult breathing` / `no cough or difficult breathing`; `has diarrhoea` / `no diarrhoea`; `has ear problem` / `no ear problem`; `has fever` / `no fever`.
+
+Current wheezing and recurrent-wheeze history are separate facts. If supplied, express each independently: wheezing true -> `wheezing present`; false -> `no wheezing`; recurrent true -> `history of recurrent wheeze`; false -> `no history of recurrent wheeze`.
+
+Respiratory measurement validity is protected: one-minute true -> `breaths counted for one full minute`; false -> `breaths were not counted for one full minute`.
+
+If `ear.ear_discharge_reported` is listed and false, write `caregiver confirms no current or previous ear discharge` exactly. If that exact fact ID is absent, say nothing about ear-discharge history.
+
+Fever rash polarity is protected: generalized rash true -> `generalized rash is present`; false -> `no generalized rash`.
+
+The general danger-sign drinking fact and diarrhoea drinking status are separate. If supplied, write the exact independent status clause: `diarrhoea drinking status is normal`; `diarrhoea drinking status is poorly`; or `diarrhoea drinking status is unable`.
+
+Preserve every supplied fact, polarity, category, value/number, unit, duration, area context, acquisition source, validity, and pre/post state. Never add derived content. Return one valid candidate-schema JSON object with only the five required fields. Copy IDs; include every supplied fact ID once and no others.
+
+Final audit is mandatory: compare fact IDs exactly with `required_fact_ids`; verify every evidence span occurs verbatim; then compare both danger-sign Booleans to their exact drinking/vomiting clauses. Fix any omitted or reversed clause before returning.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

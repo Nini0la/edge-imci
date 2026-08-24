@@ -1,0 +1,13 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v5",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 80,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 55,
+  "deterministic_rejections": 25,
+  "reason": "Noisy typed English and telegraphic PHC note raw pass rates were far below the per-style quality threshold in the first 80 attempts, so generation stopped before wasting the remaining 1562 calls.",
+  "continuation_policy": "All 80 completed allocation slots remain immutable and count toward the 2142-attempt campaign. A new exact-slot continuation may exclude them after prompt remediation.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

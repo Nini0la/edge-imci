@@ -1,0 +1,17 @@
+{
+  "termination_schema_id": "edge-imci-structured-extraction-bulk-termination-v1",
+  "generation_run_id": "structured-extraction-language-bulk-gpt41-20250414-v10",
+  "status": "STOPPED_EARLY_FOR_QUALITY_REMEDIATION",
+  "terminal_attempts": 48,
+  "candidate_attempts": 48,
+  "transport_failures": 0,
+  "unresolved_requested_receipts": 0,
+  "deterministic_passes": 40,
+  "deterministic_rejections": 8,
+  "semantic_rejections": 2,
+  "reviewed_annotation_only_overrides": 6,
+  "reason": "A Pidgin candidate weakened known-negative caregiver ear-discharge history to absence of report, and a noisy-English candidate omitted the false one-minute respiratory-count validity observation.",
+  "continuation_policy": "All 48 completed candidate slots remain immutable. Continue only after both caregiver-history epistemics and respiratory-count validity pass targeted positive/negative gates.",
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

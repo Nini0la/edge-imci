@@ -1,0 +1,224 @@
+{
+  "review_id": "edge-imci-input-language-style-canary-review-v1",
+  "status": "COMPLETE",
+  "immutable_attempts_preserved": true,
+  "attempt_count": 12,
+  "approved_count": 9,
+  "rejected_count": 3,
+  "candidate_results": [
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "variant_style": "NIGERIAN_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE",
+        "HACKATHON_PIDGIN_REVIEW_PASSED"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE",
+        "HACKATHON_PIDGIN_REVIEW_PASSED",
+        "EVIDENCE_SPAN_ANNOTATION_REPAIRED"
+      ],
+      "evidence_annotation_remediated": true
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "variant_style": "NIGERIAN_PIDGIN",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE",
+        "HACKATHON_PIDGIN_REVIEW_PASSED"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "variant_style": "NOISY_TYPED_ENGLISH",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": false,
+        "error_codes": [
+          "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+        ],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "REJECTED",
+      "reason_codes": [
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-041-fever-high-positive",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    },
+    {
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "variant_style": "TELEGRAPHIC_PHC_NOTE",
+      "immutable_attempt_status": "PARSE_FAILED",
+      "corrected_revalidation": {
+        "deterministic_pass": true,
+        "error_codes": [],
+        "requires_human_semantic_review": true
+      },
+      "review_decision": "APPROVED_CORPUS_CANDIDATE",
+      "reason_codes": [
+        "SEMANTICALLY_FAITHFUL",
+        "UNKNOWN_PRESERVED",
+        "PHC_SUITABLE"
+      ],
+      "evidence_annotation_remediated": false
+    }
+  ]
+}

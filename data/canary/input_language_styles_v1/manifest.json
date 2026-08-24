@@ -1,0 +1,37 @@
+{
+  "approved_record_count": 9,
+  "assets": {
+    "data/canary/input_language_styles_v1/canonical_records.jsonl": {
+      "sha256": "22976725ac273f60829d94ea89a9ce1d1071b77a00d0dd67e8fd0fc4cedd21f5"
+    },
+    "data/canary/input_language_styles_v1/chat_messages.jsonl": {
+      "sha256": "d27e38bbf3d0606204bde7444dcd2b74f47ca7251e5c6d527a53c68e9eff667e"
+    },
+    "data/canary/input_language_styles_v1/language_variants.jsonl": {
+      "sha256": "82b33281e09324f9a035cec3e55a39e3ed16e009bf322060f852f3b4f2875c30"
+    }
+  },
+  "attempt_count": 12,
+  "authorization": {
+    "bulk_generation_authorized": false,
+    "production_clinical_use_authorized": false,
+    "training_authorized": false
+  },
+  "canary_id": "edge-imci-input-language-styles-canary-v1",
+  "rejected_record_count": 3,
+  "review_id": "edge-imci-input-language-style-canary-review-v1",
+  "status": "REVIEW_COMPLETE",
+  "style_counts": {
+    "NIGERIAN_ENGLISH": 2,
+    "NIGERIAN_PIDGIN": 3,
+    "NOISY_TYPED_ENGLISH": 1,
+    "TELEGRAPHIC_PHC_NOTE": 3
+  },
+  "validation": {
+    "closed_enum_failure_remediated_without_remote_retry": true,
+    "connector_and_epistemic_qualifier_guards_applied": true,
+    "immutable_attempt_evidence_preserved": true,
+    "target_side_information_excluded": true,
+    "unknown_preservation_checked": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "preflight_schema_id": "edge-imci-input-style-pathway-qualification-preflight-v1",
+  "generation_run_id": "holistic-input-style-pathway-qualification-gpt41-20250414-v3",
+  "status": "AUTHORIZED_NOT_STARTED",
+  "approved_by": "Niniola Adegboyega",
+  "approved_at": "2026-08-23T10:30:00Z",
+  "authorization_id": "edge-imci-input-style-pathway-qualification-authorization-v3",
+  "authorization_sha256": "2ddc5caa0731dd649a990c319e32abab590fb4e5784c4b01cc39dcfa9d863a6a",
+  "selection_sha256": "7560d2db7f76abcac5af499f511816fdf439c40547e6751a27fab4f3947993e6",
+  "scheduled_attempts": 72,
+  "first_gate_attempts": 0,
+  "maximum_budget_usd": 3.0,
+  "maximum_reserved_total_usd": 2.16,
+  "teacher_target_blind": true,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false
+}

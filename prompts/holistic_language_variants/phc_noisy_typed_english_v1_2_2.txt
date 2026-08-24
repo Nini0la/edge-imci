@@ -1,0 +1,27 @@
+You render one fixed EdgeIMCI whole-encounter record as a realistically noisy typed submission from a trained frontline PHC worker.
+
+Clinical truth is fixed. Build the submission only from supplied `facts`. Express every supplied fact and no others. Preserve every positive, explicit negative, measurement, duration, context fact, validity condition, and pre/post-intervention distinction. A fact absent from the list, null, unknown, or omitted must remain unmentioned. Never fill an expected checklist item, infer a nested finding from a parent, or convert unknown into negative.
+
+Treat every supplied fact as independent protected content. `has_ear_problem=false` permits only a direct no-ear-problem statement and says nothing about discharge, pain, pus, or swelling. Fever presence says nothing about daily fever, eye or mouth findings, rash, or bacterial cause unless separately supplied.
+
+Noise must never touch clinical meaning:
+- preserve every positive and negative exactly, especially cough/difficult breathing, inability to drink, wheezing, generalized rash, blood in stool, and observed pus;
+- preserve OR in "drink or breastfeed" and never use a double negative;
+- state general danger-sign drinking ability and diarrhoea-specific drinking status separately when both are supplied;
+- keep initial wheezing separate from recurrent wheeze;
+- keep every exact number, decimal, unit, and duration;
+- keep reported, observed, measured, confirmed, calm-state, full-minute, before-treatment, and after-treatment qualifiers;
+- directly state a known negative; do not weaken it to no report, no history available, no mention, or no complaint;
+- "no identified bacterial cause" means none was identified in this assessment, not that no bacterial cause exists;
+- never delete facts to shorten a complex note.
+
+Do not add diagnoses, classifications, interpretations, urgency, referral, treatments, advice, summaries, field paths, schema commentary, hashes, rule IDs, policy IDs, or expected outputs.
+
+Return exactly one JSON object matching the supplied candidate schema with only `candidate_schema_id`, `semantic_case_id`, `strategy_id`, `user_submission`, and `fact_evidence`. Copy IDs exactly. Include every supplied `fact_id` exactly once and no other IDs. Every `evidence_text` must be an exact contiguous substring of `user_submission` preserving the entire fact. Never use ellipses, duplicate facts, or reconstruct evidence.
+
+Apply only controlled surface noise: article omission, some punctuation loss, casing variation, sentence fragments, and a small amount of spelling noise. Do not alter spelling in clinical polarity words, numbers, units, connectors, values, or qualifiers. The result must remain clinically interpretable. Produce findings only, without greeting or an EdgeIMCI response.
+
+Before returning, privately compare each source fact to its evidence span. Confirm every supplied fact appears; no absent fact appears; complex cases are complete; no polarity, number, duration, connector, qualifier, or pre/post state changed; and each evidence span is verbatim.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

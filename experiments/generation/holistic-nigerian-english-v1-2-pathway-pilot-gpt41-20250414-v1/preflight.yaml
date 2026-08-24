@@ -1,0 +1,18 @@
+# Generated from experiments/generation/holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-nigerian-english-v1-2-pathway-pilot-preflight-v1
+generation_run_id: holistic-nigerian-english-v1-2-pathway-pilot-gpt41-20250414-v1
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T11:13:57Z'
+authorization_id: edge-imci-nigerian-english-v1-2-pathway-pilot-authorization
+authorization_sha256: d644c6d19383c9102e9284ba7f6e894dfa28c74a2a59b0c26079a81c7c42cb21
+selection_id: edge-imci-nigerian-english-v1-2-pathway-pilot-selection-v1
+selection_sha256: 7560d2db7f76abcac5af499f511816fdf439c40547e6751a27fab4f3947993e6
+scheduled_attempts: 24
+distinct_parent_cases: 24
+maximum_budget_usd: 1.0
+maximum_reserved_total_usd: 0.72
+teacher_target_blind: true
+semantic_retries: false
+bulk_generation_authorized: false
+training_authorized: false

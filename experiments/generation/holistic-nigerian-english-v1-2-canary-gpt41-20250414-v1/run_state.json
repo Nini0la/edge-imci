@@ -1,0 +1,64 @@
+{
+  "run_state_schema_id": "edge-imci-nigerian-english-v1-2-state-v1",
+  "generation_run_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1",
+  "updated_at": "2026-08-23T10:58:37Z",
+  "remote_attempts_started": 3,
+  "deterministic_passes": 2,
+  "deterministic_rejections": 1,
+  "reserved_total_usd": 0.09,
+  "reservation_is_not_billing_evidence": true,
+  "usage": {
+    "input_tokens": 4616,
+    "output_tokens": 2364,
+    "cached_input_tokens": 0
+  },
+  "resume": {
+    "generation_run_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1",
+    "unit_count": 3,
+    "state_counts": {
+      "TERMINAL": 3
+    },
+    "units": [
+      {
+        "request_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-020-resp-post-bronchodilator-improved",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2",
+        "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "9401e03439cb35b95631178fb92b2c6be41a8acdd9e594ba289cebc5222861a2",
+        "review_item_id": "review-5bb5aa558b3e57969d4828c1",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-020-resp-post-bronchodilator-improved__attempt-1",
+        "latest_status": "DETERMINISTIC_REJECTED"
+      },
+      {
+        "request_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-041-fever-high-positive",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2",
+        "semantic_case_id": "hpg-041-fever-high-positive",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "90c8d4d913c0be304d640d4e363629e3da84f6131cf54b0125d96a14cb3af8b2",
+        "review_item_id": "review-ffd843b5b6f9d3c2de2f373f",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-041-fever-high-positive__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      },
+      {
+        "request_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-071-incomplete-entry-unknown",
+        "configuration_id": "azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2",
+        "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+        "strategy_id": "phc-nigerian-english-v1",
+        "source_request_sha256": "5b4a2a2844dc44ad5060b4edc1ca6e92824ed9677b7276d0a72771b76ef778fc",
+        "review_item_id": "review-1e692e4b3d7cb5b603925370",
+        "resume_state": "TERMINAL",
+        "attempt_count": 1,
+        "latest_attempt_id": "holistic-nigerian-english-v1-2-canary-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english__prompt-v1-2__hpg-071-incomplete-entry-unknown__attempt-1",
+        "latest_status": "PENDING_HUMAN_REVIEW"
+      }
+    ],
+    "execution_complete": true,
+    "winner_selected": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false
+  }
+}

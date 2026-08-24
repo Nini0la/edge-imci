@@ -1,0 +1,15 @@
+{
+  "authorization_id": "edge-imci-nigerian-english-v1-2-canary-authorization",
+  "status": "AUTHORIZED_FOR_BOUNDED_CANARY",
+  "authority": "PROJECT_OWNER_DECISION",
+  "authorization_basis": "Project owner authorized the next step after the three-case Nigerian English v1.2 validation gate was proposed.",
+  "variant_style": "NIGERIAN_ENGLISH",
+  "prompt_version": "1.2.0",
+  "matched_parent_case_count": 3,
+  "maximum_remote_attempts": 3,
+  "maximum_budget_usd": 0.25,
+  "semantic_retries": false,
+  "bulk_generation_authorized": false,
+  "training_authorized": false,
+  "production_clinical_use_authorized": false
+}

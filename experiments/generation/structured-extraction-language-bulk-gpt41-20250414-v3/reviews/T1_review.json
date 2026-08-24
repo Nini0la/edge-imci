@@ -1,0 +1,690 @@
+{
+  "review_schema_id": "edge-imci-structured-extraction-bulk-tranche-review-v1",
+  "tranche_id": "T1",
+  "status": "REMEDIATION_REQUIRED",
+  "authority": "PROJECT_OWNER_DELEGATED_REVIEW",
+  "combined_generation_run_ids": [
+    "structured-extraction-language-bulk-gpt41-20250414-v1",
+    "structured-extraction-language-bulk-gpt41-20250414-v3"
+  ],
+  "combined_attempts": 250,
+  "review_scope": {
+    "all_deterministic_rejections_reviewed": 23,
+    "deterministic_pass_sample_reviewed": 40,
+    "pass_sample_per_style": 10,
+    "total_unique_attempts_reviewed": 63
+  },
+  "style_summary": {
+    "phc-nigerian-english-v1": {
+      "attempts": 62,
+      "raw_passes": 55,
+      "raw_rejections": 7,
+      "reviewed": 17,
+      "semantic_approved": 14,
+      "semantic_rejected": 3,
+      "annotation_only_overrides": 5
+    },
+    "phc-nigerian-pidgin-v1": {
+      "attempts": 63,
+      "raw_passes": 58,
+      "raw_rejections": 5,
+      "reviewed": 15,
+      "semantic_approved": 11,
+      "semantic_rejected": 4,
+      "annotation_only_overrides": 2
+    },
+    "phc-noisy-typed-english-v1": {
+      "attempts": 63,
+      "raw_passes": 59,
+      "raw_rejections": 4,
+      "reviewed": 14,
+      "semantic_approved": 11,
+      "semantic_rejected": 3,
+      "annotation_only_overrides": 1
+    },
+    "phc-telegraphic-note-v1": {
+      "attempts": 62,
+      "raw_passes": 55,
+      "raw_rejections": 7,
+      "reviewed": 17,
+      "semantic_approved": 13,
+      "semantic_rejected": 4,
+      "annotation_only_overrides": 4
+    }
+  },
+  "semantic_failure_count": 14,
+  "annotation_only_override_count": 12,
+  "release_decision": "BLOCK_T2_REMEDIATE_PROMPTS_AND_VALIDATORS",
+  "blocking_findings": [
+    "Positive cough/difficult-breathing polarity reversal escaped deterministic validation.",
+    "Unable-to-drink polarity reversal escaped deterministic validation.",
+    "Initial wheezing was lost into a recurrent-wheeze negative.",
+    "Null nested ear/fever facts were invented systematically in affected styles.",
+    "Complex cases showed fact omission and one rash polarity reversal."
+  ],
+  "decisions": [
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-021-resp-post-bronchodilator-fast__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-021-resp-post-bronchodilator-fast",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-072-incomplete-multiple-groups__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-072-incomplete-multiple-groups",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v1__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-019-resp-recurrent-wheeze__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-019-resp-recurrent-wheeze",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-011-resp-age-12-rate-40__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-011-resp-age-12-rate-40",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-016-resp-oximeter-89-9__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-016-resp-oximeter-89-9",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Reversed the supplied positive cough/difficult-breathing entry into 'no cough or difficult breathing'."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-022-resp-trial-outstanding__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-022-resp-trial-outstanding",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-029-diarrhoea-severe-plan-c-under-24m__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-029-diarrhoea-severe-plan-c-under-24m",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-032-diarrhoea-duration-13__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-035-diarrhoea-dysentery__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-035-diarrhoea-dysentery",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-036-diarrhoea-persistent-and-dysentery__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-036-diarrhoea-persistent-and-dysentery",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-037-diarrhoea-positive-drinking-reuse__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-040-diarrhoea-cholera-context-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-040-diarrhoea-cholera-context-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-042-fever-high-negative__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-042-fever-high-negative",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-049-fever-duration-7__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-049-fever-duration-7",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "UNKNOWN_FIELD_MENTIONED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Invented a negative pus-from-eye finding whose source state is UNKNOWN."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-063-ear-acute-discharge-13__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-063-ear-acute-discharge-13",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-067-ear-duration-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-067-ear-duration-unknown",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-068-cross-four-pathways__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING",
+        "UNKNOWN_FIELD_MENTIONED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Invented that fever was not present every day although that field is UNKNOWN."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-english-v1__prompt-v1-3-1__hpg-076-complete-danger-plus-all-pathways__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-076-complete-danger-plus-all-pathways",
+      "strategy_id": "phc-nigerian-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-001-all-negative__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-001-all-negative",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-020-resp-post-bronchodilator-improved__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-020-resp-post-bronchodilator-improved",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Did not preserve the separate positive initial wheezing fact; only recurrent-wheeze absence remained."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-022-resp-trial-outstanding__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-022-resp-trial-outstanding",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-032-diarrhoea-duration-13__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-032-diarrhoea-duration-13",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-037-diarrhoea-positive-drinking-reuse__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-039-diarrhoea-duration-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-054-fever-measles-eye__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-054-fever-measles-eye",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "FACT_SET_MISMATCH"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Omitted supplied fever/measles assessment facts, including corneal and measles-cough negatives."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-060-fever-test-result-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-060-fever-test-result-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EPISTEMIC_QUALIFIER_DROPPED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Changed no identified bacterial cause into a broader claim that no bacterial cause exists."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-062-ear-acute-pain__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-062-ear-acute-pain",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-063-ear-acute-discharge-13__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-063-ear-acute-discharge-13",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-071-incomplete-entry-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-071-incomplete-entry-unknown",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Weakened the known-negative ear-problem fact into absence of a caregiver report."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-073-incomplete-known-urgent__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-073-incomplete-known-urgent",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__hpg-074-incomplete-internal-classification-withheld__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-074-incomplete-internal-classification-withheld",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-nigerian-pidgin-v1__prompt-v1-2-1__oos-extract-older-fever-001__variant-0001__attempt-1",
+      "semantic_case_id": "oos-extract-older-fever-001",
+      "strategy_id": "phc-nigerian-pidgin-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-012-resp-age-59-rate-40__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-012-resp-age-59-rate-40",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-013-resp-chest-hiv-negative__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-013-resp-chest-hiv-negative",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-015-resp-stridor__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-015-resp-stridor",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-024-resp-count-not-one-minute__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-024-resp-count-not-one-minute",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-030-diarrhoea-severe-age-24-no-cholera__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-030-diarrhoea-severe-age-24-no-cholera",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-039-diarrhoea-duration-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-039-diarrhoea-duration-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-054-fever-measles-eye__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-054-fever-measles-eye",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-059-fever-malaria-risk-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-059-fever-malaria-risk-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-060-fever-test-result-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-060-fever-test-result-unknown",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "FACT_ID_DUPLICATE",
+        "NEGATIVE_EVIDENCE_WEAKENED_OR_DOUBLE_NEGATED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Added a risky double negative and duplicated the general drinking fact."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-064-ear-chronic-discharge-14__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-064-ear-chronic-discharge-14",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-068-cross-four-pathways__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-068-cross-four-pathways",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "FACT_SET_MISMATCH",
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Reversed generalized rash from positive to negative and omitted supplied facts."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-072-incomplete-multiple-groups__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-072-incomplete-multiple-groups",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "FACT_SET_MISMATCH",
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Omitted supplied respiratory context from an incomplete encounter."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-073-incomplete-known-urgent__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-073-incomplete-known-urgent",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-noisy-typed-english-v1__prompt-v1-2-1__hpg-075-contradiction-drinking__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-075-contradiction-drinking",
+      "strategy_id": "phc-noisy-typed-english-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "DIARRHOEA_DRINKING_STATUS_DISTINCTION_LOST"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-009-resp-age-11-rate-50__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-009-resp-age-11-rate-50",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-011-resp-age-12-rate-40__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-011-resp-age-12-rate-40",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING",
+        "UNKNOWN_FIELD_MENTIONED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Invented negative ear-discharge history under a null ear assessment."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-015-resp-stridor__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-015-resp-stridor",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "UNKNOWN_FIELD_MENTIONED"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Invented negative ear-discharge history under a null ear assessment."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-018-resp-prolonged-cough__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-018-resp-prolonged-cough",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-026-resp-chest-hiv-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-026-resp-chest-hiv-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-027-diarrhoea-no-dehydration__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-027-diarrhoea-no-dehydration",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-033-diarrhoea-duration-14-persistent__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-033-diarrhoea-duration-14-persistent",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-037-diarrhoea-positive-drinking-reuse__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-037-diarrhoea-positive-drinking-reuse",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Reversed inability to drink or breastfeed into ability to drink or breastfeed."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-038-diarrhoea-negative-does-not-reuse__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-038-diarrhoea-negative-does-not-reuse",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-040-diarrhoea-cholera-context-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-040-diarrhoea-cholera-context-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-049-fever-duration-7__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-049-fever-duration-7",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-050-fever-duration-8-not-every-day__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-050-fever-duration-8-not-every-day",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-051-fever-duration-8-every-day__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-051-fever-duration-8-every-day",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-059-fever-malaria-risk-unknown__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-059-fever-malaria-risk-unknown",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PENDING_HUMAN_REVIEW",
+      "error_codes": [],
+      "review_decision": "SEMANTIC_APPROVE",
+      "rationale": "Required deterministic-pass sample; no semantic defect identified."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-063-ear-acute-discharge-13__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-063-ear-acute-discharge-13",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-070-cross-multiple-urgent__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-070-cross-multiple-urgent",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "PARSE_FAILED",
+      "error_codes": [
+        "SCHEMA_INVALID"
+      ],
+      "review_decision": "SEMANTIC_REJECT",
+      "rationale": "Teacher output was schema-invalid and contained no reviewable candidate."
+    },
+    {
+      "attempt_id": "structured-extraction-language-bulk-gpt41-20250414-v3__azure-gpt41-20250414__phc-telegraphic-note-v1__prompt-v1-1-0__hpg-072-incomplete-multiple-groups__variant-0001__attempt-1",
+      "semantic_case_id": "hpg-072-incomplete-multiple-groups",
+      "strategy_id": "phc-telegraphic-note-v1",
+      "deterministic_status": "DETERMINISTIC_REJECTED",
+      "error_codes": [
+        "EVIDENCE_SPAN_MISSING"
+      ],
+      "review_decision": "SEMANTIC_APPROVE_ANNOTATION_OVERRIDE",
+      "rationale": "Submission is semantically faithful; terminal rejection is confined to evidence annotation/guard coverage."
+    }
+  ],
+  "authorization": {
+    "next_tranche_released": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

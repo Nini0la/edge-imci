@@ -1,0 +1,31 @@
+# Generated from experiments/generation/holistic-teacher-middle-gate-gpt41-20250414-v1/preflight.json; edit canonical JSON.
+preflight_schema_id: edge-imci-holistic-teacher-middle-gate-preflight-v1
+generation_run_id: holistic-teacher-middle-gate-gpt41-20250414-v1
+status: AUTHORIZED_NOT_STARTED
+approved_by: Niniola Adegboyega
+approved_at: '2026-08-23T07:25:58Z'
+authorization_basis: Project owner approved the proposed eight-case middle-coverage gate.
+case_selection:
+- stratum: ordinary_nonurgent_respiratory
+  semantic_case_id: hpg-011-resp-age-12-rate-40
+- stratum: diarrhoea_some_dehydration
+  semantic_case_id: hpg-028-diarrhoea-some-dehydration
+- stratum: fever_malaria_positive
+  semantic_case_id: hpg-041-fever-high-positive
+- stratum: acute_ear_infection
+  semantic_case_id: hpg-062-ear-acute-pain
+- stratum: incomplete_entry_acquisition
+  semantic_case_id: hpg-071-incomplete-entry-unknown
+- stratum: bronchodilator_reassessment
+  semantic_case_id: hpg-020-resp-post-bronchodilator-improved
+- stratum: nonurgent_referral
+  semantic_case_id: hpg-014-resp-chest-hiv-positive
+- stratum: urgent_incomplete
+  semantic_case_id: hpg-073-incomplete-known-urgent
+prompt_version: 2.0.0
+schema_compatible_strategy_id: phc-natural-complete-v1
+scheduled_attempts: 8
+maximum_budget_usd: 0.5
+maximum_reserved_total_usd: 0.16
+teacher_target_blind: true
+semantic_retries: false

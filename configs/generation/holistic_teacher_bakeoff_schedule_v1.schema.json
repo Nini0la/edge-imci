@@ -133,7 +133,10 @@
         "properties": {
           "request_id": {"type": "string", "minLength": 1},
           "configuration_id": {"type": "string", "minLength": 1},
-          "semantic_case_id": {"type": "string", "pattern": "^hpg-[0-9]{3}-.+$"},
+          "semantic_case_id": {
+            "type": "string",
+            "pattern": "^(?:hpg-[0-9]{3}-.+|oos-extract-(?:young|older)-.+)$"
+          },
           "strategy_id": {"type": "string", "minLength": 1},
           "source_request_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
           "review_item_id": {"type": "string", "pattern": "^review-[0-9a-f]{24}$"}

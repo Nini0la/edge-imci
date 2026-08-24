@@ -89,7 +89,23 @@ def test_current_registry_and_campaign_encode_required_priority_decisions() -> N
     assert branches["quantization"]["evidence_trigger"].startswith("Baseline target profile")
     assert branches["lundin-external"]["priority"] == "OPTIONAL"
     assert branches["lundin-external"]["critical_path"] is False
-    assert all(item["status"] == "PLANNED" for item in registry.matrix["experiments"])
+    statuses = {
+        item["experiment_id"]: item["status"]
+        for item in registry.matrix["experiments"]
+    }
+    assert {
+        experiment_id
+        for experiment_id, status in statuses.items()
+        if status == "SUPERSEDED"
+    } == {
+        "qwen3-1.7b-base-holistic-baseline-v1",
+        "qwen3-1.7b-sft-v1-modal",
+        "qwen3-1.7b-sft-v1-classification-eval",
+        "qwen3-1.7b-sft-v1-management-eval",
+        "qwen3-1.7b-sft-v1-completeness-eval",
+        "qwen3-1.7b-sft-v1-urgent-incomplete-eval",
+    }
+    assert all(status in {"PLANNED", "SUPERSEDED"} for status in statuses.values())
 
 
 def test_yaml_mirror_is_deterministic_and_semantically_equal(tmp_path: Path) -> None:
