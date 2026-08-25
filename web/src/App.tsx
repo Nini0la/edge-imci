@@ -5,7 +5,6 @@ import {
   ClipboardCheck,
   CornerDownLeft,
   FileText,
-  HeartPulse,
   LoaderCircle,
   LockKeyhole,
   RotateCcw,
@@ -168,7 +167,9 @@ export default function App() {
     <div className="app-frame">
       <header className="site-header">
         <a className="brand" href="/" aria-label="EdgeIMCI home">
-          <span className="brand-symbol"><HeartPulse aria-hidden="true" size={19} /></span>
+          <span className="brand-symbol">
+            <img src="/edge-imci-mark.svg" alt="" aria-hidden="true" />
+          </span>
           <span>Edge<strong>IMCI</strong></span>
         </a>
         <div className="header-context">
