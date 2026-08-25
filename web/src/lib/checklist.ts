@@ -11,6 +11,7 @@ export interface ChecklistItem {
   method: AssessmentMethod;
   value: string;
   state: ChecklistState;
+  conditional: boolean;
   note?: string;
 }
 
@@ -615,7 +616,7 @@ export function buildChecklist(
       : [],
   );
 
-  const createItem = (field: FieldDefinition): ChecklistItem => {
+  const createItem = (field: FieldDefinition, conditional = false): ChecklistItem => {
     const value = getValue(encounter, field.path);
     let state: ChecklistState = "present";
     if (value === undefined || value === null) state = "unknown";
@@ -628,19 +629,28 @@ export function buildChecklist(
       method: field.method,
       value: displayValue(value, field),
       state,
+      conditional,
       note: field.note,
     };
   };
 
   const sections = sectionDefinitions.map((section) => {
-    const inactive = Boolean(encounter && section.entryPath && getValue(encounter, section.entryPath) === false);
+    const entryValue = section.entryPath ? getValue(encounter, section.entryPath) : undefined;
+    const unresolvedEntry = Boolean(
+      section.entryPath && (entryValue === undefined || entryValue === null),
+    );
+    const inactive = Boolean(encounter && section.entryPath && entryValue === false);
     const fields = section.fields.filter((field) => {
       if (!encounter) return true;
+      if (unresolvedEntry) return true;
       if (field.whenPredicate) return field.whenPredicate(encounter);
       if (!field.when) return true;
       return getValue(encounter, field.when[0]) === field.when[1];
     });
-    const items = fields.map(createItem);
+    const items = fields.map((field) => createItem(
+      field,
+      unresolvedEntry && field.path !== section.entryPath,
+    ));
     const state: ChecklistState = items.some((item) => item.state === "urgent")
       ? "urgent"
       : items.some((item) => item.state === "unknown")

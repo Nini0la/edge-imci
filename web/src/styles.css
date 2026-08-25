@@ -346,6 +346,20 @@ a:focus-visible {
 }
 
 .assessment-item__instruction { color: #e1e4e2; font-size: 13px; line-height: 1.5; }
+.assessment-item__conditional {
+  width: fit-content;
+  margin-top: 5px;
+  padding: 2px 5px;
+  display: block;
+  color: #d7ad5a;
+  border: 1px solid #665a37;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
 .assessment-item__note { margin-top: 4px; color: #a9afac; font-size: 11px; font-style: italic; line-height: 1.45; }
 .assessment-item__observation {
   margin-top: 5px;

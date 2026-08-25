@@ -84,6 +84,66 @@ describe("buildChecklist", () => {
     expect(respiratory.items.map((item) => item.label)).toEqual(["Cough or difficult breathing"]);
   });
 
+  it("shows the full conditional pathway while an entry answer is unknown", () => {
+    const diarrhoea = buildChecklist({
+      patient_facts: { has_diarrhoea: null },
+      diarrhoea: null,
+    }).sections.find((section) => section.id === "diarrhoea")!;
+
+    expect(diarrhoea.inactive).toBe(false);
+    expect(diarrhoea.completion).toBe("incomplete");
+    expect(diarrhoea.items.map((item) => item.label)).toEqual(expect.arrayContaining([
+      "Diarrhoea",
+      "Diarrhoea duration",
+      "Blood in stool",
+      "Sunken eyes",
+      "Skin pinch",
+    ]));
+    expect(diarrhoea.items.find((item) => item.label === "Diarrhoea")?.conditional).toBe(false);
+    expect(
+      diarrhoea.items
+        .filter((item) => item.label !== "Diarrhoea")
+        .every((item) => item.conditional),
+    ).toBe(true);
+  });
+
+  it("shows only applicable non-conditional prompts after a positive entry answer", () => {
+    const diarrhoea = buildChecklist({
+      patient_facts: { has_diarrhoea: true },
+      diarrhoea: {
+        duration_days: null,
+        blood_in_stool: null,
+        dehydration: {},
+      },
+    }).sections.find((section) => section.id === "diarrhoea")!;
+
+    expect(diarrhoea.inactive).toBe(false);
+    expect(diarrhoea.completion).toBe("incomplete");
+    expect(diarrhoea.items.length).toBeGreaterThan(1);
+    expect(diarrhoea.items.every((item) => !item.conditional)).toBe(true);
+  });
+
+  it("marks a fully documented positive branch complete", () => {
+    const diarrhoea = buildChecklist({
+      patient_facts: { age_months: 18, has_diarrhoea: true },
+      danger_signs: { lethargic_or_unconscious: false },
+      diarrhoea: {
+        duration_days: 3,
+        blood_in_stool: false,
+        dehydration: {
+          restless_or_irritable: false,
+          sunken_eyes: false,
+          drinking_status: "NORMAL",
+          skin_pinch: "NORMAL",
+        },
+      },
+    }).sections.find((section) => section.id === "diarrhoea")!;
+
+    expect(diarrhoea.completion).toBe("complete");
+    expect(diarrhoea.items.map((item) => item.label)).not.toContain("Cholera in area");
+    expect(diarrhoea.items.every((item) => item.state !== "unknown")).toBe(true);
+  });
+
   it("reveals measles complication checks for current measles signs", () => {
     const fever = buildChecklist({
       patient_facts: { has_fever: true },

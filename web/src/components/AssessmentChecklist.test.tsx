@@ -15,4 +15,17 @@ describe("AssessmentChecklist", () => {
     expect(html).toContain("Recorded");
     expect(html).toContain("Absent");
   });
+
+  it("shows conditional follow-ups when the entry answer is unknown", () => {
+    const html = renderToStaticMarkup(
+      <AssessmentChecklist
+        encounter={{ patient_facts: { has_diarrhoea: null }, diarrhoea: null }}
+      />,
+    );
+
+    expect(html).toContain("Ask whether the child has diarrhoea.");
+    expect(html).toContain("If yes, ask for how long.");
+    expect(html).toContain("Ask whether there is blood in the stool.");
+    expect(html).toContain("Conditional if yes");
+  });
 });

@@ -97,7 +97,12 @@ export function AssessmentChecklist({ encounter, result }: AssessmentChecklistPr
                     <ol>
                       {items.map((item) => (
                         <li className={`assessment-item assessment-item--${item.state}`} key={item.id}>
-                          <div className="assessment-item__instruction">{item.instruction}</div>
+                          <div className="assessment-item__instruction">
+                            {item.instruction}
+                            {item.conditional && (
+                              <span className="assessment-item__conditional">Conditional if yes</span>
+                            )}
+                          </div>
                           {item.note && <div className="assessment-item__note">{item.note}</div>}
                           <div className="assessment-item__observation">
                             <span className="assessment-item__dot" aria-hidden="true" />
