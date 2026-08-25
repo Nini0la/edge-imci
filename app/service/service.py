@@ -14,10 +14,15 @@ the frozen language renderings. No clinical logic is duplicated or modified.
 
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any
 
-from app.extractor.base import EncounterExtractor, ExtractionError
+from app.extractor.base import (
+    INVALID_AI_INTERPRETATION_MESSAGE,
+    EncounterExtractor,
+    ExtractionError,
+)
 from app.extractor.modal import ModalEncounterExtractor
 from app.extractor.stub import StubEncounterExtractor
 from app.service.render import (
@@ -39,6 +44,7 @@ from edge_imci.model_io.encounter import (
 from edge_imci.schemas.holistic import HolisticEncounter
 
 EXTRACTOR_MODE_ENV = "EDGEIMCI_EXTRACTOR"
+logger = logging.getLogger(__name__)
 MODAL_DEMO_TEXT = (
     "The child is 18 months old and has had cough or difficult breathing for 3 "
     "days. The child was calm and I counted 52 breaths in one full minute. There "
@@ -133,13 +139,14 @@ def extract_freeform_findings(
                 outside_supported_scope=True,
                 pipeline_trace=pipeline_trace,
             )
+        logger.exception("Extracted encounter failed deterministic schema validation")
         return ExtractionPreview(
             input_text=free_text,
             extraction_mode=extraction.extraction_mode,
             matched_case_id=extraction.matched_case_id,
             structured_encounter=extraction.encounter,
             schema_valid=False,
-            error=f"Schema validation failed: {exc}",
+            error=INVALID_AI_INTERPRETATION_MESSAGE,
             pipeline_trace=pipeline_trace,
         )
 

@@ -8,7 +8,7 @@ from urllib.request import Request, urlopen
 import pytest
 
 from app.api import make_server, result_payload
-from app.extractor.base import ExtractionResult
+from app.extractor.base import INVALID_AI_INTERPRETATION_MESSAGE, ExtractionResult
 from app.service import (
     analyze_freeform_findings,
     create_default_service,
@@ -175,6 +175,24 @@ def test_worker_review_separates_extraction_from_decision_engine() -> None:
 
     assert result.state == "URGENT_INCOMPLETE"
     assert result.pipeline_trace[-1].label == "Worker-facing presentation"
+
+
+def test_downstream_schema_failure_does_not_expose_validator_details() -> None:
+    class InvalidExtractor:
+        mode_label = "test invalid extractor"
+
+        def extract(self, free_text: str) -> ExtractionResult:
+            return ExtractionResult(
+                encounter={"unexpected_internal_field": True},
+                extraction_mode=self.mode_label,
+            )
+
+    preview = extract_freeform_findings(
+        "The child is 22 months and is coughing.", extractor=InvalidExtractor()
+    )
+
+    assert preview.error == INVALID_AI_INTERPRETATION_MESSAGE
+    assert "unexpected_internal_field" not in preview.error
 
 
 def test_http_api_exposes_examples_and_analysis() -> None:

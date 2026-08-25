@@ -68,3 +68,15 @@ class EncounterExtractor(Protocol):
 
 class ExtractionError(Exception):
     """Raised when the extractor cannot produce a valid encounter."""
+
+
+INVALID_AI_INTERPRETATION_MESSAGE = (
+    "The AI interpretation was invalid, so no result was used. Review the "
+    "assessment findings and try again, or continue with the approved assessment "
+    "pathway without AI assistance."
+)
+
+AI_SERVICE_UNAVAILABLE_MESSAGE = (
+    "The AI interpretation service is unavailable, so no result was used. Try "
+    "again, or continue with the approved assessment pathway without AI assistance."
+)

@@ -4,7 +4,11 @@ import copy
 
 import pytest
 
-from app.extractor.base import ExtractionError
+from app.extractor.base import (
+    AI_SERVICE_UNAVAILABLE_MESSAGE,
+    INVALID_AI_INTERPRETATION_MESSAGE,
+    ExtractionError,
+)
 from app.extractor.modal import (
     MODEL_WEIGHTS_SHA256,
     TRAINING_RUN_ID,
@@ -49,12 +53,12 @@ def test_modal_extractor_pins_selected_checkpoint_and_returns_model_target() -> 
 @pytest.mark.parametrize(
     ("field", "value", "message"),
     [
-        ("training_run_id", "wrong-run", "training run ID"),
-        ("model_weights_sha256", "wrong-hash", "weights checksum"),
-        ("schema_valid", False, "model-facing encounter schema"),
-        ("parse_error", "invalid JSON", "JSON parsing"),
-        ("schema_error", "invalid keys", "schema validation"),
-        ("adapter_error", "cannot adapt", "deterministic adapter"),
+        ("training_run_id", "wrong-run", AI_SERVICE_UNAVAILABLE_MESSAGE),
+        ("model_weights_sha256", "wrong-hash", AI_SERVICE_UNAVAILABLE_MESSAGE),
+        ("schema_valid", False, INVALID_AI_INTERPRETATION_MESSAGE),
+        ("parse_error", "invalid JSON", INVALID_AI_INTERPRETATION_MESSAGE),
+        ("schema_error", "invalid keys", INVALID_AI_INTERPRETATION_MESSAGE),
+        ("adapter_error", "cannot adapt", INVALID_AI_INTERPRETATION_MESSAGE),
     ],
 )
 def test_modal_extractor_fails_closed(
@@ -64,8 +68,28 @@ def test_modal_extractor_fails_closed(
     response[field] = value
     extractor = ModalEncounterExtractor(invoke=lambda _: response)
 
-    with pytest.raises(ExtractionError, match=message):
+    with pytest.raises(ExtractionError) as raised:
         extractor.extract("Novel worker findings")
+
+    assert str(raised.value) == message
+    assert str(value) not in str(raised.value)
+
+
+def test_modal_extractor_does_not_expose_schema_validator_dump() -> None:
+    response = _valid_response()
+    response["schema_error"] = (
+        "ValidationError: Additional properties are not allowed "
+        "('kid_coughing', 'mild_cough_or_difficult_breathing' were unexpected)"
+    )
+
+    preview = ModalEncounterExtractor(invoke=lambda _: response)
+
+    with pytest.raises(ExtractionError) as raised:
+        preview.extract("The child is 22 months and is coughing.")
+
+    assert str(raised.value) == INVALID_AI_INTERPRETATION_MESSAGE
+    assert "ValidationError" not in str(raised.value)
+    assert "kid_coughing" not in str(raised.value)
 
 
 def test_modal_service_mode_exposes_verified_demo_input() -> None:
