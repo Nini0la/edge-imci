@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/one-shot-test-policy-1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evaluation_id",
+    "authorization_id",
+    "status",
+    "authority",
+    "authorized_at",
+    "dataset",
+    "candidates",
+    "generation",
+    "scoring",
+    "comparison",
+    "thresholds",
+    "controls",
+    "execution"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "evaluation_id": {"type": "string", "minLength": 1},
+    "authorization_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "status": {"const": "AUTHORIZED_FOR_ONE_SHOT_TEST"},
+    "authority": {"const": "PROJECT_OWNER"},
+    "authorized_at": {"type": "string", "format": "date-time"},
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "partition", "expected_record_count", "split_policy_id"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "partition": {"const": "TEST"},
+        "expected_record_count": {"type": "integer", "minimum": 1},
+        "split_policy_id": {"const": "edge-imci-parent-semantic-split-v1"}
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/candidate"}
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chat_template", "enable_thinking", "max_new_tokens", "do_sample", "batch_size", "identical_for_all_candidates"],
+      "properties": {
+        "chat_template": {"const": "PINNED_QWEN3_TOKENIZER_TEMPLATE"},
+        "enable_thinking": {"const": false},
+        "max_new_tokens": {"type": "integer", "minimum": 1},
+        "do_sample": {"const": false},
+        "batch_size": {"type": "integer", "minimum": 1},
+        "identical_for_all_candidates": {"type": "boolean"}
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reported_metrics", "paired_metrics", "results_by_language_style", "confidence_intervals"],
+      "properties": {
+        "reported_metrics": {"$ref": "#/$defs/metric_list"},
+        "paired_metrics": {"$ref": "#/$defs/metric_list"},
+        "results_by_language_style": {"const": true},
+        "confidence_intervals": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "confidence", "bootstrap_samples", "seed"],
+          "properties": {
+            "method": {"const": "DETERMINISTIC_PAIRED_PERCENTILE_BOOTSTRAP"},
+            "confidence": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+            "bootstrap_samples": {"type": "integer", "minimum": 1000},
+            "seed": {"type": "integer", "minimum": 0}
+          }
+        }
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selected_candidate_id", "base_candidate_id", "optional_seed_control_id"],
+      "properties": {
+        "selected_candidate_id": {"type": "string", "minLength": 1},
+        "base_candidate_id": {"type": "string", "minLength": 1},
+        "optional_seed_control_id": {"type": ["string", "null"]}
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["selected_global_minimums", "selected_per_style_minimums", "paired_improvement"],
+      "properties": {
+        "selected_global_minimums": {"$ref": "#/$defs/thresholds"},
+        "selected_per_style_minimums": {"$ref": "#/$defs/thresholds"},
+        "paired_improvement": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["metric", "minimum_point_difference", "minimum_ci_lower_bound", "strict"],
+            "properties": {
+              "metric": {"$ref": "#/$defs/metric"},
+              "minimum_point_difference": {"type": "number", "minimum": -1, "maximum": 1},
+              "minimum_ci_lower_bound": {"type": "number", "minimum": -1, "maximum": 1},
+              "strict": {"type": "boolean"}
+            }
+          }
+        }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "one_shot_execution",
+        "close_after_attempt",
+        "aggregate_only_release",
+        "routine_record_review_prohibited",
+        "prompt_repair_prohibited",
+        "checkpoint_selection_prohibited",
+        "result_driven_rerun_prohibited",
+        "missing_predictions_score_as_failures"
+      ],
+      "properties": {
+        "one_shot_execution": {"const": true},
+        "close_after_attempt": {"const": true},
+        "aggregate_only_release": {"const": true},
+        "routine_record_review_prohibited": {"const": true},
+        "prompt_repair_prohibited": {"const": true},
+        "checkpoint_selection_prohibited": {"const": true},
+        "result_driven_rerun_prohibited": {"const": true},
+        "missing_predictions_score_as_failures": {"const": true}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_kind", "gpu_type", "private_evidence_volume", "a10g_gpu_rate_per_second", "currency"],
+      "properties": {
+        "environment_kind": {"const": "MODAL"},
+        "gpu_type": {"const": "A10G"},
+        "private_evidence_volume": {"type": "string", "minLength": 1},
+        "a10g_gpu_rate_per_second": {"type": "number", "minimum": 0},
+        "currency": {"const": "USD"}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "git_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "metric": {
+      "type": "string",
+      "enum": [
+        "coverage_rate",
+        "json_parse_rate",
+        "schema_valid_rate",
+        "exact_match_rate",
+        "field_accuracy",
+        "decision_equivalence_rate",
+        "urgent_action_equivalence_rate",
+        "referral_behavior_equivalence_rate"
+      ]
+    },
+    "metric_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/metric"}
+    },
+    "thresholds": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"$ref": "#/$defs/metric"},
+      "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "role",
+        "kind",
+        "required_for_execution",
+        "model_id",
+        "revision",
+        "tokenizer_revision",
+        "model_weights_sha256",
+        "artifact"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+        "role": {"enum": ["BASE_CONTROL", "SELECTED_FINE_TUNE", "SEED_CONTROL"]},
+        "kind": {"enum": ["HF_BASE", "REMOTE_MERGED"]},
+        "required_for_execution": {"const": true},
+        "model_id": {"const": "Qwen/Qwen3-0.6B"},
+        "revision": {"$ref": "#/$defs/git_revision"},
+        "tokenizer_revision": {"$ref": "#/$defs/git_revision"},
+        "model_weights_sha256": {"$ref": "#/$defs/sha256"},
+        "artifact": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["training_run_id", "cell_id", "volume", "path", "manifest_sha256", "config_sha256", "epochs", "learning_rate", "seed"],
+              "properties": {
+                "training_run_id": {"type": "string", "minLength": 1},
+                "cell_id": {"type": "string", "minLength": 1},
+                "volume": {"const": "edge-imci-finetune-artifacts"},
+                "path": {"type": "string", "minLength": 1},
+                "manifest_sha256": {"$ref": "#/$defs/sha256"},
+                "config_sha256": {"$ref": "#/$defs/sha256"},
+                "epochs": {"type": "number", "minimum": 0},
+                "learning_rate": {"type": "number", "exclusiveMinimum": 0},
+                "seed": {"type": "integer", "minimum": 0}
+              }
+            }
+          ]
+        },
+        "prompt_treatment": {"$ref": "#/$defs/prompt_treatment"}
+      }
+    },
+    "prompt_treatment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_path",
+        "schema_sha256",
+        "example_output_path",
+        "example_output_sha256",
+        "prompt_sha256"
+      ],
+      "properties": {
+        "kind": {"const": "SCHEMA_INFORMED_BASE_CONTROL_V1"},
+        "schema_path": {"const": "configs/model_io/model_facing_encounter_v1.schema.json"},
+        "schema_sha256": {"$ref": "#/$defs/sha256"},
+        "example_output_path": {"const": "configs/evaluation/schema_informed_base_example_v1.json"},
+        "example_output_sha256": {"$ref": "#/$defs/sha256"},
+        "prompt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

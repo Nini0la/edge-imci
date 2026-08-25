@@ -1,0 +1,88 @@
+{
+  "base_model": {
+    "license": "Apache-2.0",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+  },
+  "config_id": "edge-imci-qwen3-0.6b-structured-extraction-lora-v1",
+  "dataset": {
+    "chat_messages_path": "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl",
+    "manifest_path": "data/training_sources/structured_extraction_campaign_v1/manifest.json",
+    "release_path": "configs/training/structured_extraction_sft_release_v1.json",
+    "test_partition": "TEST",
+    "train_partition": "TRAIN",
+    "validation_partition": "VALIDATION"
+  },
+  "method": {
+    "alpha": 32,
+    "bias": "none",
+    "dropout": 0.05,
+    "merge_adapter_after_training": true,
+    "name": "LORA",
+    "rank": 16,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "modal": {
+    "app_name": "edge-imci-qwen3-0-6b-sft",
+    "artifact_root": "/outputs",
+    "artifact_volume": "edge-imci-finetune-artifacts",
+    "function_name": "train",
+    "gpu_count": 1,
+    "gpu_type": "A10G",
+    "model_cache_volume": "edge-imci-hf-cache",
+    "region": "AUTO",
+    "timeout_seconds": 14400
+  },
+  "optimization": {
+    "bf16": true,
+    "epochs": 3.0,
+    "gradient_accumulation_steps": 4,
+    "gradient_checkpointing": true,
+    "learning_rate": 0.0002,
+    "logging_steps": 10,
+    "lr_scheduler_type": "cosine",
+    "max_grad_norm": 1.0,
+    "optimizer": "adamw_torch_fused",
+    "per_device_eval_batch_size": 4,
+    "per_device_train_batch_size": 4,
+    "save_total_limit": 2,
+    "seed": 3407,
+    "tf32": true,
+    "warmup_ratio": 0.05,
+    "weight_decay": 0.01
+  },
+  "software": {
+    "accelerate": "1.9.0",
+    "datasets": "3.6.0",
+    "huggingface_hub": "0.34.2",
+    "peft": "0.16.0",
+    "python": "3.11",
+    "torch": "2.7.1",
+    "transformers": "4.54.0"
+  },
+  "tokenization": {
+    "assistant_only_loss": true,
+    "enable_thinking": false,
+    "max_sequence_length": 1536,
+    "observed_max_tokens": 1026,
+    "observed_p95_tokens": 576,
+    "observed_record_count": 1497,
+    "truncation_allowed": false
+  },
+  "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+  "validation_generation": {
+    "do_sample": false,
+    "example_count": 8,
+    "max_new_tokens": 1200
+  },
+  "version": "1.0.0"
+}

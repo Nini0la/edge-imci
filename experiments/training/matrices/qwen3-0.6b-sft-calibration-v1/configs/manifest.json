@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-sft-calibration-v1",
+  "plan_sha256": "d37fa65faa4618252041539e983f3200f97add1abe265aedd883ce90ca48e086",
+  "config_count": 23,
+  "configs": [
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--001--dfb6688b85",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--001--dfb6688b85.json",
+      "config_sha256": "dfb6688b85bc5c4e77fba179e3c036cace0d126c685c57ec7aee4d811456d0de",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--002--03298c5dfe",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--002--03298c5dfe.json",
+      "config_sha256": "03298c5dfea1086101047f46c3e5ad2eab604b0ca046e93b049d278284591255",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--003--7651c42189",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--003--7651c42189.json",
+      "config_sha256": "7651c42189638464d00f5d7221e59f75cad93df50b6f4051b70d1f67bad30864",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--004--eea0ec7443",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--004--eea0ec7443.json",
+      "config_sha256": "eea0ec7443dc18acfbfcbb623b87a5c9a9f11b9f50808a73d1bfa731a398acf8",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--005--4225dea6b9",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--005--4225dea6b9.json",
+      "config_sha256": "4225dea6b9112b29da1ab47c426a6c150db3089690123ccb846f3c7e484dcf04",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--006--4e5d8ab94d",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--006--4e5d8ab94d.json",
+      "config_sha256": "4e5d8ab94dc57a78bf9ad5675803bafb60c30fcb53b5e758b24c6339124679e4",
+      "estimated_gpu_seconds": 353.415,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--007--d952ed842f",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--007--d952ed842f.json",
+      "config_sha256": "d952ed842f095f88f0db1cc4bfe837bdb3081509d19c6797130f44570bfc8aa0",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--008--4c2a5c9a71",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--008--4c2a5c9a71.json",
+      "config_sha256": "4c2a5c9a71182619027d54370658245af24785b15bffe424615911aba42a23e5",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--009--b467e8a05d",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--009--b467e8a05d.json",
+      "config_sha256": "b467e8a05de3060120f331725aa7943c5bfe19026adf13c25a768d62744aad25",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--010--daf7f32d5c",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--010--daf7f32d5c.json",
+      "config_sha256": "daf7f32d5c1379be290feac6fa09575327c67153484f06f6abf7cb467cc88ccc",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--011--1f3d4a2fa2",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--011--1f3d4a2fa2.json",
+      "config_sha256": "1f3d4a2fa2378baa7ff728f54a24dd00e2475f897e5bc4b49beb05cec4a12bde",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--012--44f162913f",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--012--44f162913f.json",
+      "config_sha256": "44f162913fb075198e927e9cdc20c318576874da4b57da2c0989436d1923eeb0",
+      "estimated_gpu_seconds": 612.934,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--013--30e094ad22",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--013--30e094ad22.json",
+      "config_sha256": "30e094ad22b33d8d683eb9bbadf1d4c982c370aa8b272b4dbafc5410eaa513a5",
+      "estimated_gpu_seconds": 872.453,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--014--8b70368f84",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--014--8b70368f84.json",
+      "config_sha256": "8b70368f84fdd6b62a04a93b63ed051aa0efa740cbbab14cbfbaad607cbe10e8",
+      "estimated_gpu_seconds": 872.453,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--016--dde3f482d8",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--016--dde3f482d8.json",
+      "config_sha256": "dde3f482d880151df14626ae9767711ce016d242c135b6b49a899ddf6d61ae1b",
+      "estimated_gpu_seconds": 872.453,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--017--93e91eef25",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--017--93e91eef25.json",
+      "config_sha256": "93e91eef25a0ccc4a39cd4ee0055fb6ddecea3742baabf5394b1d86b341591ca",
+      "estimated_gpu_seconds": 872.453,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--018--a455df28c6",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--018--a455df28c6.json",
+      "config_sha256": "a455df28c64cd0573fd9cb28782c080d89a12371df1c4394e1d61119b43f61d8",
+      "estimated_gpu_seconds": 872.453,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--019--73df76ffb8",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--019--73df76ffb8.json",
+      "config_sha256": "73df76ffb8fded37a178d2797cbebfc375d0947511db9f23bf1a4b51c533929b",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--020--a5f4ecee83",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--020--a5f4ecee83.json",
+      "config_sha256": "a5f4ecee83c9e6225bdc3fba7738c2b1a33709be5eb5fd89e2a5f4a1b7228f86",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--021--731d1b1d4f",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--021--731d1b1d4f.json",
+      "config_sha256": "731d1b1d4f41fd5695fd98f81d77ad4728ff8862d7469cf05b6ecd36abcafd5a",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--022--dae4850bdf",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--022--dae4850bdf.json",
+      "config_sha256": "dae4850bdfd8ec9157a9a957db7083eb2b52141caace003f5b63ac2c2515c9a9",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--023--7031ced48a",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--023--7031ced48a.json",
+      "config_sha256": "7031ced48a0aa4fc0c2683d78911bc65cb93cfa83be21c7b8ad9a5dfeb29cd22",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-sft-calibration-v1--024--59757b8796",
+      "path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--024--59757b8796.json",
+      "config_sha256": "59757b879654d805ffe99da34af4f09e58dbc71ae50d3e4ca3029b5281d46787",
+      "estimated_gpu_seconds": 1391.491,
+      "state": "READY"
+    }
+  ],
+  "manifest_sha256": "7f38d66ec9e748548c86a0ea5b3ac93dde40323053dafa2453e7c95f889605db"
+}

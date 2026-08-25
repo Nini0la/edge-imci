@@ -43,7 +43,7 @@ This is the scan-first campaign view. Speed and cost are recorded as observed va
 | Bulk synthetic generation | API / Azure Batch | Chosen teacher | Acceptance; diversity; downstream utility | Tokens, attempts, errors, throughput | $/attempt and $/accepted example |
 | Self-hosted generation alternative | Modal + vLLM | Open teacher | Acceptance; diversity | GPU/runtime/throughput | GPU-hours and $/accepted example |
 | Candidate admission | ASUS | Untuned source/deployment artifact plus exact runtime | Pass/fail against frozen task and deployability thresholds | Repository/model/runtime/checksum identity, raw attempts, speed and sustained system telemetry | Mandatory before candidate-specific fine-tuning |
-| Primary SFT | Modal | Qwen3-1.7B | Student clinical performance | GPU, config, data, checkpoint, runtime | $/run; $/1k examples |
+| Primary SFT | Modal | Qwen3-0.6B first; larger candidates remain evidence-triggered | Student extraction performance | GPU, config, data, checkpoint, runtime | $/run; $/1k examples |
 | Clinical eval | Local / Modal | Base or trained checkpoint | Clinical metric suite | Checkpoint/eval versions; runtime | $0 local or Modal runtime |
 | 4B / capacity branch | Modal | Qwen3-4B | Gain versus 1.7B | Same training/eval provenance | Higher GPU runtime; conditional |
 | Qwen3.5 branch | Tinker | Supported Qwen3.5 model | Capacity/post-training result | Provider config, usage, checkpoint | Credits/usage; specialist branch |
@@ -107,7 +107,7 @@ Qualify the base candidate in the intended runtime representation before fine-tu
 
 ### Candidate admission
 
-No candidate-specific fine-tuning starts until the exact parent model-runtime combination has passed the frozen ASUS admission policy. Missing checksums, runtime identity, thresholds or required measurements make the result incomplete. Ranking can select among passing combinations but cannot override a failed hard gate. See [the target-device qualification plan](target_device_model_runtime_qualification_plan.md).
+The project owner authorized the first Qwen3-0.6B exploratory SFT to run in parallel with formal ASUS admission. This does not waive deployment admission: no fine-tuned artifact may be selected for deployment until the exact parent and post-training deployment tuples have passed the frozen ASUS policy. Missing checksums, runtime identity, thresholds or required measurements make deployment evidence incomplete. See [the target-device qualification plan](target_device_model_runtime_qualification_plan.md).
 
 ### Lundin
 

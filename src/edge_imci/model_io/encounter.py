@@ -11,6 +11,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -20,7 +21,9 @@ from edge_imci.generation.holistic_golden import encounter_from_dict
 from edge_imci.schemas.holistic import HOLISTIC_SCHEMA_VERSION, HolisticEncounter
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(
+    os.environ.get("EDGE_IMCI_REPO_ROOT", Path(__file__).resolve().parents[3])
+).resolve()
 MODEL_FACING_ENCOUNTER_SCHEMA_ID = "edge-imci-model-facing-encounter-v1"
 MODEL_TARGET_EXPORTER_ID = "edge-imci-model-target-exporter-v1"
 MODEL_FACING_ENCOUNTER_SCHEMA_PATH = (

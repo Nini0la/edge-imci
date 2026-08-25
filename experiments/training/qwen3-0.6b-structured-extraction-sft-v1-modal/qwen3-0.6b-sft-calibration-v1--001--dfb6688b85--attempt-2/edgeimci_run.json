@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "a20307fc-5f12-4473-b75f-ec1ce7057d8c",
+  "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
+  "experiment_definition_sha256": "efde2258aadd9667f386deb9dfd678eb1c0cd81911051444b6bbe02f8103be81",
+  "status": "FAILED",
+  "started_at": "2026-08-24T07:37:53.717072Z",
+  "finished_at": "2026-08-24T07:44:46.925391Z",
+  "wall_duration_seconds": 413.2136462080525,
+  "parent_run_id": null,
+  "component_run_ids": [],
+  "provenance": {
+    "git": {
+      "git_commit": "27cbb3c3a91635b7521d1e2e6f9b44f0150bede9",
+      "dirty_worktree": true,
+      "dirty_state_sha256": "67539df057bd887911709c3cb52a2180d5af0f00ac98f78b7f64635e3aeed515"
+    },
+    "runtime": {
+      "python_version": "3.12.3",
+      "platform": "macOS-15.4-arm64-arm-64bit",
+      "architecture": "arm64",
+      "runner_version": "edge-imci-0.1.0",
+      "dependency_identity": "uv.lock:sha256:7d09406030b0168b2021a300e120217847919baeb03e4c21e18b7fbe3d099962",
+      "command": [
+        "modal",
+        "run",
+        "-m",
+        "edge_imci.training.modal_finetune",
+        "--run-name",
+        "qwen3-0.6b-sft-calibration-v1--001--dfb6688b85--attempt-2",
+        "--config-path",
+        "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--001--dfb6688b85.json"
+      ]
+    }
+  },
+  "execution": {
+    "environment_kind": "MODAL",
+    "execution_provider": "Modal",
+    "modal": {
+      "app_id": "edge-imci-qwen3-0-6b-sft",
+      "function_name": "train",
+      "region": "AUTO",
+      "gpu_type": "A10G",
+      "gpu_count": 1,
+      "image_identity": "edge-imci-qwen3-0.6b-sft-image-v1"
+    }
+  },
+  "config": {
+    "config_id": "edge-imci-qwen3-0.6b-structured-extraction-lora-v1",
+    "version": "1.0.0",
+    "snapshot_path": "experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-sft-calibration-v1--001--dfb6688b85--attempt-2/edgeimci_config_snapshot.json",
+    "sha256": "dfb6688b85bc5c4e77fba179e3c036cace0d126c685c57ec7aee4d811456d0de",
+    "source_path": "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/qwen3-0.6b-sft-calibration-v1--001--dfb6688b85.json"
+  },
+  "models": [
+    {
+      "role": "BASE",
+      "model_provider": "Qwen",
+      "model_source": "Hugging Face Hub",
+      "model_id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "representation": "BF16_SAFETENSORS",
+      "precision": "BF16",
+      "remote_only": true
+    }
+  ],
+  "datasets": [
+    {
+      "dataset_id": "edge-imci-structured-extraction-language-campaign-v1",
+      "version": "1.0.0",
+      "manifest_path": "data/training_sources/structured_extraction_campaign_v1/manifest.json",
+      "sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+      "split": "TRAIN+VALIDATION; TEST PROHIBITED",
+      "record_count": 1354
+    }
+  ],
+  "prompts": [],
+  "scientific_results": {},
+  "validation": [],
+  "telemetry": {},
+  "usage": [],
+  "artifacts": [],
+  "accounting": [],
+  "accounting_audit": [],
+  "error": {
+    "exception_type": "FileNotFoundError",
+    "message": "[Errno 2] No such file or directory: '/workspace/experiments/registry/schemas/checkpoint_evaluation_policy.schema.json'"
+  }
+}

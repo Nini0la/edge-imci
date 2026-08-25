@@ -1,0 +1,40 @@
+{
+  "release_id": "edge-imci-structured-extraction-sft-release-qwen3-1.7b-v1",
+  "status": "AUTHORIZED_FOR_EXPLORATORY_SFT",
+  "authority": "PROJECT_OWNER_DIRECT_INSTRUCTION",
+  "authorized_at": "2026-08-25",
+  "instruction_summary": "Prepare an initial paid Modal Qwen3-1.7B structured-extraction LoRA matrix without launching it. Execution requires a separate authorization and must use the existing pinned TRAIN and VALIDATION corpus while preserving the TEST prohibition.",
+  "dataset": {
+    "campaign_id": "edge-imci-structured-extraction-language-campaign-v1",
+    "manifest_path": "data/training_sources/structured_extraction_campaign_v1/manifest.json",
+    "manifest_sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+    "chat_messages_path": "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl",
+    "chat_messages_sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+    "authorized_partitions": {
+      "TRAIN": 1239,
+      "VALIDATION": 115
+    },
+    "prohibited_partitions": {
+      "TEST": 143
+    }
+  },
+  "model": {
+    "model_id": "Qwen/Qwen3-1.7B",
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "selection_basis": "PROJECT_OWNER_DIRECT_INSTRUCTION"
+  },
+  "execution": {
+    "environment": "MODAL",
+    "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+    "execution_class": "EXPLORATORY_CAPACITY_MATRIX",
+    "parallel_work_authorized": true,
+    "formal_asus_admission_artifact": null,
+    "pre_admission_disposition": "This release prepares the exploratory matrix only. Launch authority is recorded separately; neither release claims target-device admission or authorizes deployment."
+  },
+  "authorization": {
+    "training_authorized": true,
+    "test_partition_use_authorized": false,
+    "production_clinical_use_authorized": false,
+    "deployment_authorized": false
+  }
+}

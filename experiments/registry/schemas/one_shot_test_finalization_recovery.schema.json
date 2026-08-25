@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/one-shot-test-finalization-recovery-1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "finalization_recovery_id",
+    "status",
+    "authority",
+    "authorized_at",
+    "original_authorization_id",
+    "original_policy_sha256",
+    "inference_recovery_sha256",
+    "failed_closed_state_sha256",
+    "failure",
+    "completed_candidates",
+    "runner_sha256",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "finalization_recovery_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "status": {"const": "AUTHORIZED_AGGREGATE_ONLY_COMPLETION"},
+    "authority": {"const": "PROJECT_OWNER"},
+    "authorized_at": {"type": "string", "format": "date-time"},
+    "original_authorization_id": {"type": "string", "minLength": 1},
+    "original_policy_sha256": {"$ref": "#/$defs/sha256"},
+    "inference_recovery_sha256": {"$ref": "#/$defs/sha256"},
+    "finalization_recovery_sequence": {"type": "integer", "minimum": 1, "maximum": 2},
+    "prior_finalization_recovery_sha256": {"$ref": "#/$defs/sha256"},
+    "failed_closed_state_sha256": {"$ref": "#/$defs/sha256"},
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "stage", "cause", "result_driven"],
+      "properties": {
+        "type": {"const": "FileNotFoundError"},
+        "stage": {"const": "AGGREGATION_BEFORE_SCORING"},
+        "cause": {"const": "MODEL_FACING_SCHEMA_ROOT_RESOLUTION"},
+        "result_driven": {"const": false}
+      }
+    },
+    "completed_candidates": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "prediction_sha256", "prediction_record_count", "receipt_sha256"],
+        "properties": {
+          "candidate_id": {"type": "string", "minLength": 1},
+          "prediction_sha256": {"$ref": "#/$defs/sha256"},
+          "prediction_record_count": {"const": 143},
+          "receipt_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "runner_sha256": {"$ref": "#/$defs/sha256"},
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_inference_prohibited",
+        "preserve_completed_predictions",
+        "candidate_changes_prohibited",
+        "generation_changes_prohibited",
+        "threshold_changes_prohibited",
+        "raw_result_review_performed",
+        "aggregate_once",
+        "close_after_finalization"
+      ],
+      "properties": {
+        "candidate_inference_prohibited": {"const": true},
+        "preserve_completed_predictions": {"const": true},
+        "candidate_changes_prohibited": {"const": true},
+        "generation_changes_prohibited": {"const": true},
+        "threshold_changes_prohibited": {"const": true},
+        "raw_result_review_performed": {"const": false},
+        "aggregate_once": {"const": true},
+        "close_after_finalization": {"const": true}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

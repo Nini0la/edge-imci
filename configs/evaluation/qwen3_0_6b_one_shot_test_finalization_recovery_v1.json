@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "finalization_recovery_id": "edge-imci-qwen3-0.6b-reserved-test-finalization-20260824-v1",
+  "status": "AUTHORIZED_AGGREGATE_ONLY_COMPLETION",
+  "authority": "PROJECT_OWNER",
+  "authorized_at": "2026-08-24T12:50:33Z",
+  "original_authorization_id": "edge-imci-qwen3-0.6b-reserved-test-20260824-v1",
+  "original_policy_sha256": "9b24b2ae7e4968a122e1e5fa77c3d1213a3bfe237fa67d1c52b479c632d788dd",
+  "inference_recovery_sha256": "eb97652621e45b13f8e02ce6d127fdd5df1cc3684cc63af9866f51fd414ae5f5",
+  "failed_closed_state_sha256": "2303d029b7a1a38f7bc863002d37cc577f378b7eefc2e69d5b92d8e0e806f37f",
+  "failure": {
+    "type": "FileNotFoundError",
+    "stage": "AGGREGATION_BEFORE_SCORING",
+    "cause": "MODEL_FACING_SCHEMA_ROOT_RESOLUTION",
+    "result_driven": false
+  },
+  "completed_candidates": [
+    {
+      "candidate_id": "qwen3-0.6b-base-control",
+      "prediction_sha256": "ca535dd48ece60c998d9adee659ba2c05ab9c776e430dcdf3692d00edba17eb6",
+      "prediction_record_count": 143,
+      "receipt_sha256": "5b7ebd6104d167d43bcfe8914767440684494bef3798e5961a95457a9a0ae613"
+    },
+    {
+      "candidate_id": "qwen3-0.6b-sft-selected-seed-20260824",
+      "prediction_sha256": "179e216a0aaec63864d0e529a1bb8c5ee44c135082389f4fc3ff9f161a51bb45",
+      "prediction_record_count": 143,
+      "receipt_sha256": "787b7ab50034c5363cb60c518be1c1e327b36b22bec25f2651cc0e1448ce793b"
+    },
+    {
+      "candidate_id": "qwen3-0.6b-sft-seed-control-3407",
+      "prediction_sha256": "1739396bd7a81bf9629445f98efb74ef5b148b7a84b0277112d2970b12dc1c99",
+      "prediction_record_count": 143,
+      "receipt_sha256": "842909ba6e44a8aadd7f775d6b4af9ac591709f9a69209c25f2353f2c497af47"
+    }
+  ],
+  "runner_sha256": "a2d1501e70ac6787cc655845769852acab292975d16af8c381d9e28d7e47fd92",
+  "controls": {
+    "candidate_inference_prohibited": true,
+    "preserve_completed_predictions": true,
+    "candidate_changes_prohibited": true,
+    "generation_changes_prohibited": true,
+    "threshold_changes_prohibited": true,
+    "raw_result_review_performed": false,
+    "aggregate_once": true,
+    "close_after_finalization": true
+  }
+}

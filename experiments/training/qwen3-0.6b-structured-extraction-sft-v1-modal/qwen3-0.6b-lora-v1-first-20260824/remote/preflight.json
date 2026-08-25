@@ -1,0 +1,22 @@
+{
+  "chat_messages_sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+  "config_id": "edge-imci-qwen3-0.6b-structured-extraction-lora-v1",
+  "config_sha256": "7ab21350b02407c52016c974f9e422be685e79f5d6aeac714ef62cb1ac0228f5",
+  "dataset_manifest_sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "parent_case_count": 78,
+  "partition_counts": {
+    "TEST": 143,
+    "TRAIN": 1239,
+    "VALIDATION": 115
+  },
+  "production_clinical_use_authorized": false,
+  "release_id": "edge-imci-structured-extraction-sft-release-v1",
+  "release_sha256": "a1b066a02f622b3a4285e6969d5b31fac06854b3807fbbd0dc8ad3e3e4b4f805",
+  "status": "READY",
+  "test_partition_returned_to_trainer": false,
+  "test_record_count_checked_but_not_loaded": 143,
+  "trainable_record_count": 1239,
+  "validation_record_count": 115
+}

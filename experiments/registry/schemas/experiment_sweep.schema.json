@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/experiment-sweep-1.0.0",
+  "title": "EdgeIMCI registry-bound experiment sweep",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "matrix_id",
+    "experiment_id",
+    "base_config_path",
+    "axes",
+    "fixed_overrides",
+    "execution",
+    "estimation",
+    "budget",
+    "controls",
+    "reused_cells"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "matrix_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "experiment_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "base_config_path": {"type": "string", "minLength": 1},
+    "axes": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": ["string", "number", "integer", "boolean"]}
+      }
+    },
+    "fixed_overrides": {
+      "type": "object",
+      "additionalProperties": {"type": ["string", "number", "integer", "boolean"]}
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_kind", "gpu_type", "gpu_count", "max_parallel_runs"],
+      "properties": {
+        "environment_kind": {"const": "MODAL"},
+        "gpu_type": {"type": "string", "minLength": 1},
+        "gpu_count": {"type": "integer", "minimum": 1},
+        "max_parallel_runs": {"type": "integer", "minimum": 1}
+      }
+    },
+    "estimation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_gpu_seconds", "baseline_train_seconds", "baseline_epochs", "contingency_multiplier"],
+      "properties": {
+        "baseline_gpu_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "baseline_train_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "baseline_epochs": {"type": "number", "exclusiveMinimum": 0},
+        "contingency_multiplier": {"type": "number", "minimum": 1}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_runs", "max_estimated_gpu_seconds"],
+      "properties": {
+        "max_runs": {"type": "integer", "minimum": 1},
+        "max_estimated_gpu_seconds": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["launch_authorized", "test_partition_prohibited", "gates"],
+      "properties": {
+        "launch_authorized": {"type": "boolean"},
+        "test_partition_prohibited": {"const": true},
+        "gates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["gate_id", "satisfied", "evidence_ref"],
+            "properties": {
+              "gate_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+              "satisfied": {"type": "boolean"},
+              "evidence_ref": {"type": ["string", "null"]}
+            }
+          }
+        }
+      }
+    },
+    "reused_cells": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["run_id", "axis_values"],
+        "properties": {
+          "run_id": {"type": "string", "minLength": 1},
+          "axis_values": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {"type": ["string", "number", "integer", "boolean"]}
+          }
+        }
+      }
+    }
+  }
+}

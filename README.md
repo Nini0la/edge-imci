@@ -24,7 +24,7 @@ This repository is research software. It is **not** a production medical device,
 
 ## Current status
 
-The clinical-semantic foundation for the bounded hackathon scope is implemented. The 78-case product-level holistic semantic suite has undergone two technical/source review cycles, oracle-v3 remediation, explicit human/domain approval, and a controlled semantic freeze. Its exact approved content is hash-pinned; the current gate is to establish and review the golden language renderings without changing those semantics.
+The bounded clinical-semantic foundation and 78-case frozen product suite are implemented. The first 1,497-record structured-extraction corpus, Qwen3-0.6B Modal calibration matrix, and reserved 143-record TEST evaluation are complete. The selected fine-tune reached 97.20% exact-record and decision equivalence with 99.89% field accuracy, but failed six preregistered clinical thresholds; the TEST authorization is permanently closed and further work requires a new versioned training/evaluation line. The original base control was not given the project-specific schema or an example output, so that preregistered paired comparison is methodologically confounded. A separately authorized post-hoc base run received the complete schema and a valid example but still reached 0% JSON parse and schema validity; see the [base-control methodology correction](docs/qwen3_0_6b_base_control_methodology_correction_v1.md).
 
 | Area | Status |
 | --- | --- |
@@ -39,13 +39,15 @@ The clinical-semantic foundation for the bounded hackathon scope is implemented.
 | Golden language renderings | Preserved as product-language references and downstream presentation artifacts |
 | Model-facing encounter contract | v1 schema, deterministic frozen-source projection and engine adapter implemented for review |
 | Structured-extraction evaluation | Schema, exact/field/UNKNOWN and downstream decision-equivalence metrics implemented for review |
-| Extraction dataset policy | Parent-case split inheritance and scope/acquisition/reassessment/contradiction decisions approved and versioned; bulk generation/training still unauthorized |
+| Extraction dataset policy | Parent-case split inheritance and scope/acquisition/reassessment/contradiction decisions approved and versioned; separate scoped release authorizes the first exploratory SFT while TEST and deployment remain blocked |
 | Structured-extraction canary | Three reviewed existing PHC submissions paired with deterministic JSON targets; validated for review, not training-authorized |
 | Experiment/run registry infrastructure | Implemented with versioned registry, immutable run sidecars, accounting, and profiling support |
-| Bulk corpus generation | Not started |
-| SFT/model training | Not started |
+| Bulk corpus generation | First structured-extraction campaign reconciled: 1,497 approved records across parent-derived splits |
+| SFT/model training | First Qwen3-0.6B LoRA completed successfully on Modal; adapter and merged checkpoint retained |
+| Reserved structured-extraction TEST | Closed after one frozen three-candidate comparison on 143 records; selected SFT reached 97.20% exact match, 99.89% field accuracy, 100% schema validity, 97.20% decision equivalence, 98.60% urgent-action equivalence, and 99.30% referral equivalence; failed six preregistered thresholds. The original paired base comparison is confounded by an under-specified prompt. One explicitly authorized post-hoc schema-informed base use also reached 0% JSON parse/schema validity and is closed; it is supplementary evidence, not a new untouched TEST. Reports: [`original`](experiments/evaluation/qwen3-0.6b-one-shot-test-v1/aggregate_report_final_v2.json), [`post-hoc base`](experiments/evaluation/qwen3-0.6b-posthoc-base-control-v1/aggregate_report.json) |
 | Pre-fine-tuning ASUS candidate model-runtime admission | Planned; protocol defined, exact candidates/runtime/checksums/thresholds unresolved |
-| Post-training ASUS deployment-artifact requalification | Not started; must reuse the frozen admission harness for paired evidence |
+| Provisional product/submission candidate | Selected Qwen3-0.6B SFT run `251039a3-4adc-4e74-8c30-069eb8aca6de`; used by the current Modal product inference path and designated as the ADTC/submission placeholder. This is provisional and does not override the six TEST threshold failures. |
+| Post-training ASUS deployment-artifact requalification | Selected source checkpoint is pinned; GGUF conversion and exact-artifact qualification remain pending and must reuse the frozen admission harness for paired evidence. |
 
 The approved review decisions are canonical in [`imci_major_sick_child_review_decisions_v1.json`](configs/information_policy/imci_major_sick_child_review_decisions_v1.json), with a generated YAML mirror. This approval is limited to the project’s hackathon representation and is not production clinical authorization.
 
@@ -170,7 +172,7 @@ The hackathon critical path is evidence-driven:
 4. select a stable generation recipe with high semantic acceptance and no systematic corruption;
 5. generate a fast corpus of approximately 500–1,000 accepted examples;
 6. freeze candidate, runtime, checksum, ASUS, workload, scoring and admission-threshold identities, then qualify each base candidate-runtime combination on the ASUS;
-7. admit only viable combinations, assemble canonical language-to-JSON records, authorize a dataset split, and fine-tune the selected admitted parent on Modal;
+7. assemble and authorize canonical language-to-JSON records, run the selected Qwen3-0.6B exploratory SFT on Modal in parallel with formal target-device admission, and preserve the distinction between training evidence and deployment authorization;
 8. launch the larger Azure Batch data lane in parallel when justified;
 9. run structured-extraction metrics plus downstream deterministic decision-equivalence evaluations;
 10. convert or quantize the selected fine-tuned checkpoint and rerun the same frozen qualification on the same ASUS; and
@@ -184,7 +186,14 @@ The operating plans are:
 - [`synthetic_data_generation_experiment_plan.md`](docs/synthetic_data_generation_experiment_plan.md)
 - [`experiment_operations_and_tracking_plan.md`](docs/experiment_operations_and_tracking_plan.md)
 - [`target_device_model_runtime_qualification_plan.md`](docs/target_device_model_runtime_qualification_plan.md)
+- [`adtc_submission_and_asus_profiling_handoff_v1.md`](docs/adtc_submission_and_asus_profiling_handoff_v1.md) — current execution handoff for the selected Qwen3-0.6B fine-tune
 - [`experiments/README.md`](experiments/README.md)
+
+The current Modal fine-tuning runner and first-run handoff are documented in
+[`modal_finetuning_pipeline_v1.md`](docs/modal_finetuning_pipeline_v1.md). Its
+preflight verifies the dataset release, hashes, parent-derived partitions,
+model/tokenizer revision, target schema, and the complete absence of TEST
+records from the trainer before allocating a GPU.
 
 Before the campaign expands, each generation, training, evaluation, and profile runner should automatically create a versioned run sidecar containing configuration identity, inputs, outputs, hashes, telemetry, status, and raw provider usage. Scientific results must remain distinguishable from execution time and derived cost.
 

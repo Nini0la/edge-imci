@@ -13,11 +13,16 @@ dependencies = ["PyYAML>=6.0", "certifi>=2024.0", "jsonschema>=4.23"]
 
 [project.scripts]
 edgeimci-experiments = "edge_imci.experiments.cli:main"
+edgeimci-review = "edge_imci.review.cli:main"
+edgeimci-azure-batch = "edge_imci.generation.azure_batch:main"
+edgeimci-mass-campaign = "edge_imci.generation.mass_campaign:main"
+edgeimci-review-calibration = "edge_imci.review.calibration:main"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 models = ["mlx-lm==0.31.3"]
 azure = ["openai>=1.66.0", "azure-identity>=1.17.0"]
+modal-training = ["modal==1.5.4"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/edge_imci"]

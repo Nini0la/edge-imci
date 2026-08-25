@@ -223,3 +223,22 @@ __marimo__/
 
 # Local source documents
 /data/sources/*.pdf
+
+# Frontend dependencies and generated output
+/web/node_modules/
+/web/dist/
+!/web/src/lib/
+!/web/src/lib/**
+
+# Fine-tuning weights are retained in provider storage or an artifact store.
+# Keep compact metrics/manifests in Git, but do not accidentally commit model binaries.
+/experiments/training/**/remote/adapter/
+/experiments/training/**/remote/merged/
+/experiments/training/**/remote/checkpoints/
+
+# Machine-local agent/worktree state.
+/.letta/
+
+# Locally converted deployment artifacts; retain checksums/manifests in Git,
+# but distribute model weights through the designated artifact channel.
+*.gguf

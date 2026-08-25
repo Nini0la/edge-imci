@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-sft-calibration-v1",
+  "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
+  "base_config_path": "configs/training/qwen3_0_6b_structured_extraction_lora_v1.json",
+  "axes": {
+    "optimization.epochs": [1.0, 2.0, 3.0, 5.0],
+    "optimization.learning_rate": [0.0001, 0.0002, 0.0003],
+    "optimization.seed": [3407, 20260824]
+  },
+  "fixed_overrides": {},
+  "execution": {
+    "environment_kind": "MODAL",
+    "gpu_type": "A10G",
+    "gpu_count": 1,
+    "max_parallel_runs": 4
+  },
+  "estimation": {
+    "baseline_gpu_seconds": 758.654991163,
+    "baseline_train_seconds": 677.0064,
+    "baseline_epochs": 3.0,
+    "contingency_multiplier": 1.15
+  },
+  "budget": {
+    "max_runs": 24,
+    "max_estimated_gpu_seconds": 21600
+  },
+  "controls": {
+    "launch_authorized": true,
+    "test_partition_prohibited": true,
+    "gates": [
+      {
+        "gate_id": "dataset-release-pinned",
+        "satisfied": true,
+        "evidence_ref": "configs/training/structured_extraction_sft_release_v1.json"
+      },
+      {
+        "gate_id": "baseline-run-registered",
+        "satisfied": true,
+        "evidence_ref": "experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-lora-v1-first-20260824/edgeimci_run.json"
+      },
+      {
+        "gate_id": "matched-validation-evaluator-ready",
+        "satisfied": true,
+        "evidence_ref": "configs/evaluation/structured_extraction_checkpoint_policy_v1.json"
+      },
+      {
+        "gate_id": "matrix-budget-approved",
+        "satisfied": true,
+        "evidence_ref": "configs/training/qwen3_0_6b_sft_calibration_authorization_v1.json"
+      }
+    ]
+  },
+  "reused_cells": [
+    {
+      "run_id": "4b9c196e-d3f7-4e45-a591-f8bf32932a9b",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407
+      }
+    }
+  ]
+}

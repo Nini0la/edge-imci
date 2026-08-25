@@ -1,0 +1,277 @@
+{
+  "artifacts": {
+    "adapter/README.md": {
+      "bytes": 5184,
+      "sha256": "4eebf88c9e90dcd4413f2a9948e6566c5866015cccceb9741cc8b4fb95a80dae"
+    },
+    "adapter/adapter_config.json": {
+      "bytes": 898,
+      "sha256": "e8a597e3037be9d9fddb208d139055587274a64347d26060502bd171d717bcb7"
+    },
+    "adapter/adapter_model.safetensors": {
+      "bytes": 40422168,
+      "sha256": "142cf402a3a9cbb5a4cd6a2631143e2c97b9e4b9ab794027f76dfe0bb418e856"
+    },
+    "adapter/added_tokens.json": {
+      "bytes": 707,
+      "sha256": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680"
+    },
+    "adapter/chat_template.jinja": {
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "adapter/merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "adapter/special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "adapter/tokenizer.json": {
+      "bytes": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    "adapter/tokenizer_config.json": {
+      "bytes": 5404,
+      "sha256": "443bfa629eb16387a12edbf92a76f6a6f10b2af3b53d87ba1550adfcf45f7fa0"
+    },
+    "adapter/training_args.bin": {
+      "bytes": 5841,
+      "sha256": "ba943e6bfddeda9125fbdba33d4deb48085d3e6719dae3c538ea4d266989a7d6"
+    },
+    "adapter/vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "checkpoints/checkpoint-156/README.md": {
+      "bytes": 5184,
+      "sha256": "4eebf88c9e90dcd4413f2a9948e6566c5866015cccceb9741cc8b4fb95a80dae"
+    },
+    "checkpoints/checkpoint-156/adapter_config.json": {
+      "bytes": 898,
+      "sha256": "e8a597e3037be9d9fddb208d139055587274a64347d26060502bd171d717bcb7"
+    },
+    "checkpoints/checkpoint-156/adapter_model.safetensors": {
+      "bytes": 40422168,
+      "sha256": "a04a3a6d2d2d71459944bd7bca295428e014278ff226d705007f1c8967a97fa4"
+    },
+    "checkpoints/checkpoint-156/added_tokens.json": {
+      "bytes": 707,
+      "sha256": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680"
+    },
+    "checkpoints/checkpoint-156/chat_template.jinja": {
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "checkpoints/checkpoint-156/merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "checkpoints/checkpoint-156/optimizer.pt": {
+      "bytes": 81075515,
+      "sha256": "e22d5e5d918dfc88fc398b61eb6cad52997f6927a03cbb412ecebfcd3d2216d6"
+    },
+    "checkpoints/checkpoint-156/rng_state.pth": {
+      "bytes": 14645,
+      "sha256": "c3326cf2e48abf7e2f38cdc7b85c552d381b03ac0dda77f2a4fc8b4c23c63617"
+    },
+    "checkpoints/checkpoint-156/scheduler.pt": {
+      "bytes": 1465,
+      "sha256": "1e01d6f4323c6f6739f2d9b037ec47242fa388c3d07bc6638133c3824943e2b7"
+    },
+    "checkpoints/checkpoint-156/special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "checkpoints/checkpoint-156/tokenizer.json": {
+      "bytes": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    "checkpoints/checkpoint-156/tokenizer_config.json": {
+      "bytes": 5404,
+      "sha256": "443bfa629eb16387a12edbf92a76f6a6f10b2af3b53d87ba1550adfcf45f7fa0"
+    },
+    "checkpoints/checkpoint-156/trainer_state.json": {
+      "bytes": 3857,
+      "sha256": "8c1aeac87eb8c1659f0c5f8a8de31eae7c139411d8ec3fca951a21e8c10454b4"
+    },
+    "checkpoints/checkpoint-156/training_args.bin": {
+      "bytes": 5841,
+      "sha256": "ba943e6bfddeda9125fbdba33d4deb48085d3e6719dae3c538ea4d266989a7d6"
+    },
+    "checkpoints/checkpoint-156/vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "checkpoints/checkpoint-234/README.md": {
+      "bytes": 5184,
+      "sha256": "4eebf88c9e90dcd4413f2a9948e6566c5866015cccceb9741cc8b4fb95a80dae"
+    },
+    "checkpoints/checkpoint-234/adapter_config.json": {
+      "bytes": 898,
+      "sha256": "e8a597e3037be9d9fddb208d139055587274a64347d26060502bd171d717bcb7"
+    },
+    "checkpoints/checkpoint-234/adapter_model.safetensors": {
+      "bytes": 40422168,
+      "sha256": "142cf402a3a9cbb5a4cd6a2631143e2c97b9e4b9ab794027f76dfe0bb418e856"
+    },
+    "checkpoints/checkpoint-234/added_tokens.json": {
+      "bytes": 707,
+      "sha256": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680"
+    },
+    "checkpoints/checkpoint-234/chat_template.jinja": {
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "checkpoints/checkpoint-234/merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "checkpoints/checkpoint-234/optimizer.pt": {
+      "bytes": 81075515,
+      "sha256": "7ecf787d03456603e70317301a1d86cbdf9465b2cc037393cc29ba71023e601e"
+    },
+    "checkpoints/checkpoint-234/rng_state.pth": {
+      "bytes": 14645,
+      "sha256": "db641c9a860bcd9311d4ce6669253af1a2aaa3421815f94f2f85439fc06faefd"
+    },
+    "checkpoints/checkpoint-234/scheduler.pt": {
+      "bytes": 1465,
+      "sha256": "46975f74c67b2af8797c6e1ee62b114571b496886bc66e214f0c0d505aa36bd0"
+    },
+    "checkpoints/checkpoint-234/special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "checkpoints/checkpoint-234/tokenizer.json": {
+      "bytes": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    "checkpoints/checkpoint-234/tokenizer_config.json": {
+      "bytes": 5404,
+      "sha256": "443bfa629eb16387a12edbf92a76f6a6f10b2af3b53d87ba1550adfcf45f7fa0"
+    },
+    "checkpoints/checkpoint-234/trainer_state.json": {
+      "bytes": 5466,
+      "sha256": "28d177797da1b4dd1b3185607d0757961ec4f05016623144564dada3c497cd14"
+    },
+    "checkpoints/checkpoint-234/training_args.bin": {
+      "bytes": 5841,
+      "sha256": "ba943e6bfddeda9125fbdba33d4deb48085d3e6719dae3c538ea4d266989a7d6"
+    },
+    "checkpoints/checkpoint-234/vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "config.json": {
+      "bytes": 2433,
+      "sha256": "f40b360e23ead032df9bc9355869a56fb7abdd707a95afeb48724286d326503e"
+    },
+    "merged/added_tokens.json": {
+      "bytes": 707,
+      "sha256": "c0284b582e14987fbd3d5a2cb2bd139084371ed9acbae488829a1c900833c680"
+    },
+    "merged/chat_template.jinja": {
+      "bytes": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    "merged/config.json": {
+      "bytes": 1366,
+      "sha256": "fe6ef10d7bb955432d08dd56a2ca5081c737729c7d6dacf66718e36d1cef7c07"
+    },
+    "merged/generation_config.json": {
+      "bytes": 214,
+      "sha256": "79e1386a4fda181a540ea87db256b7f6ce99921d4995a6fdba2bc70562c60a2d"
+    },
+    "merged/merges.txt": {
+      "bytes": 1671853,
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    "merged/model.safetensors": {
+      "bytes": 1192135096,
+      "sha256": "a0a77775d9472402022e62e2028cf9ccf7dc4a8fdbacbb78304936e0c82d0dd8"
+    },
+    "merged/special_tokens_map.json": {
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd"
+    },
+    "merged/tokenizer.json": {
+      "bytes": 11422654,
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    "merged/tokenizer_config.json": {
+      "bytes": 5404,
+      "sha256": "443bfa629eb16387a12edbf92a76f6a6f10b2af3b53d87ba1550adfcf45f7fa0"
+    },
+    "merged/vocab.json": {
+      "bytes": 2776833,
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    },
+    "metrics.json": {
+      "bytes": 15763,
+      "sha256": "ba952f693406d8a6dbbe694d04a3a97efd0b5726c44a8cf6004af62979c0ca63"
+    },
+    "preflight.json": {
+      "bytes": 949,
+      "sha256": "80a77b43221265cef157833e1eef1c83e2ce06e8584942cdcbea403df6ddb51d"
+    }
+  },
+  "code_provenance": {
+    "dirty_state_sha256": "b970b629ff949e7746cd5f280aaab4282d0a30f1dfb429772f460179f9cc9620",
+    "dirty_worktree": true,
+    "git_commit": "27cbb3c3a91635b7521d1e2e6f9b44f0150bede9"
+  },
+  "duration_seconds": 758.654991163,
+  "finished_at": "2026-08-24T05:52:18.925434Z",
+  "method": {
+    "alpha": 32,
+    "bias": "none",
+    "dropout": 0.05,
+    "merge_adapter_after_training": true,
+    "name": "LORA",
+    "rank": 16,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ]
+  },
+  "model": {
+    "license": "Apache-2.0",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+  },
+  "preflight": {
+    "chat_messages_sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+    "config_id": "edge-imci-qwen3-0.6b-structured-extraction-lora-v1",
+    "config_sha256": "7ab21350b02407c52016c974f9e422be685e79f5d6aeac714ef62cb1ac0228f5",
+    "dataset_manifest_sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "parent_case_count": 78,
+    "partition_counts": {
+      "TEST": 143,
+      "TRAIN": 1239,
+      "VALIDATION": 115
+    },
+    "production_clinical_use_authorized": false,
+    "release_id": "edge-imci-structured-extraction-sft-release-v1",
+    "release_sha256": "a1b066a02f622b3a4285e6969d5b31fac06854b3807fbbd0dc8ad3e3e4b4f805",
+    "status": "READY",
+    "test_partition_returned_to_trainer": false,
+    "test_record_count_checked_but_not_loaded": 143,
+    "trainable_record_count": 1239,
+    "validation_record_count": 115
+  },
+  "production_clinical_use_authorized": false,
+  "run_id": "4b9c196e-d3f7-4e45-a591-f8bf32932a9b",
+  "started_at": "2026-08-24T05:39:40.270472Z",
+  "status": "SUCCEEDED",
+  "test_partition_used": false
+}
