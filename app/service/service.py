@@ -14,11 +14,11 @@ the frozen language renderings. No clinical logic is duplicated or modified.
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
+import os
 from typing import Any
 
-from app.extractor.base import ExtractionError
+from app.extractor.base import EncounterExtractor, ExtractionError
+from app.extractor.modal import ModalEncounterExtractor
 from app.extractor.stub import StubEncounterExtractor
 from app.service.render import (
     render_worker_response,
@@ -32,14 +32,22 @@ from app.service.render import (
 from app.service.result import AnalysisResult, ExtractionPreview, PipelineStep
 
 from edge_imci.evaluation.holistic import evaluate_holistic_encounter
-from edge_imci.schemas.holistic import (
-    HOLISTIC_SCHEMA_VERSION,
-    HolisticEncounter,
+from edge_imci.model_io.encounter import (
+    model_target_to_holistic_encounter,
+    validate_model_facing_encounter,
 )
+from edge_imci.schemas.holistic import HolisticEncounter
 
-_ROOT = Path(__file__).resolve().parents[2]
-_RENDERINGS_PATH = (
-    _ROOT / "data" / "golden" / "holistic_product_v1" / "language_renderings_v1.jsonl"
+EXTRACTOR_MODE_ENV = "EDGEIMCI_EXTRACTOR"
+MODAL_DEMO_TEXT = (
+    "The child is 18 months old and has had cough or difficult breathing for 3 "
+    "days. The child was calm and I counted 52 breaths in one full minute. There "
+    "is no chest indrawing, no stridor when calm, no wheezing, and no history of "
+    "recurrent wheeze. A pulse oximeter is available and the oxygen saturation is "
+    "96 percent. The child is not HIV exposed or infected. No bronchodilator trial "
+    "was done. The child is able to drink or breastfeed, does not vomit everything, "
+    "has had no convulsions, is not convulsing now, and is not lethargic or "
+    "unconscious. The child does not have diarrhoea, fever, or an ear problem."
 )
 
 _EXAMPLE_LABELS = {
@@ -51,34 +59,13 @@ _EXAMPLE_LABELS = {
 }
 
 
-def _load_renderings() -> dict[str, dict[str, Any]]:
-    """Load frozen language renderings for worker-facing response text."""
-    if not _RENDERINGS_PATH.exists():
-        return {}
-    result: dict[str, dict[str, Any]] = {}
-    for line in _RENDERINGS_PATH.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        record = json.loads(line)
-        case_id = record["golden_case_id"]
-        result[case_id] = record
-    return result
-
-
 def _encounter_from_dict(
     target: dict[str, Any], encounter_id: str
 ) -> HolisticEncounter:
-    """Adapt a model-facing encounter dict to the internal HolisticEncounter.
+    """Validate and adapt the public model target through the canonical seam."""
 
-    This mirrors the existing ``model_target_to_holistic_encounter`` adapter
-    but is kept local to avoid depending on uncommitted modules.
-    """
-    from edge_imci.generation.holistic_golden import encounter_from_dict
-
-    payload = dict(target)
-    payload["encounter_id"] = encounter_id
-    payload["schema_version"] = HOLISTIC_SCHEMA_VERSION
-    return encounter_from_dict(payload)
+    validate_model_facing_encounter(target)
+    return model_target_to_holistic_encounter(target, encounter_id=encounter_id)
 
 
 def _is_outside_supported_scope(error: Exception) -> bool:
@@ -243,8 +230,7 @@ def evaluate_extracted_findings(preview: ExtractionPreview) -> AnalysisResult:
     eval_result = evaluate_holistic_encounter(encounter)
 
     # Step 6: Worker-facing rendering (deterministic)
-    renderings = _load_renderings()
-    rendered = render_worker_response(eval_result, preview.matched_case_id, renderings)
+    rendered = render_worker_response(eval_result, preview.structured_encounter)
 
     # Build decision trace from deterministic evidence
     decision_trace = build_decision_trace(eval_result, encounter)
@@ -299,20 +285,39 @@ def analyze_freeform_findings(
     return evaluate_extracted_findings(preview)
 
 
-def create_default_service() -> tuple[Any, list[dict[str, str]]]:
-    """Create the default service components for the prototype.
+def create_default_service(
+    extractor_mode: str | None = None,
+) -> tuple[EncounterExtractor, list[dict[str, str]]]:
+    """Create explicitly configured extraction and example components.
 
     Returns:
         A tuple of ``(extractor, example_cases)``. Each example contains the
         approved worker submission so the UI never reaches into extractor internals.
     """
-    extractor = StubEncounterExtractor()
+    mode = (extractor_mode or os.environ.get(EXTRACTOR_MODE_ENV, "stub")).lower()
+    fixture_extractor = StubEncounterExtractor()
+    if mode == "stub":
+        extractor: EncounterExtractor = fixture_extractor
+    elif mode == "modal":
+        extractor = ModalEncounterExtractor()
+    else:
+        raise ValueError(f"unsupported extractor mode: {mode}")
+
     examples = [
         {
             "id": case_id,
             "label": label,
-            "text": extractor.fixture_text(case_id),
+            "text": fixture_extractor.fixture_text(case_id),
         }
         for case_id, label in _EXAMPLE_LABELS.items()
     ]
+    if mode == "modal":
+        examples.insert(
+            0,
+            {
+                "id": "selected-model-demo-pneumonia",
+                "label": "Selected model demo: pneumonia",
+                "text": MODAL_DEMO_TEXT,
+            },
+        )
     return extractor, examples

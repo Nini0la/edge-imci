@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/synthetic-language-review-output-v1.json",
+  "title": "Automated semantic review of one generated PHC-language candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_schema_id",
+    "subject_id",
+    "verdict",
+    "error_codes",
+    "fact_assessments",
+    "unknown_violations",
+    "unsupported_claims",
+    "style_assessment",
+    "risk_level",
+    "summary"
+  ],
+  "properties": {
+    "review_schema_id": {
+      "const": "edge-imci-synthetic-language-review-output-v1"
+    },
+    "subject_id": {"type": "string", "minLength": 1},
+    "verdict": {"enum": ["PASS", "FAIL", "UNCERTAIN"]},
+    "error_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "FACT_MISSING",
+          "FACT_CONTRADICTED",
+          "FACT_WEAKENED",
+          "UNSUPPORTED_CLAIM",
+          "UNKNOWN_RENDERED_AS_KNOWN",
+          "POLARITY_REVERSAL",
+          "MEASUREMENT_OR_DURATION_ERROR",
+          "QUALIFIER_OR_PROVENANCE_LOST",
+          "INDEPENDENT_FACTS_CONFLATED",
+          "LOGICAL_CONNECTOR_CHANGED",
+          "TARGET_OR_INTERNAL_LEAKAGE",
+          "STYLE_MISMATCH",
+          "UNNATURAL_OR_UNUSABLE_LANGUAGE",
+          "EVIDENCE_AMBIGUOUS",
+          "OTHER_SEMANTIC_DEFECT"
+        ]
+      }
+    },
+    "fact_assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "status", "evidence_text", "issue_code"],
+        "properties": {
+          "fact_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["MATCHED", "MISSING", "CONTRADICTED", "WEAKENED", "AMBIGUOUS"]},
+          "evidence_text": {"type": ["string", "null"]},
+          "issue_code": {
+            "type": ["string", "null"],
+            "enum": [
+              null,
+              "FACT_MISSING",
+              "FACT_CONTRADICTED",
+              "FACT_WEAKENED",
+              "POLARITY_REVERSAL",
+              "MEASUREMENT_OR_DURATION_ERROR",
+              "QUALIFIER_OR_PROVENANCE_LOST",
+              "INDEPENDENT_FACTS_CONFLATED",
+              "LOGICAL_CONNECTOR_CHANGED",
+              "EVIDENCE_AMBIGUOUS",
+              "OTHER_SEMANTIC_DEFECT"
+            ]
+          }
+        }
+      }
+    },
+    "unknown_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["field_path", "evidence_text"],
+        "properties": {
+          "field_path": {"type": "string", "minLength": 1},
+          "evidence_text": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "unsupported_claims": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "style_assessment": {"enum": ["PASS", "FAIL", "UNCERTAIN"]},
+    "risk_level": {"enum": ["LOW", "HIGH"]},
+    "summary": {"type": "string", "minLength": 1, "maxLength": 600}
+  }
+}

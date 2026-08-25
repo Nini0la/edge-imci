@@ -81,8 +81,10 @@ def test_current_registry_and_campaign_encode_required_priority_decisions() -> N
     registry.validate()
     branches = {item["branch_id"]: item for item in registry.branches["branches"]}
 
-    assert branches["qwen3-1.7b-sft-v1"]["priority"] == "CORE"
-    assert "Modal" in branches["qwen3-1.7b-sft-v1"]["title"]
+    assert branches["qwen3-0.6b-sft-v1"]["priority"] == "CORE"
+    assert branches["qwen3-0.6b-sft-v1"]["state"] == "SELECTED"
+    assert "Modal" in branches["qwen3-0.6b-sft-v1"]["title"]
+    assert branches["qwen3-1.7b-sft-v1"]["priority"] == "CONDITIONAL"
     assert branches["fast-standard-api-generation"]["critical_path"] is True
     assert branches["azure-batch-scale"]["priority"] == "CONDITIONAL"
     assert branches["azure-batch-scale"]["state"] == "DORMANT"
@@ -104,8 +106,11 @@ def test_current_registry_and_campaign_encode_required_priority_decisions() -> N
         "qwen3-1.7b-sft-v1-management-eval",
         "qwen3-1.7b-sft-v1-completeness-eval",
         "qwen3-1.7b-sft-v1-urgent-incomplete-eval",
+        "qwen3-1.7b-structured-extraction-sft-v1-modal",
+        "qwen3-0.6b-lower-bound-v1",
     }
-    assert all(status in {"PLANNED", "SUPERSEDED"} for status in statuses.values())
+    assert all(status in {"PLANNED", "COMPLETE", "SUPERSEDED"} for status in statuses.values())
+    assert statuses["qwen3-0.6b-structured-extraction-sft-v1-modal"] == "COMPLETE"
 
 
 def test_yaml_mirror_is_deterministic_and_semantically_equal(tmp_path: Path) -> None:

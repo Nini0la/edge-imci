@@ -8,6 +8,7 @@ describe("buildChecklist", () => {
 
     expect(checklist.age.state).toBe("unknown");
     expect(checklist.sections.flatMap((section) => section.items).every((item) => item.state === "unknown")).toBe(true);
+    expect(checklist.sections.every((section) => section.completion === "pending")).toBe(true);
   });
 
   it("distinguishes explicit negatives from unknown findings", () => {
@@ -31,6 +32,11 @@ describe("buildChecklist", () => {
     const danger = checklist.sections.find((section) => section.id === "danger")!;
     expect(danger.items.find((item) => item.label === "Unable to drink or breastfeed")?.state).toBe("absent");
     expect(danger.items.find((item) => item.label === "Vomits everything")?.state).toBe("unknown");
+    expect(danger.completion).toBe("incomplete");
+    expect(checklist.sections.find((section) => section.id === "respiratory")?.completion).toBe("complete");
+    expect(checklist.sections.find((section) => section.id === "diarrhoea")?.completion).toBe("incomplete");
+    expect(checklist.sections.find((section) => section.id === "fever")?.completion).toBe("complete");
+    expect(checklist.sections.find((section) => section.id === "ear")?.completion).toBe("complete");
   });
 
   it("uses urgent only when deterministic evidence identifies an urgent finding", () => {

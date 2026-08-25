@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/provisional-product-candidate-v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "designation_id",
+    "status",
+    "authority",
+    "designated_at",
+    "candidate",
+    "roles",
+    "evidence",
+    "constraints",
+    "next_required_actions"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "designation_id": {"const": "edge-imci-provisional-product-candidate-v1"},
+    "status": {"const": "PROVISIONAL_PRODUCT_AND_SUBMISSION_PLACEHOLDER"},
+    "authority": {"const": "PROJECT_OWNER"},
+    "designated_at": {"type": "string", "format": "date-time"},
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "model_id",
+        "base_revision",
+        "training_run_id",
+        "cell_id",
+        "artifact_volume",
+        "artifact_path",
+        "manifest_sha256",
+        "model_weights_sha256"
+      ],
+      "properties": {
+        "candidate_id": {"const": "qwen3-0.6b-sft-selected-seed-20260824"},
+        "model_id": {"const": "Qwen/Qwen3-0.6B"},
+        "base_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "training_run_id": {"type": "string", "minLength": 1},
+        "cell_id": {"type": "string", "minLength": 1},
+        "artifact_volume": {"const": "edge-imci-finetune-artifacts"},
+        "artifact_path": {"type": "string", "minLength": 1},
+        "manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "model_weights_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_product_model",
+        "submission_placeholder",
+        "adtc_profiling_source",
+        "replacement_allowed"
+      ],
+      "properties": {
+        "current_product_model": {"const": true},
+        "submission_placeholder": {"const": true},
+        "adtc_profiling_source": {"const": true},
+        "replacement_allowed": {"const": true}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reserved_test_report",
+        "reserved_test_report_sha256",
+        "posthoc_base_report",
+        "posthoc_base_report_sha256",
+        "exact_match_rate",
+        "field_accuracy",
+        "schema_valid_rate",
+        "decision_equivalence_rate"
+      ],
+      "properties": {
+        "reserved_test_report": {"type": "string", "minLength": 1},
+        "reserved_test_report_sha256": {"$ref": "#/$defs/sha256"},
+        "posthoc_base_report": {"type": "string", "minLength": 1},
+        "posthoc_base_report_sha256": {"$ref": "#/$defs/sha256"},
+        "exact_match_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "field_accuracy": {"type": "number", "minimum": 0, "maximum": 1},
+        "schema_valid_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "decision_equivalence_rate": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provisional_only",
+        "clinical_threshold_failures",
+        "production_clinical_use_authorized",
+        "deployment_qualified",
+        "adtc_compatible_artifact_available"
+      ],
+      "properties": {
+        "provisional_only": {"const": true},
+        "clinical_threshold_failures": {"const": 6},
+        "production_clinical_use_authorized": {"const": false},
+        "deployment_qualified": {"const": false},
+        "adtc_compatible_artifact_available": {"const": false}
+      }
+    },
+    "next_required_actions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

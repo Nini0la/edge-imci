@@ -1,0 +1,29 @@
+{
+  "authorization_id": "qwen3-0.6b-sft-calibration-execution-v1",
+  "authorized_at": "2026-08-24",
+  "authorized_by": "project-owner",
+  "matrix_id": "qwen3-0.6b-sft-calibration-v1",
+  "scope": {
+    "new_run_limit": 23,
+    "gpu_type": "A10G",
+    "gpu_count_per_run": 1,
+    "max_parallel_runs": 4,
+    "max_gpu_seconds": 21600,
+    "test_partition_use_authorized": false,
+    "production_clinical_use_authorized": false,
+    "deployment_authorized": false
+  },
+  "operating_mode": {
+    "mode_id": "AUTOMATIC_EVIDENCE",
+    "routine_codex_review_of_examples": false,
+    "routine_codex_review_of_datasets": false,
+    "deterministic_validation_required": true,
+    "aggregate_reporting_only": true,
+    "retain_machine_readable_receipts": true,
+    "escalate_only_for": [
+      "SYSTEMIC_EXECUTION_FAILURE",
+      "BUDGET_GUARD",
+      "MISSING_EVALUATION_EVIDENCE"
+    ]
+  }
+}

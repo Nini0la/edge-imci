@@ -8,6 +8,7 @@ from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import mimetypes
+import os
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urlparse
@@ -211,8 +212,16 @@ def make_server(
     port: int = 8000,
     *,
     static_root: Path = DEFAULT_STATIC_ROOT,
+    extractor: Any | None = None,
+    examples: list[dict[str, str]] | None = None,
+    extractor_mode: str | None = None,
 ) -> ThreadingHTTPServer:
-    extractor, examples = create_default_service()
+    if extractor is None:
+        extractor, configured_examples = create_default_service(extractor_mode)
+        if examples is None:
+            examples = configured_examples
+    elif examples is None:
+        examples = []
     handler = _handler_class(extractor, examples, static_root)
     return ThreadingHTTPServer((host, port), handler)
 
@@ -223,9 +232,15 @@ def main() -> None:
     )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", default=8000, type=int)
+    parser.add_argument(
+        "--extractor",
+        choices=("stub", "modal"),
+        default=os.environ.get("EDGEIMCI_EXTRACTOR", "modal"),
+        help="Extraction backend; defaults to EDGEIMCI_EXTRACTOR or modal.",
+    )
     args = parser.parse_args()
 
-    server = make_server(args.host, args.port)
+    server = make_server(args.host, args.port, extractor_mode=args.extractor)
     print(f"EdgeIMCI available at http://{args.host}:{server.server_port}")
     try:
         server.serve_forever()

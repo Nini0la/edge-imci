@@ -13,6 +13,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from edge_imci.generation.holistic_language_full import (
+    ACQUISITION_SPECS,
+    render_assistant,
+)
 from edge_imci.schemas.holistic import (
     HolisticEncounter,
     HolisticEvaluationResult,
@@ -400,101 +404,88 @@ def humanize_missing_element(field_path: str) -> str:
         "danger_signs.lethargic_or_unconscious": "Whether the child is lethargic or unconscious",
         "danger_signs.convulsing_now": "Whether the child is convulsing now",
     }
-    return _MISSING_LABELS.get(field_path, field_path.split(".")[-1].replace("_", " "))
+    if field_path in _MISSING_LABELS:
+        return _MISSING_LABELS[field_path]
+    for path, label, _ in _FIELD_LABELS:
+        if path == field_path:
+            return label
+    return field_path.split(".")[-1].replace("_", " ")
+
+
+def _render_runtime_incomplete(eval_result: HolisticEvaluationResult) -> str:
+    """Render incomplete runtime states beyond the frozen golden field slices."""
+
+    blocks: list[str] = []
+    if eval_result.urgent_action_required:
+        blocks.append("URGENT: Act now and do not delay referral.")
+        if eval_result.urgent_actions:
+            blocks.append(
+                "Immediate management:\n"
+                + "\n".join(
+                    f"- {humanize_action(action.value)}"
+                    for action in eval_result.urgent_actions
+                )
+            )
+
+    blocks.append("ASSESSMENT INCOMPLETE")
+    if eval_result.contradictions:
+        blocks.append(
+            "Conflicting or invalid findings:\n"
+            + "\n".join(f"- {item}." for item in eval_result.contradictions)
+        )
+
+    requests: list[str] = []
+    for fields in eval_result.missing_elements.values():
+        for field in fields:
+            approved = ACQUISITION_SPECS.get(field)
+            if approved:
+                requests.append(approved[1])
+            else:
+                requests.append(f"Confirm {humanize_missing_element(field).lower()}.")
+    if requests:
+        heading = (
+            "Information still needed:"
+            if eval_result.urgent_action_required
+            else "Information needed:"
+        )
+        blocks.append(heading + "\n" + "\n".join(f"- {item}" for item in requests))
+
+    if eval_result.urgent_action_required:
+        blocks.append(
+            "Complete these checks rapidly, but do not delay referral. The final holistic "
+            "classifications and complete management plan remain pending."
+        )
+    else:
+        blocks.append(
+            "I cannot provide the final classifications and complete management plan until "
+            "these findings are supplied."
+        )
+    return "\n\n".join(blocks)
 
 
 def render_worker_response(
     eval_result: HolisticEvaluationResult,
-    matched_case_id: str | None,
-    renderings: dict[str, dict[str, Any]],
+    model_target: dict[str, Any],
 ) -> str:
-    """Render the worker-facing response deterministically.
+    """Render with the approved deterministic response grammar."""
 
-    If we have a frozen language rendering for this case, use it directly.
-    Otherwise, construct a response from the evaluation result using the
-    approved response grammar.
-    """
-
-    # Prefer frozen language rendering when available
-    if matched_case_id and matched_case_id in renderings:
-        record = renderings[matched_case_id]
-        for msg in record.get("conversation", []):
-            if msg["role"] == "assistant":
-                return msg["content"]
-
-    # Fall back to deterministic rendering from evaluation result
-    lines: list[str] = []
-
-    if eval_result.urgent_action_required:
-        lines.append("URGENT: Act now and do not delay referral.")
-        lines.append("")
-
-    if eval_result.supported_encounter_complete:
-        if eval_result.final_classifications:
-            lines.append("Classifications:")
-            for c in eval_result.final_classifications:
-                lines.append(f"- {humanize_classification(c.classification.value)}")
-            lines.append("")
-
-        if eval_result.final_actions:
-            if eval_result.urgent_action_required:
-                lines.append("Immediate management:")
-            else:
-                lines.append("Management:")
-            for a in eval_result.final_actions:
-                lines.append(f"- {humanize_action(a.value)}")
-            lines.append("")
-
-        if eval_result.deferred_actions:
-            lines.append("Deferred routine care:")
-            for a in eval_result.deferred_actions:
-                lines.append(f"- {humanize_action(a.value)}")
-            lines.append("")
-
-        if not eval_result.final_classifications and not eval_result.final_actions:
-            lines.append("Classifications:")
-            lines.append(
-                "- None of the currently supported classifications is triggered."
-            )
-            lines.append("")
-            lines.append("Management:")
-            lines.append(
-                "- No management action is indicated by the supported assessment."
-            )
-    else:
-        # Incomplete
-        if eval_result.urgent_actions:
-            lines.append("Immediate management:")
-            for a in eval_result.urgent_actions:
-                lines.append(f"- {humanize_action(a.value)}")
-            lines.append("")
-
-        lines.append("ASSESSMENT INCOMPLETE")
-        lines.append("")
-
-        if eval_result.contradictions:
-            lines.append("Conflicting or invalid findings:")
-            for c in eval_result.contradictions:
-                lines.append(f"- {c}")
-            lines.append("")
-
-        if eval_result.missing_elements:
-            heading = (
-                "Information still needed:"
-                if eval_result.urgent_action_required
-                else "Information needed:"
-            )
-            lines.append(heading)
-            for pathway, fields in eval_result.missing_elements.items():
-                for field in fields:
-                    lines.append(f"- {humanize_missing_element(field)}")
-            lines.append("")
-
-        lines.append(
-            "I cannot provide the final classifications and complete management plan until these findings are supplied."
-        )
-
-    return "\n".join(lines).strip()
+    semantic_record = {
+        "input": {"kind": "HOLISTIC_ENCOUNTER", "encounter": model_target},
+        "expected": {
+            "kind": "HOLISTIC_EVALUATION",
+            "evaluation": eval_result.to_dict(),
+        },
+    }
+    missing = {
+        field
+        for fields in eval_result.missing_elements.values()
+        for field in fields
+    }
+    if not eval_result.supported_encounter_complete and not missing.issubset(
+        ACQUISITION_SPECS
+    ):
+        return _render_runtime_incomplete(eval_result)
+    return render_assistant(semantic_record)
 
 
 def build_decision_trace(
@@ -509,7 +500,7 @@ def build_decision_trace(
 
     traces: list[TraceEntry] = []
 
-    for ct in eval_result.internal_classifications:
+    for ct in eval_result.final_classifications:
         pathway_label = _PATHWAY_LABELS.get(ct.pathway.value, ct.pathway.value)
         rule_desc = _RULE_DESCRIPTIONS.get(
             ct.rule_id, f"Deterministic rule: {ct.rule_id}"

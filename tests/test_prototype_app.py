@@ -96,6 +96,70 @@ def test_result_payload_includes_derived_state() -> None:
     assert payload["structured_view"]
 
 
+def test_worker_response_uses_approved_deterministic_action_order() -> None:
+    extractor, examples = create_default_service()
+    result = analyze_freeform_findings(examples[0]["text"], extractor=extractor)
+
+    assert result.rendered_response.startswith("Classifications:")
+
+
+def test_partial_model_target_renders_incomplete_assessment_directive() -> None:
+    encounter = {
+        "danger_signs": {
+            "convulsing_now": None,
+            "had_convulsions": None,
+            "lethargic_or_unconscious": None,
+            "unable_to_drink_or_breastfeed": None,
+            "vomits_everything": None,
+        },
+        "diarrhoea": None,
+        "ear": None,
+        "fever": None,
+        "patient_facts": {
+            "age_months": 20,
+            "has_cough_or_difficult_breathing": True,
+            "has_diarrhoea": None,
+            "has_ear_problem": None,
+            "has_fever": None,
+        },
+        "respiratory": {
+            "breaths_counted_one_minute": None,
+            "bronchodilator_trial_completed": None,
+            "chest_indrawing": None,
+            "child_calm": None,
+            "cough_duration_days": None,
+            "hiv_exposed_or_infected": None,
+            "oxygen_saturation_percent": None,
+            "post_bronchodilator_breaths_counted_one_minute": None,
+            "post_bronchodilator_chest_indrawing": None,
+            "post_bronchodilator_child_calm": None,
+            "post_bronchodilator_respiratory_rate": None,
+            "pulse_oximeter_available": None,
+            "recurrent_wheeze": None,
+            "respiratory_rate": None,
+            "stridor_when_calm": None,
+            "wheezing": None,
+        },
+    }
+
+    class PartialExtractor:
+        mode_label = "test partial extractor"
+
+        def extract(self, free_text: str) -> ExtractionResult:
+            return ExtractionResult(encounter=encounter, extraction_mode=self.mode_label)
+
+    result = analyze_freeform_findings(
+        "The child is 20 months old and has cough.", extractor=PartialExtractor()
+    )
+
+    assert result.state == "INCOMPLETE"
+    assert result.schema_valid
+    assert result.classifications == []
+    assert result.rendered_response.startswith("ASSESSMENT INCOMPLETE")
+    assert "Information needed:" in result.rendered_response
+    assert result.rendered_response.endswith("these findings are supplied.")
+
+
 def test_worker_review_separates_extraction_from_decision_engine() -> None:
     extractor, examples = create_default_service()
 

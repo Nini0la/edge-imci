@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-sft-calibration-v1",
+  "currency": "USD",
+  "a10g_gpu_rate_per_second": 0.000306,
+  "a10g_gpu_rate_per_hour": 1.1016,
+  "rate_source": "https://modal.com/pricing",
+  "successful_prospective_gpu_seconds": 17657.318700869,
+  "reused_baseline_evaluation_gpu_seconds": 138.790051132,
+  "failed_canary_attempt_count": 3,
+  "failed_canary_estimated_gpu_seconds": 1060.245,
+  "authorized_campaign_estimated_gpu_seconds": 18856.353752001,
+  "authorized_campaign_estimated_gpu_hours": 5.2378760422225,
+  "authorized_campaign_estimated_gpu_cost": 5.770044248112306,
+  "historical_reused_baseline_training_gpu_seconds": 758.654991163,
+  "full_matrix_estimated_gpu_seconds": 19615.008743164,
+  "full_matrix_estimated_gpu_hours": 5.448613539767778,
+  "full_matrix_estimated_gpu_cost": 6.002192675408184,
+  "authorized_gpu_seconds_cap": 21600.0,
+  "cap_exceeded": false,
+  "notes": [
+    "Failed canary jobs raised before local metering receipts were written; their duration is conservatively estimated from the plan.",
+    "Amounts cover A10G GPU time only; provider CPU, memory, storage, and network charges are excluded.",
+    "Historical baseline training predates the matrix authorization and is shown separately to make the full-matrix total explicit."
+  ]
+}

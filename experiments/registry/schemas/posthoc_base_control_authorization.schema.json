@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/posthoc-base-control-authorization-1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "diagnostic_id",
+    "status",
+    "authority",
+    "authorized_at",
+    "purpose",
+    "original_evidence",
+    "comparison",
+    "prompt_treatment",
+    "generation",
+    "runner",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "diagnostic_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "status": {"const": "AUTHORIZED_POST_HOC_SCHEMA_INFORMED_BASE_CONTROL"},
+    "authority": {"const": "PROJECT_OWNER"},
+    "authorized_at": {"type": "string", "format": "date-time"},
+    "purpose": {"const": "CORRECT_UNDERSPECIFIED_BASE_PROMPT"},
+    "original_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_id",
+        "policy_path",
+        "policy_sha256",
+        "aggregate_report_path",
+        "aggregate_report_file_sha256",
+        "aggregate_report_sha256"
+      ],
+      "properties": {
+        "authorization_id": {"type": "string", "minLength": 1},
+        "policy_path": {"type": "string", "minLength": 1},
+        "policy_sha256": {"$ref": "#/$defs/sha256"},
+        "aggregate_report_path": {"type": "string", "minLength": 1},
+        "aggregate_report_file_sha256": {"$ref": "#/$defs/sha256"},
+        "aggregate_report_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corrected_base_candidate_id",
+        "source_base_candidate_id",
+        "historical_selected_candidate_id",
+        "historical_selected_prediction_sha256"
+      ],
+      "properties": {
+        "corrected_base_candidate_id": {"type": "string", "minLength": 1},
+        "source_base_candidate_id": {"type": "string", "minLength": 1},
+        "historical_selected_candidate_id": {"type": "string", "minLength": 1},
+        "historical_selected_prediction_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "prompt_treatment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schema_path",
+        "schema_sha256",
+        "example_output_path",
+        "example_output_sha256",
+        "prompt_sha256"
+      ],
+      "properties": {
+        "kind": {"const": "SCHEMA_INFORMED_BASE_CONTROL_V1"},
+        "schema_path": {"const": "configs/model_io/model_facing_encounter_v1.schema.json"},
+        "schema_sha256": {"$ref": "#/$defs/sha256"},
+        "example_output_path": {"const": "configs/evaluation/schema_informed_base_example_v1.json"},
+        "example_output_sha256": {"$ref": "#/$defs/sha256"},
+        "prompt_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["chat_template", "enable_thinking", "max_new_tokens", "do_sample", "batch_size"],
+      "properties": {
+        "chat_template": {"const": "PINNED_QWEN3_TOKENIZER_TEMPLATE"},
+        "enable_thinking": {"const": false},
+        "max_new_tokens": {"type": "integer", "minimum": 1},
+        "do_sample": {"const": false},
+        "batch_size": {"type": "integer", "minimum": 1}
+      }
+    },
+    "runner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"const": "src/edge_imci/evaluation/modal_posthoc_base_control.py"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "test_partition_use_count_limit",
+        "corrected_base_inference_only",
+        "historical_selected_predictions_reused",
+        "fine_tuned_candidate_inference_prohibited",
+        "original_evidence_immutable",
+        "aggregate_only_release",
+        "routine_record_review_prohibited",
+        "post_hoc_label_required",
+        "untouched_test_claim_prohibited",
+        "new_pass_fail_claim_prohibited"
+      ],
+      "properties": {
+        "test_partition_use_count_limit": {"const": 1},
+        "corrected_base_inference_only": {"const": true},
+        "historical_selected_predictions_reused": {"const": true},
+        "fine_tuned_candidate_inference_prohibited": {"const": true},
+        "original_evidence_immutable": {"const": true},
+        "aggregate_only_release": {"const": true},
+        "routine_record_review_prohibited": {"const": true},
+        "post_hoc_label_required": {"const": true},
+        "untouched_test_claim_prohibited": {"const": true},
+        "new_pass_fail_claim_prohibited": {"const": true}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

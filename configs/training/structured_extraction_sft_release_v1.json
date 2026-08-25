@@ -1,0 +1,40 @@
+{
+  "release_id": "edge-imci-structured-extraction-sft-release-v1",
+  "status": "AUTHORIZED_FOR_EXPLORATORY_SFT",
+  "authority": "PROJECT_OWNER_DIRECT_INSTRUCTION",
+  "authorized_at": "2026-08-24",
+  "instruction_summary": "Establish the Modal fine-tuning pipeline and run the first fine-tune now on the confirmed Qwen3-0.6B option while data generation, profiling, and other candidate evaluation continue in parallel.",
+  "dataset": {
+    "campaign_id": "edge-imci-structured-extraction-language-campaign-v1",
+    "manifest_path": "data/training_sources/structured_extraction_campaign_v1/manifest.json",
+    "manifest_sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+    "chat_messages_path": "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl",
+    "chat_messages_sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+    "authorized_partitions": {
+      "TRAIN": 1239,
+      "VALIDATION": 115
+    },
+    "prohibited_partitions": {
+      "TEST": 143
+    }
+  },
+  "model": {
+    "model_id": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "selection_basis": "PROJECT_OWNER_CONFIRMED_OPTION"
+  },
+  "execution": {
+    "environment": "MODAL",
+    "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+    "execution_class": "EXPLORATORY_FIRST_SFT",
+    "parallel_work_authorized": true,
+    "formal_asus_admission_artifact": null,
+    "pre_admission_disposition": "This exploratory run may proceed in parallel; it does not claim target-device admission or authorize deployment."
+  },
+  "authorization": {
+    "training_authorized": true,
+    "test_partition_use_authorized": false,
+    "production_clinical_use_authorized": false,
+    "deployment_authorized": false
+  }
+}

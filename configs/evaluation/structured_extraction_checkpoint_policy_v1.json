@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "edge-imci-structured-extraction-checkpoint-validation-v1",
+  "dataset": {
+    "path": "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl",
+    "sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+    "partition": "VALIDATION",
+    "expected_record_count": 115
+  },
+  "controls": {
+    "test_partition_prohibited": true,
+    "missing_predictions_score_as_failures": true
+  },
+  "promotion": {
+    "global_minimums": {
+      "coverage_rate": 1.0,
+      "json_parse_rate": 1.0,
+      "schema_valid_rate": 1.0,
+      "field_accuracy": 0.995,
+      "decision_equivalence_rate": 0.99,
+      "urgent_action_equivalence_rate": 1.0,
+      "referral_behavior_equivalence_rate": 1.0
+    },
+    "per_style_minimums": {
+      "schema_valid_rate": 1.0,
+      "urgent_action_equivalence_rate": 1.0,
+      "referral_behavior_equivalence_rate": 1.0
+    },
+    "ranking_order": [
+      "urgent_action_equivalence_rate",
+      "referral_behavior_equivalence_rate",
+      "decision_equivalence_rate",
+      "schema_valid_rate",
+      "field_accuracy",
+      "exact_match_rate"
+    ]
+  }
+}

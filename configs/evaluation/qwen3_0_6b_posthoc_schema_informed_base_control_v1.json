@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "diagnostic_id": "edge-imci-qwen3-0.6b-posthoc-schema-informed-base-20260824-v1",
+  "status": "AUTHORIZED_POST_HOC_SCHEMA_INFORMED_BASE_CONTROL",
+  "authority": "PROJECT_OWNER",
+  "authorized_at": "2026-08-24T18:09:13Z",
+  "purpose": "CORRECT_UNDERSPECIFIED_BASE_PROMPT",
+  "original_evidence": {
+    "authorization_id": "edge-imci-qwen3-0.6b-reserved-test-20260824-v1",
+    "policy_path": "configs/evaluation/qwen3_0_6b_one_shot_test_v1.json",
+    "policy_sha256": "9b24b2ae7e4968a122e1e5fa77c3d1213a3bfe237fa67d1c52b479c632d788dd",
+    "aggregate_report_path": "experiments/evaluation/qwen3-0.6b-one-shot-test-v1/aggregate_report_final_v2.json",
+    "aggregate_report_file_sha256": "311c52bcf063e840bfa37f0212b1eec940224a57ee03b257c734e7ecf3f51f63",
+    "aggregate_report_sha256": "5e68ebccaaffaf1fae2413f71a1fa3cdaf9bdac5f294c5a6a1a14179d706522f"
+  },
+  "comparison": {
+    "corrected_base_candidate_id": "qwen3-0.6b-base-schema-informed-posthoc-v1",
+    "source_base_candidate_id": "qwen3-0.6b-base-control",
+    "historical_selected_candidate_id": "qwen3-0.6b-sft-selected-seed-20260824",
+    "historical_selected_prediction_sha256": "179e216a0aaec63864d0e529a1bb8c5ee44c135082389f4fc3ff9f161a51bb45"
+  },
+  "prompt_treatment": {
+    "kind": "SCHEMA_INFORMED_BASE_CONTROL_V1",
+    "schema_path": "configs/model_io/model_facing_encounter_v1.schema.json",
+    "schema_sha256": "f793d54bf18aecf747a06b6facb6f1c29a3626cb081d190f079d60220ceba335",
+    "example_output_path": "configs/evaluation/schema_informed_base_example_v1.json",
+    "example_output_sha256": "5caf3acaba9d35f2b6eba7d22a04f0c129d2d77638981928383af252b7209647",
+    "prompt_sha256": "a219fca06393a980d181562b0906d7fe3c92ba36c91172bee6e0fbed2a32cc3e"
+  },
+  "generation": {
+    "chat_template": "PINNED_QWEN3_TOKENIZER_TEMPLATE",
+    "enable_thinking": false,
+    "max_new_tokens": 1200,
+    "do_sample": false,
+    "batch_size": 8
+  },
+  "runner": {
+    "path": "src/edge_imci/evaluation/modal_posthoc_base_control.py",
+    "sha256": "2f860fad020ea708524c9c015f91966b47063fbb79b66bd870e0d5f9f0356ae8"
+  },
+  "controls": {
+    "test_partition_use_count_limit": 1,
+    "corrected_base_inference_only": true,
+    "historical_selected_predictions_reused": true,
+    "fine_tuned_candidate_inference_prohibited": true,
+    "original_evidence_immutable": true,
+    "aggregate_only_release": true,
+    "routine_record_review_prohibited": true,
+    "post_hoc_label_required": true,
+    "untouched_test_claim_prohibited": true,
+    "new_pass_fail_claim_prohibited": true
+  }
+}

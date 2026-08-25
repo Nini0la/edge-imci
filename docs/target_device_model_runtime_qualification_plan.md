@@ -2,6 +2,8 @@
 
 > **Authority:** `WORKING_PLAN` · **Lifecycle:** `CURRENT` · This gate precedes candidate-specific fine-tuning and is repeated after deployment conversion or quantization.
 
+> **Current campaign note (2026-08-25):** Fine-tuning and project-owner provisional selection have already occurred for Qwen3-0.6B run `251039a3-4adc-4e74-8c30-069eb8aca6de`. Agents working on the current submission must start from [`adtc_submission_and_asus_profiling_handoff_v1.md`](adtc_submission_and_asus_profiling_handoff_v1.md). The pre-fine-tuning material below remains methodological background; it is not an instruction to reopen candidate selection.
+
 ## Decision being made
 
 EdgeIMCI does not admit a model name to fine-tuning. It admits an exact candidate model-runtime combination that has demonstrated adequate baseline task capability and acceptable operation on the intended ASUS Ubuntu deployment computer.

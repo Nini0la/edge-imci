@@ -1,6 +1,7 @@
 import type { AnalysisResult } from "../types";
 
 export type ChecklistState = "present" | "absent" | "unknown" | "urgent";
+export type SectionCompletion = "pending" | "complete" | "incomplete";
 export type AssessmentMethod = "ASK" | "LOOK / LISTEN / FEEL" | "MEASURE" | "IF INDICATED";
 
 export interface ChecklistItem {
@@ -27,6 +28,7 @@ export interface ChecklistSection {
   items: ChecklistItem[];
   guidance: AssessmentGuidance[];
   state: ChecklistState;
+  completion: SectionCompletion;
   inactive: boolean;
 }
 
@@ -576,8 +578,8 @@ function hasSevereDehydrationInOlderChild(encounter: Record<string, unknown>): b
   const severeSigns = [
     getValue(encounter, "danger_signs.lethargic_or_unconscious") === true,
     getValue(encounter, "diarrhoea.dehydration.sunken_eyes") === true,
-    ["UNABLE", "DRINKS_POORLY"].includes(String(getValue(encounter, "diarrhoea.dehydration.drinking_status"))),
-    getValue(encounter, "diarrhoea.dehydration.skin_pinch") === "VERY_SLOW",
+    ["UNABLE", "POORLY"].includes(String(getValue(encounter, "diarrhoea.dehydration.drinking_status"))),
+    getValue(encounter, "diarrhoea.dehydration.skin_pinch") === "VERY_SLOWLY",
   ];
   return severeSigns.filter(Boolean).length >= 2;
 }
@@ -646,6 +648,11 @@ export function buildChecklist(
         : items.some((item) => item.state === "present")
           ? "present"
           : "absent";
+    const completion: SectionCompletion = !encounter
+      ? "pending"
+      : items.some((item) => item.state === "unknown")
+        ? "incomplete"
+        : "complete";
     return {
       id: section.id,
       label: section.label,
@@ -654,6 +661,7 @@ export function buildChecklist(
       items,
       guidance: section.guidance ?? [],
       state,
+      completion,
       inactive,
     };
   });

@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "authorization_id": "edge-imci-qwen3-0.6b-reserved-test-20260824-v1",
+  "test_status": "FAILED_CLOSED",
+  "closed_at": "2026-08-24T12:22:25.430617Z",
+  "closure_reason": "AUTHORIZED_ONE_SHOT_FAILED",
+  "failure_type": "RuntimeError",
+  "policy_sha256": "9b24b2ae7e4968a122e1e5fa77c3d1213a3bfe237fa67d1c52b479c632d788dd",
+  "aggregate_only": true,
+  "routine_record_review_performed": false
+}

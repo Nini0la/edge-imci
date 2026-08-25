@@ -1,0 +1,129 @@
+{
+  "receipt_id": "edge-imci-qwen3-0.6b-first-interactive-demo-v1",
+  "created_at": "2026-08-24T06:20:46.316333Z",
+  "test_partition_used": false,
+  "production_clinical_use_authorized": false,
+  "result": {
+    "training_run_id": "4b9c196e-d3f7-4e45-a591-f8bf32932a9b",
+    "model_path": "/outputs/4b9c196e-d3f7-4e45-a591-f8bf32932a9b/merged",
+    "input_text": "The child is currently convulsing. The child has not had convulsions before. The child is not lethargic or unconscious. The child is able to drink or breastfeed. The child does not vomit everything. The child's age is 18 months. The child does not have cough or difficult breathing. The child does not have diarrhoea. The child does not have an ear problem. The child does not have fever.",
+    "raw_response": "{\"danger_signs\":{\"convulsing_now\":true,\"had_convulsions\":false,\"lethargic_or_unconscious\":false,\"unable_to_drink_or_breastfeed\":false,\"vomits_everything\":false},\"diarrhoea\":null,\"ear\":null,\"fever\":null,\"patient_facts\":{\"age_months\":18,\"has_cough_or_difficult_breathing\":false,\"has_diarrhoea\":false,\"has_ear_problem\":false,\"has_fever\":false},\"respiratory\":null}",
+    "parsed_target": {
+      "danger_signs": {
+        "convulsing_now": true,
+        "had_convulsions": false,
+        "lethargic_or_unconscious": false,
+        "unable_to_drink_or_breastfeed": false,
+        "vomits_everything": false
+      },
+      "diarrhoea": null,
+      "ear": null,
+      "fever": null,
+      "patient_facts": {
+        "age_months": 18,
+        "has_cough_or_difficult_breathing": false,
+        "has_diarrhoea": false,
+        "has_ear_problem": false,
+        "has_fever": false
+      },
+      "respiratory": null
+    },
+    "schema_valid": true,
+    "parse_error": null,
+    "schema_error": null,
+    "adapter_error": null,
+    "downstream_evaluation": {
+      "rule_set_id": "imci-major-sick-child-v1",
+      "completeness_policy_id": "imci-major-sick-child-holistic-completeness-v2",
+      "supported_encounter_complete": true,
+      "final_holistic_synthesis_authorized": true,
+      "urgent_action_required": true,
+      "internal_classifications": [
+        {
+          "pathway": "general_danger_signs",
+          "classification": "VERY_SEVERE_DISEASE",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "stage": "INITIAL"
+        }
+      ],
+      "final_classifications": [
+        {
+          "pathway": "general_danger_signs",
+          "classification": "VERY_SEVERE_DISEASE",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "stage": "INITIAL"
+        }
+      ],
+      "urgent_actions": [
+        "COMPLETE_ASSESSMENT_QUICKLY",
+        "GIVE_DIAZEPAM_IF_CONVULSING_NOW",
+        "GIVE_PRE_REFERRAL_TREATMENT_IMMEDIATELY",
+        "KEEP_WARM",
+        "PREVENT_LOW_BLOOD_SUGAR",
+        "URGENT_REFERRAL"
+      ],
+      "intermediate_actions": [],
+      "deferred_actions": [],
+      "final_actions": [
+        "COMPLETE_ASSESSMENT_QUICKLY",
+        "GIVE_DIAZEPAM_IF_CONVULSING_NOW",
+        "GIVE_PRE_REFERRAL_TREATMENT_IMMEDIATELY",
+        "KEEP_WARM",
+        "PREVENT_LOW_BLOOD_SUGAR",
+        "URGENT_REFERRAL"
+      ],
+      "action_trace": [
+        {
+          "action": "COMPLETE_ASSESSMENT_QUICKLY",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        },
+        {
+          "action": "GIVE_PRE_REFERRAL_TREATMENT_IMMEDIATELY",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        },
+        {
+          "action": "PREVENT_LOW_BLOOD_SUGAR",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        },
+        {
+          "action": "KEEP_WARM",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        },
+        {
+          "action": "URGENT_REFERRAL",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        },
+        {
+          "action": "GIVE_DIAZEPAM_IF_CONVULSING_NOW",
+          "rule_id": "IMCI-MSC-GDS-CONVULSING-NOW",
+          "effect": "ADDED",
+          "reason": ""
+        }
+      ],
+      "fired_rule_ids": [
+        "IMCI-MSC-GDS-CONVULSING-NOW"
+      ],
+      "missing_elements": {},
+      "unresolved_question_ids": [],
+      "contradictions": []
+    },
+    "runtime": {
+      "gpu_name": "NVIDIA A10",
+      "load_seconds": 2.3709811320000007,
+      "generation_seconds": 3.3401264259999994,
+      "input_tokens": 161,
+      "output_tokens": 115,
+      "output_tokens_per_second": 34.42983448315738
+    }
+  }
+}

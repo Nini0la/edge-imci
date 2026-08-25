@@ -1,7 +1,8 @@
 # EdgeIMCI prototype application
 
-This application layer connects the fixture-based extraction prototype to the
-existing deterministic clinical engine and the React worker interface.
+This application layer connects either the offline fixture extractor or the
+selected Qwen3-0.6B Modal checkpoint to the deterministic clinical engine and
+React worker interface.
 
 ## Production-style local run
 
@@ -16,6 +17,20 @@ PYTHONPATH="src:." python -m app
 ```
 
 Open `http://127.0.0.1:8000`.
+
+The application CLI defaults to the selected Modal checkpoint. Deploy the
+pinned function once, then start the workstation:
+
+```bash
+uv run --extra modal-training modal deploy \
+  -m edge_imci.inference.modal_structured_extraction
+uv run --extra modal-training python -m app
+```
+
+The browser never receives Modal credentials. The backend accepts model output
+only when the run ID, weights checksum, JSON parse, and model-facing schema all
+match the selected candidate, then reruns the authoritative deterministic
+adapter, evaluator, and approved response renderer locally.
 
 ## Frontend development
 
@@ -43,5 +58,8 @@ npm test
 npm run build
 ```
 
-The current extractor recognizes only the five approved fixture submissions.
-It does not run a language model or interpret arbitrary clinical text.
+Stub mode recognizes only the five frozen fixture submissions. Modal mode sends
+free-form findings to the provisionally selected research checkpoint. Neither
+mode is authorized for production clinical use.
+
+Use `--extractor stub` for deterministic offline UI development.

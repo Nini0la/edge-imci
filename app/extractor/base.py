@@ -23,7 +23,7 @@ class ExtractionResult:
         encounter: Structured encounter dict conforming to
             ``model_facing_encounter_v1.schema.json``.
         extraction_mode: Human-readable label for the extraction mode
-            (e.g. ``"stub"``, ``"qwen3-1.7b-sft-v1"``).
+            (e.g. ``"stub"``, ``"qwen3-0.6b-sft-v1"``).
         matched_case_id: The frozen case ID this extraction was derived from,
             or ``None`` if the extractor produced a novel extraction.
         warnings: Non-fatal extraction warnings (e.g. ambiguous phrasing).
@@ -41,7 +41,7 @@ class EncounterExtractor(Protocol):
 
     Implementations:
         - ``StubEncounterExtractor`` — fixture-based, for prototype development.
-        - ``QwenEdgeIMCIExtractor`` (future) — fine-tuned model inference.
+        - ``ModalEncounterExtractor`` — selected fine-tuned model inference.
     """
 
     @property

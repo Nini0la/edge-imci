@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "designation_id": "edge-imci-provisional-product-candidate-v1",
+  "status": "PROVISIONAL_PRODUCT_AND_SUBMISSION_PLACEHOLDER",
+  "authority": "PROJECT_OWNER",
+  "designated_at": "2026-08-24T19:13:10Z",
+  "candidate": {
+    "candidate_id": "qwen3-0.6b-sft-selected-seed-20260824",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "training_run_id": "251039a3-4adc-4e74-8c30-069eb8aca6de",
+    "cell_id": "qwen3-0.6b-sft-calibration-v1--016--dde3f482d8",
+    "artifact_volume": "edge-imci-finetune-artifacts",
+    "artifact_path": "251039a3-4adc-4e74-8c30-069eb8aca6de/merged",
+    "manifest_sha256": "0e57732f7f216136af1a4ba894ae6c57debf148effd34ce3c235da7978cbd254",
+    "model_weights_sha256": "86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a"
+  },
+  "roles": {
+    "current_product_model": true,
+    "submission_placeholder": true,
+    "adtc_profiling_source": true,
+    "replacement_allowed": true
+  },
+  "evidence": {
+    "reserved_test_report": "experiments/evaluation/qwen3-0.6b-one-shot-test-v1/aggregate_report_final_v2.json",
+    "reserved_test_report_sha256": "5e68ebccaaffaf1fae2413f71a1fa3cdaf9bdac5f294c5a6a1a14179d706522f",
+    "posthoc_base_report": "experiments/evaluation/qwen3-0.6b-posthoc-base-control-v1/aggregate_report.json",
+    "posthoc_base_report_sha256": "59c6a839fb73bf42a5d50975ced347af8d6c0d96f55dfbe2d0ea7e9267dae8a6",
+    "exact_match_rate": 0.972027972027972,
+    "field_accuracy": 0.9988975530486299,
+    "schema_valid_rate": 1.0,
+    "decision_equivalence_rate": 0.972027972027972
+  },
+  "constraints": {
+    "provisional_only": true,
+    "clinical_threshold_failures": 6,
+    "production_clinical_use_authorized": false,
+    "deployment_qualified": false,
+    "adtc_compatible_artifact_available": false
+  },
+  "next_required_actions": [
+    "Convert the selected merged checkpoint to a pinned ADTC-compatible GGUF artifact",
+    "Run target-device qualification on the exact converted artifact",
+    "Pin and run the official ADTC profiler and report schema",
+    "Replace this placeholder only through a new explicit project-owner designation"
+  ]
+}

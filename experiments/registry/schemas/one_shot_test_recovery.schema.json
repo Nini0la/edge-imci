@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edgeimci.local/schemas/one-shot-test-recovery-1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "recovery_id",
+    "status",
+    "authority",
+    "authorized_at",
+    "original_authorization_id",
+    "original_policy_sha256",
+    "failed_closed_state_sha256",
+    "failure",
+    "preserved_candidates",
+    "remaining_candidate_ids",
+    "runner_sha256",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "recovery_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "status": {"const": "AUTHORIZED_INFRASTRUCTURE_ONLY_CONTINUATION"},
+    "authority": {"const": "PROJECT_OWNER"},
+    "authorized_at": {"type": "string", "format": "date-time"},
+    "original_authorization_id": {"type": "string", "minLength": 1},
+    "original_policy_sha256": {"$ref": "#/$defs/sha256"},
+    "failed_closed_state_sha256": {"$ref": "#/$defs/sha256"},
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "stage", "cause", "result_driven"],
+      "properties": {
+        "type": {"const": "RuntimeError"},
+        "stage": {"const": "BETWEEN_CANDIDATE_INFERENCE_JOBS"},
+        "cause": {"const": "MODAL_MODEL_CACHE_RELOAD_OPEN_XET_LOG"},
+        "result_driven": {"const": false}
+      }
+    },
+    "preserved_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "prediction_sha256", "prediction_record_count", "receipt_sha256"],
+        "properties": {
+          "candidate_id": {"type": "string", "minLength": 1},
+          "prediction_sha256": {"$ref": "#/$defs/sha256"},
+          "prediction_record_count": {"const": 143},
+          "receipt_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    "remaining_candidate_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "runner_sha256": {"$ref": "#/$defs/sha256"},
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "continuation_count_limit",
+        "preserve_completed_predictions",
+        "rerun_completed_candidates_prohibited",
+        "candidate_changes_prohibited",
+        "generation_changes_prohibited",
+        "threshold_changes_prohibited",
+        "raw_result_review_performed",
+        "close_after_continuation"
+      ],
+      "properties": {
+        "continuation_count_limit": {"const": 1},
+        "preserve_completed_predictions": {"const": true},
+        "rerun_completed_candidates_prohibited": {"const": true},
+        "candidate_changes_prohibited": {"const": true},
+        "generation_changes_prohibited": {"const": true},
+        "threshold_changes_prohibited": {"const": true},
+        "raw_result_review_performed": {"const": false},
+        "close_after_continuation": {"const": true}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

@@ -523,7 +523,7 @@ experiments:
     definition_version: 1.0.0
     experiment_type: TRAINING
     priority: CORE
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: Supervised fine-tuning on many faithful PHC language variants mapped to canonical encounter JSON
       improves structured clinical interpretation.
     decision_question: Does extraction SFT-v1 produce a viable first EdgeIMCI checkpoint?
@@ -580,6 +580,129 @@ experiments:
         applicability: APPLICABLE
         artifact_ref: null
     run_ids: []
+  - experiment_id: qwen3-0.6b-structured-extraction-sft-v1-modal
+    definition_version: 1.0.0
+    experiment_type: TRAINING
+    priority: CORE
+    status: COMPLETE
+    hypothesis: A pinned Qwen3-0.6B LoRA trained on the reviewed PHC-language-to-encounter-JSON corpus can establish
+      a low-cost first student checkpoint and a reusable Modal training path.
+    decision_question: Does the first Qwen3-0.6B extraction SFT produce a valid checkpoint and useful held-out validation
+      signal?
+    branch_id: qwen3-0.6b-sft-v1
+    prerequisites:
+      - Project-owner exploratory training release
+      - Pinned canonical extraction dataset and parent-derived split
+      - Pinned base model, tokenizer, recipe, and Modal image
+    branch_trigger: null
+    material_configuration:
+      model_family: Qwen3-0.6B
+      model_id: Qwen/Qwen3-0.6B
+      model_revision: c1899de289a04d12100db370d81485cdf75e47ca
+      training_stage: STRUCTURED_EXTRACTION_SFT_V1
+      method: LORA
+      learned_task: FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
+      preferred_environment: MODAL
+      execution_class: EXPLORATORY_FIRST_SFT
+      test_partition_prohibited: true
+      deployment_authorized: false
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+      references:
+        - reference_kind: CONFIG
+          reference_id: qwen3-0.6b-structured-extraction-lora-v1
+          version: 1.0.0
+          location: configs/training/qwen3_0_6b_structured_extraction_lora_v1.json
+          sha256: 7ab21350b02407c52016c974f9e422be685e79f5d6aeac714ef62cb1ac0228f5
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-release-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_sft_release_v1.json
+          sha256: a1b066a02f622b3a4285e6969d5b31fac06854b3807fbbd0dc8ad3e3e4b4f805
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-record-schema-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_sft_record_v1.schema.json
+          sha256: 798c399841a43a81caf070a8b37168345ce1d92b127e89606d8607cd2ab26942
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-dataset-policy-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_dataset_policy_v1.json
+          sha256: e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d
+          remote_only: false
+          role: INPUT
+        - reference_kind: MODEL
+          reference_id: qwen-qwen3-0.6b
+          version: c1899de2
+          immutable_revision: c1899de289a04d12100db370d81485cdf75e47ca
+          remote_only: true
+          role: BASE
+        - reference_kind: DATASET
+          reference_id: structured-extraction-campaign-v1-manifest
+          version: 1.0.0
+          location: data/training_sources/structured_extraction_campaign_v1/manifest.json
+          sha256: fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727
+          remote_only: false
+          role: INPUT
+        - reference_kind: DATASET
+          reference_id: structured-extraction-campaign-v1-chat
+          version: 1.0.0
+          location: data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl
+          sha256: ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0
+          remote_only: false
+          role: INPUT
+      unresolved_inputs: []
+    evidence:
+      - evidence_id: training_and_validation_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-lora-v1-first-20260824/remote/metrics.json
+      - evidence_id: lora_and_merged_checkpoints
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-lora-v1-first-20260824/remote/remote_run_manifest.json
+      - evidence_id: modal_execution_and_usage
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-lora-v1-first-20260824/edgeimci_run.json
+    run_ids:
+      - 0a8520d4-eb30-4b0b-af5c-f5f3dcb8956f
+      - 0cc70f5f-45a3-45ed-b420-d19922d718d1
+      - 0d566e2d-b851-4f8b-80c4-bff3cc6f4d4b
+      - 2114671f-5e1e-404f-8184-662f4a5cbe4a
+      - 251039a3-4adc-4e74-8c30-069eb8aca6de
+      - 3b66015c-fd4c-4174-b2db-01633cc0d890
+      - 3dcb22ca-afae-4de1-adeb-52034c51aa37
+      - 3fecdcff-707c-40fc-8505-009027cff066
+      - 42ab05f4-92b5-4210-bfd8-a42b77e02636
+      - 43d19830-041c-4bb4-8df3-d09e17f2b61d
+      - 4a1e754a-023a-4b30-bf22-ecf943712cb5
+      - 4b9c196e-d3f7-4e45-a591-f8bf32932a9b
+      - 68b8fd83-632b-40ea-b01a-dab98970a2ac
+      - 7dc0676b-03b1-4b0a-914b-32f6a71fc38a
+      - 7e15ba3c-b30d-475a-83a3-27629c94d85b
+      - 7f26914c-413f-4fbf-b69c-2226b995b02d
+      - 9f949a01-3716-45ee-952b-94a68330a131
+      - a20307fc-5f12-4473-b75f-ec1ce7057d8c
+      - a579a73b-be71-41a8-8dea-3010760e5351
+      - b31ebba8-6670-40c2-9050-3b95f46f66a8
+      - b44960f9-47e6-444a-85aa-862350258c76
+      - c3bbdd59-95f0-412b-aef1-351fff37e961
+      - c5f1fd5e-26d8-46d2-b709-61c6f316aa5c
+      - c6160cd4-ad47-4a3e-a5be-ad49b76da9df
+      - d3ae978a-9e79-4f4f-87ad-c8804c4e0b15
+      - d80ff9bd-9560-4be7-b758-df9be5349b0d
+      - edf3235a-99d5-4365-ae74-55b0ba6ae4d1
+    supersedes_experiment_id: qwen3-1.7b-structured-extraction-sft-v1-modal
   - experiment_id: qwen3-1.7b-structured-extraction-eval-v1
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
@@ -707,7 +830,11 @@ experiments:
       measurement_designation: INTENDED_DEPLOYMENT_DEVICE
       device: ASUS_UBUNTU
       runtime: UNRESOLVED
-      artifact: UNRESOLVED
+      artifact: GGUF_CONVERSION_REQUIRED
+      source_candidate_id: qwen3-0.6b-sft-selected-seed-20260824
+      source_training_run_id: 251039a3-4adc-4e74-8c30-069eb8aca6de
+      source_model_weights_sha256: 86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a
+      designation: PROVISIONAL_PRODUCT_AND_SUBMISSION_PLACEHOLDER
       comparison: ADMITTED_BASE_VS_POST_TRAINING_DEPLOYMENT
       frozen_harness_required: true
     reproducibility:
@@ -726,9 +853,22 @@ experiments:
           location: docs/target_device_model_runtime_qualification_plan.md
           remote_only: false
           role: INPUT
+        - reference_kind: CONFIG
+          reference_id: qwen3-0.6b-provisional-product-candidate-v1
+          version: 1.0.0
+          location: configs/deployment/qwen3_0_6b_provisional_product_candidate_v1.json
+          sha256: 2d215088babf081fb03e69749979d3ae04c1def50b5b84226b5a7cbbd0440321
+          remote_only: false
+          role: INPUT
+        - reference_kind: CHECKPOINT
+          reference_id: qwen3-0.6b-sft-selected-seed-20260824
+          version: 251039a3
+          sha256: 86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a
+          remote_only: true
+          immutable_revision: 251039a3-4adc-4e74-8c30-069eb8aca6de
+          role: STUDENT
       unresolved_inputs:
         - admitted base qualification evidence
-        - fine-tuned checkpoint and digest
         - conversion or quantization provenance
         - selected deployment artifact file manifest and digest
         - same pinned runtime and inference configuration or matched base control under any required new runtime
@@ -752,6 +892,10 @@ experiments:
         evidence_class: SCIENTIFIC
         applicability: APPLICABLE
         artifact_ref: null
+      - evidence_id: provisional_product_candidate_designation
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: configs/deployment/qwen3_0_6b_provisional_product_candidate_v1.json
     run_ids: []
   - experiment_id: selected-artifact-official-adtc-v1
     definition_version: 1.0.0
@@ -767,15 +911,35 @@ experiments:
     branch_trigger: null
     material_configuration:
       profile_kind: OFFICIAL_ADTC
-      artifact: UNRESOLVED
+      artifact: GGUF_CONVERSION_REQUIRED
+      source_candidate_id: qwen3-0.6b-sft-selected-seed-20260824
+      source_training_run_id: 251039a3-4adc-4e74-8c30-069eb8aca6de
+      source_model_weights_sha256: 86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a
+      submission_role: PLACEHOLDER
+      product_role: CURRENT_PROVISIONAL
       profiler_revision: UNRESOLVED
     reproducibility:
       required_reference_kinds:
         - CONFIG
+        - CHECKPOINT
         - ARTIFACT
-      references: []
+      references:
+        - reference_kind: CONFIG
+          reference_id: qwen3-0.6b-provisional-product-candidate-v1
+          version: 1.0.0
+          location: configs/deployment/qwen3_0_6b_provisional_product_candidate_v1.json
+          sha256: 2d215088babf081fb03e69749979d3ae04c1def50b5b84226b5a7cbbd0440321
+          remote_only: false
+          role: INPUT
+        - reference_kind: CHECKPOINT
+          reference_id: qwen3-0.6b-sft-selected-seed-20260824
+          version: 251039a3
+          sha256: 86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a
+          remote_only: true
+          immutable_revision: 251039a3-4adc-4e74-8c30-069eb8aca6de
+          role: STUDENT
       unresolved_inputs:
-        - selected artifact and digest
+        - converted ADTC-compatible GGUF artifact and digest
         - official profiler revision
         - official report schema revision
         - submission metadata
@@ -789,12 +953,16 @@ experiments:
         applicability: CONDITIONAL
         artifact_ref: null
         condition: An official audit report is supplied by the challenge environment
+      - evidence_id: provisional_submission_candidate_designation
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: configs/deployment/qwen3_0_6b_provisional_product_candidate_v1.json
     run_ids: []
   - experiment_id: qwen3-0.6b-lower-bound-v1
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
     priority: OPTIONAL
-    status: PLANNED
+    status: SUPERSEDED
     hypothesis: Qwen3-0.6B can provide a useful lower-capacity bound if core evidence is already secure.
     decision_question: What quality and deployability are sacrificed at the smaller capacity?
     branch_id: qwen3-0.6b-lower-bound

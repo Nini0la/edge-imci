@@ -1,0 +1,65 @@
+{
+  "qualification_id": "edge-imci-regular-english-qualification-v1",
+  "status": "BLOCKED_PENDING_SYNCHRONOUS_CANARY",
+  "historical_evidence": {
+    "natural_v2_1": {
+      "run_id": "holistic-teacher-middle-regression-gpt41-20250414-v1",
+      "attempts": 4,
+      "deterministic_passes": 1,
+      "deterministic_rejections": 3,
+      "current_revalidation_error_codes": {
+        "EVIDENCE_SPAN_MISSING": 2,
+        "FACT_SET_MISMATCH": 1,
+        "LOGICAL_CONNECTOR_OR_TO_AND": 1,
+        "KNOWN_NEGATIVE_EAR_HISTORY_WEAKENED_TO_NONREPORT": 1,
+        "EAR_PROBLEM_ENTRY_CONFLATED_WITH_NESTED_FINDING": 1
+      }
+    },
+    "clinical_concise_v2": {
+      "run_id": "holistic-teacher-approval-sample-gpt41-20250414-v2",
+      "human_reviewed_samples": 2,
+      "semantic_passes": 1,
+      "semantic_failures": 1,
+      "blocking_failure": "LOGICAL_CONNECTOR_CHANGED_OR_TO_AND"
+    }
+  },
+  "candidate_prompts": [
+    {
+      "variant_style": "NATURAL_CONVERSATIONAL_ENGLISH",
+      "strategy_id": "phc-natural-complete-v1",
+      "prompt_id": "edge-imci-phc-natural-complete",
+      "prompt_version": "2.2.0",
+      "prompt_path": "prompts/holistic_language_variants/phc_natural_complete_v2_2.txt",
+      "temperature": 0.5
+    },
+    {
+      "variant_style": "CLINICAL_STANDARD_ENGLISH",
+      "strategy_id": "phc-concise-complete-v1",
+      "prompt_id": "edge-imci-phc-clinical-standard-english",
+      "prompt_version": "2.1.0",
+      "prompt_path": "prompts/holistic_language_variants/phc_clinical_standard_english_v2_1.txt",
+      "temperature": 0.3
+    }
+  ],
+  "canary": {
+    "case_ids": [
+      "hpg-001-all-negative",
+      "hpg-011-resp-age-12-rate-40",
+      "hpg-020-resp-post-bronchodilator-improved",
+      "hpg-041-fever-high-positive",
+      "hpg-062-ear-acute-pain",
+      "hpg-071-incomplete-entry-unknown",
+      "hpg-076-complete-danger-plus-all-pathways"
+    ],
+    "variants_per_style": 7,
+    "minimum_deterministic_pass_rate_per_style": 0.9,
+    "maximum_semantic_failures": 0,
+    "inspect_sample_per_style": 3
+  },
+  "authorization": {
+    "remote_calls_authorized": false,
+    "bulk_generation_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

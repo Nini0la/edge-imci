@@ -41,12 +41,8 @@ class StubEncounterExtractor:
     the pre-structured encounter. Uses normalized whitespace comparison so
     minor formatting differences don't break the match.
 
-    When the real model is ready, swap this for::
-
-        class QwenEdgeIMCIExtractor:
-            def extract(self, free_text: str) -> ExtractionResult:
-                # Run inference with the fine-tuned Qwen3-1.7B
-                ...
+    The workstation can swap this for ``ModalEncounterExtractor`` without
+    changing the application service or frontend contract.
     """
 
     def __init__(self) -> None:

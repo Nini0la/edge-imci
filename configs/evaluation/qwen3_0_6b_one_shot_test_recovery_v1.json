@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "recovery_id": "edge-imci-qwen3-0.6b-reserved-test-recovery-20260824-v1",
+  "status": "AUTHORIZED_INFRASTRUCTURE_ONLY_CONTINUATION",
+  "authority": "PROJECT_OWNER",
+  "authorized_at": "2026-08-24T12:38:02Z",
+  "original_authorization_id": "edge-imci-qwen3-0.6b-reserved-test-20260824-v1",
+  "original_policy_sha256": "9b24b2ae7e4968a122e1e5fa77c3d1213a3bfe237fa67d1c52b479c632d788dd",
+  "failed_closed_state_sha256": "3fd6367773181d42bad9af704cbd523055ddc6371d4c71356c5a3a6067893ec8",
+  "failure": {
+    "type": "RuntimeError",
+    "stage": "BETWEEN_CANDIDATE_INFERENCE_JOBS",
+    "cause": "MODAL_MODEL_CACHE_RELOAD_OPEN_XET_LOG",
+    "result_driven": false
+  },
+  "preserved_candidates": [
+    {
+      "candidate_id": "qwen3-0.6b-base-control",
+      "prediction_sha256": "ca535dd48ece60c998d9adee659ba2c05ab9c776e430dcdf3692d00edba17eb6",
+      "prediction_record_count": 143,
+      "receipt_sha256": "5b7ebd6104d167d43bcfe8914767440684494bef3798e5961a95457a9a0ae613"
+    }
+  ],
+  "remaining_candidate_ids": [
+    "qwen3-0.6b-sft-selected-seed-20260824",
+    "qwen3-0.6b-sft-seed-control-3407"
+  ],
+  "runner_sha256": "1e8ad238108a0430d2fe0280aef61a63c4f3c50eacaf2e210a3d25e9f0929ff2",
+  "controls": {
+    "continuation_count_limit": 1,
+    "preserve_completed_predictions": true,
+    "rerun_completed_candidates_prohibited": true,
+    "candidate_changes_prohibited": true,
+    "generation_changes_prohibited": true,
+    "threshold_changes_prohibited": true,
+    "raw_result_review_performed": false,
+    "close_after_continuation": true
+  }
+}

@@ -24,7 +24,7 @@ function EmptyResult() {
     <section className="compact-empty-result">
       <ClipboardCheck aria-hidden="true" size={27} />
       <h2>Result pending</h2>
-      <p>Enter the completed assessment, then review EdgeIMCI’s structured interpretation.</p>
+      <p>Enter the completed assessment, then review the structured interpretation.</p>
       <div className="empty-steps">
         <span><strong>1</strong> Interpret findings</span>
         <span><strong>2</strong> Verify checklist</span>
@@ -259,12 +259,12 @@ export default function App() {
           )}
 
           <div className="example-picker">
-            <label htmlFor="example-case">Prototype example</label>
+            <label htmlFor="example-case">Demonstration input</label>
             <select id="example-case" defaultValue="" onChange={(event) => loadExample(event.target.value)}>
-              <option value="" disabled>Load an approved example…</option>
+              <option value="" disabled>Load a demonstration input…</option>
               {examples.map((example) => <option value={example.id} key={example.id}>{example.label}</option>)}
             </select>
-            <small>The current extractor recognizes only these approved examples.</small>
+            <small>Use a prepared input for a repeatable demonstration, or enter new findings.</small>
           </div>
 
           <footer className="findings-footer">

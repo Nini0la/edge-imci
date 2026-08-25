@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-sft-calibration-v1",
+  "decision": "SELECTED_FOR_NEXT_STAGE_VALIDATION",
+  "winner_cell_id": "qwen3-0.6b-sft-calibration-v1--016--dde3f482d8",
+  "winner_run_id": "251039a3-4adc-4e74-8c30-069eb8aca6de",
+  "axis_values": {
+    "optimization.epochs": 3.0,
+    "optimization.learning_rate": 0.0002,
+    "optimization.seed": 20260824
+  },
+  "eligible_cell_count": 8,
+  "leaderboard_sha256": "0f7e7c71d00d281ce0db446e85a04d4c7a4e99be26898dba1e7027b8beb5f479",
+  "selection_basis": "Pinned aggregate VALIDATION metrics followed by recorded GPU-seconds and stable cell-id tie-breakers.",
+  "operating_mode": "AUTOMATIC_EVIDENCE",
+  "routine_codex_example_review_performed": false,
+  "test_partition_used": false,
+  "deployment_authorized": false,
+  "next_required_evidence": [
+    "Reserved TEST evaluation for the selected candidate under a separate authorization",
+    "Target edge-device runtime and memory profile"
+  ]
+}

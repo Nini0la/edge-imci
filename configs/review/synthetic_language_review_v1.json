@@ -1,0 +1,75 @@
+{
+  "contract_id": "edge-imci-synthetic-language-review-v1",
+  "contract_version": "1.0.0",
+  "status": "PREPARED_ZERO_CALL_REQUIRES_REMOTE_AUTHORIZATION",
+  "review_schema_id": "edge-imci-synthetic-language-review-output-v1",
+  "models": {
+    "primary": {
+      "provider": "OPENAI_COMPATIBLE_BATCH",
+      "model": "gpt-4.1-mini-2025-04-14",
+      "max_output_tokens": 5000,
+      "temperature": 0
+    },
+    "adjudicator": {
+      "provider": "OPENAI_COMPATIBLE_BATCH",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "max_output_tokens": 5000,
+      "temperature": 0
+    }
+  },
+  "routing": {
+    "primary_reviews_every_parseable_candidate": true,
+    "deterministic_rejections_are_never_auto_promoted": true,
+    "adjudicate_primary_fail_or_uncertain": true,
+    "adjudicate_all_high_risk": true,
+    "pass_audit_fraction": 0.1,
+    "minimum_pass_audit_count_per_style": 10,
+    "pass_audit_seed": "edge-imci-synthetic-review-pass-audit-v1"
+  },
+  "calibration": {
+    "minimum_cases": 40,
+    "minimum_completion_rate": 0.995,
+    "minimum_agreement_rate": 0.9,
+    "maximum_false_acceptance_rate": 0.02,
+    "maximum_high_risk_false_acceptance_rate": 0.0,
+    "maximum_false_rejection_rate": 0.1
+  },
+  "acceptance": {
+    "require_deterministic_pass": true,
+    "require_primary_pass": true,
+    "require_adjudicator_pass_when_routed": true,
+    "disagreements_are_held": true,
+    "minimum_batch_completion_rate": 0.995,
+    "maximum_invalid_review_rate": 0.005,
+    "minimum_acceptance_rate_per_style": 0.8,
+    "maximum_critical_error_rate_per_style": 0.02,
+    "critical_error_codes": [
+      "FACT_MISSING",
+      "FACT_CONTRADICTED",
+      "UNKNOWN_RENDERED_AS_KNOWN",
+      "POLARITY_REVERSAL",
+      "MEASUREMENT_OR_DURATION_ERROR",
+      "QUALIFIER_OR_PROVENANCE_LOST",
+      "INDEPENDENT_FACTS_CONFLATED",
+      "LOGICAL_CONNECTOR_CHANGED",
+      "TARGET_OR_INTERNAL_LEAKAGE"
+    ]
+  },
+  "budget": {
+    "currency": "USD",
+    "maximum_review_budget": 75.0,
+    "planning_adjudication_fraction": 0.3,
+    "planning_tokens_per_review": {"input": 2500, "output": 1800},
+    "batch_rates_per_million_tokens": {
+      "primary": {"input": 0.2, "output": 0.8},
+      "adjudicator": {"input": 0.5, "output": 4.0}
+    },
+    "budget_is_an_execution_gate_not_billing_evidence": true
+  },
+  "authorization": {
+    "remote_calls_authorized": false,
+    "automatic_dataset_promotion_authorized": false,
+    "training_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

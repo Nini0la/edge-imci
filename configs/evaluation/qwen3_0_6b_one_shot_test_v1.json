@@ -1,0 +1,175 @@
+{
+  "schema_version": "1.0.0",
+  "evaluation_id": "edge-imci-qwen3-0.6b-reserved-test-v1",
+  "authorization_id": "edge-imci-qwen3-0.6b-reserved-test-20260824-v1",
+  "status": "AUTHORIZED_FOR_ONE_SHOT_TEST",
+  "authority": "PROJECT_OWNER",
+  "authorized_at": "2026-08-24T11:59:21Z",
+  "dataset": {
+    "path": "data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl",
+    "sha256": "ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0",
+    "partition": "TEST",
+    "expected_record_count": 143,
+    "split_policy_id": "edge-imci-parent-semantic-split-v1"
+  },
+  "candidates": [
+    {
+      "candidate_id": "qwen3-0.6b-base-control",
+      "role": "BASE_CONTROL",
+      "kind": "HF_BASE",
+      "required_for_execution": true,
+      "model_id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "model_weights_sha256": "f47f71177f32bcd101b7573ec9171e6a57f4f4d31148d38e382306f42996874b",
+      "artifact": null
+    },
+    {
+      "candidate_id": "qwen3-0.6b-sft-selected-seed-20260824",
+      "role": "SELECTED_FINE_TUNE",
+      "kind": "REMOTE_MERGED",
+      "required_for_execution": true,
+      "model_id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "model_weights_sha256": "86bb2507e5e7d04ad35c6c933923b902d21652bd04c401055a97a0d4485fd76a",
+      "artifact": {
+        "training_run_id": "251039a3-4adc-4e74-8c30-069eb8aca6de",
+        "cell_id": "qwen3-0.6b-sft-calibration-v1--016--dde3f482d8",
+        "volume": "edge-imci-finetune-artifacts",
+        "path": "251039a3-4adc-4e74-8c30-069eb8aca6de",
+        "manifest_sha256": "0e57732f7f216136af1a4ba894ae6c57debf148effd34ce3c235da7978cbd254",
+        "config_sha256": "dde3f482d880151df14626ae9767711ce016d242c135b6b49a899ddf6d61ae1b",
+        "epochs": 3.0,
+        "learning_rate": 0.0002,
+        "seed": 20260824
+      }
+    },
+    {
+      "candidate_id": "qwen3-0.6b-sft-seed-control-3407",
+      "role": "SEED_CONTROL",
+      "kind": "REMOTE_MERGED",
+      "required_for_execution": true,
+      "model_id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "tokenizer_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "model_weights_sha256": "a0a77775d9472402022e62e2028cf9ccf7dc4a8fdbacbb78304936e0c82d0dd8",
+      "artifact": {
+        "training_run_id": "4b9c196e-d3f7-4e45-a591-f8bf32932a9b",
+        "cell_id": "qwen3-0.6b-sft-calibration-v1--015--043409ae4b",
+        "volume": "edge-imci-finetune-artifacts",
+        "path": "4b9c196e-d3f7-4e45-a591-f8bf32932a9b",
+        "manifest_sha256": "4dc9c88e62b1855381fc14e309081cbfb62cd1118406a180431cf28a6c640f22",
+        "config_sha256": "043409ae4b754f9f8ecc4159f52472f5c036f37908461ca9eecb685a96508f5f",
+        "epochs": 3.0,
+        "learning_rate": 0.0002,
+        "seed": 3407
+      }
+    }
+  ],
+  "generation": {
+    "chat_template": "PINNED_QWEN3_TOKENIZER_TEMPLATE",
+    "enable_thinking": false,
+    "max_new_tokens": 1200,
+    "do_sample": false,
+    "batch_size": 8,
+    "identical_for_all_candidates": true
+  },
+  "scoring": {
+    "reported_metrics": [
+      "coverage_rate",
+      "json_parse_rate",
+      "schema_valid_rate",
+      "exact_match_rate",
+      "field_accuracy",
+      "decision_equivalence_rate",
+      "urgent_action_equivalence_rate",
+      "referral_behavior_equivalence_rate"
+    ],
+    "paired_metrics": [
+      "exact_match_rate",
+      "field_accuracy",
+      "decision_equivalence_rate",
+      "urgent_action_equivalence_rate",
+      "referral_behavior_equivalence_rate"
+    ],
+    "results_by_language_style": true,
+    "confidence_intervals": {
+      "method": "DETERMINISTIC_PAIRED_PERCENTILE_BOOTSTRAP",
+      "confidence": 0.95,
+      "bootstrap_samples": 10000,
+      "seed": 20260824
+    }
+  },
+  "comparison": {
+    "selected_candidate_id": "qwen3-0.6b-sft-selected-seed-20260824",
+    "base_candidate_id": "qwen3-0.6b-base-control",
+    "optional_seed_control_id": "qwen3-0.6b-sft-seed-control-3407"
+  },
+  "thresholds": {
+    "selected_global_minimums": {
+      "coverage_rate": 1.0,
+      "json_parse_rate": 1.0,
+      "schema_valid_rate": 1.0,
+      "exact_match_rate": 0.95,
+      "field_accuracy": 0.995,
+      "decision_equivalence_rate": 0.99,
+      "urgent_action_equivalence_rate": 1.0,
+      "referral_behavior_equivalence_rate": 1.0
+    },
+    "selected_per_style_minimums": {
+      "schema_valid_rate": 1.0,
+      "urgent_action_equivalence_rate": 1.0,
+      "referral_behavior_equivalence_rate": 1.0
+    },
+    "paired_improvement": [
+      {
+        "metric": "exact_match_rate",
+        "minimum_point_difference": 0.0,
+        "minimum_ci_lower_bound": 0.0,
+        "strict": true
+      },
+      {
+        "metric": "field_accuracy",
+        "minimum_point_difference": 0.0,
+        "minimum_ci_lower_bound": 0.0,
+        "strict": true
+      },
+      {
+        "metric": "decision_equivalence_rate",
+        "minimum_point_difference": 0.0,
+        "minimum_ci_lower_bound": 0.0,
+        "strict": true
+      },
+      {
+        "metric": "urgent_action_equivalence_rate",
+        "minimum_point_difference": 0.0,
+        "minimum_ci_lower_bound": 0.0,
+        "strict": false
+      },
+      {
+        "metric": "referral_behavior_equivalence_rate",
+        "minimum_point_difference": 0.0,
+        "minimum_ci_lower_bound": 0.0,
+        "strict": false
+      }
+    ]
+  },
+  "controls": {
+    "one_shot_execution": true,
+    "close_after_attempt": true,
+    "aggregate_only_release": true,
+    "routine_record_review_prohibited": true,
+    "prompt_repair_prohibited": true,
+    "checkpoint_selection_prohibited": true,
+    "result_driven_rerun_prohibited": true,
+    "missing_predictions_score_as_failures": true
+  },
+  "execution": {
+    "environment_kind": "MODAL",
+    "gpu_type": "A10G",
+    "private_evidence_volume": "edge-imci-private-test-evidence",
+    "a10g_gpu_rate_per_second": 0.000306,
+    "currency": "USD"
+  }
+}
