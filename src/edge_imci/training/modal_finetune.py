@@ -1,4 +1,4 @@
-"""Modal runner for the first Qwen3-0.6B structured-extraction LoRA.
+"""Modal runner for pinned Qwen3 structured-extraction LoRA lanes.
 
 Local preflight only (no cloud resources):
     uv run --extra modal-training modal run -m edge_imci.training.modal_finetune --dry-run
@@ -26,10 +26,10 @@ from edge_imci.training.finetune import (
     ROOT,
     load_json_object,
     preflight_training,
+    training_tracking,
 )
 
 APP_NAME = "edge-imci-qwen3-0-6b-sft"
-EXPERIMENT_ID = "qwen3-0.6b-structured-extraction-sft-v1-modal"
 REMOTE_ROOT = Path("/workspace")
 MODEL_CACHE_PATH = Path("/model-cache")
 OUTPUT_ROOT = Path("/outputs")
@@ -335,6 +335,7 @@ def train(
     preflight, rows = preflight_training(
         remote_config_path, repo_root=REMOTE_ROOT
     )
+    training_tracking(config)
     if config["modal"]["gpu_type"] != "A10G":
         raise ValueError("Modal GPU decorator and pinned config disagree")
     expected_modal = {
@@ -601,15 +602,19 @@ def main(run_name: str = "", config_path: str = "", dry_run: bool = False) -> No
         return
 
     config = load_json_object(selected_config_path)
+    tracking = training_tracking(config)
     label = _safe_run_name(
         run_name
-        or datetime.now(timezone.utc).strftime("qwen3-0.6b-lora-v1-%Y%m%dT%H%M%SZ")
+        or datetime.now(timezone.utc).strftime(
+            f"{tracking['run_name_prefix']}-%Y%m%dT%H%M%SZ"
+        )
     )
-    output_dir = ROOT / "experiments/training" / EXPERIMENT_ID / label
+    experiment_id = tracking["experiment_id"]
+    output_dir = ROOT / "experiments/training" / experiment_id / label
     modal_config = config["modal"]
     tracker = RunTracker()
     handle = tracker.start(
-        experiment_id=EXPERIMENT_ID,
+        experiment_id=experiment_id,
         output_dir=output_dir,
         config={
             "config_id": config["config_id"],
@@ -626,7 +631,7 @@ def main(run_name: str = "", config_path: str = "", dry_run: bool = False) -> No
                 "region": modal_config["region"],
                 "gpu_type": modal_config["gpu_type"],
                 "gpu_count": modal_config["gpu_count"],
-                "image_identity": "edge-imci-qwen3-0.6b-sft-image-v1",
+                "image_identity": tracking["image_identity"],
             },
         },
         models=[

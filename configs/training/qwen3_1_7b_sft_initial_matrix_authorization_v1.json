@@ -1,0 +1,29 @@
+{
+  "authorization_id": "qwen3-1.7b-sft-initial-matrix-execution-v1",
+  "authorized_at": "2026-08-25",
+  "authorized_by": "project-owner",
+  "matrix_id": "qwen3-1.7b-sft-initial-matrix-v1",
+  "scope": {
+    "new_run_limit": 8,
+    "gpu_type": "A10G",
+    "gpu_count_per_run": 1,
+    "max_parallel_runs": 4,
+    "max_gpu_seconds": 24000,
+    "test_partition_use_authorized": false,
+    "production_clinical_use_authorized": false,
+    "deployment_authorized": false
+  },
+  "operating_mode": {
+    "mode_id": "AUTOMATIC_EVIDENCE",
+    "routine_codex_review_of_examples": false,
+    "routine_codex_review_of_datasets": false,
+    "deterministic_validation_required": true,
+    "aggregate_reporting_only": true,
+    "retain_machine_readable_receipts": true,
+    "escalate_only_for": [
+      "SYSTEMIC_EXECUTION_FAILURE",
+      "BUDGET_GUARD",
+      "MISSING_EVALUATION_EVIDENCE"
+    ]
+  }
+}

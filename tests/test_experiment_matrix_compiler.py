@@ -14,6 +14,9 @@ from edge_imci.experiments.matrix import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = ROOT / "configs/training/qwen3_0_6b_sft_calibration_matrix_v1.json"
+QWEN_1_7B_SPEC_PATH = (
+    ROOT / "configs/training/qwen3_1_7b_sft_initial_matrix_v1.json"
+)
 PLAN_PATH = (
     ROOT
     / "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1.plan.json"
@@ -107,3 +110,30 @@ def test_materialization_rejects_tampered_plan(tmp_path: Path) -> None:
     path.write_text(json.dumps(plan), encoding="utf-8")
     with pytest.raises(MatrixCompilationError, match="plan SHA-256 mismatch"):
         materialize_matrix_configs(path, tmp_path / "configs")
+
+
+def test_qwen3_1_7b_initial_matrix_has_exact_authorized_axes() -> None:
+    plan = compile_experiment_matrix(QWEN_1_7B_SPEC_PATH)
+
+    assert plan["summary"]["cell_count"] == 8
+    assert plan["summary"]["ready_run_count"] == 8
+    assert plan["summary"]["max_parallel_runs"] == 4
+    assert plan["summary"]["minimum_execution_waves"] == 2
+    assert plan["summary"]["estimated_gpu_seconds"] <= 24000
+    assert {
+        (
+            cell["axis_values"]["optimization.epochs"],
+            cell["axis_values"]["optimization.learning_rate"],
+            cell["axis_values"]["optimization.seed"],
+        )
+        for cell in plan["cells"]
+    } == {
+        (epoch, learning_rate, 3407)
+        for epoch in (1.0, 2.0, 3.0, 5.0)
+        for learning_rate in (0.0001, 0.0002)
+    }
+    assert all(
+        cell["resolved_config"]["dataset"]["test_partition"] == "TEST"
+        and cell["resolved_config"]["tokenization"]["assistant_only_loss"] is True
+        for cell in plan["cells"]
+    )

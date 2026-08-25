@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Iterable
@@ -16,6 +17,12 @@ DEFAULT_CONFIG_PATH = (
     ROOT / "configs/training/qwen3_0_6b_structured_extraction_lora_v1.json"
 )
 MODEL_SCHEMA_PATH = ROOT / "configs/model_io/model_facing_encounter_v1.schema.json"
+LEGACY_CONFIG_ID = "edge-imci-qwen3-0.6b-structured-extraction-lora-v1"
+LEGACY_TRACKING = {
+    "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
+    "run_name_prefix": "qwen3-0.6b-lora-v1",
+    "image_identity": "edge-imci-qwen3-0.6b-sft-image-v1",
+}
 
 
 class FineTunePreflightError(ValueError):
@@ -35,6 +42,26 @@ def sha256_file(path: str | Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def training_tracking(config: dict[str, Any]) -> dict[str, str]:
+    """Return config-bound tracking identity, with support for compiled 0.6B cells."""
+
+    value = config.get("tracking")
+    if value is None and config.get("config_id") == LEGACY_CONFIG_ID:
+        return dict(LEGACY_TRACKING)
+    if not isinstance(value, dict):
+        raise FineTunePreflightError("training config must define tracking metadata")
+    required = {"experiment_id", "run_name_prefix", "image_identity"}
+    if set(value) != required:
+        raise FineTunePreflightError(
+            f"tracking metadata must contain exactly: {sorted(required)}"
+        )
+    pattern = r"[a-z0-9][a-z0-9._-]+"
+    for key in required:
+        if not isinstance(value[key], str) or not re.fullmatch(pattern, value[key]):
+            raise FineTunePreflightError(f"invalid tracking metadata: {key}")
+    return {key: value[key] for key in sorted(required)}
 
 
 def _resolve(repo_root: Path, value: str) -> Path:
@@ -124,6 +151,7 @@ def preflight_training(
     if not config_file.is_absolute():
         config_file = _resolve(root, str(config_file))
     config = load_json_object(config_file)
+    tracking = training_tracking(config)
     dataset_config = config.get("dataset", {})
     base_model = config.get("base_model", {})
     if config.get("training_stage") != "STRUCTURED_EXTRACTION_SFT_V1":
@@ -256,5 +284,6 @@ def preflight_training(
         "parent_case_count": len(parent_partitions),
         "test_partition_returned_to_trainer": False,
         "production_clinical_use_authorized": False,
+        "experiment_id": tracking["experiment_id"],
     }
     return summary, selected

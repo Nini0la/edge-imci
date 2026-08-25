@@ -138,7 +138,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     leaderboard.add_argument("plan")
     leaderboard.add_argument("--state", required=True)
-    leaderboard.add_argument("--reused-evaluation", required=True)
+    leaderboard.add_argument("--reused-evaluation")
     leaderboard.add_argument("--policy", required=True)
     leaderboard.add_argument("--repo-root", default=str(REPO_ROOT))
     leaderboard.add_argument("--output", required=True)

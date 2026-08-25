@@ -17,6 +17,13 @@ MANIFEST = (
     ROOT
     / "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1/configs/manifest.json"
 )
+QWEN_1_7B_PLAN = (
+    ROOT / "experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1.plan.json"
+)
+QWEN_1_7B_MANIFEST = (
+    ROOT
+    / "experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1/configs/manifest.json"
+)
 
 
 def test_authorized_schedule_binds_every_ready_config() -> None:
@@ -42,3 +49,20 @@ def test_schedule_rejects_tampered_manifest(tmp_path: Path) -> None:
     path.write_text(json.dumps(manifest), encoding="utf-8")
     with pytest.raises(ModalMatrixError, match="manifest and plan"):
         load_authorized_schedule(PLAN, path)
+
+
+def test_qwen3_1_7b_schedule_binds_all_eight_cells_to_its_experiment() -> None:
+    plan, cells = load_authorized_schedule(QWEN_1_7B_PLAN, QWEN_1_7B_MANIFEST)
+
+    assert plan["registry"]["experiment_id"] == (
+        "qwen3-1.7b-structured-extraction-sft-v1-modal"
+    )
+    assert len(cells) == 8
+    assert plan["execution"]["max_parallel_runs"] == 4
+    assert all(cell["state"] == "READY" for cell in cells)
+    assert all(command_for_cell(cell)[0:4] == [
+        "modal",
+        "run",
+        "-m",
+        "edge_imci.training.modal_finetune",
+    ] for cell in cells)

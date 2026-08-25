@@ -6,6 +6,9 @@ from edge_imci.experiments.matrix_results import build_matrix_leaderboard
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX_DIR = ROOT / "experiments/training/matrices/qwen3-0.6b-sft-calibration-v1"
+QWEN_1_7B_MATRIX_DIR = (
+    ROOT / "experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1"
+)
 
 
 def test_completed_matrix_has_a_deterministic_safety_first_winner() -> None:
@@ -25,4 +28,22 @@ def test_completed_matrix_has_a_deterministic_safety_first_winner() -> None:
         "optimization.epochs": 3.0,
         "optimization.learning_rate": 0.0002,
         "optimization.seed": 20260824,
+    }
+
+
+def test_completed_matrix_without_reused_cell_records_no_eligible_winner() -> None:
+    leaderboard = build_matrix_leaderboard(
+        QWEN_1_7B_MATRIX_DIR.parent / "qwen3-1.7b-sft-initial-matrix-v1.plan.json",
+        QWEN_1_7B_MATRIX_DIR / "execution/state.json",
+        None,
+        ROOT / "configs/evaluation/structured_extraction_checkpoint_policy_v1.json",
+    )
+
+    assert leaderboard["cell_count"] == 8
+    assert leaderboard["eligible_count"] == 0
+    assert leaderboard["winner_cell_id"] is None
+    assert leaderboard["rows"][0]["axis_values"] == {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407,
     }

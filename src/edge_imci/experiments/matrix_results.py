@@ -30,7 +30,7 @@ def _verified_plan(path: Path) -> dict[str, Any]:
 def build_matrix_leaderboard(
     plan_path: str | Path,
     state_path: str | Path,
-    reused_evaluation_path: str | Path,
+    reused_evaluation_path: str | Path | None,
     policy_path: str | Path,
     *,
     repo_root: str | Path = REPO_ROOT,
@@ -52,36 +52,39 @@ def build_matrix_leaderboard(
     results = {item["cell_id"]: dict(item) for item in state["results"]}
 
     reused = [cell for cell in plan["cells"] if cell["state"] == "REUSED"]
-    if len(reused) != 1:
-        raise MatrixResultsError("leaderboard expects exactly one reused baseline cell")
-    reused_cell = reused[0]
-    receipt = load_json_object(local(reused_evaluation_path))["result"]
-    if (
-        receipt.get("status") != "SUCCEEDED"
-        or receipt.get("cell_id") != reused_cell["cell_id"]
-        or receipt.get("test_partition_used") is not False
-    ):
-        raise MatrixResultsError("reused checkpoint evaluation is incomplete")
-    run_index = load_json_object(local(run_index_path))
-    indexed = {item["run_id"]: item for item in run_index["runs"]}
-    source_run_id = reused_cell["reused_run_id"]
-    if source_run_id not in indexed:
-        raise MatrixResultsError("reused source run is absent from the run index")
-    sidecar = validate_run_sidecar(root / indexed[source_run_id]["sidecar_path"])
-    results[reused_cell["cell_id"]] = {
-        "cell_id": reused_cell["cell_id"],
-        "status": "SUCCEEDED",
-        "run_id": source_run_id,
-        "reused_training_run": True,
-        "promotion_eligible": receipt["promotion"]["eligible"],
-        "aggregate": receipt["aggregate"],
-        "gpu_seconds": (
-            float(sidecar["telemetry"]["gpu_seconds"])
-            + float(receipt["duration_seconds"])
-        ),
-        "training_gpu_seconds": sidecar["telemetry"]["gpu_seconds"],
-        "evaluation_gpu_seconds": receipt["duration_seconds"],
-    }
+    if len(reused) > 1:
+        raise MatrixResultsError("leaderboard supports at most one reused baseline cell")
+    if reused:
+        if reused_evaluation_path is None:
+            raise MatrixResultsError("reused checkpoint evaluation is required")
+        reused_cell = reused[0]
+        receipt = load_json_object(local(reused_evaluation_path))["result"]
+        if (
+            receipt.get("status") != "SUCCEEDED"
+            or receipt.get("cell_id") != reused_cell["cell_id"]
+            or receipt.get("test_partition_used") is not False
+        ):
+            raise MatrixResultsError("reused checkpoint evaluation is incomplete")
+        run_index = load_json_object(local(run_index_path))
+        indexed = {item["run_id"]: item for item in run_index["runs"]}
+        source_run_id = reused_cell["reused_run_id"]
+        if source_run_id not in indexed:
+            raise MatrixResultsError("reused source run is absent from the run index")
+        sidecar = validate_run_sidecar(root / indexed[source_run_id]["sidecar_path"])
+        results[reused_cell["cell_id"]] = {
+            "cell_id": reused_cell["cell_id"],
+            "status": "SUCCEEDED",
+            "run_id": source_run_id,
+            "reused_training_run": True,
+            "promotion_eligible": receipt["promotion"]["eligible"],
+            "aggregate": receipt["aggregate"],
+            "gpu_seconds": (
+                float(sidecar["telemetry"]["gpu_seconds"])
+                + float(receipt["duration_seconds"])
+            ),
+            "training_gpu_seconds": sidecar["telemetry"]["gpu_seconds"],
+            "evaluation_gpu_seconds": receipt["duration_seconds"],
+        }
 
     if set(results) != set(by_cell):
         missing = sorted(set(by_cell) - set(results))

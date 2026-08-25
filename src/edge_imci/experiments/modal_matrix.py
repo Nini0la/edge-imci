@@ -13,6 +13,7 @@ from typing import Any
 from edge_imci.experiments.provenance import atomic_write_json, hash_canonical
 from edge_imci.experiments.registry import REPO_ROOT, load_json_object
 from edge_imci.experiments.tracking import validate_run_sidecar
+from edge_imci.training.finetune import training_tracking
 
 MODULE = "edge_imci.training.modal_finetune"
 
@@ -64,6 +65,12 @@ def load_authorized_schedule(
         config = load_json_object(item["path"])
         if hash_canonical(config) != item["config_sha256"]:
             raise ModalMatrixError(f"materialized config changed: {cell['cell_id']}")
+        if training_tracking(config)["experiment_id"] != plan["registry"][
+            "experiment_id"
+        ]:
+            raise ModalMatrixError(
+                f"config experiment differs from plan: {cell['cell_id']}"
+            )
         cell["materialized_config_path"] = item["path"]
     return plan, ready
 

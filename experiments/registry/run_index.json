@@ -36,6 +36,17 @@
       "component_run_ids": []
     },
     {
+      "run_id": "0e526d02-c0ac-4d71-a742-d24ec15e2f7f",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:15:19.367023Z",
+      "finished_at": "2026-08-25T04:45:53.528596Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--007--06ed69016b/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
       "run_id": "2114671f-5e1e-404f-8184-662f4a5cbe4a",
       "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
       "status": "SUCCEEDED",
@@ -58,6 +69,17 @@
       "component_run_ids": []
     },
     {
+      "run_id": "276b59fa-61f0-4658-b4f4-ddcc9693724a",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T03:50:47.894905Z",
+      "finished_at": "2026-08-25T04:00:22.797686Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--001--2e3391c9e7/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
       "run_id": "3b66015c-fd4c-4174-b2db-01633cc0d890",
       "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
       "status": "SUCCEEDED",
@@ -76,6 +98,17 @@
       "finished_at": "2026-08-24T09:02:53.523920Z",
       "environment_kind": "MODAL",
       "sidecar_path": "experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-sft-calibration-v1--019--73df76ffb8/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
+      "run_id": "3e1a66d8-dc9e-449a-abfd-ed7da0f9bc99",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:10:38.268308Z",
+      "finished_at": "2026-08-25T04:30:05.227841Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--006--9690db3ba4/edgeimci_run.json",
       "parent_run_id": null,
       "component_run_ids": []
     },
@@ -113,6 +146,17 @@
       "component_run_ids": []
     },
     {
+      "run_id": "444942b4-75c2-4b20-8291-14c19c0f9035",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:16:06.732628Z",
+      "finished_at": "2026-08-25T04:46:04.390979Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--008--31e268a8d9/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
       "run_id": "4a1e754a-023a-4b30-bf22-ecf943712cb5",
       "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
       "status": "SUCCEEDED",
@@ -131,6 +175,17 @@
       "finished_at": "2026-08-24T05:52:28.515439Z",
       "environment_kind": "MODAL",
       "sidecar_path": "experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-lora-v1-first-20260824/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
+      "run_id": "59f5e2d4-851c-4823-b116-e1b40b0d4b07",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:01:14.330177Z",
+      "finished_at": "2026-08-25T04:20:53.618502Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--005--e474302164/edgeimci_run.json",
       "parent_run_id": null,
       "component_run_ids": []
     },
@@ -234,6 +289,17 @@
       "component_run_ids": []
     },
     {
+      "run_id": "b51b91e2-54c8-4529-a2d6-f379af68a8a9",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:01:09.591323Z",
+      "finished_at": "2026-08-25T04:10:17.640440Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--002--a5fa236370/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
       "run_id": "c3bbdd59-95f0-412b-aef1-351fff37e961",
       "experiment_id": "qwen3-0.6b-structured-extraction-sft-v1-modal",
       "status": "SUCCEEDED",
@@ -285,6 +351,28 @@
       "finished_at": "2026-08-24T08:01:07.280447Z",
       "environment_kind": "MODAL",
       "sidecar_path": "experiments/training/qwen3-0.6b-structured-extraction-sft-v1-modal/qwen3-0.6b-sft-calibration-v1--001--dfb6688b85--attempt-4/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
+      "run_id": "e8f8d972-7d5e-4209-bedc-6bdcdace15bd",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:01:10.684979Z",
+      "finished_at": "2026-08-25T04:15:06.698131Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--003--6cb916ef38/edgeimci_run.json",
+      "parent_run_id": null,
+      "component_run_ids": []
+    },
+    {
+      "run_id": "e93e85ac-6e33-4eca-aa7d-881ba3a99e42",
+      "experiment_id": "qwen3-1.7b-structured-extraction-sft-v1-modal",
+      "status": "SUCCEEDED",
+      "started_at": "2026-08-25T04:01:10.294651Z",
+      "finished_at": "2026-08-25T04:15:59.032942Z",
+      "environment_kind": "MODAL",
+      "sidecar_path": "experiments/training/qwen3-1.7b-structured-extraction-sft-v1-modal/qwen3-1.7b-sft-initial-matrix-v1--004--9f094604a7/edgeimci_run.json",
       "parent_run_id": null,
       "component_run_ids": []
     },

@@ -522,29 +522,49 @@ experiments:
   - experiment_id: qwen3-1.7b-structured-extraction-sft-v1-modal
     definition_version: 1.0.0
     experiment_type: TRAINING
-    priority: CORE
-    status: SUPERSEDED
-    hypothesis: Supervised fine-tuning on many faithful PHC language variants mapped to canonical encounter JSON
-      improves structured clinical interpretation.
-    decision_question: Does extraction SFT-v1 produce a viable first EdgeIMCI checkpoint?
+    priority: CONDITIONAL
+    status: COMPLETE
+    hypothesis: A pinned Qwen3-1.7B LoRA trained on the reviewed PHC-language-to-encounter-JSON corpus can improve
+      structured extraction over the smaller-capacity lane.
+    decision_question: Which cell in the authorized initial Qwen3-1.7B matrix produces the strongest complete VALIDATION
+      evidence?
     branch_id: qwen3-1.7b-sft-v1
     prerequisites:
-      - Approved canonical extraction dataset and split
-      - Pinned model-facing target and training-record contracts
-      - Candidate model-runtime combination admitted by matched ASUS qualification
-    branch_trigger: null
+      - Project-owner exploratory matrix authorization
+      - Pinned canonical extraction dataset and parent-derived split
+      - Pinned base model, tokenizer, recipe, and Modal runner
+    branch_trigger: Project owner explicitly authorized the initial eight-cell paid Modal matrix on 2026-08-25.
     material_configuration:
       model_family: Qwen3-1.7B
+      model_id: Qwen/Qwen3-1.7B
+      model_revision: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
       training_stage: STRUCTURED_EXTRACTION_SFT_V1
+      method: LORA
       learned_task: FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
       preferred_environment: MODAL
-      parent_admission_required: true
+      execution_class: EXPLORATORY_CAPACITY_MATRIX
+      test_partition_prohibited: true
+      deployment_authorized: false
     reproducibility:
       required_reference_kinds:
         - CONFIG
         - MODEL
         - DATASET
       references:
+        - reference_kind: CONFIG
+          reference_id: qwen3-1.7b-structured-extraction-lora-v1
+          version: 1.0.0
+          location: configs/training/qwen3_1_7b_structured_extraction_lora_v1.json
+          sha256: 326db1b77137f41833fca0e48fd3f1cb38f71df38fe4338f7dcfb52fb71adac9
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-release-qwen3-1.7b-v1
+          version: 1.0.0
+          location: configs/training/structured_extraction_sft_release_qwen3_1_7b_v1.json
+          sha256: 476a56446cd3bf69055bcc5b8bf25d86fc2304b91e873ef144062ccaef4d0776
+          remote_only: false
+          role: INPUT
         - reference_kind: CONFIG
           reference_id: structured-extraction-sft-record-schema-v1
           version: 1.0.0
@@ -559,27 +579,50 @@ experiments:
           sha256: e9549bbbb3a2db5bb3fa761611216ea3f7835467aedfdbac0a725587ef9be16d
           remote_only: false
           role: INPUT
-      unresolved_inputs:
-        - ASUS admission decision and admitted base model-runtime identity
-        - base checkpoint revision
-        - approved extraction dataset and split
-        - training recipe
-        - pinned Qwen chat template/tokenizer
-        - Modal image/config
+        - reference_kind: MODEL
+          reference_id: qwen-qwen3-1.7b
+          version: 70d244cc
+          immutable_revision: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+          remote_only: true
+          role: BASE
+        - reference_kind: DATASET
+          reference_id: structured-extraction-campaign-v1-manifest
+          version: 1.0.0
+          location: data/training_sources/structured_extraction_campaign_v1/manifest.json
+          sha256: fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727
+          remote_only: false
+          role: INPUT
+        - reference_kind: DATASET
+          reference_id: structured-extraction-campaign-v1-chat
+          version: 1.0.0
+          location: data/training_sources/structured_extraction_campaign_v1/chat_messages.jsonl
+          sha256: ed5eb51c187ab593b45a795df7f7be421fc7691c02bde4bf0d41e4816b47cbf0
+          remote_only: false
+          role: INPUT
+      unresolved_inputs: []
     evidence:
       - evidence_id: training_metrics
         evidence_class: SCIENTIFIC
         applicability: APPLICABLE
-        artifact_ref: null
+        artifact_ref: experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1/execution/leaderboard.json
       - evidence_id: checkpoint
         evidence_class: SCIENTIFIC
-        applicability: APPLICABLE
+        applicability: NOT_APPLICABLE
         artifact_ref: null
+        condition: No matrix cell met the preregistered promotion thresholds, so no checkpoint was selected.
       - evidence_id: modal_execution
         evidence_class: EXECUTION
         applicability: APPLICABLE
-        artifact_ref: null
-    run_ids: []
+        artifact_ref: experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1/execution/state.json
+    run_ids:
+      - 0e526d02-c0ac-4d71-a742-d24ec15e2f7f
+      - 276b59fa-61f0-4658-b4f4-ddcc9693724a
+      - 3e1a66d8-dc9e-449a-abfd-ed7da0f9bc99
+      - 444942b4-75c2-4b20-8291-14c19c0f9035
+      - 59f5e2d4-851c-4823-b116-e1b40b0d4b07
+      - b51b91e2-54c8-4529-a2d6-f379af68a8a9
+      - e8f8d972-7d5e-4209-bedc-6bdcdace15bd
+      - e93e85ac-6e33-4eca-aa7d-881ba3a99e42
   - experiment_id: qwen3-0.6b-structured-extraction-sft-v1-modal
     definition_version: 1.0.0
     experiment_type: TRAINING
@@ -702,7 +745,6 @@ experiments:
       - d3ae978a-9e79-4f4f-87ad-c8804c4e0b15
       - d80ff9bd-9560-4be7-b758-df9be5349b0d
       - edf3235a-99d5-4365-ae74-55b0ba6ae4d1
-    supersedes_experiment_id: qwen3-1.7b-structured-extraction-sft-v1-modal
   - experiment_id: qwen3-1.7b-structured-extraction-eval-v1
     definition_version: 1.0.0
     experiment_type: CLINICAL_EVAL
