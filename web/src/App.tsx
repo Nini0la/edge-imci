@@ -270,8 +270,12 @@ export default function App() {
 
           <footer className="findings-footer">
             <LockKeyhole aria-hidden="true" size={14} />
-            Language interpretation cannot classify or prescribe. The deterministic engine runs
-            only after verification.
+            <span>
+              <strong>AI model limitation:</strong> The AI does not classify illness or prescribe
+              treatment. It only structures the documented findings. After worker verification,
+              the deterministic engine uses those findings to produce classifications and
+              management guidance.
+            </span>
           </footer>
         </section>
 

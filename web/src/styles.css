@@ -567,6 +567,7 @@ textarea::placeholder { color: #8b9692; }
 }
 
 .findings-footer svg { flex: 0 0 auto; color: var(--teal); }
+.findings-footer strong { color: #405c56; }
 
 .output-panel {
   display: flex;
