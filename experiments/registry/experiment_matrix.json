@@ -17,7 +17,7 @@
       "reproducibility": {
         "required_reference_kinds": ["CONFIG", "MODEL", "DATASET", "PROMPT", "VALIDATOR"],
         "references": [
-          {"reference_kind": "CONFIG", "reference_id": "holistic-teacher-bakeoff-v1-config", "version": "1.0.0", "location": "configs/generation/holistic_teacher_bakeoff_v1.json", "sha256": "188895f5dd97379fa4207881b5dcdd92bc45de6497639d009b34561b82ac1974", "remote_only": false, "role": "INPUT"},
+          {"reference_kind": "CONFIG", "reference_id": "holistic-teacher-bakeoff-v1-config", "version": "1.0.0", "location": "configs/generation/holistic_teacher_bakeoff_v1.json", "sha256": "732e529adbfae44d8eb3f9c18122924c7ca60339df9c21e34da764454876e195", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-v1-semantics", "version": "1.0.0", "location": "data/golden/holistic_product_v1/semantic_cases.jsonl", "sha256": "9026186ea67aea26981985e02b88c503e18a098cca564db33b7ed4313808665f", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "DATASET", "reference_id": "holistic-product-golden-language-v1", "version": "1.0.0", "location": "data/golden/holistic_product_v1/language_renderings_v1.jsonl", "sha256": "9b9c1b67a73c2e5763f5507bc55e618d28149bdee6c7c4329ecc8a868e3860a0", "remote_only": false, "role": "INPUT"},
           {"reference_kind": "PROMPT", "reference_id": "edge-imci-phc-concise-complete", "version": "1.0.0", "location": "prompts/holistic_language_variants/phc_concise_complete_v1.txt", "sha256": "70e7c071f73f0cc796681f6acfbc53fa30a74bd927ddaf0eaa0d3ee5fc49cd27", "remote_only": false, "role": "INPUT"},
