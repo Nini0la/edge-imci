@@ -1,6 +1,6 @@
 {
   "contract_id": "edge-imci-input-language-style-contract-v1",
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "status": "APPROVED_FOR_BOUNDED_CANARIES",
   "authority": "PROJECT_OWNER_DECISION",
   "clinical_rule_change": false,
@@ -12,11 +12,13 @@
     "NIGERIAN_PIDGIN",
     "NONSTANDARD_ENGLISH",
     "NOISY_TYPED_ENGLISH",
+    "SUBJECTLESS_UNPUNCTUATED_SHORTHAND",
     "TELEGRAPHIC_PHC_NOTE",
     "MIXED_REGISTER"
   ],
   "noise_profiles": [
     "ARTICLE_OMISSION",
+    "SUBJECT_OMISSION",
     "SUBJECT_VERB_DISAGREEMENT",
     "TENSE_INCONSISTENCY",
     "PUNCTUATION_LOSS",
@@ -39,6 +41,12 @@
     ],
     "TELEGRAPHIC_PHC_NOTE": [
       "ABBREVIATION_DENSITY_MEDIUM",
+      "SENTENCE_FRAGMENTS",
+      "TELEGRAPHIC_COMPRESSION"
+    ],
+    "SUBJECTLESS_UNPUNCTUATED_SHORTHAND": [
+      "SUBJECT_OMISSION",
+      "PUNCTUATION_LOSS",
       "SENTENCE_FRAGMENTS",
       "TELEGRAPHIC_COMPRESSION"
     ]

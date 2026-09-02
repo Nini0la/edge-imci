@@ -24,6 +24,7 @@ from edge_imci.generation.azure_foundry import azure_structured_output_schema
 from edge_imci.generation.holistic_variants import ROOT
 from edge_imci.generation.holistic_variants import SEMANTIC_CASES_SHA256
 from edge_imci.generation.holistic_golden import SUITE_ID
+from edge_imci.generation.shorthand_realization import assess_shorthand_realization
 from edge_imci.model_io.encounter import (
     MODEL_FACING_ENCOUNTER_SCHEMA_ID,
     MODEL_TARGET_EXPORTER_ID,
@@ -69,6 +70,15 @@ _STRATEGY_STYLES: dict[str, tuple[str, list[str]]] = {
         "TELEGRAPHIC_PHC_NOTE",
         [
             "ABBREVIATION_DENSITY_MEDIUM",
+            "SENTENCE_FRAGMENTS",
+            "TELEGRAPHIC_COMPRESSION",
+        ],
+    ),
+    "phc-subjectless-unpunctuated-v1": (
+        "SUBJECTLESS_UNPUNCTUATED_SHORTHAND",
+        [
+            "SUBJECT_OMISSION",
+            "PUNCTUATION_LOSS",
             "SENTENCE_FRAGMENTS",
             "TELEGRAPHIC_COMPRESSION",
         ],
@@ -165,11 +175,23 @@ def load_review_contract(path: Path = REVIEW_CONTRACT_PATH) -> dict[str, Any]:
     return contract
 
 
+_STRUCTURAL_NULL_CONTAINERS = frozenset(
+    {
+        "respiratory",
+        "diarrhoea",
+        "diarrhoea.post_rehydration",
+        "fever",
+        "ear",
+    }
+)
+
+
 def _flatten_target(value: Any, prefix: str = "") -> tuple[list[dict[str, Any]], list[str]]:
     known: list[dict[str, Any]] = []
     unknown: list[str] = []
     if value is None:
-        unknown.append(prefix)
+        if prefix not in _STRUCTURAL_NULL_CONTAINERS:
+            unknown.append(prefix)
     elif isinstance(value, dict):
         for key in sorted(value):
             child = f"{prefix}.{key}" if prefix else key
@@ -396,6 +418,16 @@ def _validate_subject(subject: Mapping[str, Any]) -> None:
     fact_ids = [item.get("fact_id") for item in subject["known_facts"]]
     if not fact_ids or len(fact_ids) != len(set(fact_ids)):
         raise ReviewPipelineError("review subject known facts must be nonempty and unique")
+    unknown_fields = subject["unknown_fields"]
+    if (
+        not isinstance(unknown_fields, list)
+        or any(not isinstance(field, str) or not field for field in unknown_fields)
+        or len(unknown_fields) != len(set(unknown_fields))
+        or any(field in _STRUCTURAL_NULL_CONTAINERS for field in unknown_fields)
+    ):
+        raise ReviewPipelineError(
+            "review subject unknown fields must be unique scalar observations"
+        )
     validate_structured_extraction_record(dict(subject["canonical_record"]))
 
 
@@ -1025,6 +1057,33 @@ def finalize_review_pipeline(
                 6,
             ),
         }
+        if style == "SUBJECTLESS_UNPUNCTUATED_SHORTHAND":
+            realizations = [
+                assess_shorthand_realization(subjects[subject_id]["candidate_text"])
+                for subject_id in subject_ids
+            ]
+            accepted_realizations = [
+                realization
+                for subject_id, realization in zip(subject_ids, realizations)
+                if subject_id in accepted_ids
+            ]
+            style_reports[style]["realization"] = {
+                "assessed": len(realizations),
+                "subject_omission_rate": sum(
+                    item["subject_omission"] for item in realizations
+                ) / len(realizations),
+                "punctuation_loss_rate": sum(
+                    item["punctuation_loss"] for item in realizations
+                ) / len(realizations),
+                "joint_rate": sum(
+                    item["joint_subject_omission_and_punctuation_loss"]
+                    for item in realizations
+                ) / len(realizations),
+                "accepted_joint_count": sum(
+                    item["joint_subject_omission_and_punctuation_loss"]
+                    for item in accepted_realizations
+                ),
+            }
         gates.extend(
             [
                 {
@@ -1040,6 +1099,23 @@ def finalize_review_pipeline(
                     "passed": critical_rate <= acceptance["maximum_critical_error_rate_per_style"],
                 },
             ]
+        )
+    run_ids = {
+        subject["canonical_record"]["provenance"]["variant_run_id"]
+        for subject in subjects_list
+    }
+    if run_ids == {"edge-imci-three-gap-azure-batch-attack-v1"}:
+        shorthand = style_reports.get("SUBJECTLESS_UNPUNCTUATED_SHORTHAND", {})
+        accepted_joint = (shorthand.get("realization") or {}).get(
+            "accepted_joint_count", 0
+        )
+        gates.append(
+            {
+                "gate": "SUBJECTLESS_UNPUNCTUATED_ACCEPTED_RECORD_QUOTA",
+                "value": accepted_joint,
+                "threshold": 1500,
+                "passed": accepted_joint >= 1500,
+            }
         )
     actual_usage_cost = _usage_cost(primary.values(), tier="primary", contract=contract) + _usage_cost(
         adjudicator.values(), tier="adjudicator", contract=contract

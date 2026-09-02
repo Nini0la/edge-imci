@@ -1,0 +1,2560 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-1.7b-seven-style-sft-matrix-v2",
+  "source_spec": "configs/training/qwen3_1_7b_seven_style_sft_matrix_v2.json",
+  "source_spec_sha256": "4afc91de19c2d1c839027be9519a54ef77768f48bb30812dbe176ce08f24b144",
+  "registry": {
+    "registry_id": "edgeimci-experiment-registry-v1",
+    "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+    "experiment_status_at_compile": "READY",
+    "experiment_definition_sha256": "aa423d88c564e81ee34c951bb7dd3cf4ab9ca46b91d8096afbdac5d63c8ae021"
+  },
+  "base_config_path": "configs/training/qwen3_1_7b_structured_extraction_lora_seven_style_v2.json",
+  "base_config_sha256": "0dc43e41d4029869b5fe05b135b528dbd44e823d7dee2b3e8b4fdc13a73e0032",
+  "execution": {
+    "environment_kind": "MODAL",
+    "gpu_type": "A10G",
+    "gpu_count": 1,
+    "max_parallel_runs": 4
+  },
+  "budget": {
+    "max_runs": 24,
+    "max_estimated_gpu_seconds": 180000
+  },
+  "controls": {
+    "launch_authorized": true,
+    "test_partition_prohibited": true,
+    "gates": [
+      {
+        "gate_id": "dataset-and-model-release-pinned",
+        "satisfied": true,
+        "evidence_ref": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json"
+      },
+      {
+        "gate_id": "shared-modal-trainer-ready",
+        "satisfied": true,
+        "evidence_ref": "src/edge_imci/training/modal_finetune.py"
+      },
+      {
+        "gate_id": "matched-validation-evaluator-ready",
+        "satisfied": true,
+        "evidence_ref": "configs/evaluation/structured_extraction_checkpoint_policy_v1.json"
+      },
+      {
+        "gate_id": "paid-matrix-launch-authorized",
+        "satisfied": true,
+        "evidence_ref": "configs/training/qwen3_1_7b_seven_style_sft_matrix_authorization_v2.json"
+      }
+    ]
+  },
+  "summary": {
+    "cell_count": 24,
+    "new_run_count": 24,
+    "reused_run_count": 0,
+    "ready_run_count": 24,
+    "blocked_run_count": 0,
+    "estimated_gpu_seconds": 178454.598,
+    "estimated_gpu_hours": 49.571,
+    "max_parallel_runs": 4,
+    "minimum_execution_waves": 6
+  },
+  "cells": [
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--001--6089296ddb",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "6089296ddb2d7468272afd7b26e62508c8a1af3b50c0f9c3846e919d8fbc4d7c",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--002--d427b6048b",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "d427b6048bca3c46ad339eeababe355bf684e47414f2cdbe4cad49a6e72107ff",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--003--7091678246",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "7091678246921e31012df0a61c617ca0070a3244bf537f617fce1ae25ad73ddc",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--004--9899fa5a70",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "9899fa5a70a79cf351ed2c126e1f89e47911780f7516f9e268a1d5dd7dcac4c5",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--005--1699c10f85",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "1699c10f852a8110934c30236f441553a4e0327bab5f73f86997ee2ec97ca2ab",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--006--f7732c31d3",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 1.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "f7732c31d39f2c0f9f99127d5534cd2cd6aa94fc94b5529a2068144c8a42a5b0",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 1.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 3213.102,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--007--9675fd2a6d",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "9675fd2a6d03fb2a98e01c160e1bfe847d06c2115ff4235d31cc56841437e1a6",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--008--299ad9952d",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "299ad9952d9c1dd4590b09308e317685ce76236962edd4984c5907d091ca76ae",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--009--36b1e110d7",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "36b1e110d7a3102efc73766bc7d856ba3dda0a8a714bf36760029bcb4392618b",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--010--31858110a6",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "31858110a6d0d812c3b01a322e32c0aa901cb872e2b5b0bad0f0e96a34495725",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--011--ec1d92d845",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "ec1d92d8457223faa8b70ac4cd7047ef67d4083989e37922f52974ef3204fa54",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--012--85502f28f4",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 2.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "85502f28f451093eb8d9074c7ab254f86dc1be7141b30b9ccae804c172af4850",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 2.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 5625.963,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--013--f89520f304",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "f89520f3047f946b0fa3e8b79fb155c2c09ebb30ed764286c559a7ef8e0fa13e",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--014--4c9cc32d8d",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "4c9cc32d8dcb82397a7e54885d7fde4611e4f57f3a35591cbca4e64d38304365",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--015--0dc43e41d4",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "0dc43e41d4029869b5fe05b135b528dbd44e823d7dee2b3e8b4fdc13a73e0032",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--016--ef095a965c",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "ef095a965cbf32cc245eed3e5865afe69fa08b6c2671d61d105ca0ea83c84d01",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--017--ac8cbd6cce",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "ac8cbd6cce2c629a294e07aaa851aea55a320cd2009f80fde478a400dcdbf68b",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--018--44c7c27053",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 3.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "44c7c270533b92e49f228ee8f894eabf06dd8e0267e8d65fd1c98a39377e5991",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 3.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 8038.823,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--019--9cf8e28f50",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "9cf8e28f501013ffdafb24bde3dfd6661f8250a178cc77772d417f0920a8e5b4",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--020--8ceb96ccd0",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0001,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "8ceb96ccd07caeb665197d94f1034802bad2846612e3b94beebbf708003e445e",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0001,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--021--411a7f1b0a",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "411a7f1b0ac44849a53a806262f3fb01f72b358c256bf2022701d6bd0045ddc7",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--022--8a8b2cd51f",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0002,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "8a8b2cd51fd521fc57a140e16509172eaf176f0d51e18425980e9e84d21e24a3",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0002,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--023--76d0d0118b",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 3407
+      },
+      "resolved_config_sha256": "76d0d0118b4f101c62f438a5b4a65cbfef0d0380e4826b62b6df313925f85463",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 3407,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    },
+    {
+      "cell_id": "qwen3-1.7b-seven-style-sft-matrix-v2--024--13e559ae4e",
+      "state": "READY",
+      "axis_values": {
+        "optimization.epochs": 5.0,
+        "optimization.learning_rate": 0.0003,
+        "optimization.seed": 20260824
+      },
+      "resolved_config_sha256": "13e559ae4ebe334e06e461ce7ed85ef5fcf8637e3d65b027d2cf66b7f2e93fea",
+      "resolved_config": {
+        "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+        "version": "2.0.0",
+        "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+        "tracking": {
+          "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+          "run_name_prefix": "qwen3-1.7b-seven-style-lora-v2",
+          "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+        },
+        "base_model": {
+          "model_id": "Qwen/Qwen3-1.7B",
+          "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+          "license": "Apache-2.0"
+        },
+        "dataset": {
+          "release_path": "configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json",
+          "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+          "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+          "train_partition": "TRAIN",
+          "validation_partition": "VALIDATION",
+          "test_partition": "TEST"
+        },
+        "method": {
+          "name": "LORA",
+          "rank": 16,
+          "alpha": 32,
+          "dropout": 0.05,
+          "bias": "none",
+          "target_modules": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "merge_adapter_after_training": true
+        },
+        "tokenization": {
+          "max_sequence_length": 1536,
+          "assistant_only_loss": true,
+          "enable_thinking": false,
+          "truncation_allowed": false,
+          "observed_record_count": 7163
+        },
+        "optimization": {
+          "epochs": 5.0,
+          "learning_rate": 0.0003,
+          "weight_decay": 0.01,
+          "warmup_ratio": 0.05,
+          "per_device_train_batch_size": 2,
+          "per_device_eval_batch_size": 2,
+          "gradient_accumulation_steps": 8,
+          "gradient_checkpointing": true,
+          "max_grad_norm": 1.0,
+          "optimizer": "adamw_torch_fused",
+          "lr_scheduler_type": "cosine",
+          "bf16": true,
+          "tf32": true,
+          "seed": 20260824,
+          "logging_steps": 10,
+          "save_total_limit": 2
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "max_new_tokens": 1200,
+          "do_sample": false
+        },
+        "modal": {
+          "app_name": "edge-imci-qwen3-0-6b-sft",
+          "function_name": "train",
+          "gpu_type": "A10G",
+          "gpu_count": 1,
+          "region": "AUTO",
+          "timeout_seconds": 14400,
+          "model_cache_volume": "edge-imci-hf-cache",
+          "artifact_volume": "edge-imci-finetune-artifacts",
+          "artifact_root": "/outputs"
+        },
+        "software": {
+          "python": "3.11",
+          "torch": "2.7.1",
+          "transformers": "4.54.0",
+          "datasets": "3.6.0",
+          "accelerate": "1.9.0",
+          "peft": "0.16.0",
+          "huggingface_hub": "0.34.2"
+        }
+      },
+      "estimated_gpu_seconds": 12864.545,
+      "reused_run_id": null,
+      "blocked_reasons": []
+    }
+  ],
+  "plan_sha256": "c0e22f9dcca6fece72c4555534533d26aef3bd50337fcad2c0468c6b49c2b4b1"
+}

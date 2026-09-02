@@ -1,0 +1,600 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "907d1e00-1e20-4fac-9e85-0a9c0743fb65",
+  "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+  "experiment_definition_sha256": "aa423d88c564e81ee34c951bb7dd3cf4ab9ca46b91d8096afbdac5d63c8ae021",
+  "status": "SUCCEEDED",
+  "started_at": "2026-08-31T22:42:04.305677Z",
+  "finished_at": "2026-08-31T23:41:15.766640Z",
+  "wall_duration_seconds": 3551.4282257501036,
+  "parent_run_id": null,
+  "component_run_ids": [],
+  "provenance": {
+    "git": {
+      "git_commit": "c62b3f436148b4a7f5f6a070a2c3af28aeb07cf9",
+      "dirty_worktree": true,
+      "dirty_state_sha256": "af645fe14e09560634f6726b6d3cbdc1d86be8bafdc53503561bf1fbcfb8ec91"
+    },
+    "runtime": {
+      "python_version": "3.12.3",
+      "platform": "macOS-15.4-arm64-arm-64bit",
+      "architecture": "arm64",
+      "runner_version": "edge-imci-0.1.0",
+      "dependency_identity": "uv.lock:sha256:9c4fcdf5ea72e5bb4eb78d0b3075d228ebb3135386e0e176ada671827a17d862",
+      "command": [
+        "modal",
+        "run",
+        "-m",
+        "edge_imci.training.modal_finetune",
+        "--run-name",
+        "qwen3-1.7b-seven-style-sft-matrix-v2--007--9675fd2a6d",
+        "--config-path",
+        "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/configs/qwen3-1.7b-seven-style-sft-matrix-v2--007--9675fd2a6d.json"
+      ]
+    }
+  },
+  "execution": {
+    "environment_kind": "MODAL",
+    "execution_provider": "Modal",
+    "modal": {
+      "app_id": "edge-imci-qwen3-0-6b-sft",
+      "function_name": "train",
+      "region": "AUTO",
+      "gpu_type": "A10G",
+      "gpu_count": 1,
+      "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+    }
+  },
+  "config": {
+    "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+    "version": "2.0.0",
+    "snapshot_path": "experiments/training/qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal/qwen3-1.7b-seven-style-sft-matrix-v2--007--9675fd2a6d/edgeimci_config_snapshot.json",
+    "sha256": "9675fd2a6d03fb2a98e01c160e1bfe847d06c2115ff4235d31cc56841437e1a6",
+    "source_path": "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/configs/qwen3-1.7b-seven-style-sft-matrix-v2--007--9675fd2a6d.json"
+  },
+  "models": [
+    {
+      "role": "BASE",
+      "model_provider": "Qwen",
+      "model_source": "Hugging Face Hub",
+      "model_id": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "representation": "BF16_SAFETENSORS",
+      "precision": "BF16",
+      "remote_only": true
+    }
+  ],
+  "datasets": [
+    {
+      "dataset_id": "edge-imci-structured-extraction-seven-style-v2",
+      "version": "2.0.0",
+      "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+      "sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d",
+      "split": "TRAIN+VALIDATION; TEST PROHIBITED",
+      "record_count": 7020
+    }
+  ],
+  "prompts": [],
+  "scientific_results": {
+    "train_metrics": {
+      "train_runtime": 3312.2411,
+      "train_samples_per_second": 4.169,
+      "train_steps_per_second": 0.261,
+      "total_flos": 5.680048171961549e+16,
+      "train_loss": 0.05417408962606445,
+      "epoch": 2.0
+    },
+    "evaluation_metrics": {
+      "eval_loss": 0.0017937046941369772,
+      "eval_runtime": 7.6286,
+      "eval_samples_per_second": 15.075,
+      "eval_steps_per_second": 7.603,
+      "epoch": 2.0
+    },
+    "validation_generation": {
+      "example_count": 8,
+      "json_parse_count": 8,
+      "json_parse_rate": 1.0,
+      "schema_valid_count": 8,
+      "schema_valid_rate": 1.0,
+      "exact_match_count": 8,
+      "exact_match_rate": 1.0
+    },
+    "validation_inference": {
+      "example_count": 115,
+      "batch_size": 8,
+      "duration_seconds": 130.89196565600014
+    },
+    "checkpoint_evaluation": {
+      "aggregate": {
+        "example_count": 115,
+        "coverage_rate": 1.0,
+        "json_parse_rate": 1.0,
+        "schema_valid_rate": 0.991304347826087,
+        "exact_match_rate": 0.8521739130434782,
+        "decision_equivalence_rate": 0.8521739130434782,
+        "urgency_equivalence_rate": 0.991304347826087,
+        "urgent_action_equivalence_rate": 0.9826086956521739,
+        "referral_behavior_equivalence_rate": 0.9826086956521739,
+        "management_equivalence_rate": 0.8521739130434782,
+        "latency_observation_count": 115,
+        "p50_latency_seconds": 1.1335113443749947,
+        "p95_latency_seconds": 1.202935001125013,
+        "field_accuracy": 0.9944074333800843,
+        "known_positive_precision": 0.9978260869565218,
+        "known_positive_recall": 0.9891304347826086,
+        "known_negative_accuracy": 1.0,
+        "unknown_preservation_accuracy": 1.0,
+        "measurement_accuracy": 1.0,
+        "duration_accuracy": 1.0,
+        "qualifier_accuracy": 0.9978260869565218,
+        "pre_post_intervention_accuracy": 1.0
+      },
+      "slices": {
+        "phc-nigerian-english-v1": {
+          "example_count": 30,
+          "coverage_rate": 1.0,
+          "json_parse_rate": 1.0,
+          "schema_valid_rate": 1.0,
+          "exact_match_rate": 1.0,
+          "decision_equivalence_rate": 1.0,
+          "urgency_equivalence_rate": 1.0,
+          "urgent_action_equivalence_rate": 1.0,
+          "referral_behavior_equivalence_rate": 1.0,
+          "management_equivalence_rate": 1.0,
+          "latency_observation_count": 30,
+          "p50_latency_seconds": 1.1415284709999582,
+          "p95_latency_seconds": 1.1737879343750137,
+          "field_accuracy": 1.0,
+          "known_positive_precision": 1.0,
+          "known_positive_recall": 1.0,
+          "known_negative_accuracy": 1.0,
+          "unknown_preservation_accuracy": 1.0,
+          "measurement_accuracy": 1.0,
+          "duration_accuracy": 1.0,
+          "qualifier_accuracy": 1.0,
+          "pre_post_intervention_accuracy": 1.0
+        },
+        "phc-nigerian-pidgin-v1": {
+          "example_count": 25,
+          "coverage_rate": 1.0,
+          "json_parse_rate": 1.0,
+          "schema_valid_rate": 0.96,
+          "exact_match_rate": 0.68,
+          "decision_equivalence_rate": 0.68,
+          "urgency_equivalence_rate": 0.96,
+          "urgent_action_equivalence_rate": 0.92,
+          "referral_behavior_equivalence_rate": 0.92,
+          "management_equivalence_rate": 0.68,
+          "latency_observation_count": 25,
+          "p50_latency_seconds": 1.133648487125015,
+          "p95_latency_seconds": 1.202935001125013,
+          "field_accuracy": 0.9858870967741935,
+          "known_positive_precision": 0.99,
+          "known_positive_recall": 0.95,
+          "known_negative_accuracy": 1.0,
+          "unknown_preservation_accuracy": 1.0,
+          "measurement_accuracy": 1.0,
+          "duration_accuracy": 1.0,
+          "qualifier_accuracy": 0.99,
+          "pre_post_intervention_accuracy": 1.0
+        },
+        "phc-noisy-typed-english-v1": {
+          "example_count": 28,
+          "coverage_rate": 1.0,
+          "json_parse_rate": 1.0,
+          "schema_valid_rate": 1.0,
+          "exact_match_rate": 0.8214285714285714,
+          "decision_equivalence_rate": 0.8214285714285714,
+          "urgency_equivalence_rate": 1.0,
+          "urgent_action_equivalence_rate": 1.0,
+          "referral_behavior_equivalence_rate": 1.0,
+          "management_equivalence_rate": 0.8214285714285714,
+          "latency_observation_count": 28,
+          "p50_latency_seconds": 1.1274013273750256,
+          "p95_latency_seconds": 1.202935001125013,
+          "field_accuracy": 0.9942396313364056,
+          "known_positive_precision": 1.0,
+          "known_positive_recall": 1.0,
+          "known_negative_accuracy": 1.0,
+          "unknown_preservation_accuracy": 1.0,
+          "measurement_accuracy": 1.0,
+          "duration_accuracy": 1.0,
+          "qualifier_accuracy": 1.0,
+          "pre_post_intervention_accuracy": 1.0
+        },
+        "phc-telegraphic-note-v1": {
+          "example_count": 32,
+          "coverage_rate": 1.0,
+          "json_parse_rate": 1.0,
+          "schema_valid_rate": 1.0,
+          "exact_match_rate": 0.875,
+          "decision_equivalence_rate": 0.875,
+          "urgency_equivalence_rate": 1.0,
+          "urgent_action_equivalence_rate": 1.0,
+          "referral_behavior_equivalence_rate": 1.0,
+          "management_equivalence_rate": 0.875,
+          "latency_observation_count": 32,
+          "p50_latency_seconds": 1.1239532258750273,
+          "p95_latency_seconds": 2.0674931486666233,
+          "field_accuracy": 0.995967741935484,
+          "known_positive_precision": 1.0,
+          "known_positive_recall": 1.0,
+          "known_negative_accuracy": 1.0,
+          "unknown_preservation_accuracy": 1.0,
+          "measurement_accuracy": 1.0,
+          "duration_accuracy": 1.0,
+          "qualifier_accuracy": 1.0,
+          "pre_post_intervention_accuracy": 1.0
+        }
+      },
+      "promotion": {
+        "eligible": false,
+        "failure_count": 8,
+        "failures": [
+          {
+            "scope": "global",
+            "metric": "schema_valid_rate",
+            "minimum": 1.0,
+            "actual": 0.991304347826087
+          },
+          {
+            "scope": "global",
+            "metric": "field_accuracy",
+            "minimum": 0.995,
+            "actual": 0.9944074333800843
+          },
+          {
+            "scope": "global",
+            "metric": "decision_equivalence_rate",
+            "minimum": 0.99,
+            "actual": 0.8521739130434782
+          },
+          {
+            "scope": "global",
+            "metric": "urgent_action_equivalence_rate",
+            "minimum": 1.0,
+            "actual": 0.9826086956521739
+          },
+          {
+            "scope": "global",
+            "metric": "referral_behavior_equivalence_rate",
+            "minimum": 1.0,
+            "actual": 0.9826086956521739
+          },
+          {
+            "scope": "style:phc-nigerian-pidgin-v1",
+            "metric": "schema_valid_rate",
+            "minimum": 1.0,
+            "actual": 0.96
+          },
+          {
+            "scope": "style:phc-nigerian-pidgin-v1",
+            "metric": "urgent_action_equivalence_rate",
+            "minimum": 1.0,
+            "actual": 0.92
+          },
+          {
+            "scope": "style:phc-nigerian-pidgin-v1",
+            "metric": "referral_behavior_equivalence_rate",
+            "minimum": 1.0,
+            "actual": 0.92
+          }
+        ],
+        "ranking_vector": [
+          {
+            "metric": "urgent_action_equivalence_rate",
+            "value": 0.9826086956521739
+          },
+          {
+            "metric": "referral_behavior_equivalence_rate",
+            "value": 0.9826086956521739
+          },
+          {
+            "metric": "decision_equivalence_rate",
+            "value": 0.8521739130434782
+          },
+          {
+            "metric": "schema_valid_rate",
+            "value": 0.991304347826087
+          },
+          {
+            "metric": "field_accuracy",
+            "value": 0.9944074333800843
+          },
+          {
+            "metric": "exact_match_rate",
+            "value": 0.8521739130434782
+          }
+        ]
+      },
+      "report_sha256": "0b1ccbba5d559de4aaa9449edd740448ae189356f572b3ff6856a3e5f44e608d"
+    },
+    "remote_artifact_location": {
+      "volume": "edge-imci-finetune-artifacts",
+      "path": "/outputs/907d1e00-1e20-4fac-9e85-0a9c0743fb65",
+      "artifact_count": 57,
+      "artifact_bytes": 3994071958
+    }
+  },
+  "validation": [
+    {
+      "validator_id": "edge-imci-finetune-input-preflight-v1",
+      "version": "1.0.0",
+      "status": "PASSED",
+      "pass_count": 7163,
+      "fail_count": 0,
+      "error_codes": {}
+    }
+  ],
+  "telemetry": {
+    "gpu_seconds": 3533.22354107,
+    "job_duration_seconds": 3533.22354107,
+    "task_status": "SUCCEEDED",
+    "provider_usage": {
+      "gpu_name": "NVIDIA A10",
+      "peak_gpu_memory_bytes": 7757561856
+    }
+  },
+  "usage": [
+    {
+      "usage_id": "907d1e00-1e20-4fac-9e85-0a9c0743fb65-modal-training",
+      "source": "Modal training function",
+      "metrics": {
+        "gpu_seconds": 3533.22354107,
+        "train_examples": 6905,
+        "validation_examples": 115
+      },
+      "raw_sanitized": {
+        "run_id": "907d1e00-1e20-4fac-9e85-0a9c0743fb65",
+        "status": "SUCCEEDED",
+        "output_volume": "edge-imci-finetune-artifacts",
+        "output_path": "/outputs/907d1e00-1e20-4fac-9e85-0a9c0743fb65",
+        "duration_seconds": 3533.22354107,
+        "gpu_name": "NVIDIA A10",
+        "peak_gpu_memory_bytes": 7757561856,
+        "train_metrics": {
+          "train_runtime": 3312.2411,
+          "train_samples_per_second": 4.169,
+          "train_steps_per_second": 0.261,
+          "total_flos": 5.680048171961549e+16,
+          "train_loss": 0.05417408962606445,
+          "epoch": 2.0
+        },
+        "evaluation_metrics": {
+          "eval_loss": 0.0017937046941369772,
+          "eval_runtime": 7.6286,
+          "eval_samples_per_second": 15.075,
+          "eval_steps_per_second": 7.603,
+          "epoch": 2.0
+        },
+        "validation_generation": {
+          "example_count": 8,
+          "json_parse_count": 8,
+          "json_parse_rate": 1.0,
+          "schema_valid_count": 8,
+          "schema_valid_rate": 1.0,
+          "exact_match_count": 8,
+          "exact_match_rate": 1.0
+        },
+        "validation_inference": {
+          "example_count": 115,
+          "batch_size": 8,
+          "duration_seconds": 130.89196565600014
+        },
+        "checkpoint_evaluation": {
+          "aggregate": {
+            "example_count": 115,
+            "coverage_rate": 1.0,
+            "json_parse_rate": 1.0,
+            "schema_valid_rate": 0.991304347826087,
+            "exact_match_rate": 0.8521739130434782,
+            "decision_equivalence_rate": 0.8521739130434782,
+            "urgency_equivalence_rate": 0.991304347826087,
+            "urgent_action_equivalence_rate": 0.9826086956521739,
+            "referral_behavior_equivalence_rate": 0.9826086956521739,
+            "management_equivalence_rate": 0.8521739130434782,
+            "latency_observation_count": 115,
+            "p50_latency_seconds": 1.1335113443749947,
+            "p95_latency_seconds": 1.202935001125013,
+            "field_accuracy": 0.9944074333800843,
+            "known_positive_precision": 0.9978260869565218,
+            "known_positive_recall": 0.9891304347826086,
+            "known_negative_accuracy": 1.0,
+            "unknown_preservation_accuracy": 1.0,
+            "measurement_accuracy": 1.0,
+            "duration_accuracy": 1.0,
+            "qualifier_accuracy": 0.9978260869565218,
+            "pre_post_intervention_accuracy": 1.0
+          },
+          "slices": {
+            "phc-nigerian-english-v1": {
+              "example_count": 30,
+              "coverage_rate": 1.0,
+              "json_parse_rate": 1.0,
+              "schema_valid_rate": 1.0,
+              "exact_match_rate": 1.0,
+              "decision_equivalence_rate": 1.0,
+              "urgency_equivalence_rate": 1.0,
+              "urgent_action_equivalence_rate": 1.0,
+              "referral_behavior_equivalence_rate": 1.0,
+              "management_equivalence_rate": 1.0,
+              "latency_observation_count": 30,
+              "p50_latency_seconds": 1.1415284709999582,
+              "p95_latency_seconds": 1.1737879343750137,
+              "field_accuracy": 1.0,
+              "known_positive_precision": 1.0,
+              "known_positive_recall": 1.0,
+              "known_negative_accuracy": 1.0,
+              "unknown_preservation_accuracy": 1.0,
+              "measurement_accuracy": 1.0,
+              "duration_accuracy": 1.0,
+              "qualifier_accuracy": 1.0,
+              "pre_post_intervention_accuracy": 1.0
+            },
+            "phc-nigerian-pidgin-v1": {
+              "example_count": 25,
+              "coverage_rate": 1.0,
+              "json_parse_rate": 1.0,
+              "schema_valid_rate": 0.96,
+              "exact_match_rate": 0.68,
+              "decision_equivalence_rate": 0.68,
+              "urgency_equivalence_rate": 0.96,
+              "urgent_action_equivalence_rate": 0.92,
+              "referral_behavior_equivalence_rate": 0.92,
+              "management_equivalence_rate": 0.68,
+              "latency_observation_count": 25,
+              "p50_latency_seconds": 1.133648487125015,
+              "p95_latency_seconds": 1.202935001125013,
+              "field_accuracy": 0.9858870967741935,
+              "known_positive_precision": 0.99,
+              "known_positive_recall": 0.95,
+              "known_negative_accuracy": 1.0,
+              "unknown_preservation_accuracy": 1.0,
+              "measurement_accuracy": 1.0,
+              "duration_accuracy": 1.0,
+              "qualifier_accuracy": 0.99,
+              "pre_post_intervention_accuracy": 1.0
+            },
+            "phc-noisy-typed-english-v1": {
+              "example_count": 28,
+              "coverage_rate": 1.0,
+              "json_parse_rate": 1.0,
+              "schema_valid_rate": 1.0,
+              "exact_match_rate": 0.8214285714285714,
+              "decision_equivalence_rate": 0.8214285714285714,
+              "urgency_equivalence_rate": 1.0,
+              "urgent_action_equivalence_rate": 1.0,
+              "referral_behavior_equivalence_rate": 1.0,
+              "management_equivalence_rate": 0.8214285714285714,
+              "latency_observation_count": 28,
+              "p50_latency_seconds": 1.1274013273750256,
+              "p95_latency_seconds": 1.202935001125013,
+              "field_accuracy": 0.9942396313364056,
+              "known_positive_precision": 1.0,
+              "known_positive_recall": 1.0,
+              "known_negative_accuracy": 1.0,
+              "unknown_preservation_accuracy": 1.0,
+              "measurement_accuracy": 1.0,
+              "duration_accuracy": 1.0,
+              "qualifier_accuracy": 1.0,
+              "pre_post_intervention_accuracy": 1.0
+            },
+            "phc-telegraphic-note-v1": {
+              "example_count": 32,
+              "coverage_rate": 1.0,
+              "json_parse_rate": 1.0,
+              "schema_valid_rate": 1.0,
+              "exact_match_rate": 0.875,
+              "decision_equivalence_rate": 0.875,
+              "urgency_equivalence_rate": 1.0,
+              "urgent_action_equivalence_rate": 1.0,
+              "referral_behavior_equivalence_rate": 1.0,
+              "management_equivalence_rate": 0.875,
+              "latency_observation_count": 32,
+              "p50_latency_seconds": 1.1239532258750273,
+              "p95_latency_seconds": 2.0674931486666233,
+              "field_accuracy": 0.995967741935484,
+              "known_positive_precision": 1.0,
+              "known_positive_recall": 1.0,
+              "known_negative_accuracy": 1.0,
+              "unknown_preservation_accuracy": 1.0,
+              "measurement_accuracy": 1.0,
+              "duration_accuracy": 1.0,
+              "qualifier_accuracy": 1.0,
+              "pre_post_intervention_accuracy": 1.0
+            }
+          },
+          "promotion": {
+            "eligible": false,
+            "failure_count": 8,
+            "failures": [
+              {
+                "scope": "global",
+                "metric": "schema_valid_rate",
+                "minimum": 1.0,
+                "actual": 0.991304347826087
+              },
+              {
+                "scope": "global",
+                "metric": "field_accuracy",
+                "minimum": 0.995,
+                "actual": 0.9944074333800843
+              },
+              {
+                "scope": "global",
+                "metric": "decision_equivalence_rate",
+                "minimum": 0.99,
+                "actual": 0.8521739130434782
+              },
+              {
+                "scope": "global",
+                "metric": "urgent_action_equivalence_rate",
+                "minimum": 1.0,
+                "actual": 0.9826086956521739
+              },
+              {
+                "scope": "global",
+                "metric": "referral_behavior_equivalence_rate",
+                "minimum": 1.0,
+                "actual": 0.9826086956521739
+              },
+              {
+                "scope": "style:phc-nigerian-pidgin-v1",
+                "metric": "schema_valid_rate",
+                "minimum": 1.0,
+                "actual": 0.96
+              },
+              {
+                "scope": "style:phc-nigerian-pidgin-v1",
+                "metric": "urgent_action_equivalence_rate",
+                "minimum": 1.0,
+                "actual": 0.92
+              },
+              {
+                "scope": "style:phc-nigerian-pidgin-v1",
+                "metric": "referral_behavior_equivalence_rate",
+                "minimum": 1.0,
+                "actual": 0.92
+              }
+            ],
+            "ranking_vector": [
+              {
+                "metric": "urgent_action_equivalence_rate",
+                "value": 0.9826086956521739
+              },
+              {
+                "metric": "referral_behavior_equivalence_rate",
+                "value": 0.9826086956521739
+              },
+              {
+                "metric": "decision_equivalence_rate",
+                "value": 0.8521739130434782
+              },
+              {
+                "metric": "schema_valid_rate",
+                "value": 0.991304347826087
+              },
+              {
+                "metric": "field_accuracy",
+                "value": 0.9944074333800843
+              },
+              {
+                "metric": "exact_match_rate",
+                "value": 0.8521739130434782
+              }
+            ]
+          },
+          "report_sha256": "0b1ccbba5d559de4aaa9449edd740448ae189356f572b3ff6856a3e5f44e608d"
+        },
+        "artifact_count": 57,
+        "artifact_bytes": 3994071958
+      }
+    }
+  ],
+  "artifacts": [],
+  "accounting": [],
+  "accounting_audit": [],
+  "error": null
+}

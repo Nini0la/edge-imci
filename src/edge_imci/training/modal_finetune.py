@@ -69,6 +69,12 @@ training_image = (
             "/workspace/data/training_sources/structured_extraction_campaign_v1"
         ),
     )
+    .add_local_dir(
+        str(ROOT / "data/training_sources/structured_extraction_seven_style_v2"),
+        remote_path=(
+            "/workspace/data/training_sources/structured_extraction_seven_style_v2"
+        ),
+    )
 )
 
 model_cache_volume = modal.Volume.from_name(
@@ -602,6 +608,7 @@ def main(run_name: str = "", config_path: str = "", dry_run: bool = False) -> No
         return
 
     config = load_json_object(selected_config_path)
+    dataset_manifest = load_json_object(ROOT / config["dataset"]["manifest_path"])
     tracking = training_tracking(config)
     label = _safe_run_name(
         run_name
@@ -649,8 +656,8 @@ def main(run_name: str = "", config_path: str = "", dry_run: bool = False) -> No
         ],
         datasets=[
             {
-                "dataset_id": "edge-imci-structured-extraction-language-campaign-v1",
-                "version": "1.0.0",
+                "dataset_id": dataset_manifest["campaign_id"],
+                "version": config["version"],
                 "manifest_path": config["dataset"]["manifest_path"],
                 "sha256": preflight["dataset_manifest_sha256"],
                 "split": "TRAIN+VALIDATION; TEST PROHIBITED",

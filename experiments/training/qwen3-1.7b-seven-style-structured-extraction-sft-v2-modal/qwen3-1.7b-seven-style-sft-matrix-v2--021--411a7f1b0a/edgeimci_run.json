@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "7d09d7b6-ca1d-4d40-9d25-6863995ad79f",
+  "experiment_id": "qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal",
+  "experiment_definition_sha256": "aa423d88c564e81ee34c951bb7dd3cf4ab9ca46b91d8096afbdac5d63c8ae021",
+  "status": "FAILED",
+  "started_at": "2026-09-01T02:35:27.457501Z",
+  "finished_at": "2026-09-01T04:13:17.600934Z",
+  "wall_duration_seconds": 5870.206744625,
+  "parent_run_id": null,
+  "component_run_ids": [],
+  "provenance": {
+    "git": {
+      "git_commit": "c62b3f436148b4a7f5f6a070a2c3af28aeb07cf9",
+      "dirty_worktree": true,
+      "dirty_state_sha256": "081b9b3bf93f3000a774522cffbae87e07b51450e8d518f540fa953b3848c250"
+    },
+    "runtime": {
+      "python_version": "3.12.3",
+      "platform": "macOS-15.4-arm64-arm-64bit",
+      "architecture": "arm64",
+      "runner_version": "edge-imci-0.1.0",
+      "dependency_identity": "uv.lock:sha256:9c4fcdf5ea72e5bb4eb78d0b3075d228ebb3135386e0e176ada671827a17d862",
+      "command": [
+        "modal",
+        "run",
+        "-m",
+        "edge_imci.training.modal_finetune",
+        "--run-name",
+        "qwen3-1.7b-seven-style-sft-matrix-v2--021--411a7f1b0a",
+        "--config-path",
+        "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/configs/qwen3-1.7b-seven-style-sft-matrix-v2--021--411a7f1b0a.json"
+      ]
+    }
+  },
+  "execution": {
+    "environment_kind": "MODAL",
+    "execution_provider": "Modal",
+    "modal": {
+      "app_id": "edge-imci-qwen3-0-6b-sft",
+      "function_name": "train",
+      "region": "AUTO",
+      "gpu_type": "A10G",
+      "gpu_count": 1,
+      "image_identity": "edge-imci-qwen3-structured-extraction-sft-image-v2"
+    }
+  },
+  "config": {
+    "config_id": "edge-imci-qwen3-1.7b-structured-extraction-lora-seven-style-v2",
+    "version": "2.0.0",
+    "snapshot_path": "experiments/training/qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal/qwen3-1.7b-seven-style-sft-matrix-v2--021--411a7f1b0a/edgeimci_config_snapshot.json",
+    "sha256": "411a7f1b0ac44849a53a806262f3fb01f72b358c256bf2022701d6bd0045ddc7",
+    "source_path": "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/configs/qwen3-1.7b-seven-style-sft-matrix-v2--021--411a7f1b0a.json"
+  },
+  "models": [
+    {
+      "role": "BASE",
+      "model_provider": "Qwen",
+      "model_source": "Hugging Face Hub",
+      "model_id": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "tokenizer_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "representation": "BF16_SAFETENSORS",
+      "precision": "BF16",
+      "remote_only": true
+    }
+  ],
+  "datasets": [
+    {
+      "dataset_id": "edge-imci-structured-extraction-seven-style-v2",
+      "version": "2.0.0",
+      "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+      "sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d",
+      "split": "TRAIN+VALIDATION; TEST PROHIBITED",
+      "record_count": 7020
+    }
+  ],
+  "prompts": [],
+  "scientific_results": {},
+  "validation": [],
+  "telemetry": {},
+  "usage": [],
+  "artifacts": [],
+  "accounting": [],
+  "accounting_audit": [],
+  "error": {
+    "exception_type": "FileExistsError",
+    "message": "[Errno 17] File exists: '/outputs/7d09d7b6-ca1d-4d40-9d25-6863995ad79f'"
+  }
+}

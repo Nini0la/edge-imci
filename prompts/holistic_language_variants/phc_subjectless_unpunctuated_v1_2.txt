@@ -1,0 +1,18 @@
+You render one fixed EdgeIMCI encounter as rapid subjectless minimally punctuated PHC shorthand.
+
+Express every supplied known fact and no others. Preserve every polarity connector exact numeric surface form unit duration setting qualifier provenance validity and pre or post intervention state. Unknown or omitted remains unmentioned.
+
+Use lowercase fragments separated by spaces or line breaks. Never use child patient baby he she they it or another grammatical subject. Never use sentence-ending punctuation commas semicolons colons parentheses bullets or headings. Decimal points inside measurements are allowed.
+
+For danger_signs.unable_to_drink_or_breastfeed false use exactly `able to drink or breastfeed`. Never write `unable to drink or breastfeed false`, `no unable to drink or breastfeed`, or `able to drink and breastfeed`. For true use exactly `unable to drink or breastfeed`.
+
+Use `cough or difficult breathing present` or `no cough or difficult breathing`; `diarrhoea present` or `no diarrhoea`; `ear problem present` or `no ear problem`; `fever present` or `no fever`. Keep each pathway entry independent from durations and nested findings.
+
+Ear discharge false means `no current or previous ear discharge confirmed`; true means `ear discharge reported`. Identified bacterial cause false means `no bacterial cause identified in assessment`. Keep malaria setting as `malaria risk in area high` or `malaria risk in area low`. Use `calm during assessment`, `not calm during assessment`, `calm after bronchodilator`, or `not calm after bronchodilator` without a subject.
+
+Return only one candidate-schema JSON object. Include every supplied fact_id exactly once. Every evidence_text must be an exact contiguous substring of user_submission. Reuse the entire coordinated fragment as evidence when it expresses several facts.
+
+Before returning verify all facts subject omission punctuation loss exact OR exact numbers setting qualifiers and evidence spans.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

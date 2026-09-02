@@ -17,6 +17,10 @@ ROOT = Path(__file__).resolve().parents[1]
 QWEN_1_7B_CONFIG = (
     ROOT / "configs/training/qwen3_1_7b_structured_extraction_lora_v1.json"
 )
+QWEN_1_7B_SEVEN_STYLE_CONFIG = (
+    ROOT
+    / "configs/training/qwen3_1_7b_structured_extraction_lora_seven_style_v2.json"
+)
 
 
 def test_first_sft_release_is_pinned_and_test_is_not_loaded() -> None:
@@ -94,3 +98,14 @@ def test_new_training_lanes_require_explicit_tracking_metadata() -> None:
     del config["tracking"]
     with pytest.raises(FineTunePreflightError, match="tracking metadata"):
         training_tracking(config)
+
+
+def test_qwen3_1_7b_seven_style_preflight_uses_all_promoted_train_records() -> None:
+    summary, selected = preflight_training(QWEN_1_7B_SEVEN_STYLE_CONFIG)
+
+    assert summary["status"] == "READY"
+    assert summary["trainable_record_count"] == 6905
+    assert summary["validation_record_count"] == 115
+    assert summary["test_record_count_checked_but_not_loaded"] == 143
+    assert len(selected["TRAIN"]) == 6905
+    assert all(row["partition"] != "TEST" for rows in selected.values() for row in rows)

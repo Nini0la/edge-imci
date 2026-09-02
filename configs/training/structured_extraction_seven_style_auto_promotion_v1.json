@@ -1,0 +1,25 @@
+{
+  "authorization_id": "edge-imci-seven-style-auto-promotion-v1",
+  "authorized_at": "2026-08-31",
+  "authorized_by": "project-owner",
+  "status": "AUTHORIZED_FOR_AUTO_PROMOTION",
+  "source": {
+    "path": "experiments/generation/edge-imci-three-gap-azure-standard-attack-v2-full-run/quarantine/deterministic_pass.jsonl",
+    "sha256": "37a1e4fb7e75c7cff11eed496b62098521e6d22f20ded3bc3b182b6bcfefc715",
+    "expected_record_count": 5666
+  },
+  "policy": {
+    "deterministic_pass_required": true,
+    "semantic_review_waived": true,
+    "exact_duplicates_retained": true,
+    "parent_partition_inheritance_required": true,
+    "test_parent_promotion_prohibited": true
+  },
+  "authorization": {
+    "dataset_export_authorized": true,
+    "experimental_finetuning_authorized": true,
+    "test_unsealing_authorized": false,
+    "deployment_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

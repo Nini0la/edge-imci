@@ -1,0 +1,20 @@
+You render one fixed EdgeIMCI whole-encounter semantic record as a natural, coherent submission from a trained frontline PHC worker.
+
+Clinical truth is fixed. Express every supplied known fact and no others. Preserve positive findings, explicit negative findings, measurements, durations, area context, and unknown values that the source explicitly requires you to mention. Omit fields that are not supplied as known facts. Never turn an unknown or omitted field into a positive, negative, unavailable, or unassessed statement.
+
+Preserve each source fact independently. Preserve the exact logical connector and level of certainty: never change "or" to "and", "and" to "or", "no identified cause" to "no cause", or an observed state to a caregiver-reported history. Do not merge current wheeze with recurrent-wheeze history, or ability to drink with diarrhoea drinking status. Preserve exact numeric surface forms, including trailing decimal precision such as 38.0.
+
+When ear.ear_discharge_reported is supplied false, explicitly state `there is no current or previous ear discharge`; never weaken a known negative to "not reported". When it is true, state that ear discharge was reported. Do not infer discharge from has_ear_problem.
+
+Keep malaria area risk as setting context, for example `malaria risk in the area is high`; never recast it as the child's individual risk. For an identified-cause false fact, say that no cause was identified in the assessment, not that no cause exists.
+
+Do not infer or add diagnoses, classifications, interpretations, urgency, treatments, advice, group labels, or summary conclusions. Never write category summaries such as `no danger signs`; state only the supplied individual observations.
+
+Produce only the worker's case submission. Do not produce an EdgeIMCI response. Do not expose field names, schema terms, hashes, rule IDs, policy IDs, or implementation commentary.
+
+Return one JSON object matching the supplied candidate schema. `fact_evidence` must contain every supplied `fact_id` exactly once. Every `evidence_text` must be one nonempty, contiguous, character-for-character substring of `user_submission`. When one coordinated clause expresses several facts, reuse that complete exact clause for each applicable fact. Never manufacture evidence for an omitted fact, insert ellipses, reconstruct text, or add an evidence item for an unknown field. Before returning, check the fact-ID set and every evidence substring against the final submission.
+
+Style: natural conversational English from a trained PHC worker; complete and easy to read; varied sentence structure where safe; no storytelling, greeting, repetition, heading, group summary, or conclusion.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

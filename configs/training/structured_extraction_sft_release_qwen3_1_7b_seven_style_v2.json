@@ -1,0 +1,40 @@
+{
+  "release_id": "edge-imci-structured-extraction-sft-release-qwen3-1.7b-seven-style-v2",
+  "status": "AUTHORIZED_FOR_EXPLORATORY_SFT",
+  "authority": "PROJECT_OWNER_DIRECT_INSTRUCTION",
+  "authorized_at": "2026-08-31",
+  "instruction_summary": "Use all 5,666 automatically promoted deterministic-pass records in the exploratory Qwen3-1.7B seven-style training corpus. This release does not authorize TEST use, deployment, or clinical production use.",
+  "dataset": {
+    "campaign_id": "edge-imci-structured-extraction-seven-style-v2",
+    "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+    "manifest_sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d",
+    "chat_messages_path": "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl",
+    "chat_messages_sha256": "704c4cce859b79e9b5a3e233f7eeaa2089334fd2753ec1294d7ca3176016cdb9",
+    "sampling_policy": "NATURAL_FREQUENCY_ALL_ACCEPTED_RECORDS",
+    "authorized_partitions": {
+      "TRAIN": 6905,
+      "VALIDATION": 115
+    },
+    "prohibited_partitions": {
+      "TEST": 143
+    }
+  },
+  "model": {
+    "model_id": "Qwen/Qwen3-1.7B",
+    "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "selection_basis": "PROJECT_OWNER_DIRECT_INSTRUCTION"
+  },
+  "execution": {
+    "environment": "MODAL",
+    "training_stage": "STRUCTURED_EXTRACTION_SFT_V1",
+    "execution_class": "EXPLORATORY_SEVEN_STYLE_MATRIX",
+    "formal_asus_admission_artifact": null,
+    "pre_admission_disposition": "Exploratory training only; no target-device admission or deployment claim."
+  },
+  "authorization": {
+    "training_authorized": true,
+    "test_partition_use_authorized": false,
+    "production_clinical_use_authorized": false,
+    "deployment_authorized": false
+  }
+}
