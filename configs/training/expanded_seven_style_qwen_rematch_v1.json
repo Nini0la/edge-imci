@@ -1,0 +1,102 @@
+{
+  "plan_id": "edge-imci-expanded-seven-style-qwen-rematch-v1",
+  "version": "1.0.0",
+  "status": "COMPLETED_NO_PROMOTION_ELIGIBLE_CELL",
+  "decision_question": "After matched fine-tuning on the same seven-style corpus, does Qwen3-0.6B or Qwen3-1.7B provide the strongest sealed held-out structured-extraction and clinical decision-equivalence result?",
+  "dataset": {
+    "release_id": "edge-imci-structured-extraction-seven-style-v2",
+    "manifest_path": "data/training_sources/structured_extraction_seven_style_v2/manifest.json",
+    "manifest_sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d",
+    "required_styles": [
+      "NIGERIAN_ENGLISH",
+      "NIGERIAN_PIDGIN",
+      "NOISY_TYPED_ENGLISH",
+      "TELEGRAPHIC_PHC_NOTE",
+      "NATURAL_CONVERSATIONAL_ENGLISH",
+      "CLINICAL_STANDARD_ENGLISH",
+      "SUBJECTLESS_UNPUNCTUATED_SHORTHAND"
+    ],
+    "sampling_policy": "NATURAL_FREQUENCY_ALL_ACCEPTED_RECORDS",
+    "balanced_sampling_required": false,
+    "all_promoted_records_required": true,
+    "parent_partition_inheritance_required": true,
+    "test_partition_prohibited_during_training_and_selection": true
+  },
+  "models": [
+    {
+      "model_id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+    },
+    {
+      "model_id": "Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+    }
+  ],
+  "training": {
+    "initialization": "FRESH_FROM_PINNED_BASE",
+    "method": "LORA",
+    "matched_recipe_required": true,
+    "axes": {
+      "optimization.epochs": [1.0, 2.0, 3.0, 5.0],
+      "optimization.learning_rate": [0.0001, 0.0002, 0.0003],
+      "optimization.seed": [3407, 20260824]
+    },
+    "cells_per_model": 24,
+    "total_cells": 48,
+    "existing_dataset_v1_checkpoints_reusable_as_training_initialization": false
+  },
+  "selection": {
+    "partition": "VALIDATION",
+    "ranking_order": [
+      "urgent_action_equivalence_rate",
+      "referral_behavior_equivalence_rate",
+      "decision_equivalence_rate",
+      "schema_valid_rate",
+      "field_accuracy",
+      "exact_match_rate"
+    ],
+    "required_per_style_reporting": true,
+    "nigerian_pidgin_is_a_hard_gate": true
+  },
+  "final_test": {
+    "run_once_after_selection": true,
+    "sealed_partition": "TEST",
+    "include_existing_four_style_test": true,
+    "include_new_three_style_test": true,
+    "model_comparison": "MATCHED_SELECTED_0.6B_VS_SELECTED_1.7B",
+    "no_hyperparameter_revision_after_unsealing": true
+  },
+  "modal_cost_forecast": {
+    "status": "PROVISIONAL_FROM_MEASURED_DATASET_V1_RUNS",
+    "forecasted_at": "2026-08-30",
+    "gpu": "A10",
+    "rate_usd_per_second": 0.000306,
+    "rate_source": "https://modal.com/pricing",
+    "measured_dataset_v1_gpu_seconds": {
+      "qwen3_0_6b_24_cells": 17657.318700869,
+      "qwen3_1_7b_8_cells": 8538.94248182
+    },
+    "expanded_train_record_scenarios": [5939, 7239],
+    "projected_total_gpu_hours_range": [57.62, 70.24],
+    "projected_gpu_cost_usd_range": [63.48, 77.38],
+    "idealized_wall_hours_at_four_way_concurrency_range": [14.41, 17.56],
+    "temporary_all_cell_artifact_storage_gib_estimate": 123.68,
+    "temporary_all_cell_volume_cost_usd_per_month_estimate": 11.14,
+    "recommended_total_execution_ceiling_usd": 100.0,
+    "final_reforecast_required_after_dataset_v2_freeze": true,
+    "notes": "GPU projection scales measured dataset-v1 matrix time linearly by expanded TRAIN record count. CPU, memory, retries, region multipliers, and retained-volume duration can change actual cost. Prune nonwinning checkpoints only after metrics and immutable manifests are preserved."
+  },
+  "authorization": {
+    "matrix_preparation_authorized": true,
+    "qwen3_1_7b_paid_training_authorized": true,
+    "qwen3_0_6b_paid_training_authorized": true,
+    "full_matched_48_cell_training_authorized": true,
+    "test_unsealing_authorized": false,
+    "deployment_authorized": false,
+    "production_clinical_use_authorized": false
+  },
+  "blockers": [
+    "no_dataset_v2_cell_met_promotion_thresholds",
+    "test_unsealing_not_authorized"
+  ]
+}

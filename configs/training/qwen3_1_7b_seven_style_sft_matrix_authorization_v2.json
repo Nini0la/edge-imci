@@ -1,0 +1,27 @@
+{
+  "authorization_id": "edge-imci-qwen3-1.7b-seven-style-sft-matrix-authorization-v2",
+  "status": "AUTHORIZED",
+  "authority": "PROJECT_OWNER_INTERACTIVE_CONFIRMATION",
+  "authorized_at": "2026-08-31",
+  "instruction_summary": "Run one dataset-v2 Qwen3-1.7B canary, verify its automatic evidence, then continue the authorized 24-cell matrix.",
+  "matrix": {
+    "matrix_id": "qwen3-1.7b-seven-style-sft-matrix-v2",
+    "spec_path": "configs/training/qwen3_1_7b_seven_style_sft_matrix_v2.json",
+    "model_id": "Qwen/Qwen3-1.7B",
+    "model_revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+    "dataset_manifest_sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d"
+  },
+  "execution": {
+    "canary_required_before_remaining_cells": true,
+    "max_runs": 24,
+    "max_estimated_gpu_seconds": 180000,
+    "max_parallel_runs": 4,
+    "halt_new_scheduling_after_systemic_failure": true
+  },
+  "authorization": {
+    "paid_modal_training_authorized": true,
+    "test_partition_use_authorized": false,
+    "deployment_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

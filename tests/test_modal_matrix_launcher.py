@@ -24,6 +24,13 @@ QWEN_1_7B_MANIFEST = (
     ROOT
     / "experiments/training/matrices/qwen3-1.7b-sft-initial-matrix-v1/configs/manifest.json"
 )
+QWEN_1_7B_V2_PLAN = (
+    ROOT / "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2.plan.json"
+)
+QWEN_1_7B_V2_MANIFEST = (
+    ROOT
+    / "experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/configs/manifest.json"
+)
 
 
 def test_authorized_schedule_binds_every_ready_config() -> None:
@@ -66,3 +73,18 @@ def test_qwen3_1_7b_schedule_binds_all_eight_cells_to_its_experiment() -> None:
         "-m",
         "edge_imci.training.modal_finetune",
     ] for cell in cells)
+
+
+def test_qwen3_1_7b_seven_style_matrix_binds_all_authorized_cells() -> None:
+    plan = json.loads(QWEN_1_7B_V2_PLAN.read_text(encoding="utf-8"))
+    manifest = json.loads(QWEN_1_7B_V2_MANIFEST.read_text(encoding="utf-8"))
+    verified_plan, cells = load_authorized_schedule(
+        QWEN_1_7B_V2_PLAN, QWEN_1_7B_V2_MANIFEST
+    )
+
+    assert plan["summary"]["cell_count"] == 24
+    assert plan["summary"]["ready_run_count"] == 24
+    assert plan["controls"]["launch_authorized"] is True
+    assert manifest["config_count"] == 24
+    assert verified_plan["matrix_id"] == plan["matrix_id"]
+    assert len(cells) == 24

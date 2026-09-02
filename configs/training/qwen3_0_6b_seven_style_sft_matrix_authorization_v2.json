@@ -1,0 +1,27 @@
+{
+  "authorization_id": "edge-imci-qwen3-0.6b-seven-style-sft-matrix-authorization-v2",
+  "status": "AUTHORIZED",
+  "authority": "PROJECT_OWNER_INTERACTIVE_CONFIRMATION",
+  "authorized_at": "2026-09-02",
+  "instruction_summary": "Run the full dataset-v2 Qwen3-0.6B 24-cell matrix for a matched comparison with the completed Qwen3-1.7B matrix.",
+  "matrix": {
+    "matrix_id": "qwen3-0.6b-seven-style-sft-matrix-v2",
+    "spec_path": "configs/training/qwen3_0_6b_seven_style_sft_matrix_v2.json",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "dataset_manifest_sha256": "80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d"
+  },
+  "execution": {
+    "canary_required_before_remaining_cells": false,
+    "max_runs": 24,
+    "max_estimated_gpu_seconds": 130000,
+    "max_parallel_runs": 4,
+    "halt_new_scheduling_after_systemic_failure": true
+  },
+  "authorization": {
+    "paid_modal_training_authorized": true,
+    "test_partition_use_authorized": false,
+    "deployment_authorized": false,
+    "production_clinical_use_authorized": false
+  }
+}

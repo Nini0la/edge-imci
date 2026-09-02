@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-seven-style-sft-matrix-v2",
+  "experiment_id": "qwen3-0.6b-seven-style-structured-extraction-sft-v2-modal",
+  "base_config_path": "configs/training/qwen3_0_6b_structured_extraction_lora_seven_style_v2.json",
+  "axes": {
+    "optimization.epochs": [1.0, 2.0, 3.0, 5.0],
+    "optimization.learning_rate": [0.0001, 0.0002, 0.0003],
+    "optimization.seed": [3407, 20260824]
+  },
+  "fixed_overrides": {},
+  "execution": {
+    "environment_kind": "MODAL",
+    "gpu_type": "A10G",
+    "gpu_count": 1,
+    "max_parallel_runs": 4
+  },
+  "estimation": {
+    "baseline_gpu_seconds": 4100.20801821,
+    "baseline_train_seconds": 3658.932060019,
+    "baseline_epochs": 2.75,
+    "contingency_multiplier": 1.25
+  },
+  "budget": {
+    "max_runs": 24,
+    "max_estimated_gpu_seconds": 130000
+  },
+  "controls": {
+    "launch_authorized": true,
+    "test_partition_prohibited": true,
+    "gates": [
+      {
+        "gate_id": "dataset-and-model-release-pinned",
+        "satisfied": true,
+        "evidence_ref": "configs/training/structured_extraction_sft_release_qwen3_0_6b_seven_style_v2.json"
+      },
+      {
+        "gate_id": "shared-modal-trainer-ready",
+        "satisfied": true,
+        "evidence_ref": "src/edge_imci/training/modal_finetune.py"
+      },
+      {
+        "gate_id": "matched-validation-evaluator-ready",
+        "satisfied": true,
+        "evidence_ref": "configs/evaluation/structured_extraction_checkpoint_policy_v1.json"
+      },
+      {
+        "gate_id": "paid-matrix-launch-authorized",
+        "satisfied": true,
+        "evidence_ref": "configs/training/qwen3_0_6b_seven_style_sft_matrix_authorization_v2.json"
+      }
+    ]
+  },
+  "reused_cells": []
+}

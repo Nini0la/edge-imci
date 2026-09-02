@@ -37,7 +37,8 @@
             "NONSTANDARD_ENGLISH",
             "NOISY_TYPED_ENGLISH",
             "TELEGRAPHIC_PHC_NOTE",
-            "MIXED_REGISTER"
+            "MIXED_REGISTER",
+            "SUBJECTLESS_UNPUNCTUATED_SHORTHAND"
           ]
         },
         "noise_profile": {
@@ -54,7 +55,8 @@
               "SPELLING_NOISE",
               "ABBREVIATION_DENSITY_LOW",
               "ABBREVIATION_DENSITY_MEDIUM",
-              "TELEGRAPHIC_COMPRESSION"
+              "TELEGRAPHIC_COMPRESSION",
+              "SUBJECT_OMISSION"
             ]
           }
         },

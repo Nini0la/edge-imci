@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0.0",
+  "matrix_id": "qwen3-0.6b-seven-style-sft-matrix-v2",
+  "plan_sha256": "ef542930f1caaa1aadb8a36804f5d1e74447e295742234778b0d47046511cd75",
+  "config_count": 24,
+  "configs": [
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--001--bd55f2afd9",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--001--bd55f2afd9.json",
+      "config_sha256": "bd55f2afd9c27e9b60d6c35f09f1209dac3c2b997672f24e6d0b4128c82c7893",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--002--df46c68925",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--002--df46c68925.json",
+      "config_sha256": "df46c68925a9194e4d9d179ec92d7b1103872eb2759d23bb49d8c836e8a4efdb",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--003--9be6749ff8",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--003--9be6749ff8.json",
+      "config_sha256": "9be6749ff865eddbbb044ad57ca8677d4a4b68f083ef7f71c4d340623a8ce20a",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--004--94d284c56f",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--004--94d284c56f.json",
+      "config_sha256": "94d284c56f24ed956803a8959be92addfd2ff10f70dcd72476beb079cb8f082a",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--005--5f77e4bd24",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--005--5f77e4bd24.json",
+      "config_sha256": "5f77e4bd24a809121493e4f1cc8e99d16b8120c4f963d2c493185d55f7bc8813",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--006--0c9783dd3e",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--006--0c9783dd3e.json",
+      "config_sha256": "0c9783dd3e859c16dd6c3dc08eab5fe3c50792c40c7b04b07e04e1106dc157e7",
+      "estimated_gpu_seconds": 2214.746,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--007--6676a63f0d",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--007--6676a63f0d.json",
+      "config_sha256": "6676a63f0d8c80a5634c818802473747e6eacf8ec2c4addc2597b154b58b0a55",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--008--9800d580eb",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--008--9800d580eb.json",
+      "config_sha256": "9800d580eb43b4b675f1d901e747069f1846c289f4f66ed06d561982304bd64e",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--009--3106a7287e",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--009--3106a7287e.json",
+      "config_sha256": "3106a7287ec3891795c60f99809cd60dd88f1c8f5bb07931433f7e6112db856d",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--010--0cfceea9f7",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--010--0cfceea9f7.json",
+      "config_sha256": "0cfceea9f77e8b5ba73f53c18c6976c6f8a579fd10913fb783dd6254756bf9d7",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--011--414319cf30",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--011--414319cf30.json",
+      "config_sha256": "414319cf30a03c58e70322ffdbbbac65f0e55edfdcbd2651f29584ae328baa60",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--012--c021e3472d",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--012--c021e3472d.json",
+      "config_sha256": "c021e3472d823b7e62a7699289d88a6cabddb3d72d4c535316636831af4ff8ff",
+      "estimated_gpu_seconds": 3877.897,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--013--e8d2ef3194",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--013--e8d2ef3194.json",
+      "config_sha256": "e8d2ef31942b6c0b6a3e379b90dd51b756ed349a7f9b3245e3e94f917412e858",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--014--8981c806e4",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--014--8981c806e4.json",
+      "config_sha256": "8981c806e481d376dc4bb17dbfaf0cfb73364f9558d10782945caabec1a531e8",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--015--4ad78a25ff",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--015--4ad78a25ff.json",
+      "config_sha256": "4ad78a25ffcf3b37cf812f54febc40a40a80819034bac6851f3ae71a5c465f8a",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--016--3fbb53a675",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--016--3fbb53a675.json",
+      "config_sha256": "3fbb53a67524b9b4b158808badcf2a113dc819fe4d27142a9f81a6c9d6805abe",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--017--c343cd2365",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--017--c343cd2365.json",
+      "config_sha256": "c343cd2365ecf7ca5c6b16b85c5702242bc3037e2b77335ac611841c5663995a",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--018--4b21b38177",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--018--4b21b38177.json",
+      "config_sha256": "4b21b38177ce593ad48691e58b08b607c0da35e15e8a8fab7bca040eea63d92e",
+      "estimated_gpu_seconds": 5541.048,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--019--e1ebfbefe5",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--019--e1ebfbefe5.json",
+      "config_sha256": "e1ebfbefe50b05e58fb9653837e0729c9e96deb17de99169d70c33a0583cac20",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--020--bcfd3dd275",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--020--bcfd3dd275.json",
+      "config_sha256": "bcfd3dd275866f5c7747037b492bacdb1b99180aabcd1c2db542d003c63b6194",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--021--6a448ce359",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--021--6a448ce359.json",
+      "config_sha256": "6a448ce35978912da14224852e510937e0132ce322e7547065c4d76932847c98",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--022--8fac3c3c6c",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--022--8fac3c3c6c.json",
+      "config_sha256": "8fac3c3c6c839f57371580459480ccbcfa440514b8850a8ee3d2ea5838fa2a0c",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--023--03ca2f0670",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--023--03ca2f0670.json",
+      "config_sha256": "03ca2f067077125c7e5bc2a062d10cf16d9c9d40d37c0bef6e231931b96f47e7",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    },
+    {
+      "cell_id": "qwen3-0.6b-seven-style-sft-matrix-v2--024--3ebfec2f42",
+      "path": "experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/configs/qwen3-0.6b-seven-style-sft-matrix-v2--024--3ebfec2f42.json",
+      "config_sha256": "3ebfec2f42b348ef9598891128d287280dd45dfd79e661972ce2c1dfee103cf4",
+      "estimated_gpu_seconds": 8867.35,
+      "state": "READY"
+    }
+  ],
+  "manifest_sha256": "97d92a632d116f8c65907f63e3f758d879f35e4a122fea7c0ac0a1491745523c"
+}

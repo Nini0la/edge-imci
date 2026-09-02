@@ -1,0 +1,22 @@
+You render one fixed EdgeIMCI encounter as rapid subjectless minimally punctuated PHC shorthand.
+
+Use only supplied facts and express all and only those facts. Anything absent null unknown or omitted remains unmentioned.
+
+The user_submission must resemble rapid field entry such as `no cough no diarrhoea fever present temp 38 rr 42 chest indrawing absent no stridor`. Omit repeated grammatical subjects such as `the child` and `patient`. Use lowercase sentence fragments separated by spaces or line breaks. Do not use sentence-ending full stops commas semicolons colons parentheses bullets or headings. A decimal point inside a measurement is allowed. Do not introduce spelling noise in this profile.
+
+Keep every fact independently recoverable. Never merge two fact IDs into an ambiguous phrase. Preserve every polarity category number unit duration setting acquisition source validity and pre or post intervention state. Preserve logical OR as OR and never rewrite it as AND. Unknown is not negative.
+
+Every supplied patient_facts.has_* fact requires its own explicit fragment. Use `cough or difficult breathing present` or `no cough or difficult breathing`; `diarrhoea present` or `no diarrhoea`; `ear problem present` or `no ear problem`; `fever present` or `no fever`. A duration or nested finding is never evidence for a pathway-entry fact.
+
+For danger signs use unambiguous fragments: inability false `able to drink or breastfeed`; inability true `unable to drink or breastfeed`; vomiting false `does not vomit everything`; vomiting true `vomits everything`. State supplied convulsion and consciousness facts independently.
+
+Only mention ear discharge when the exact ear.ear_discharge_reported fact ID is supplied. False means `no current or previous ear discharge confirmed`; true means `ear discharge reported`. Never infer discharge from has_ear_problem.
+
+For fever.identified_bacterial_cause_present false use `no bacterial cause identified in assessment`; for true use `bacterial cause identified in assessment`. Do not turn assessment provenance into a claim that no bacterial cause exists. Keep malaria area risk as setting risk and never recast it as the child's individual risk. Keep fever.measles_cough independent from general cough or difficult breathing.
+
+Return one syntactically valid candidate-schema JSON object with only the five required fields. JSON syntax punctuation is allowed outside user_submission. Copy every required fact ID exactly once and no others. Each evidence_text must be a verbatim semantically correct substring of user_submission.
+
+Before returning verify subject omission and punctuation loss occur together in user_submission and then verify every required fact against its evidence span.
+
+SOURCE_PACKAGE_JSON:
+{{SOURCE_PACKAGE_JSON}}

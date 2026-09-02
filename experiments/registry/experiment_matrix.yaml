@@ -40,7 +40,7 @@ experiments:
           reference_id: holistic-teacher-bakeoff-v1-config
           version: 1.0.0
           location: configs/generation/holistic_teacher_bakeoff_v1.json
-          sha256: 732e529adbfae44d8eb3f9c18122924c7ca60339df9c21e34da764454876e195
+          sha256: 188895f5dd97379fa4207881b5dcdd92bc45de6497639d009b34561b82ac1974
           remote_only: false
           role: INPUT
         - reference_kind: DATASET
@@ -569,7 +569,7 @@ experiments:
           reference_id: structured-extraction-sft-record-schema-v1
           version: 1.0.0
           location: configs/training/structured_extraction_sft_record_v1.schema.json
-          sha256: 798c399841a43a81caf070a8b37168345ce1d92b127e89606d8607cd2ab26942
+          sha256: 108684eafda85c8b10ed513e2775d544ef9a9b133e76befc3e8d7057585aade8
           remote_only: false
           role: INPUT
         - reference_kind: CONFIG
@@ -673,7 +673,7 @@ experiments:
           reference_id: structured-extraction-sft-record-schema-v1
           version: 1.0.0
           location: configs/training/structured_extraction_sft_record_v1.schema.json
-          sha256: 798c399841a43a81caf070a8b37168345ce1d92b127e89606d8607cd2ab26942
+          sha256: 108684eafda85c8b10ed513e2775d544ef9a9b133e76befc3e8d7057585aade8
           remote_only: false
           role: INPUT
         - reference_kind: CONFIG
@@ -851,6 +851,174 @@ experiments:
         evidence_class: SCIENTIFIC
         applicability: APPLICABLE
         artifact_ref: null
+    run_ids: []
+  - experiment_id: qwen3-1.7b-seven-style-structured-extraction-sft-v2-modal
+    definition_version: 1.0.0
+    experiment_type: TRAINING
+    priority: CORE
+    status: COMPLETE
+    hypothesis: Qwen3-1.7B LoRA trained on the auto-promoted seven-style corpus can improve structured extraction
+      across the expanded input distribution.
+    decision_question: Which cell in the 24-cell Qwen3-1.7B dataset-v2 matrix produces the strongest complete VALIDATION
+      evidence?
+    branch_id: qwen3-1.7b-seven-style-sft-v2
+    prerequisites:
+      - Frozen seven-style dataset-v2 release
+      - Pinned Qwen3-1.7B base revision
+      - Shared Modal trainer and deterministic validation evaluator
+      - Project-owner paid matrix launch authorization
+    branch_trigger: Project owner authorized promotion of all 5,666 deterministic-pass records and a canary followed
+      by the 24-cell Qwen3-1.7B sweep.
+    material_configuration:
+      model_family: Qwen3-1.7B
+      model_id: Qwen/Qwen3-1.7B
+      model_revision: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+      training_stage: STRUCTURED_EXTRACTION_SFT_V1
+      method: LORA
+      learned_task: SEVEN_STYLE_FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
+      preferred_environment: MODAL
+      execution_class: EXPLORATORY_SEVEN_STYLE_MATRIX
+      test_partition_prohibited: true
+      deployment_authorized: false
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+      references:
+        - reference_kind: CONFIG
+          reference_id: qwen3-1.7b-structured-extraction-lora-seven-style-v2
+          version: 2.0.0
+          location: configs/training/qwen3_1_7b_structured_extraction_lora_seven_style_v2.json
+          sha256: f784ef4fb1e06f16c56060813d0f42ad94c54fd0080a7434430dc8d6d8bb57b5
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-release-qwen3-1.7b-seven-style-v2
+          version: 2.0.0
+          location: configs/training/structured_extraction_sft_release_qwen3_1_7b_seven_style_v2.json
+          sha256: 51548baffd1d8813919142c23b4ceb536bbdb17437eb4fe97f5d3bc37d4911ff
+          remote_only: false
+          role: INPUT
+        - reference_kind: MODEL
+          reference_id: qwen-qwen3-1.7b
+          version: 70d244cc
+          immutable_revision: 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
+          remote_only: true
+          role: BASE
+        - reference_kind: DATASET
+          reference_id: structured-extraction-seven-style-v2-manifest
+          version: 2.0.0
+          location: data/training_sources/structured_extraction_seven_style_v2/manifest.json
+          sha256: 80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d
+          remote_only: false
+          role: INPUT
+        - reference_kind: DATASET
+          reference_id: structured-extraction-seven-style-v2-chat
+          version: 2.0.0
+          location: data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl
+          sha256: 704c4cce859b79e9b5a3e233f7eeaa2089334fd2753ec1294d7ca3176016cdb9
+          remote_only: false
+          role: INPUT
+      unresolved_inputs: []
+    evidence:
+      - evidence_id: training_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/leaderboard.json
+      - evidence_id: checkpoint
+        evidence_class: SCIENTIFIC
+        applicability: NOT_APPLICABLE
+        artifact_ref: null
+        condition: No matrix cell met every preregistered promotion threshold.
+      - evidence_id: modal_execution
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/matrices/qwen3-1.7b-seven-style-sft-matrix-v2/execution/state.json
+    run_ids: []
+  - experiment_id: qwen3-0.6b-seven-style-structured-extraction-sft-v2-modal
+    definition_version: 1.0.0
+    experiment_type: TRAINING
+    priority: CORE
+    status: COMPLETE
+    hypothesis: Qwen3-0.6B LoRA trained on the same dataset-v2 corpus and recipe can establish a matched capacity
+      comparison with Qwen3-1.7B.
+    decision_question: Which cell in the 24-cell Qwen3-0.6B dataset-v2 matrix produces the strongest complete VALIDATION
+      evidence, and how does it compare with the matched Qwen3-1.7B matrix?
+    branch_id: qwen3-0.6b-seven-style-sft-v2
+    prerequisites:
+      - Frozen seven-style dataset-v2 release
+      - Pinned Qwen3-0.6B base revision
+      - Completed matched Qwen3-1.7B dataset-v2 matrix
+      - Shared Modal trainer and deterministic validation evaluator
+      - Project-owner paid matrix launch authorization
+    branch_trigger: Project owner directly authorized the full matched Qwen3-0.6B dataset-v2 matrix on 2026-09-02.
+    material_configuration:
+      model_family: Qwen3-0.6B
+      model_id: Qwen/Qwen3-0.6B
+      model_revision: c1899de289a04d12100db370d81485cdf75e47ca
+      training_stage: STRUCTURED_EXTRACTION_SFT_V1
+      method: LORA
+      learned_task: SEVEN_STYLE_FREE_FORM_TO_MODEL_FACING_ENCOUNTER_JSON
+      preferred_environment: MODAL
+      execution_class: MATCHED_EXPLORATORY_SEVEN_STYLE_MATRIX
+      test_partition_prohibited: true
+      deployment_authorized: false
+    reproducibility:
+      required_reference_kinds:
+        - CONFIG
+        - MODEL
+        - DATASET
+      references:
+        - reference_kind: CONFIG
+          reference_id: qwen3-0.6b-structured-extraction-lora-seven-style-v2
+          version: 2.0.0
+          location: configs/training/qwen3_0_6b_structured_extraction_lora_seven_style_v2.json
+          sha256: 387d7e6aac99b99d9c0995dbbdf5cd943a71478a0ea080961e430453a8f46c14
+          remote_only: false
+          role: INPUT
+        - reference_kind: CONFIG
+          reference_id: structured-extraction-sft-release-qwen3-0.6b-seven-style-v2
+          version: 2.0.0
+          location: configs/training/structured_extraction_sft_release_qwen3_0_6b_seven_style_v2.json
+          sha256: 400ad8f9b60ab433a5277546426f9a17f888679cae6db4fd85b745b43f311493
+          remote_only: false
+          role: INPUT
+        - reference_kind: MODEL
+          reference_id: qwen-qwen3-0.6b
+          version: c1899de2
+          immutable_revision: c1899de289a04d12100db370d81485cdf75e47ca
+          remote_only: true
+          role: BASE
+        - reference_kind: DATASET
+          reference_id: structured-extraction-seven-style-v2-manifest
+          version: 2.0.0
+          location: data/training_sources/structured_extraction_seven_style_v2/manifest.json
+          sha256: 80373f108d4c9531874ddaf18bcc46e526d3441e6b7e2746763eca5ddf756f0d
+          remote_only: false
+          role: INPUT
+        - reference_kind: DATASET
+          reference_id: structured-extraction-seven-style-v2-chat
+          version: 2.0.0
+          location: data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl
+          sha256: 704c4cce859b79e9b5a3e233f7eeaa2089334fd2753ec1294d7ca3176016cdb9
+          remote_only: false
+          role: INPUT
+      unresolved_inputs: []
+    evidence:
+      - evidence_id: training_metrics
+        evidence_class: SCIENTIFIC
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/leaderboard.json
+      - evidence_id: checkpoint
+        evidence_class: SCIENTIFIC
+        applicability: NOT_APPLICABLE
+        artifact_ref: null
+        condition: No matrix cell met every preregistered promotion threshold.
+      - evidence_id: modal_execution
+        evidence_class: EXECUTION
+        applicability: APPLICABLE
+        artifact_ref: experiments/training/matrices/qwen3-0.6b-seven-style-sft-matrix-v2/execution/state.json
     run_ids: []
   - experiment_id: selected-artifact-target-profile-v1
     definition_version: 1.0.0

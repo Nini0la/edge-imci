@@ -1,0 +1,72 @@
+{
+  "assets": {
+    "data/training_sources/structured_extraction_seven_style_v2/canonical_records.jsonl": {
+      "record_count": 7163,
+      "sha256": "8acf50c77861e769643867aaf48809ba7d6446eb3496bcbdb284f1f92fa44150"
+    },
+    "data/training_sources/structured_extraction_seven_style_v2/chat_messages.jsonl": {
+      "record_count": 7163,
+      "sha256": "704c4cce859b79e9b5a3e233f7eeaa2089334fd2753ec1294d7ca3176016cdb9"
+    },
+    "data/training_sources/structured_extraction_seven_style_v2/duplicate_report.json": {
+      "sha256": "c761561e3949ae776ed76a5e51b8f99fe1b79d70730e14b085d5b0d46278919e"
+    },
+    "data/training_sources/structured_extraction_seven_style_v2/test.jsonl": {
+      "record_count": 143,
+      "sha256": "b51ab060619a474f965fd30d5f2eb9e09d0656637459a83209a36cca1f9c83fd"
+    },
+    "data/training_sources/structured_extraction_seven_style_v2/train.jsonl": {
+      "record_count": 6905,
+      "sha256": "9b4b369d5dec072eb57c5b25f438e27937140dfd6d67d502f897131cad9f1b45"
+    },
+    "data/training_sources/structured_extraction_seven_style_v2/validation.jsonl": {
+      "record_count": 115,
+      "sha256": "8b495aa6bf86e481a59bf35b8af4c558da598229ea7a73c3ef878b9d90633813"
+    }
+  },
+  "authorization": {
+    "deployment_authorized": false,
+    "experimental_finetuning_authorized": true,
+    "production_clinical_use_authorized": false,
+    "test_unsealing_authorized": false,
+    "training_authorized": false
+  },
+  "auto_promotion_authorization": "configs/training/structured_extraction_seven_style_auto_promotion_v1.json",
+  "auto_promotion_authorization_sha256": "fd54febe326e9fad9bc7b431807684b760f153416ee655e14de4e68b65849144",
+  "campaign_id": "edge-imci-structured-extraction-seven-style-v2",
+  "dataset_release_id": "edge-imci-structured-extraction-seven-style-v2",
+  "existing_v1_record_count": 1497,
+  "parent_case_count": 78,
+  "partition_counts": {
+    "TEST": 143,
+    "TRAIN": 6905,
+    "VALIDATION": 115
+  },
+  "promoted_record_count": 5666,
+  "record_count": 7163,
+  "record_schema_id": "edge-imci-structured-extraction-sft-record-v1",
+  "review_policy": {
+    "acceptance_basis": "DETERMINISTIC_PASS",
+    "authority": "PROJECT_OWNER",
+    "semantic_review_waived": true
+  },
+  "source_dataset_v1_manifest_sha256": "fe7285c328da251f023c582a33a3d127a200a2d45373bb2d330c72c2a13e2727",
+  "status": "AUTO_PROMOTED_FOR_EXPERIMENTAL_TRAINING",
+  "style_counts": {
+    "CLINICAL_STANDARD_ENGLISH": 1854,
+    "NATURAL_CONVERSATIONAL_ENGLISH": 1865,
+    "NIGERIAN_ENGLISH": 390,
+    "NIGERIAN_PIDGIN": 300,
+    "NOISY_TYPED_ENGLISH": 394,
+    "SUBJECTLESS_UNPUNCTUATED_SHORTHAND": 1947,
+    "TELEGRAPHIC_PHC_NOTE": 413
+  },
+  "validation": {
+    "all_promoted_records_deterministic_passes": true,
+    "all_promoted_records_inherit_train_partition": true,
+    "assistant_targets_regenerated_deterministically": true,
+    "clinical_outputs_excluded_from_target": true,
+    "exact_duplicates_retained_and_reported": true,
+    "parent_split_inheritance": true
+  }
+}
