@@ -1,0 +1,132 @@
+import { useEffect, useRef, useState } from "react";
+import type { AssessmentCandidate, AssessmentEvaluation, AssessmentId, InteractionTrace, Resolutions } from "../types";
+import { acceptAssessment, evaluateAssessment } from "./api";
+import { createRequestGate, draftKey, parseDraft, recordDraftInteraction, unresolvedChanges, type AssessmentDraft } from "./assessment";
+
+const emptyDraft = (revision = 0): AssessmentDraft => ({ version: 1, encounter: {}, attempted: [], revision, interactions: [] });
+
+export function useAssessmentSession() {
+  const [restored] = useState(() => {
+    try { return { draft: parseDraft(sessionStorage.getItem(draftKey)), hint: "" }; }
+    catch { return { draft: null, hint: "The tab draft could not be restored. Storage may be unavailable; do not rely on reload to save findings." }; }
+  });
+  const [draft, setDraft] = useState(restored.draft ?? emptyDraft());
+  const current = useRef(draft);
+  const [evaluation, setEvaluation] = useState<AssessmentEvaluation | null>(null);
+  const [hasData, setHasData] = useState(Boolean(restored.draft));
+  const [busy, setBusy] = useState(false);
+  const busyRef = useRef(false);
+  const [error, setError] = useState("");
+  const [storageHint, setStorageHint] = useState(restored.hint);
+  const [gate] = useState(createRequestGate);
+
+  function store(next: AssessmentDraft) {
+    current.current = next;
+    setDraft(next);
+    try { sessionStorage.setItem(draftKey, JSON.stringify(next)); setStorageHint(""); }
+    catch {
+      // An older saved encounter must not survive a failed save of newer evidence.
+      try {
+        sessionStorage.removeItem(draftKey);
+        setStorageHint("Tab storage is full or unavailable. The older saved draft was removed to prevent restoring stale evidence. Current findings and full interaction history remain in memory only; reload will lose them. Use synthetic data only.");
+      } catch {
+        setStorageHint("Tab storage is full or unavailable, and the older saved draft could not be removed. Current findings and full interaction history remain in memory only. Safe restoration cannot be guaranteed: close this tab when finished; do not reload, as it may restore stale evidence.");
+      }
+    }
+  }
+
+  function recordInteraction(interaction: InteractionTrace) {
+    store(recordDraftInteraction(current.current, interaction));
+  }
+
+  function rejectPending(reason: string) {
+    for (const entry of current.current.interactions ?? []) {
+      if (entry.status === "candidate" || entry.status === "transcribed") {
+        recordInteraction({ ...entry, pending: false, status: "rejected", error: reason });
+      }
+    }
+  }
+
+  async function run(operation: (signal: AbortSignal) => Promise<AssessmentEvaluation>, attempted: AssessmentId[], retain: boolean, interaction?: InteractionTrace) {
+    if (busyRef.current) return false;
+    busyRef.current = true;
+    setBusy(true);
+    setError("");
+    const request = gate.begin(current.current.revision);
+    try {
+      const next = await operation(request.signal);
+      if (!request.isCurrent(current.current.revision)) return false;
+      let accepted: AssessmentDraft = {
+        version: 1, encounter: next.encounter, attempted, revision: current.current.revision + 1,
+        interactions: current.current.interactions ?? [],
+      };
+      if (interaction) accepted = recordDraftInteraction(accepted, { ...interaction, status: "accepted", pending: false, result: next, error: undefined });
+      current.current = accepted;
+      setDraft(accepted);
+      setEvaluation(next);
+      setHasData(retain);
+      if (retain || accepted.interactions?.length) store(accepted);
+      return true;
+    } catch (failure) {
+      if (request.isCurrent(current.current.revision)) {
+        const message = failure instanceof Error ? failure.message : "The assessment service could not be reached. Accepted findings are unchanged.";
+        setError(message);
+        if (interaction) recordInteraction({ ...interaction, status: "failed", pending: false, error: message });
+      }
+      return false;
+    } finally {
+      // Successful commits increment revision; request identity still owns the busy flag.
+      if (request.isCurrent()) { busyRef.current = false; setBusy(false); }
+    }
+  }
+
+  function refresh() {
+    const snapshot = current.current;
+    return run((signal) => evaluateAssessment(hasData ? snapshot.encounter : undefined, snapshot.attempted, signal), snapshot.attempted, hasData);
+  }
+
+  useEffect(() => {
+    busyRef.current = false;
+    void refresh();
+    return () => { gate.cancel(); busyRef.current = false; };
+    // Restoration is evaluated once per mount; computed results are never restored.
+  }, []);
+
+  function reset() {
+    gate.cancel();
+    busyRef.current = false;
+    const next = emptyDraft(current.current.revision + 1);
+    current.current = next;
+    setDraft(next);
+    setEvaluation(null);
+    setHasData(false);
+    setError("");
+    try { sessionStorage.removeItem(draftKey); setStorageHint(""); }
+    catch { setStorageHint("The saved tab draft could not be cleared. Close this tab to end the session; do not reload an old draft."); }
+    void run((signal) => evaluateAssessment(undefined, [], signal), [], false);
+  }
+
+  return {
+    ...draft, interactions: draft.interactions ?? [], evaluation, hasData, busy, error, storageHint, ready: evaluation !== null,
+    currentRevision: () => current.current.revision,
+    refresh, reset, recordInteraction, rejectPending,
+    evaluate(encounter: Record<string, unknown>, attempted: AssessmentId[], interaction?: InteractionTrace) {
+      return run((signal) => evaluateAssessment(encounter, attempted, signal), attempted, true, interaction);
+    },
+    accept(candidate: AssessmentCandidate, resolutions: Resolutions, revision: number, interaction?: InteractionTrace) {
+      if (revision !== current.current.revision || unresolvedChanges(candidate.changes, resolutions).length) {
+        setError("Review is stale or has unresolved choices. Interpret the findings again before applying.");
+        return Promise.resolve(false);
+      }
+      const attempted = [...new Set([...current.current.attempted, candidate.assessment])];
+      const encounter = current.current.encounter;
+      const trace: InteractionTrace = { ...interaction, id: interaction?.id ?? crypto.randomUUID(),
+        timestamp: interaction?.timestamp ?? new Date().toISOString(), assessment: candidate.assessment,
+        source: interaction?.source ?? { submitted_text: candidate.input_text },
+        status: "candidate", pending: true, candidate, resolutions, before_encounter: encounter };
+      if (busyRef.current) return Promise.resolve(false);
+      recordInteraction(trace);
+      return run((signal) => acceptAssessment(candidate, encounter, resolutions, attempted, signal), attempted, true, trace);
+    },
+  };
+}

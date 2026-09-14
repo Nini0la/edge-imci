@@ -15,6 +15,7 @@ from typing import Any
 
 from edge_imci.generation.holistic_language_full import (
     ACQUISITION_SPECS,
+    CONTRADICTION_SENTENCES,
     render_assistant,
 )
 from edge_imci.schemas.holistic import (
@@ -481,8 +482,9 @@ def render_worker_response(
         for fields in eval_result.missing_elements.values()
         for field in fields
     }
-    if not eval_result.supported_encounter_complete and not missing.issubset(
-        ACQUISITION_SPECS
+    if not eval_result.supported_encounter_complete and (
+        not missing.issubset(ACQUISITION_SPECS)
+        or not set(eval_result.contradictions).issubset(CONTRADICTION_SENTENCES)
     ):
         return _render_runtime_incomplete(eval_result)
     return render_assistant(semantic_record)

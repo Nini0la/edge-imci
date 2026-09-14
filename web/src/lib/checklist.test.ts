@@ -1,6 +1,31 @@
 import { describe, expect, it } from "vitest";
-import { buildChecklist } from "./checklist";
+import { acceptedSectionFields, buildChecklist } from "./checklist";
 import type { AnalysisResult } from "../types";
+
+describe("accepted evidence review", () => {
+  it("includes known evidence hidden by negative pathway entries, including false and zero", () => {
+    const encounter = {
+      patient_facts: { age_months: 24, has_ear_problem: false },
+      ear: { ear_pain: true, ear_discharge_duration_days: 0, tender_swelling_behind_ear: null },
+    };
+    const fields = acceptedSectionFields(encounter, "ear");
+    expect(fields.map((field) => [field.field, field.previous])).toEqual([
+      ["patient_facts.age_months", 24], ["patient_facts.has_ear_problem", false],
+      ["ear.ear_pain", true], ["ear.ear_discharge_duration_days", 0],
+    ]);
+    expect(fields.every((field) => field.value === null && field.conflict && !field.outside_assessment)).toBe(true);
+    expect(encounter.ear.ear_pain).toBe(true);
+  });
+
+  it("offers shared age and the permitted diarrhoea danger observation, without unrelated fields", () => {
+    const encounter = { patient_facts: { age_months: 24 }, danger_signs: { lethargic_or_unconscious: true, convulsing_now: true }, ear: { ear_pain: true } };
+    expect(acceptedSectionFields(encounter, "diarrhoea").map((field) => field.field)).toEqual([
+      "patient_facts.age_months", "danger_signs.lethargic_or_unconscious",
+    ]);
+    expect(acceptedSectionFields(encounter, "danger").map((field) => field.field)).toContain("danger_signs.convulsing_now");
+    expect(acceptedSectionFields({}, "ear")).toEqual([]);
+  });
+});
 
 describe("buildChecklist", () => {
   it("represents unreported findings as unknown, never absent", () => {

@@ -56,9 +56,14 @@ const stateContent: Record<
 
 interface ResultPanelProps {
   result: AnalysisResult;
+  blocked?: boolean;
 }
 
-export function ResultPanel({ result }: ResultPanelProps) {
+export function ResultPanel({ result, blocked = false }: ResultPanelProps) {
+  if (blocked) return <section className="progress-blocked" role="alert">
+    <h2>Progress blocked; resolve evidence issues before using final synthesis.</h2>
+    <p>Review the evidence blockers in the Guide. Routine classifications and management are withheld; accepted urgent actions remain visible above.</p>
+  </section>;
   const content = stateContent[result.state];
   const StateIcon = content.icon;
 

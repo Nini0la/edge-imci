@@ -1,4 +1,4 @@
-import type { AnalysisResult } from "../types";
+import type { AnalysisResult, AssessmentChange, AssessmentId } from "../types";
 
 export type ChecklistState = "present" | "absent" | "unknown" | "urgent";
 export type SectionCompletion = "pending" | "complete" | "incomplete";
@@ -541,6 +541,24 @@ const sectionDefinitions: SectionDefinition[] = [
   },
 ];
 
+const ageField: FieldDefinition = {
+  path: "patient_facts.age_months",
+  label: "Child age",
+  instruction: "Confirm the child's age in completed months.",
+  method: "ASK",
+};
+
+export function acceptedSectionFields(encounter: Record<string, unknown>, assessment: AssessmentId): AssessmentChange[] {
+  const fields = [ageField, ...sectionDefinitions.find((section) => section.id === assessment)!.fields];
+  // Review accepted evidence even when a negative entry hides its conditional checklist prompt.
+  return fields.flatMap((field) => {
+    const previous = getValue(encounter, field.path);
+    return previous === null || previous === undefined ? [] : [{
+      field: field.path, label: field.label, previous, value: null, conflict: true, outside_assessment: false,
+    }];
+  });
+}
+
 function getValue(encounter: Record<string, unknown> | undefined, path: string): unknown {
   let value: unknown = encounter;
   for (const part of path.split(".")) {
@@ -677,12 +695,7 @@ export function buildChecklist(
   });
 
   return {
-    age: createItem({
-      path: "patient_facts.age_months",
-      label: "Child age",
-      instruction: "Confirm the child's age in completed months.",
-      method: "ASK",
-    }),
+    age: createItem(ageField),
     sections,
   };
 }

@@ -1,14 +1,20 @@
-import type { AnalysisResult } from "../types";
+import type { ReactNode } from "react";
+import type { AnalysisResult, AssessmentId, AssessmentProgress } from "../types";
+import { assessmentBadge } from "../lib/assessment";
 import {
   buildChecklist,
   type AssessmentMethod,
   type ChecklistState,
-  type SectionCompletion,
 } from "../lib/checklist";
 
 interface AssessmentChecklistProps {
   encounter?: Record<string, unknown>;
   result?: AnalysisResult | null;
+  progress?: Partial<Record<AssessmentId, AssessmentProgress>>;
+  pendingAssessments?: AssessmentId[];
+  activeAssessment?: AssessmentId | null;
+  guideStatus?: ReactNode;
+  renderCapture?: (id: AssessmentId) => ReactNode;
 }
 
 const methodOrder: AssessmentMethod[] = ["ASK", "LOOK / LISTEN / FEEL", "MEASURE", "IF INDICATED"];
@@ -19,13 +25,7 @@ function stateLabel(state: ChecklistState): string {
   return "Recorded";
 }
 
-function sectionCompletionLabel(completion: SectionCompletion): string {
-  if (completion === "complete") return "Complete";
-  if (completion === "incomplete") return "Needs info";
-  return "Awaiting";
-}
-
-export function AssessmentChecklist({ encounter, result }: AssessmentChecklistProps) {
+export function AssessmentChecklist({ encounter, result, progress, pendingAssessments = [], activeAssessment, guideStatus, renderCapture }: AssessmentChecklistProps) {
   const checklist = buildChecklist(encounter, result);
 
   return (
@@ -36,6 +36,8 @@ export function AssessmentChecklist({ encounter, result }: AssessmentChecklistPr
         <p>Follow each prompt while assessing the child. Extracted observations appear as secondary annotations.</p>
       </header>
 
+      {guideStatus}
+
       <div className="assessment-scope">
         <span className="assessment-scope__label">First confirm</span>
         <span className="assessment-scope__instruction">{checklist.age.instruction}</span>
@@ -45,11 +47,17 @@ export function AssessmentChecklist({ encounter, result }: AssessmentChecklistPr
       </div>
 
       <div className="assessment-sections">
-        {checklist.sections.map((section, sectionIndex) => (
+        {checklist.sections.map((section, sectionIndex) => {
+          const id = section.id as AssessmentId;
+          const badge = assessmentBadge(progress?.[id], pendingAssessments.includes(id));
+          return (
           <details
             className={`assessment-section assessment-section--${section.state}`}
             key={section.id}
-            open={section.id === "danger" || section.state === "urgent"}
+            open={section.id === "danger" || section.state === "urgent" || activeAssessment === id}
+            onToggle={(event) => {
+              if (activeAssessment === id && !event.currentTarget.open) event.currentTarget.open = true;
+            }}
           >
             <summary>
               <span className="assessment-section__number">{String(sectionIndex + 1).padStart(2, "0")}</span>
@@ -58,15 +66,16 @@ export function AssessmentChecklist({ encounter, result }: AssessmentChecklistPr
                 <span>{section.prompt}</span>
               </span>
               <span
-                className={`assessment-section__state assessment-section__state--${section.completion}`}
-                aria-label={`Assessment status: ${sectionCompletionLabel(section.completion)}`}
+                className={`assessment-section__state assessment-section__state--${badge.kind}`}
+                aria-label={`Assessment status: ${badge.label}`}
               >
                 <span className="assessment-section__status-dot" aria-hidden="true" />
-                {sectionCompletionLabel(section.completion)}
+                {badge.label}
               </span>
             </summary>
 
             <div className="assessment-section__body">
+              {renderCapture?.(id)}
               {section.inactive && (
                 <div className="assessment-inactive">
                   <strong>No further checks triggered</strong>
@@ -119,7 +128,8 @@ export function AssessmentChecklist({ encounter, result }: AssessmentChecklistPr
               <div className="assessment-source">WHO IMCI Chart Booklet, page {section.sourcePage}</div>
             </div>
           </details>
-        ))}
+          );
+        })}
       </div>
 
       <footer className="checklist-footer">
