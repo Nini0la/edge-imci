@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { extractAssessment, transcribeAudio } from "../lib/api";
-import { affectedAssessments, createRequestGate, unresolvedChanges, workerRetraction } from "../lib/assessment";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { Mic, Square } from "lucide-react";
+import { unresolvedChanges } from "../lib/assessment";
 import { acceptedSectionFields } from "../lib/checklist";
-import { createAudioCapture, type AudioState } from "../lib/audio";
-import type { ASRLanguage, AssessmentCandidate, AssessmentId, AssessmentProgress, InteractionTrace, Resolutions, Resolution } from "../types";
+import type { CaptureContext, CaptureJob, useVoiceCapture } from "../lib/useVoiceCapture";
+import type { ASRLanguage, AssessmentCandidate, AssessmentId, AssessmentProgress, Resolutions, Resolution } from "../types";
 
 interface AssessmentCaptureProps {
   assessment: AssessmentId;
@@ -11,31 +11,16 @@ interface AssessmentCaptureProps {
   revision: number;
   progress?: AssessmentProgress;
   urgent: boolean;
-  disabled: boolean;
-  serviceError?: string;
-  onBusy: (busy: boolean) => void;
-  onPending: (pending: AssessmentId[]) => void;
-  onAccept: (candidate: AssessmentCandidate, resolutions: Resolutions, revision: number, interaction?: InteractionTrace) => Promise<boolean>;
-  onRecordInteraction: (interaction: InteractionTrace) => void;
+  voice: ReturnType<typeof useVoiceCapture>;
+  language: ASRLanguage | "";
+  consent: { audio: boolean; understanding: boolean };
+  reviewDisabled: boolean;
+  ready: boolean;
+  onDirty: Dispatch<SetStateAction<Partial<Record<AssessmentId, boolean>>>>;
 }
 
 function valueLabel(value: unknown) {
   return value === null || value === undefined ? "Unknown (null)" : JSON.stringify(value);
-}
-
-export function CaptureInput({ assessment, rawTranscript, text, disabled, onChange }: {
-  assessment: AssessmentId; rawTranscript?: string; text: string; disabled: boolean; onChange: (text: string) => void;
-}) {
-  return <>
-    {rawTranscript !== undefined && <>
-      <label htmlFor={`capture-raw-${assessment}`}>Original ASR transcript (read-only)</label>
-      <textarea id={`capture-raw-${assessment}`} value={rawTranscript} readOnly rows={3} />
-    </>}
-    <label htmlFor={`capture-text-${assessment}`}>Section findings / editable transcript</label>
-    <textarea id={`capture-text-${assessment}`} value={text} rows={4} disabled={disabled}
-      onChange={(event) => onChange(event.target.value)}
-      placeholder="Describe one or several observed findings. You can always type instead of recording." />
-  </>;
 }
 
 export function CandidateReview({ candidate, resolutions, busy, onResolve }: {
@@ -68,6 +53,7 @@ export function CandidateReview({ candidate, resolutions, busy, onResolve }: {
       return <div className="capture-change" key={change.field}>
         <strong>{change.label}</strong><code>{change.field}</code>
         <p><span>Accepted: {valueLabel(change.previous)}</span><span>Proposed: {valueLabel(change.value)}</span></p>
+        {change.review_changed && <p className="capture-warning">Accepted evidence changed since this capture. Reconfirm your choice even if the latest value matches the proposal or is unknown.</p>}
         {(change.uncertain || change.value === null) && <p className="capture-warning">Ambiguous / unknown, not a negative finding. Explicit resolution required, even if the accepted value is already unknown. Include or retract sets null; keep explicitly reaffirms the accepted value.</p>}
         {change.conflict && <p className="capture-warning">Conflict with an accepted finding. Choose a resolution.</p>}
         {change.outside_assessment && <p className="capture-warning">Outside this assessment. Explicit inclusion or rejection required.</p>}
@@ -85,253 +71,171 @@ export function CandidateReview({ candidate, resolutions, busy, onResolve }: {
   </>;
 }
 
-export function AssessmentCapture({ assessment, encounter, revision, progress, urgent, disabled, serviceError, onBusy, onPending, onAccept, onRecordInteraction }: AssessmentCaptureProps) {
-  const [text, setText] = useState("");
-  const [candidate, setCandidate] = useState<AssessmentCandidate | null>(null);
+function JobReview({ job, revision, disabled, voice }: {
+  job: CaptureJob; revision: number; disabled: boolean; voice: AssessmentCaptureProps["voice"];
+}) {
   const [resolutions, setResolutions] = useState<Resolutions>({});
-  const [retractions, setRetractions] = useState<string[]>([]);
-  const [consent, setConsent] = useState(false);
-  const [textConsent, setTextConsent] = useState(false);
-  const [asrSource, setAsrSource] = useState<InteractionTrace["source"]>({});
-  const recordingId = useRef<string | undefined>(undefined);
-  const interaction = useRef<InteractionTrace | null>(null);
-  const [language, setLanguage] = useState<ASRLanguage | "">("");
-  const [audioState, setAudioState] = useState<AudioState>("idle");
-  const [audio, setAudio] = useState<Blob | null>(null);
-  const [audioUrl, setAudioUrl] = useState("");
-  const [operation, setOperation] = useState<"transcribing" | "interpreting" | "applying" | null>(null);
-  const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
-  const [gate] = useState(createRequestGate);
-  const currentRevision = useRef(revision);
-  currentRevision.current = revision;
-  const [microphone] = useState(() => createAudioCapture({ state: setAudioState, audio: setAudio, error: setError }));
-  const busy = audioState !== "idle" || operation !== null;
-  const pending = Boolean(text.trim() || candidate || audio || busy || retractions.length);
-  const acceptedFields = acceptedSectionFields(encounter, assessment);
+  const candidate = job.candidate!;
+  const stale = job.reviewRevision !== revision;
+  const unresolved = unresolvedChanges(candidate.changes, resolutions);
+  const applying = job.status === "applying";
+  return <div className="capture-review">
+    <CandidateReview candidate={candidate} resolutions={resolutions} busy={disabled || stale || applying}
+      onResolve={(field, choice) => setResolutions((previous) => ({ ...previous, [field]: choice }))} />
+    {stale && <p className="capture-warning" role="status">Accepted findings changed. Review again against the latest encounter before applying.</p>}
+    {job.reviewRevision !== undefined && job.originalRevision !== job.reviewRevision && <p className="capture-warning">Acceptance context changed since capture. The original captured question remains binding. Review these findings against the latest accepted encounter before explicitly applying, even if no proposed fields changed.</p>}
+    {!candidate.changes.length && <p>No new evidence was extracted. Existing accepted values will NOT become unknown. Record a correction, explicitly retract uncertain accepted evidence below, or acknowledge that there is no new evidence.</p>}
+    {unresolved.length > 0 && <p className="capture-warning" role="status">{unresolved.length} unresolved choice(s). Nothing can be applied until these are reviewed.</p>}
+    <div className="capture-actions">
+      {stale && <button type="button" disabled={disabled || applying} onClick={() => void voice.prepareReview(job.id)}>Review again</button>}
+      <button type="button" disabled={disabled || stale || applying || unresolved.length > 0} onClick={() => {
+        if (!candidate.changes.length && !window.confirm("Acknowledge that this report supplied no new evidence? Accepted findings will not change. If an accepted value is uncertain, explicitly retract it instead.")) return;
+        void voice.accept(job.id, resolutions);
+      }}>{applying ? "Applying reviewed findings..." : candidate.changes.length ? "Apply reviewed findings" : "Acknowledge no new evidence"}</button>
+    </div>
+  </div>;
+}
 
-  useEffect(() => { onBusy(busy); }, [busy, onBusy]);
+const jobStatus: Record<CaptureJob["status"], string> = {
+  recording: "Recording", queued: "Processing / queued", transcribing: "Processing / transcribing",
+  extracting: "Processing / structuring findings", captured: "Captured / awaiting review",
+  preparing_review: "Processing / preparing review", review: "Captured / review before applying",
+  applying: "Processing / applying reviewed findings", accepted: "Reviewed", failed: "Capture failed", discarded: "Discarded",
+};
+
+function CaptureJobCard({ job, revision, reviewDisabled, voice, onDirty }: {
+  job: CaptureJob; revision: number; reviewDisabled: boolean; voice: AssessmentCaptureProps["voice"];
+  onDirty: Dispatch<SetStateAction<Record<string, boolean>>>;
+}) {
+  const sourceText = job.inputText ?? job.transcript?.transcript ?? "";
+  const [correctedText, setCorrectedText] = useState<string | null>(null);
+  const reviewing = job.status === "review" || job.status === "applying";
+  const canRetry = ["captured", "review", "failed"].includes(job.status);
+  const correctionDirty = canRetry && correctedText !== null && correctedText !== sourceText;
+  const retryableInput = Boolean(job.inputText?.trim() || (job.audio?.size && job.language));
   useEffect(() => {
-    onPending(pending ? affectedAssessments(assessment, [...(candidate?.changes.map((change) => change.field) ?? []), ...retractions]) : []);
-  }, [pending, assessment, candidate, retractions, onPending]);
-  useEffect(() => () => { gate.cancel(); microphone.cancel(); }, [gate, microphone]);
-  useEffect(() => {
-    if (!audio) { setAudioUrl(""); return; }
-    const url = URL.createObjectURL(audio);
-    setAudioUrl(url);
-    return () => URL.revokeObjectURL(url);
-  }, [audio]);
-
-  function rejectInteraction(reason: string) {
-    const entry = interaction.current;
-    if (entry && (entry.status === "candidate" || entry.status === "transcribed")) {
-      onRecordInteraction({ ...entry, resolutions, pending: false, status: "rejected", error: reason });
-    }
-    interaction.current = null;
-  }
-
-  function record(entry: InteractionTrace) {
-    interaction.current = entry;
-    onRecordInteraction(entry);
-  }
-
-  function editText(value: string) {
-    rejectInteraction("Editable input changed; prior interpretation was not accepted.");
-    gate.cancel();
-    setOperation(null);
-    setText(value);
-    setCandidate(null);
-    setResolutions({});
-    setError("");
-    setNotice("");
-  }
-
-  function cancel() {
-    rejectInteraction("Capture cancelled by worker; accepted findings unchanged.");
-    gate.cancel();
-    microphone.cancel();
-    setAudio(null);
-    setOperation(null);
-    setCandidate(null);
-    setResolutions({});
-    setRetractions([]);
-    setError("");
-    setNotice("Capture cancelled. Typed findings and accepted observations are unchanged.");
-  }
-
-  async function transcribe() {
-    if (!audio || !consent || !language || busy || disabled) return;
-    const request = gate.begin(revision);
-    rejectInteraction("Superseded by a new transcription request.");
-    const trace: InteractionTrace = { id: crypto.randomUUID(), timestamp: new Date().toISOString(), assessment,
-      status: "candidate", pending: true, source: { recording_id: recordingId.current, language, asr_provider: "intron" }, before_encounter: encounter };
-    record(trace);
-    setLanguage("");
-    setOperation("transcribing");
-    setCandidate(null);
-    setResolutions({});
-    setError("");
-    try {
-      const response = await transcribeAudio(audio, trace.source.language!, request.signal);
-      if (!request.isCurrent(currentRevision.current)) return;
-      setText(response.transcript);
-      const source = { ...trace.source, raw_asr_transcript: response.transcript, asr_provider: response.provider, asr_model: response.model };
-      setAsrSource(source);
-      record({ ...trace, source, status: "transcribed", pending: false });
-      setNotice("Transcribed by Intron. Edit the transcript, then interpret and review before applying.");
-    } catch (failure) {
-      if (request.isCurrent(currentRevision.current)) {
-        const message = failure instanceof Error ? failure.message : "Transcription failed. You can type findings below.";
-        setError(message); record({ ...trace, status: "failed", pending: false, error: message });
-      }
-    } finally {
-      if (request.isCurrent(currentRevision.current)) setOperation(null);
-    }
-  }
-
-  async function interpret() {
-    if (!text.trim() || !textConsent || busy || disabled) return;
-    const request = gate.begin(revision);
-    rejectInteraction("Superseded by an interpretation request; original transcription retained here.");
-    const trace: InteractionTrace = { id: crypto.randomUUID(), timestamp: new Date().toISOString(), assessment,
-      status: "candidate", pending: true, source: { ...asrSource, submitted_text: text,
-        question: !urgent && progress?.decision === "ASK" ? progress.question ?? undefined : undefined }, before_encounter: encounter };
-    record(trace);
-    setOperation("interpreting");
-    setCandidate(null);
-    setResolutions({});
-    setError("");
-    setNotice("");
-    try {
-      const response = await extractAssessment(assessment, text, encounter,
-        trace.source.question?.field, request.signal);
-      if (!request.isCurrent(currentRevision.current)) return;
-      if (response.assessment !== assessment) throw new Error("The interpretation returned the wrong assessment. Please retry.");
-      setCandidate(response);
-      record({ ...trace, status: "candidate", pending: false, candidate: response });
-    } catch (failure) {
-      if (request.isCurrent(currentRevision.current)) {
-        const message = failure instanceof Error ? failure.message : "Interpretation failed. Accepted findings are unchanged.";
-        setError(message); record({ ...trace, status: "failed", pending: false, error: message });
-      }
-    } finally {
-      if (request.isCurrent(currentRevision.current)) setOperation(null);
-    }
-  }
-
-  async function apply() {
-    if (!candidate || busy || disabled || retractions.length || unresolvedChanges(candidate.changes, resolutions).length) return;
-    if (!candidate.changes.length && !window.confirm("Acknowledge that this report supplied no new evidence? Accepted findings will not change. If an accepted value is uncertain, cancel and explicitly retract it below instead.")) return;
-    setOperation("applying");
-    // The parent remounts capture on an accepted revision, discarding audio and the old candidate.
-    const trace = interaction.current?.status === "failed" ? { ...interaction.current, id: crypto.randomUUID(), timestamp: new Date().toISOString() } : interaction.current ?? undefined;
-    if (!await onAccept(candidate, resolutions, revision, trace)) {
-      if (trace) interaction.current = { ...trace, status: "failed" };
-      setOperation(null);
-    }
-  }
-
-  async function retract() {
-    if (busy || disabled || !retractions.length) return;
-    const changes = acceptedFields.filter((field) => retractions.includes(field.field));
-    if (!window.confirm(`Mark these accepted findings UNKNOWN (null): ${changes.map((change) => change.label).join(", ")}? This explicitly retracts evidence and re-evaluates the encounter. Any other unaccepted section report or audio will be discarded on success.`)) return;
-    gate.cancel();
-    rejectInteraction("Discarded in favor of explicit worker retraction.");
-    setCandidate(null);
-    setResolutions({});
-    setOperation("applying");
-    setError("");
-    const choices: Resolutions = Object.fromEntries(changes.map((change) => [change.field, "unknown"]));
-    if (!await onAccept(workerRetraction(assessment, changes), choices, revision)) setOperation(null);
-  }
-
-  const unresolved = candidate ? unresolvedChanges(candidate.changes, resolutions) : [];
-  return (
-    <section className="assessment-capture" aria-label={`${assessment} findings capture`}>
-      <h3>Record or type this assessment</h3>
-      {!urgent && progress?.decision === "ASK" && progress.question && (
-        <div className="capture-question" aria-live="polite">
-          <strong>Next observation</strong><p>{progress.question.text}</p>
-        </div>
-      )}
-      {progress?.decision === "COMPLETE" && !urgent && <p>Accepted assessment complete. You may add or correct findings.</p>}
-      {urgent && <p className="capture-warning">Ordinary questions are paused. Prioritize urgent actions. Further captures are your choice.</p>}
-      {progress?.blockers.map((blocker, index) => <p className="capture-warning" key={index}>{blocker}</p>)}
-      <p className="capture-privacy" id={`privacy-${assessment}`}>
-        Research/demo only. Audio is sent to Intron for transcription. Section text/transcripts and the current canonical encounter are sent to the configured language-understanding service (Azure OpenAI in demo mode).
-        External Azure receives the transcript and current canonical encounter in demo mode. Use synthetic data only; no identifying details.
-        Browser audio is kept in memory, never saved. Accepted findings and local interaction traces containing transcripts and results are saved in this tab only, including rejected and failed requests.
-      </p>
-      <label htmlFor={`capture-language-${assessment}`}>
-        Recording language
-        <select id={`capture-language-${assessment}`} value={language} disabled={busy}
-          onChange={(event) => setLanguage(event.target.value as ASRLanguage | "")}>
-          <option value="" disabled>Select for each transcription request</option>
-          <option value="en">English</option>
-          <option value="pcm">Nigerian Pidgin-English</option>
-          <option value="yo">Yoruba-English</option>
-          <option value="ig">Igbo-English</option>
-          <option value="ha">Hausa-English</option>
-        </select>
-      </label>
-      <label className="capture-consent">
-        <input type="checkbox" checked={consent} disabled={busy} onChange={(event) => setConsent(event.target.checked)} />
-        I understand and agree to send audio to Intron.
-      </label>
+    onDirty((previous) => previous[job.id] === correctionDirty ? previous : { ...previous, [job.id]: correctionDirty });
+  }, [job.id, correctionDirty, onDirty]);
+  useEffect(() => () => {
+    onDirty((previous) => { const next = { ...previous }; delete next[job.id]; return next; });
+  }, [job.id, onDirty]);
+  return <article className={`capture-job capture-job--${job.status}`} aria-label={`Capture ${job.id}`}>
+    <header className="capture-job-heading"><strong role="status">{jobStatus[job.status]}</strong>
+      <span>{job.language ?? "Text / worker review"}</span></header>
+    {job.question && job.status !== "accepted" && <div className="capture-source-question"><strong>Question at capture</strong><p>{job.question.text}</p><code>{job.question.field}</code></div>}
+    {reviewing && sourceText && <p className="capture-source-text"><strong>Captured source (read-only)</strong><q>{sourceText}</q></p>}
+    {job.error && <p className="capture-error" role="alert">{job.error}</p>}
+    {correctionDirty && <p className="capture-warning" role="status">Transcript has unprocessed edits. Process the correction or cancel it before applying this review.</p>}
+    {job.status === "accepted" && <p className="capture-meta">{job.changedFields.length
+      ? `Reviewed changes: ${job.changedFields.map((field) => job.candidate?.changes.find((change) => change.field === field)?.label ?? field).join(", ")}.`
+      : "Reviewed; no accepted values changed."} Current observations are shown below.</p>}
+    {job.status === "captured" && <>
+      {!!job.candidate?.changes.length && <ul className="captured-findings">{job.candidate.changes.map((change) => <li key={change.field}>
+        {change.label}: <strong>{valueLabel(change.value)}</strong> <span>Not accepted</span>
+      </li>)}</ul>}
+      <button type="button" disabled={reviewDisabled || correctionDirty} onClick={() => void voice.prepareReview(job.id)}>Review captured findings</button>
+    </>}
+    {reviewing && job.candidate && <JobReview key={`${job.id}:${job.reviewVersion}`} job={job} revision={revision} disabled={reviewDisabled || correctionDirty} voice={voice} />}
+    {(job.transcript || job.inputText !== undefined) && <details className="capture-details">
+      <summary>Transcript / source details (read-only)</summary>
+      {job.transcript && <><strong>Original ASR transcript (read-only)</strong><p className="trace-text">{job.transcript.transcript}</p></>}
+      {job.inputText !== undefined && <><strong>Submitted input (read-only)</strong><p className="trace-text">{job.inputText}</p></>}
+    </details>}
+    {canRetry && sourceText && <details className="capture-details">
+      <summary>Correct transcript if needed</summary>
+      <p>Optional. You can record another clip instead. Processing a correction requires a new review; accepted findings stay unchanged.</p>
+      <p>Retrying/correcting this clip uses its original processing permission. Editing alone sends nothing.</p>
+      <label htmlFor={`correct-transcript-${job.id}`}>Corrected transcript</label>
+      <textarea id={`correct-transcript-${job.id}`} rows={3} value={correctedText ?? sourceText} onChange={(event) => setCorrectedText(event.target.value)} />
       <div className="capture-actions">
-        <button type="button" disabled={disabled || busy || !consent || !language} aria-describedby={`privacy-${assessment}`} onClick={() => {
-          rejectInteraction("New recording started; prior capture not accepted."); recordingId.current = crypto.randomUUID();
-          setAudio(null); setCandidate(null); setResolutions({}); setError(""); setNotice(""); void microphone.record();
-        }}>Record</button>
-        <button type="button" disabled={audioState !== "recording"} onClick={microphone.stop}>Stop</button>
-        <button type="button" disabled={operation === "applying" || (!busy && !audio && !candidate && !retractions.length)} onClick={cancel}>Cancel</button>
+        <button type="button" disabled={!(correctedText ?? sourceText).trim()} onClick={() => voice.retry(job.id, correctedText ?? sourceText)}>Process corrected transcript</button>
+        {correctedText !== null && <button type="button" onClick={() => setCorrectedText(null)}>Cancel correction</button>}
       </div>
-      <p className="capture-meta" role="status">
-        {audioState === "permission" ? "Waiting for microphone permission. Cancel also discards a late permission grant."
-          : audioState === "recording" ? "Recording. Automatically stops at 60 seconds; maximum 5 MB."
-            : audioState === "stopping" ? "Finishing recording..." : "Maximum 60 seconds / 5 MB. Recording does not complete an assessment."}
-      </p>
-      {audioUrl && <div className="capture-playback">
-        <audio controls src={audioUrl} preload="metadata" aria-label="Review recorded assessment" />
-        <div className="capture-actions">
-          <button type="button" disabled={disabled || busy || !consent || !language} onClick={() => {
-            if (!text.trim() || window.confirm("Replace the editable text with a new transcript?")) void transcribe();
-          }}>Transcribe audio</button>
-          <button type="button" disabled={busy} onClick={() => setAudio(null)}>Discard audio</button>
-        </div>
-      </div>}
-      <CaptureInput assessment={assessment} rawTranscript={asrSource.raw_asr_transcript} text={text}
-        disabled={audioState !== "idle" || operation === "applying"} onChange={editText} />
-      <label className="capture-consent">
-        <input type="checkbox" checked={textConsent} disabled={busy} onChange={(event) => setTextConsent(event.target.checked)} />
-        I agree to send this section text/transcript and the current canonical encounter to the configured language-understanding service (external Azure OpenAI in demo mode), and retain transcripts/results in this tab. Synthetic data only.
-      </label>
-      <button type="button" disabled={disabled || busy || !text.trim() || !textConsent} onClick={() => void interpret()}>Interpret section findings</button>
-      {operation && <p role="status">{operation === "transcribing" ? "Transcribing with Intron (up to 110 seconds)..." : operation === "interpreting" ? "Interpreting findings with the configured language-understanding service..." : "Applying reviewed findings and evaluating..."}</p>}
-      {error && <p className="capture-error" role="alert">{error}</p>}
-      {serviceError && <p className="capture-error" role="alert">{serviceError}</p>}
-      {notice && <p role="status">{notice}</p>}
-      {candidate && <div className="capture-review">
-        <CandidateReview candidate={candidate} resolutions={resolutions} busy={busy} onResolve={(field, choice) => {
-          const next = { ...resolutions, [field]: choice };
-          setResolutions(next);
-          if (interaction.current && interaction.current.status === "candidate") record({ ...interaction.current, resolutions: next });
-        }} />
-        {!candidate.changes.length && <p>No new evidence was extracted. Existing accepted values will NOT become unknown. Revise the report, explicitly retract uncertain accepted evidence below, or acknowledge that there is no new evidence.</p>}
-        {unresolved.length > 0 && <p className="capture-warning" role="status">{unresolved.length} unresolved choice(s). Nothing can be applied until these are reviewed.</p>}
-        {retractions.length > 0 && <p className="capture-warning">Review the selected retractions below, or unselect them before applying this interpretation.</p>}
-        <button type="button" disabled={disabled || busy || retractions.length > 0 || unresolved.length > 0} onClick={() => void apply()}>{candidate.changes.length ? "Apply reviewed findings" : "Acknowledge no new evidence"}</button>
-      </div>}
-      <section className="capture-review" aria-label="Review accepted evidence">
-        <h4>Review accepted evidence</h4>
-        <p>Uncertain about a recorded value? Explicitly mark it UNKNOWN here, even if interpretation failed or returned no changes. This does not infer a replacement from your text.</p>
-        {acceptedFields.length ? acceptedFields.map((change) => <label className="capture-retraction" key={change.field}>
-          <input type="checkbox" checked={retractions.includes(change.field)} disabled={disabled || busy}
-            onChange={(event) => setRetractions((previous) => event.target.checked ? [...previous, change.field] : previous.filter((field) => field !== change.field))} />
+    </details>}
+    {job.status !== "accepted" && job.status !== "recording" && job.status !== "applying" && <div className="capture-actions">
+      {job.status === "failed" && (retryableInput
+        ? <button type="button" disabled={correctionDirty} onClick={() => voice.retry(job.id)}>Retry</button>
+        : <p className="capture-meta">No usable recording or text remains. Record again or type a finding instead.</p>)}
+      <button type="button" onClick={() => voice.discard(job.id)}>Discard</button>
+    </div>}
+  </article>;
+}
+
+export function AssessmentCapture({ assessment, encounter, revision, progress, urgent, voice, language, consent, reviewDisabled, ready, onDirty }: AssessmentCaptureProps) {
+  // Undefined means untouched; null means typing began before a valid question existed.
+  const [draft, setDraft] = useState<{ text: string; context?: CaptureContext | null }>({ text: "" });
+  const [retractions, setRetractions] = useState<string[]>([]);
+  const [dirtyCorrections, setDirtyCorrections] = useState<Record<string, boolean>>({});
+  const jobs = voice.jobs.filter((job) => job.assessment === assessment && job.status !== "discarded");
+  const ownsMic = jobs.some((job) => job.id === voice.recordingId);
+  const acceptedFields = acceptedSectionFields(encounter, assessment);
+  const selectedRetractions = retractions.filter((field) => acceptedFields.some((change) => change.field === field));
+  const dirty = Boolean(draft.text.trim() || selectedRetractions.length || Object.values(dirtyCorrections).some(Boolean));
+  useEffect(() => {
+    onDirty((previous) => previous[assessment] === dirty ? previous : { ...previous, [assessment]: dirty });
+  }, [assessment, dirty, onDirty]);
+  useEffect(() => () => {
+    onDirty((previous) => { const next = { ...previous }; delete next[assessment]; return next; });
+  }, [assessment, onDirty]);
+  return <section className="assessment-capture" aria-label={`${assessment} findings capture`}>
+    <h3>Capture findings</h3>
+    {!urgent && progress?.decision === "ASK" && progress.question && <div className="capture-question">
+      <strong>Next observation</strong><p>{progress.question.text}</p>
+    </div>}
+    {urgent && <p className="capture-warning">Ordinary questions are paused. Prioritize urgent actions. Further captures are your choice.</p>}
+    {progress?.blockers.map((blocker, index) => <p className="capture-warning" key={index}>{blocker}</p>)}
+    <div className="capture-actions">
+      {ownsMic ? <>
+        <button type="button" disabled={voice.audioState !== "recording"} onClick={voice.stop}><Square aria-hidden="true" size={15} />Stop</button>
+        <button type="button" onClick={voice.cancelRecording}>Cancel recording</button>
+      </> : <button type="button" className="record-findings" aria-describedby="capture-disclosure"
+        disabled={voice.audioState !== "idle" || !language || !consent.audio || !consent.understanding}
+        onClick={() => { if (language) voice.startRecording(assessment, language, consent); }}><Mic aria-hidden="true" size={16} />Record findings</button>}
+    </div>
+    <p className="capture-meta">{ownsMic ? voice.audioState === "permission" ? "Waiting for microphone permission."
+      : voice.audioState === "stopping" ? "Finishing recording..." : "Recording. Stop when finished."
+      : "Stop to process automatically. Continue to any section while processing."} Maximum 60 seconds / 5 MB.</p>
+    <p className="capture-meta">Recording does not complete an assessment. Record another clip to add or correct a finding without typing.</p>
+    <div className="capture-jobs">{jobs.map((job) => <CaptureJobCard key={job.id} job={job} revision={revision} reviewDisabled={reviewDisabled} voice={voice} onDirty={setDirtyCorrections} />)}</div>
+
+    <section className="accepted-observations" aria-label="Reviewed observations">
+      <h4>Reviewed observations</h4>
+      {acceptedFields.length ? <dl>{acceptedFields.map((change) => <div key={change.field}>
+        <dt>{change.label}</dt><dd>{valueLabel(change.previous)}</dd>
+      </div>)}</dl> : <p className="capture-meta">No accepted observations yet.</p>}
+      {acceptedFields.length > 0 && <details className="capture-details">
+        <summary>Mark accepted findings unknown</summary>
+        <p>Uncertain about a recorded value? Select it to prepare a separate retraction for review. Nothing changes until you explicitly resolve and apply it.</p>
+        {acceptedFields.map((change) => <label className="capture-retraction" key={change.field}>
+          <input type="checkbox" checked={selectedRetractions.includes(change.field)} onChange={(event) => setRetractions((previous) => event.target.checked
+            ? [...previous, change.field] : previous.filter((field) => field !== change.field))} />
           <span><strong>{change.label}</strong>: {valueLabel(change.previous)}<code>{change.field}</code>Mark UNKNOWN (null)</span>
-        </label>) : <p>No known accepted fields in this section to retract.</p>}
-        {acceptedFields.length > 0 && <button type="button" disabled={disabled || busy || !retractions.length} onClick={() => void retract()}>Confirm selected retractions to UNKNOWN</button>}
-      </section>
+        </label>)}
+        <button type="button" disabled={!ready || !selectedRetractions.length} onClick={() => {
+          if (!ready) return;
+          voice.retract(assessment, selectedRetractions); setRetractions([]);
+        }}>Review selected retractions</button>
+      </details>}
     </section>
-  );
+    <details className="capture-details typed-fallback">
+      <summary>Type a finding instead</summary>
+      <p>Optional fallback if the microphone or ASR fails. Language understanding still needs connectivity, followed by explicit review.</p>
+      {draft.context?.question && <div className="capture-source-question"><strong>Question when typing began</strong><p>{draft.context.question.text}</p><code>{draft.context.question.field}</code></div>}
+      {draft.context && draft.context.revision !== revision && <p className="capture-warning">Accepted findings changed while you were typing. This draft keeps its original question and encounter context; it will not answer the new question.</p>}
+      {draft.context === null && <p className="capture-meta">Typing began before the encounter was ready. This draft will use the latest accepted encounter without binding to a newly appearing question.</p>}
+      <label htmlFor={`capture-text-${assessment}`}>Typed finding for this section</label>
+      <textarea id={`capture-text-${assessment}`} rows={3} value={draft.text} onChange={(event) => setDraft({ text: event.target.value,
+        context: draft.context !== undefined ? draft.context : ready ? { encounter: structuredClone(encounter), revision,
+          question: !urgent && progress?.decision === "ASK" && progress.question ? { ...progress.question } : undefined } : null })} />
+      {!consent.understanding && <p className="capture-meta">Agree to language-understanding processing in the recording settings first.</p>}
+      <div className="capture-actions">
+        <button type="button" disabled={!ready || !draft.text.trim() || !consent.understanding} onClick={() => {
+          if (!ready) return;
+          const context = draft.context ?? { encounter: structuredClone(encounter), revision, question: undefined };
+          if (voice.addText(assessment, draft.text, consent.understanding, context)) setDraft({ text: "" });
+        }}>Process typed finding</button>
+        {draft.context !== undefined && <button type="button" onClick={() => setDraft({ text: "" })}>Clear typed finding</button>}
+      </div>
+    </details>
+  </section>;
 }

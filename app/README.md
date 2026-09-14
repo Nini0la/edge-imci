@@ -7,7 +7,8 @@ This worktree is the long-lived `variant/intron` app variant, based on
 deterministic clinical engine remain in place. The scoped demo uses **remote
 Intron ASR and Azure OpenAI language understanding**, with local evidence review,
 encounter state, workflow checks, clinical rules, and rendering. The native
-whole-report text route still uses the existing Modal extractor. This is an
+whole-report API still uses the existing Modal extractor; it is no longer the
+central interaction surface in this voice UI. This is an
 intentional demo bypass, not fully offline inference or the final architecture.
 
 ```text
@@ -79,21 +80,46 @@ disabled; the API is used only for transcription, not clinical post-processing.
 
 ### Assessment loop
 
-1. Open **Guide** and choose **Add voice or text findings** inside an existing
-   assessment section. Age remains the shared first check.
-2. Read the network disclosure. Record a short report, stop, and review playback.
-   Clips stop at 60 seconds and are limited to 5 MB. Click **Transcribe audio**.
-3. The original transcript remains read-only. Correct the separate editable
-   input if necessary, consent to language understanding, then **Interpret section
-   findings**. Typed section reports use the same understanding provider.
-4. Review every proposed observation. Explicitly resolve changes to known values
-   and observations outside the selected section. Reject unsupported findings.
-   The optional English rendering, source quotes, and full report-only canonical
-   candidate are available in the expandable language-review details.
-5. Apply reviewed evidence. Accepted state is validated and evaluated locally.
-   The existing engine supplies missing requirements and urgent actions.
-6. Answer the one displayed targeted question, then repeat review and acceptance.
-   A clip or transcript never counts as clinical completeness.
+1. Start on **Assessment**. Select the recording language and explicitly consent
+   to both ASR and language understanding. Those settings are frozen for each new
+   clip; changing them does not relabel recordings already being processed.
+2. Use **Record findings** beside the relevant assessment, then **Stop**. Continue
+   scrolling or record the next section immediately. Stop automatically queues
+   transcription and structuring; there is no separate Transcribe button.
+3. The section shows Recording, Processing, then Captured. One microphone is used
+   at a time, with up to two ASR/understanding pipelines processing concurrently.
+   Additional clips queue. Clips in the same or different sections are retained
+   independently and may finish out of order without moving the current view.
+4. Use **Review captured findings** when ready. Review every proposed observation;
+   explicitly resolve conflicts, uncertainties, out-of-section values, and changes
+   since capture. The source question remains the one shown at recording time.
+   Transcripts, English rendering, and technical evidence are optional expandable
+   details. Correcting a transcript is not required; another voice clip can add
+   or correct findings. Typed section input remains a secondary fallback.
+5. **Apply reviewed findings** is still explicit. Only acceptance is serialized,
+   not capture or navigation. The pure `/api/assessment/review` operation prepares
+   the original proposals against the latest accepted encounter without calling a
+   model or changing proposed values. An intervening acceptance invalidates that
+   prepared review and its choices; review again before applying. The existing
+   stale-previous, schema, and measurement-validity guards remain enforced.
+6. Accepted state is evaluated locally. Required follow-ups appear beside the
+   section. Record short answers and repeat review as needed. A clip, transcript,
+   or Captured status never constitutes clinical completeness.
+
+The workspace has two panels: a wide assessment guide with evidence alongside
+its procedures, and classification/management. On smaller screens navigation
+switches between Assessment and Result without unmounting capture jobs. Global
+Stop/Cancel and accepted urgent guidance remain accessible while moving.
+
+Startup still evaluates the all-unknown encounter to obtain authoritative
+requirements; this is not a clinical-engine defect. The old UI prematurely
+rendered that initialization result. The new result panel stays neutral without
+accepted observations (including restored history-only drafts), shows a compact
+in-progress state for incomplete accepted findings, and shows the full routine
+plan only when accepted evidence is complete and all new captures/edits have
+been reviewed or discarded. Accepted urgent guidance is never hidden by these
+presentation gates. No additional clinical classification/finalization rule is
+introduced.
 
 For a respiratory demonstration, provide age and general danger signs explicitly,
 then report cough duration, rate, chest indrawing, wheezing/history, calm/full-minute
@@ -112,9 +138,10 @@ not simply a later statement that the child is calm.
 Known values can also be explicitly retracted to UNKNOWN in the section's accepted
 evidence controls, without requiring successful ASR or model extraction. Extracted
 nulls alone are omissions, not retractions. Candidate conflicts must be resolved
-before acceptance. Full-assessment text entry remains available, but confirmation
-of a full report explicitly replaces the encounter; use section capture to merge
-incremental findings.
+before acceptance. The old full-assessment text endpoints remain available for
+native callers, but their large middle-column workflow is removed from this
+voice interface. Section input and retractions are incremental, not whole-state
+replacement.
 
 ### Boundaries and limitations
 
@@ -129,6 +156,14 @@ incremental findings.
   where possible and warns explicitly; full state remains in memory. This is
   not an encrypted clinical store, durable audit system, or multi-worker system.
   Use synthetic/de-identified demo data only.
+- Audio and active capture jobs are memory-only. Leaving/reloading with unfinished
+  captures or local edits triggers a browser warning. After reload, interrupted
+  captures are identified visibly and remain a final-plan blocker until explicitly
+  acknowledged; their unaccepted evidence is not applied or replayed automatically.
+  Historical transcripts remain available for inspection. Clearing an encounter
+  cancels its jobs and ignores late replies, including replies from an older
+  patient/session. Retries retain the original source/question and processing
+  permission. Failed acceptance receipts survive retry/discard.
 - Intron receives audio; Azure receives scoped text plus assessment/question and
   accepted-state context. Modal receives native full-report text. Azure requests
   use `store=False`; provider-side policies still apply, and browser deletion

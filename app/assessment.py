@@ -284,6 +284,49 @@ def extract_assessment(body: dict, language_provider: LanguageUnderstandingProvi
     }
 
 
+def prepare_assessment_review(body: dict) -> dict:
+    """Rebase original candidate rows for review, without accepting any evidence.
+
+    The client owns encounter state and must serialize accepts and guard its local
+    revision. Disjoint fields alone do not establish clinical independence.
+    """
+    if not isinstance(body, dict):
+        raise AssessmentError("Invalid evidence review.")
+    assessment = _assessment(body.get("assessment"))
+    target = _target(body.get("encounter"))
+    changes = body.get("changes")
+    if not isinstance(changes, list) or len(changes) > len(_SUPPORTED_FIELDS):
+        raise AssessmentError("Invalid evidence review.")
+    candidate, original = deepcopy(_TEMPLATE), deepcopy(_TEMPLATE)
+    reviewed, changed_fields, seen = [], [], set()
+    for change in changes:
+        if not isinstance(change, dict) or not isinstance(change.get("field"), str):
+            raise AssessmentError("Invalid observation update.")
+        field = change["field"]
+        if field not in _SUPPORTED_FIELDS or field in seen or "value" not in change or "previous" not in change:
+            raise AssessmentError("Invalid or repeated observation field.")
+        seen.add(field)
+        value, previous = change["value"], _get(target, field)
+        uncertain = change.get("uncertain", False)
+        if not isinstance(uncertain, bool) or (uncertain and value is not None):
+            raise AssessmentError("Invalid observation uncertainty.")
+        _set(candidate, field, deepcopy(value))
+        _set(original, field, deepcopy(change["previous"]))
+        review_changed = type(previous) is not type(change["previous"]) or previous != change["previous"]
+        if review_changed:
+            changed_fields.append(field)
+        reviewed.append({
+            **deepcopy(change), "previous": previous,
+            "conflict": previous is not None and (type(previous) is not type(value) or previous != value),
+            "outside_assessment": not _in_scope(field, assessment),
+            "uncertain": uncertain, "review_changed": review_changed,
+        })
+    # Validate report-only shapes, never a speculative merge into latest evidence.
+    _target(candidate)
+    _target(original)
+    return {"changes": reviewed, "changed_fields": changed_fields}
+
+
 def accept_assessment(body: dict) -> dict:
     assessment = _assessment(body.get("assessment"))
     target = _target(body.get("encounter"))
@@ -307,9 +350,12 @@ def accept_assessment(body: dict) -> dict:
             raise AssessmentError("Accepted evidence has changed. Interpret and review this report again.")
         value = change["value"]
         conflict = previous is not None and (type(previous) is not type(value) or previous != value)
+        review_changed = change.get("review_changed", False)
+        if not isinstance(review_changed, bool):
+            raise AssessmentError("Invalid evidence review.")
         choice = resolutions.get(field)
-        if (conflict or not _in_scope(field, assessment) or value is None) and choice is None:
-            raise AssessmentError("Explicitly resolve each conflicting, out-of-assessment, or retracted observation.")
+        if (conflict or review_changed or not _in_scope(field, assessment) or value is None) and choice is None:
+            raise AssessmentError("Explicitly resolve each conflicting, changed-since-capture, out-of-assessment, or retracted observation.")
         if choice not in (None, "replace", "keep", "unknown"):
             raise AssessmentError("Invalid evidence review choice.")
         if choice != "keep":

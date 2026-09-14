@@ -15,7 +15,10 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urlparse
 
-from app.assessment import AssessmentError, accept_assessment, evaluate_assessment, extract_assessment
+from app.assessment import (
+    AssessmentError, accept_assessment, evaluate_assessment, extract_assessment,
+    prepare_assessment_review,
+)
 from app.extractor.base import ExtractionError
 from app.language_understanding import (
     ExistingExtractorLanguageUnderstandingProvider,
@@ -105,6 +108,7 @@ def _handler_class(
             if path not in {
                 "/api/extract", "/api/evaluate", "/api/analyze",
                 "/api/assessment/extract", "/api/assessment/evaluate", "/api/assessment/accept",
+                "/api/assessment/review",
             }:
                 self._send_json({"error": "API route not found."}, HTTPStatus.NOT_FOUND)
                 return
@@ -119,6 +123,8 @@ def _handler_class(
                         payload = extract_assessment(body, language_provider)
                     elif path.endswith("/accept"):
                         payload = accept_assessment(body)
+                    elif path.endswith("/review"):
+                        payload = prepare_assessment_review(body)
                     else:
                         payload = evaluate_assessment(body)
                     self._send_json(payload)

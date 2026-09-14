@@ -31,6 +31,7 @@ export interface AssessmentChange {
   conflict: boolean;
   outside_assessment: boolean;
   uncertain?: boolean;
+  review_changed?: boolean;
 }
 
 export interface AssessmentCandidate {
@@ -58,6 +59,8 @@ export interface InteractionTrace {
   assessment: AssessmentId | "full-note";
   status: "transcribed" | "candidate" | "accepted" | "rejected" | "failed";
   pending?: boolean;
+  interruption_acknowledged?: boolean;
+  capture_context?: { encounter: Record<string, unknown>; revision: number };
   source: {
     recording_id?: string;
     asr_provider?: string;

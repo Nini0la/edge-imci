@@ -63,6 +63,22 @@ beforeEach(() => {
 afterEach(() => { vi.unstubAllGlobals(); });
 
 describe("session provenance and clinical authority", () => {
+  it("requires acknowledgement of interrupted captures without trusting or applying them", async () => {
+    storage.set(draftKey, JSON.stringify({ version: 1, encounter, attempted: [], revision: 2,
+      interactions: [{ ...trace, pending: true }] }));
+    mount(); await Promise.resolve();
+    let session = render();
+    expect(session.interruptedCount).toBe(1);
+    expect(session.interactions[0].status).toBe("rejected");
+    expect(acceptAssessment).not.toHaveBeenCalled();
+    const revision = session.revision;
+    session.acknowledgeInterrupted(); session = render();
+    expect(session.interruptedCount).toBe(0);
+    expect(session.revision).toBe(revision);
+    expect(session.encounter).toEqual(encounter);
+    expect(parseDraft(storage.get(draftKey)!)?.interactions?.[0].interruption_acknowledged).toBe(true);
+  });
+
   it("records intermediate snapshots without revision changes; accepts only after the current request succeeds", async () => {
     mount(); await Promise.resolve();
     let session = render();

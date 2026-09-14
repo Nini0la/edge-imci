@@ -13,6 +13,7 @@ export function useAssessmentSession() {
   const [draft, setDraft] = useState(restored.draft ?? emptyDraft());
   const current = useRef(draft);
   const [evaluation, setEvaluation] = useState<AssessmentEvaluation | null>(null);
+  const evaluationRef = useRef<AssessmentEvaluation | null>(null);
   const [hasData, setHasData] = useState(Boolean(restored.draft));
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false);
@@ -47,6 +48,9 @@ export function useAssessmentSession() {
     }
   }
 
+  const wasInterrupted = (entry: InteractionTrace) => !entry.interruption_acknowledged
+    && entry.status === "rejected" && entry.error === "Request interrupted by tab reload; no result accepted.";
+
   async function run(operation: (signal: AbortSignal) => Promise<AssessmentEvaluation>, attempted: AssessmentId[], retain: boolean, interaction?: InteractionTrace) {
     if (busyRef.current) return false;
     busyRef.current = true;
@@ -64,6 +68,7 @@ export function useAssessmentSession() {
       current.current = accepted;
       setDraft(accepted);
       setEvaluation(next);
+      evaluationRef.current = next;
       setHasData(retain);
       if (retain || accepted.interactions?.length) store(accepted);
       return true;
@@ -99,6 +104,7 @@ export function useAssessmentSession() {
     current.current = next;
     setDraft(next);
     setEvaluation(null);
+    evaluationRef.current = null;
     setHasData(false);
     setError("");
     try { sessionStorage.removeItem(draftKey); setStorageHint(""); }
@@ -108,7 +114,14 @@ export function useAssessmentSession() {
 
   return {
     ...draft, interactions: draft.interactions ?? [], evaluation, hasData, busy, error, storageHint, ready: evaluation !== null,
+    interruptedCount: (draft.interactions ?? []).filter(wasInterrupted).length,
+    acknowledgeInterrupted() {
+      store({ ...current.current, interactions: (current.current.interactions ?? []).map((entry) =>
+        wasInterrupted(entry) ? { ...entry, interruption_acknowledged: true } : entry) });
+    },
     currentRevision: () => current.current.revision,
+    snapshot: (): { encounter: Record<string, unknown>; revision: number; evaluation: AssessmentEvaluation | null; interactions?: InteractionTrace[] } =>
+      ({ encounter: current.current.encounter, revision: current.current.revision, evaluation: evaluationRef.current, interactions: current.current.interactions }),
     refresh, reset, recordInteraction, rejectPending,
     evaluate(encounter: Record<string, unknown>, attempted: AssessmentId[], interaction?: InteractionTrace) {
       return run((signal) => evaluateAssessment(encounter, attempted, signal), attempted, true, interaction);

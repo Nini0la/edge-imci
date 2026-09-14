@@ -1,5 +1,5 @@
 import type {
-  AnalysisResult, ASRLanguage, AssessmentCandidate, AssessmentEvaluation, AssessmentId,
+  AnalysisResult, ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId,
   ExampleCase, ExtractionPreview, Resolutions, Transcription,
 } from "../types";
 import { maxAudioBytes } from "./audio";
@@ -77,6 +77,10 @@ export function acceptAssessment(candidate: AssessmentCandidate, encounter: Reco
     assessment: candidate.assessment, encounter, changes: candidate.changes,
     resolutions, confirmed: true, attempted,
   }, signal);
+}
+
+export function prepareAssessmentReview(assessment: AssessmentId, encounter: Record<string, unknown>, changes: AssessmentChange[], signal?: AbortSignal): Promise<{ changes: AssessmentChange[]; changed_fields: string[] }> {
+  return postJson("/api/assessment/review", { assessment, encounter, changes }, signal);
 }
 
 export function transcribeAudio(audio: Blob, language: ASRLanguage, signal?: AbortSignal): Promise<Transcription> {

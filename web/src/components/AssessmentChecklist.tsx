@@ -12,8 +12,9 @@ interface AssessmentChecklistProps {
   result?: AnalysisResult | null;
   progress?: Partial<Record<AssessmentId, AssessmentProgress>>;
   pendingAssessments?: AssessmentId[];
-  activeAssessment?: AssessmentId | null;
+  captureStatuses?: Partial<Record<AssessmentId, string>>;
   guideStatus?: ReactNode;
+  tools?: ReactNode;
   renderCapture?: (id: AssessmentId) => ReactNode;
 }
 
@@ -25,7 +26,7 @@ function stateLabel(state: ChecklistState): string {
   return "Recorded";
 }
 
-export function AssessmentChecklist({ encounter, result, progress, pendingAssessments = [], activeAssessment, guideStatus, renderCapture }: AssessmentChecklistProps) {
+export function AssessmentChecklist({ encounter, result, progress, pendingAssessments = [], captureStatuses, guideStatus, tools, renderCapture }: AssessmentChecklistProps) {
   const checklist = buildChecklist(encounter, result);
 
   return (
@@ -33,7 +34,7 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
       <header className="checklist-header">
         <span className="eyebrow">WHO IMCI procedure</span>
         <h2>Assessment guide</h2>
-        <p>Follow each prompt while assessing the child. Extracted observations appear as secondary annotations.</p>
+        <p>Follow each prompt while assessing the child. Capture findings beside the procedure, then explicitly review and apply them.</p>
       </header>
 
       {guideStatus}
@@ -49,21 +50,23 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
       <div className="assessment-sections">
         {checklist.sections.map((section, sectionIndex) => {
           const id = section.id as AssessmentId;
-          const badge = assessmentBadge(progress?.[id], pendingAssessments.includes(id));
+          const badge = assessmentBadge(progress?.[id]);
           return (
           <details
             className={`assessment-section assessment-section--${section.state}`}
             key={section.id}
-            open={section.id === "danger" || section.state === "urgent" || activeAssessment === id}
-            onToggle={(event) => {
-              if (activeAssessment === id && !event.currentTarget.open) event.currentTarget.open = true;
-            }}
+            open={section.id === "danger"}
           >
             <summary>
               <span className="assessment-section__number">{String(sectionIndex + 1).padStart(2, "0")}</span>
               <span className="assessment-section__heading">
                 <strong>{section.label}</strong>
                 <span>{section.prompt}</span>
+                {(captureStatuses?.[id] || pendingAssessments.includes(id)) && <span className="assessment-capture-status">
+                  {captureStatuses?.[id] ?? "Related findings awaiting review"}
+                  {captureStatuses?.[id] === "Captured" && " / awaiting review"}
+                  {captureStatuses?.[id] === "Reviewed" && pendingAssessments.includes(id) && " / related findings awaiting review"}
+                </span>}
               </span>
               <span
                 className={`assessment-section__state assessment-section__state--${badge.kind}`}
@@ -74,8 +77,8 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
               </span>
             </summary>
 
-            <div className="assessment-section__body">
-              {renderCapture?.(id)}
+            <div className="assessment-section__body section-evidence-layout">
+              <div className="assessment-procedure">
               {section.inactive && (
                 <div className="assessment-inactive">
                   <strong>No further checks triggered</strong>
@@ -126,6 +129,8 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
               })}
 
               <div className="assessment-source">WHO IMCI Chart Booklet, page {section.sourcePage}</div>
+              </div>
+              {renderCapture && <div className="assessment-evidence">{renderCapture(id)}</div>}
             </div>
           </details>
           );
@@ -134,6 +139,7 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
 
       <footer className="checklist-footer">
         <strong>Unknown is not absent.</strong> Verify every required observation before evaluation.
+        {tools}
       </footer>
     </aside>
   );

@@ -1,10 +1,45 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { acceptAssessment, evaluateAssessment, extractAssessment, transcribeAudio } from "./api";
+import { acceptAssessment, evaluateAssessment, extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import type { AssessmentCandidate } from "../types";
 
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe("assessment API contract", () => {
+  it("prepares review with the latest encounter and original proposed rows, preserving changed and same-value rows", async () => {
+    const encounter = { respiratory: { respiratory_rate: 42 }, ear: { ear_pain: null } };
+    const changes = [
+      { field: "respiratory.respiratory_rate", label: "Respiratory rate", previous: 42, value: 42, conflict: false, outside_assessment: false },
+      { field: "ear.ear_pain", label: "Ear pain", previous: true, value: false, conflict: true, outside_assessment: true },
+    ];
+    const original = structuredClone({ encounter, changes });
+    const review = { changes: [changes[0], { ...changes[1], previous: null, review_changed: true }], changed_fields: ["ear.ear_pain"] };
+    const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify(review)));
+    vi.stubGlobal("fetch", fetch);
+    expect(await prepareAssessmentReview("respiratory", encounter, changes)).toEqual(review);
+    expect(fetch).toHaveBeenCalledOnce();
+    expect(fetch).toHaveBeenCalledWith("/api/assessment/review", expect.objectContaining({
+      method: "POST", headers: { "Content-Type": "application/json" }, signal: expect.any(AbortSignal),
+    }));
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ assessment: "respiratory", encounter, changes });
+    expect({ encounter, changes }).toEqual(original);
+  });
+
+  it("forwards review cancellation and surfaces review errors without an accept request", async () => {
+    const fetch = vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: "Invalid review rows" }), { status: 400 }));
+    vi.stubGlobal("fetch", fetch);
+    await expect(prepareAssessmentReview("ear", {}, [])).rejects.toThrow("Invalid review rows");
+    fetch.mockImplementation((_url, options: RequestInit) => new Promise((_resolve, reject) => {
+      options.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+    }));
+    const controller = new AbortController();
+    const request = prepareAssessmentReview("ear", {}, [], controller.signal);
+    const assertion = expect(request).rejects.toMatchObject({ name: "AbortError" });
+    controller.abort();
+    await assertion;
+    expect(fetch.mock.calls[1][1].signal.aborted).toBe(true);
+    expect(fetch.mock.calls.map(([url]) => url)).toEqual(["/api/assessment/review", "/api/assessment/review"]);
+  });
+
   it("rejects missing or unsupported languages without sending audio", async () => {
     const fetch = vi.fn();
     vi.stubGlobal("fetch", fetch);

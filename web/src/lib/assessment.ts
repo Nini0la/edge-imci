@@ -35,7 +35,8 @@ function validInteraction(value: unknown): value is InteractionTrace {
   if (typeof entry.id !== "string" || typeof entry.timestamp !== "string"
     || ![...assessmentIds, "full-note"].includes(entry.assessment)
     || !["transcribed", "candidate", "accepted", "rejected", "failed"].includes(entry.status)
-    || !record(entry.source) || (entry.pending !== undefined && typeof entry.pending !== "boolean")) return false;
+     || !record(entry.source) || (entry.pending !== undefined && typeof entry.pending !== "boolean")) return false;
+  if (entry.interruption_acknowledged !== undefined && typeof entry.interruption_acknowledged !== "boolean") return false;
   const source = entry.source;
   if (![source.recording_id, source.asr_provider, source.raw_asr_transcript, source.submitted_text, entry.error]
     .every((item) => item === undefined || typeof item === "string")) return false;
@@ -67,8 +68,16 @@ export function assessmentBadge(progress?: AssessmentProgress, pending = false) 
 }
 
 export function unresolvedChanges(changes: AssessmentChange[], resolutions: Resolutions) {
-  return changes.filter((change) => (change.conflict || change.outside_assessment || change.uncertain || change.value === null)
+  return changes.filter((change) => (change.conflict || change.outside_assessment || change.uncertain || change.review_changed || change.value === null)
     && !["replace", "keep", "unknown"].includes(resolutions[change.field]));
+}
+
+export function hasMeaningfulEvidence(encounter: Record<string, unknown>): boolean {
+  return Object.values(encounter).some((value) => {
+    if (value === null || value === undefined) return false;
+    if (typeof value === "object") return hasMeaningfulEvidence(value as Record<string, unknown>);
+    return true; // Explicit false and zero are known evidence, not omissions.
+  });
 }
 
 export function affectedAssessments(assessment: AssessmentId, fields: string[]): AssessmentId[] {
