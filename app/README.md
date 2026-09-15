@@ -87,9 +87,10 @@ disabled; the API is used only for transcription, not clinical post-processing.
 
 1. Start on **Assessment**. Existing guide rows are now controls: Yes / No /
    Not assessed, schema enum choices, and numbers in explicit units. They work
-   without dictation or remote-service consent. For voice, select a language and
-   consent to ASR and language understanding before recording; those settings are
-   frozen for each clip.
+   without dictation or remote-service consent. Mobile uses deployment-authorized
+   processing: choose a language beside Speak, without a setup page or processing
+   checkboxes. Desktop uses the same deployment authorization. Each clip freezes its language
+   and authorization when recording starts.
 2. Use **Record findings** beside the relevant assessment, then **Stop**. Continue
    scrolling or record the next section immediately. Stop automatically queues
    transcription and structuring; there is no separate Transcribe button.
@@ -153,8 +154,9 @@ workspace. It selects mobile presentation at widths up to 900px. Use
 - Selecting an assessment opens its Assessment and Recordings views. The bottom
   recording control always names the recording's actual assessment and language,
   including when the worker visits another screen while recording.
-- Results and recording Setup are separate screens. Both processing consents and
-  an explicit language remain required for voice, not direct structured entry. Transcription/structuring still starts
+- Results is a separate screen. Language selection is inline with Speak; the
+  mobile workflow assumes the configured processing authorization. Browser
+  microphone permission still applies. Transcription/structuring starts
   automatically on Stop, followed by explicit evidence review and acceptance.
 - There is one session, one capture queue, and one mounted editor per assessment.
   Navigation and viewport changes hide/reveal those same editors; they do not
@@ -163,6 +165,39 @@ workspace. It selects mobile presentation at widths up to 900px. Use
 - Accepted urgent guidance, errors, and interruption notices remain global.
   Mobile uses the same quiet-result and final-plan gates as desktop. No clinical
   logic, provider behavior, or canonical schema differs by layout.
+
+The mobile opening screen now starts with the five General Danger Signs, using
+the same guide controls in a compact presentation, plus inline language selection,
+a large **Speak** action, and **Continue**. Speak requires a selected language;
+choosing one never starts recording automatically. Continue opens the symptom overview
+without confirming drafts. The introductory recording is assessment-scoped,
+not bound to a hidden age question. If its candidate includes age or other
+observations beyond the visible five, **Review other findings** opens the full
+review before those additional values can be confirmed.
+
+Mobile numbers are value buttons: tap to open the same numeric input/keypad,
+then Done to close it. Raw/invalid digits remain in the shared draft; Done and
+blur never accept evidence. Age is kept in one stable scope editor, hidden on
+the opening screen and available later in the overview/review. Its absence
+still blocks final completeness exactly as before.
+
+Mobile confirmation is a compact action with a red incomplete indicator derived
+from accepted deterministic category progress, not model confidence or a guessed
+clinical severity. Partial findings remain confirmable. Routine dock subtext,
+the large Awaiting confirmation box, and mobile technical/JSON views are removed.
+Human-readable source text, ambiguity, failures, and accepted urgent guidance
+remain available; original diagnostic provenance is still retained internally.
+The overview ends with **Show results**, which navigates only and does not accept
+pending findings, rerun the model, or bypass final-result gates.
+
+The mobile Recording setup page is removed. Both mobile and desktop authorization
+are deployment assumptions requested by the owner, not stored claims of individual
+consent. Neither layout has processing consent checkboxes. The overview's Assessment
+options contains About processing, recording history, and Start new assessment.
+
+Normal opening-screen fit was checked at 390x844 and 320x568. Scrolling remains
+available for accessibility zoom, errors, or urgent guidance. A speed benefit
+has not been established by these layout checks and still needs measurement.
 
 To develop mobile while keeping a built desktop checkpoint running on port 8000:
 
@@ -226,6 +261,38 @@ replacement.
   where possible and warns explicitly; full state remains in memory. This is
   not an encrypted clinical store, durable audit system, or multi-worker system.
   Use synthetic/de-identified demo data only.
+- Reopening a tab with saved evidence now requires an explicit **Resume saved
+  assessment** or **Start new assessment** choice. Saved answers are not populated
+  into a fresh-looking intro by default. Resume re-evaluates the saved clinical
+  input; starting new clears that tab's prior evidence/history only after
+  confirmation and initializes every observation as unknown.
+- The encounter-wide `decision=URGENT` interrupts ordinary questioning, but is
+  not a section's clinical status. Section badges use only their own `status`.
+  Global urgent guidance remains visible, and genuine urgency in another active
+  pathway is retained when produced by the existing engine.
+- Confirmed immediate-management actions appear in the clinical-result panel
+  before the full assessment is complete, including while another recording is
+  pending. They come directly from the accepted engine response. Final
+  classifications and the complete plan remain withheld until their existing
+  completeness/review gates pass; no diagnoses or treatments are inferred in UI.
+- Desktop and mobile hide engineering output: raw JSON, schemas, field/rule IDs,
+  conversion dumps, and processing traces. Readable transcripts, recording
+  history, ambiguity review, and clinical explanations remain available. Original
+  diagnostic records are retained internally, not deleted or shown as user output.
+- A compact recording-progress strip remains visible after Stop, across collapsed
+  assessments, scrolling, and mobile navigation. It follows actual transcription,
+  structuring, review, and confirmation stages, with independent rows for parallel
+  recordings. Ready for your review opens existing controls without accepting
+  findings; failures link to recovery rather than leaving an endless spinner.
+- The duplicated top management banner is removed. Urgent guidance is displayed
+  once in the result panel; mobile has a small Urgent results navigation button.
+- **Generate IMCI recommendations** is available at the bottom of the desktop
+  guide and mobile overview. It runs a deterministic check on confirmed findings,
+  including empty/incomplete encounters, and displays the engine's missing-check
+  instructions when a final plan cannot yet be produced. It does not call ASR or
+  a language model, mark unattempted sections complete, or auto-confirm drafts.
+  Pending recordings/edits route back to review first. Failed checks remain
+  retryable, and requested incomplete reports are tied to the evaluated revision.
 - Audio and active capture jobs are memory-only. Leaving/reloading with unfinished
   captures or local edits triggers a browser warning. After reload, interrupted
   captures are identified visibly and remain a final-plan blocker until explicitly

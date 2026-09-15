@@ -57,9 +57,10 @@ const stateContent: Record<
 interface ResultPanelProps {
   result: AnalysisResult;
   blocked?: boolean;
+  showDebug?: boolean;
 }
 
-export function ResultPanel({ result, blocked = false }: ResultPanelProps) {
+export function ResultPanel({ result, blocked = false, showDebug = true }: ResultPanelProps) {
   if (blocked) return <section className="progress-blocked" role="alert">
     <h2>Progress blocked; resolve evidence issues before using final synthesis.</h2>
     <p>Review the evidence blockers in the Guide. Routine classifications and management are withheld; accepted urgent actions remain visible above.</p>
@@ -112,7 +113,7 @@ export function ResultPanel({ result, blocked = false }: ResultPanelProps) {
                     <span>{trace.pathway}</span>
                     <h3>{trace.classification}</h3>
                   </div>
-                  <code>{trace.rule_id}</code>
+                  {showDebug && <code>{trace.rule_id}</code>}
                 </div>
                 {trace.findings.length > 0 && (
                   <dl className="trace-findings">
@@ -131,7 +132,7 @@ export function ResultPanel({ result, blocked = false }: ResultPanelProps) {
         </details>
       )}
 
-      {result.pipeline_trace.length > 0 && (
+      {showDebug && result.pipeline_trace.length > 0 && (
         <details className="evidence-section technical-section">
           <summary>
             <span className="summary-title">

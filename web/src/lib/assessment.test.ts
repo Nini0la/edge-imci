@@ -42,8 +42,17 @@ describe("assessment authority and review", () => {
     expect(assessmentBadge(progress("INCOMPLETE", "BLOCK")).label).toBe("Blocked");
   });
 
-  it("retains accepted urgency while a candidate needs review", () => {
-    expect(assessmentBadge(progress("URGENT", "URGENT"), true).label).toBe("Urgent");
+  it.each([
+    ["NOT_STARTED", "Not started", "pending"],
+    ["INCOMPLETE", "Needs info", "incomplete"],
+    ["COMPLETE", "Complete", "complete"],
+  ] as const)("preserves %s badges despite a global urgent decision", (status, label, kind) => {
+    expect(assessmentBadge(progress(status, "URGENT"))).toEqual({ label, kind });
+    expect(assessmentBadge(progress(status, "URGENT"), true)).toEqual({ label: "Needs review", kind: "incomplete" });
+  });
+
+  it.each([false, true])("retains accepted urgency with pending review=%s", (pending) => {
+    expect(assessmentBadge(progress("URGENT", "URGENT"), pending)).toEqual({ label: "Urgent", kind: "urgent" });
   });
 
   it("requires choices for conflicts and out-of-assessment changes, even from unknown", () => {

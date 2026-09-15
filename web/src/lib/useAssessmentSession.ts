@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { AssessmentCandidate, AssessmentEvaluation, AssessmentId, InteractionTrace, Resolutions } from "../types";
 import { acceptAssessment, evaluateAssessment } from "./api";
-import { createRequestGate, draftKey, parseDraft, recordDraftInteraction, unresolvedChanges, type AssessmentDraft } from "./assessment";
+import { createRequestGate, draftKey, hasMeaningfulEvidence, parseDraft, recordDraftInteraction, unresolvedChanges, type AssessmentDraft } from "./assessment";
 
 const emptyDraft = (revision = 0): AssessmentDraft => ({ version: 1, encounter: {}, attempted: [], revision, interactions: [] });
 
@@ -10,11 +10,16 @@ export function useAssessmentSession() {
     try { return { draft: parseDraft(sessionStorage.getItem(draftKey)), hint: "" }; }
     catch { return { draft: null, hint: "The tab draft could not be restored. Storage may be unavailable; do not rely on reload to save findings." }; }
   });
-  const [draft, setDraft] = useState(restored.draft ?? emptyDraft());
+  const pendingRestore = useRef(restored.draft && (
+    hasMeaningfulEvidence(restored.draft.encounter) || restored.draft.attempted.length || restored.draft.interactions?.length
+  ) ? restored.draft : null);
+  const [needsResumeDecision, setNeedsResumeDecision] = useState(Boolean(pendingRestore.current));
+  // A saved encounter is not a default answer set for a new patient.
+  const [draft, setDraft] = useState(emptyDraft());
   const current = useRef(draft);
   const [evaluation, setEvaluation] = useState<AssessmentEvaluation | null>(null);
   const evaluationRef = useRef<AssessmentEvaluation | null>(null);
-  const [hasData, setHasData] = useState(Boolean(restored.draft));
+  const [hasData, setHasData] = useState(false);
   const [busy, setBusy] = useState(false);
   const busyRef = useRef(false);
   const [error, setError] = useState("");
@@ -86,6 +91,7 @@ export function useAssessmentSession() {
   }
 
   function refresh() {
+    if (pendingRestore.current) return Promise.resolve(false);
     const snapshot = current.current;
     return run((signal) => evaluateAssessment(hasData ? snapshot.encounter : undefined, snapshot.attempted, signal), snapshot.attempted, hasData);
   }
@@ -98,6 +104,8 @@ export function useAssessmentSession() {
   }, []);
 
   function reset() {
+    pendingRestore.current = null;
+    setNeedsResumeDecision(false);
     gate.cancel();
     busyRef.current = false;
     const next = emptyDraft(current.current.revision + 1);
@@ -114,6 +122,17 @@ export function useAssessmentSession() {
 
   return {
     ...draft, interactions: draft.interactions ?? [], evaluation, hasData, busy, error, storageHint, ready: evaluation !== null,
+    needsResumeDecision,
+    resumeSaved() {
+      const saved = pendingRestore.current;
+      if (!saved) return Promise.resolve(false);
+      pendingRestore.current = null;
+      setNeedsResumeDecision(false);
+      current.current = saved;
+      setDraft(saved);
+      setHasData(true);
+      return run((signal) => evaluateAssessment(saved.encounter, saved.attempted, signal), saved.attempted, true);
+    },
     interruptedCount: (draft.interactions ?? []).filter(wasInterrupted).length,
     acknowledgeInterrupted() {
       store({ ...current.current, interactions: (current.current.interactions ?? []).map((entry) =>

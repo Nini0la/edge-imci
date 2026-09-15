@@ -4,7 +4,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { AssessmentCapture } from "./components/AssessmentCapture";
 import { AssessmentChecklist } from "./components/AssessmentChecklist";
+import { CaptureProgress } from "./components/CaptureProgress";
 import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
+import { MobileAssessmentHome, MobileDock } from "./components/MobileWorkspace";
+import { ResultPanel } from "./components/ResultPanel";
+import { acceptAssessment, evaluateAssessment, extractAssessment, transcribeAudio } from "./lib/api";
+import { draftKey } from "./lib/assessment";
+import { clinicalValue } from "./lib/guideEvidence";
+import { useMobileLayout } from "./lib/layout";
 import { useGuideEditor } from "./lib/useGuideEditor";
 import { useAssessmentSession } from "./lib/useAssessmentSession";
 import { useVoiceCapture, type CaptureJob } from "./lib/useVoiceCapture";
@@ -53,7 +60,8 @@ vi.mock("react", async (importOriginal) => {
 vi.mock("./lib/useAssessmentSession", () => ({ useAssessmentSession: vi.fn() }));
 vi.mock("./lib/useVoiceCapture", () => ({ useVoiceCapture: vi.fn() }));
 vi.mock("./lib/useGuideEditor", () => ({ useGuideEditor: vi.fn() }));
-vi.mock("./lib/layout", () => ({ useMobileLayout: () => false }));
+vi.mock("./lib/layout", () => ({ useMobileLayout: vi.fn() }));
+vi.mock("./lib/api", () => ({ evaluateAssessment: vi.fn(), acceptAssessment: vi.fn(), extractAssessment: vi.fn(), transcribeAudio: vi.fn() }));
 
 const createHooks = (): Hooks => ({ cursor: 0, values: [], setters: [], effects: new Map(), pending: [] });
 function render(hooks: Hooks, component: () => ReactNode) {
@@ -99,11 +107,14 @@ let props: ComponentProps<typeof AssessmentCapture>;
 let dirtySections: Partial<Record<AssessmentId, boolean>>;
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.mocked(evaluateAssessment).mockReset();
+  vi.mocked(useMobileLayout).mockReturnValue(false);
   voice = { jobs: [], recordingId: null, audioState: "idle", error: "", startRecording: vi.fn(), stop: vi.fn(), cancelRecording: vi.fn(),
     addText: vi.fn().mockReturnValue(true), prepareReview: vi.fn().mockResolvedValue(undefined), accept: vi.fn().mockResolvedValue(undefined),
     retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn() };
   session = { version: 1, encounter: evaluation.encounter, attempted: [], revision: 2, evaluation, hasData: true, ready: true,
-    busy: false, error: "", storageHint: "", currentRevision: () => 2,
+    busy: false, error: "", storageHint: "", currentRevision: () => session.revision,
+    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
     snapshot: () => ({ encounter: evaluation.encounter, revision: 2, evaluation }), interruptedCount: 0, acknowledgeInterrupted: vi.fn(),
     refresh: vi.fn().mockResolvedValue(true), reset: vi.fn(), evaluate: vi.fn().mockResolvedValue(true), accept: vi.fn().mockResolvedValue(true),
     interactions: [], recordInteraction: vi.fn(), rejectPending: vi.fn() };
@@ -119,10 +130,273 @@ beforeEach(() => {
     language: "en", consent: { audio: true, understanding: true }, reviewDisabled: false, voice, onReviewJob: vi.fn(),
     onDirty: (next) => { dirtySections = typeof next === "function" ? next(dirtySections) : next; } };
   vi.stubGlobal("window", { addEventListener: vi.fn(), removeEventListener: vi.fn(), confirm: vi.fn().mockReturnValue(true) });
+  vi.stubGlobal("document", { getElementById: vi.fn().mockReturnValue(null), querySelector: vi.fn().mockReturnValue(null), activeElement: null });
+  vi.stubGlobal("HTMLElement", class {});
 });
 afterEach(() => { runtime.current = null; vi.unstubAllGlobals(); });
 
+describe("explicit recommendation generation", () => {
+  const partial: AssessmentEvaluation = { ...evaluation, analysis: { ...evaluation.analysis, is_complete: false, state: "INCOMPLETE",
+    missing_elements: { ear: ["ear_discharge_reported"] }, rendered_response: "Information needed: check for ear discharge." } };
+  function generate(tree: ReactNode) {
+    const checklist = find(tree, (node) => node.type === AssessmentChecklist);
+    return find(checklist.props.tools as ReactNode, (node) => node.type === "button" && node.props.className === "generate-assessment");
+  }
+  function expectNoProcessing() {
+    for (const operation of [voice.startRecording, voice.addText, voice.prepareReview, voice.accept, voice.retry, voice.discard,
+      voice.stageField, guide.confirm, session.accept, session.evaluate, session.rejectPending, transcribeAudio, extractAssessment, acceptAssessment])
+      expect(operation).not.toHaveBeenCalled();
+  }
+
+  it.each(["empty", "partial", "urgent"])("renders the backend missing response for %s only after a successful new revision", async (kind) => {
+    session.encounter = kind === "empty" ? {} : kind === "urgent" ? { danger_signs: { convulsing_now: true } } : partial.encounter;
+    session.evaluation = { ...partial, encounter: session.encounter, analysis: { ...partial.analysis,
+      state: kind === "urgent" ? "URGENT_INCOMPLETE" : "INCOMPLETE", is_urgent: kind === "urgent",
+      urgent_actions: kind === "urgent" ? ["Begin accepted urgent care now."] : [] } };
+    const fresh = { ...session.evaluation, analysis: { ...session.evaluation.analysis,
+      rendered_response: `Backend ${kind} assessment: information needed before final management.` } };
+    let resolve!: (success: boolean) => void;
+    vi.mocked(session.refresh).mockImplementation(() => {
+      session.busy = true;
+      return new Promise<boolean>((yes) => { resolve = yes; });
+    });
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    expect(renderToStaticMarkup(view())).not.toContain(partial.analysis.rendered_response);
+    expect(generate(view()).props.disabled).toBe(false);
+    click(generate(view()));
+    expect(session.refresh).toHaveBeenCalledExactlyOnceWith();
+    expect(find(view(), (node) => node.type === "main").props["data-active-panel"]).toBe("result");
+    expect(renderToStaticMarkup(view())).toContain("Checking your confirmed findings");
+    expect(elements(view()).some((node) => node.type === ResultPanel)).toBe(false);
+    session.evaluation = fresh;
+    session.revision++;
+    session.busy = false;
+    resolve(true);
+    await Promise.resolve();
+    const tree = view();
+    expect(find(tree, (node) => node.type === ResultPanel).props.result).toBe(fresh.analysis);
+    const html = renderToStaticMarkup(tree);
+    expect(html).toContain(fresh.analysis.rendered_response);
+    expect(html).toContain(kind === "urgent" ? "Act now, then complete rapidly" : "More findings are needed");
+    expect(html).not.toContain("Ready when you are");
+    expect(html).not.toContain("Clinical synthesis ready");
+    expectNoProcessing();
+    unmount(hooks);
+  });
+
+  it.each([{ success: false, increment: 1 }, { success: true, increment: 0 }, { success: true, increment: 2 }])(
+    "does not authorize an incomplete report for refresh outcome %j", async ({ success, increment }) => {
+      session.evaluation = partial;
+      vi.mocked(session.refresh).mockImplementation(async () => { session.revision += increment; return success; });
+      const hooks = createHooks();
+      const view = () => render(hooks, App);
+      click(generate(view()));
+      await Promise.resolve();
+      expect(elements(view()).some((node) => node.type === ResultPanel)).toBe(false);
+      expect(renderToStaticMarkup(view())).not.toContain(partial.analysis.rendered_response);
+      expectNoProcessing();
+      unmount(hooks);
+    });
+
+  it("guards the generation handler itself while busy", () => {
+    session.busy = true;
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    expect(generate(view()).props.disabled).toBe(true);
+    click(generate(view()));
+    expect(session.refresh).not.toHaveBeenCalled();
+    expect(find(view(), (node) => node.type === "main").props["data-active-panel"]).toBe("assessment");
+    expectNoProcessing();
+    unmount(hooks);
+  });
+
+  it.each(["recording", "queued", "transcribing", "extracting", "captured", "preparing_review", "review", "applying", "failed",
+    "worker", "dirty", "interrupted", "blocker", "contradiction", "BLOCK decision"])(
+    "requests review rather than refreshing or accepting %s evidence", (gate) => {
+      if (gate === "interrupted") session.interruptedCount = 1;
+      else if (["blocker", "contradiction", "BLOCK decision"].includes(gate)) session.evaluation = { ...evaluation,
+        analysis: { ...evaluation.analysis, contradictions: gate === "contradiction" ? ["Conflicting evidence"] : [] },
+        assessments: { ...evaluation.assessments, ear: { ...complete, decision: gate === "BLOCK decision" ? "BLOCK" : "COMPLETE",
+          blockers: gate === "blocker" ? ["Review ear evidence"] : [] } } };
+      else if (gate !== "dirty") voice.jobs = [{ id: "pending-ear", assessment: "ear", status: gate === "worker" ? "captured" : gate as CaptureJob["status"],
+        originalEncounter: {}, originalRevision: 2, reviewVersion: 0, changedFields: [],
+        ...(gate === "worker" ? { originalCandidate: { assessment: "ear" as const, input_text: "", extraction_mode: "worker-review", warnings: [], changes: [] },
+          workerEdits: { "ear.ear_pain": { value: false, previous: null, label: "Ear pain", revision: 2 } } } : {}),
+        trace: { id: "pending-ear", timestamp: "today", assessment: "ear", status: "candidate", source: {} } }];
+      const hooks = createHooks();
+      const view = () => render(hooks, App);
+      if (gate === "dirty") {
+        const checklist = find(view(), (node) => node.type === AssessmentChecklist) as ReactElement<ComponentProps<typeof AssessmentChecklist>>;
+        (checklist.props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>).props.onDirty({ ear: true });
+      }
+      const before = structuredClone({ jobs: voice.jobs, encounter: session.encounter, evaluation: session.evaluation });
+      click(generate(view()));
+      const tree = view();
+      const html = renderToStaticMarkup(tree);
+      expect(html).toContain(gate === "interrupted" ? "Acknowledge interrupted captures before final plan"
+        : ["blocker", "contradiction", "BLOCK decision"].includes(gate) ? "Review evidence issues" : "Review findings before generating recommendations");
+      expect(html).not.toContain("Accepted final plan");
+      expect(session.refresh).not.toHaveBeenCalled();
+      if (!["interrupted", "contradiction", "BLOCK decision"].includes(gate)) {
+        const section = { open: false, querySelector: vi.fn().mockReturnValue({ focus: vi.fn() }), scrollIntoView: vi.fn() };
+        vi.mocked(document.querySelector).mockReturnValue(section as unknown as HTMLDetailsElement);
+        click(find(tree, (node) => node.type === "button" && node.props.className === "assessment-review-link"
+          && renderToStaticMarkup(node).includes("Review Ear problem")));
+        expect(document.querySelector).toHaveBeenCalledWith('details[data-assessment="ear"]');
+        expect(section.open).toBe(true);
+        expect(section.querySelector).toHaveBeenCalledWith("summary");
+        expect(section.scrollIntoView).toHaveBeenCalledOnce();
+        expect(find(view(), (node) => node.type === "main").props["data-active-panel"]).toBe("assessment");
+        if (voice.jobs.length) expect(guide.selectJob).toHaveBeenCalledExactlyOnceWith("pending-ear");
+        else expect(guide.selectJob).not.toHaveBeenCalled();
+      }
+      expect({ jobs: voice.jobs, encounter: session.encounter, evaluation: session.evaluation }).toEqual(before);
+      expect(session.refresh).not.toHaveBeenCalled();
+      expectNoProcessing();
+      unmount(hooks);
+    });
+
+  it.each(["unready", "busy", "session error", "invalid", "analysis error", "out of scope"])(
+    "withholds a requested incomplete report behind the %s result-ready guard", async (gate) => {
+      session.evaluation = structuredClone(partial);
+      vi.mocked(session.refresh).mockImplementation(async () => { session.revision++; return true; });
+      const hooks = createHooks();
+      const view = () => render(hooks, App);
+      click(generate(view()));
+      await Promise.resolve();
+      expect(renderToStaticMarkup(view())).toContain(partial.analysis.rendered_response);
+      if (gate === "unready") session.ready = false;
+      if (gate === "busy") session.busy = true;
+      if (gate === "session error") session.error = "Check failed";
+      if (gate === "invalid") session.evaluation!.analysis.schema_valid = false;
+      if (gate === "analysis error") session.evaluation!.analysis.error = "Invalid evidence";
+      if (gate === "out of scope") session.evaluation!.analysis.outside_supported_scope = true;
+      expect(renderToStaticMarkup(view())).not.toContain(partial.analysis.rendered_response);
+      expect(elements(view()).some((node) => node.type === ResultPanel)).toBe(false);
+      unmount(hooks);
+    });
+
+  it("invalidates an old incomplete report on a new accepted revision and clears it before a failed repeat request", async () => {
+    session.evaluation = partial;
+    vi.mocked(session.refresh).mockImplementation(async () => { session.revision++; return true; });
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    click(generate(view()));
+    await Promise.resolve();
+    expect(renderToStaticMarkup(view())).toContain(partial.analysis.rendered_response);
+    session.revision++;
+    session.encounter = { ...session.encounter, ear: { ear_pain: false } };
+    session.evaluation = { ...partial, encounter: session.encounter, analysis: { ...partial.analysis, rendered_response: "New accepted partial report" } };
+    expect(renderToStaticMarkup(view())).not.toContain("New accepted partial report");
+    expect(renderToStaticMarkup(view())).not.toContain(partial.analysis.rendered_response);
+    click(generate(view()));
+    await Promise.resolve();
+    expect(renderToStaticMarkup(view())).toContain("New accepted partial report");
+    vi.mocked(session.refresh).mockResolvedValue(false);
+    click(generate(view()));
+    await Promise.resolve();
+    expect(renderToStaticMarkup(view())).not.toContain("New accepted partial report");
+    expect(session.refresh).toHaveBeenCalledTimes(3);
+    expectNoProcessing();
+    unmount(hooks);
+  });
+
+  async function liveSession(initial: AssessmentEvaluation) {
+    const actual = await vi.importActual<typeof import("./lib/useAssessmentSession")>("./lib/useAssessmentSession");
+    vi.mocked(useAssessmentSession).mockImplementation(actual.useAssessmentSession);
+    vi.stubGlobal("sessionStorage", { getItem: vi.fn().mockReturnValue(null), setItem: vi.fn(), removeItem: vi.fn() });
+    vi.mocked(evaluateAssessment).mockResolvedValueOnce(initial);
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    view();
+    await Promise.resolve();
+    view();
+    return { hooks, view };
+  }
+
+  it("withholds a prior complete evaluation throughout failed refresh and retry until the real session succeeds", async () => {
+    const { hooks, view } = await liveSession(evaluation);
+    expect(renderToStaticMarkup(view())).toContain("Accepted final plan");
+    vi.mocked(evaluateAssessment).mockRejectedValueOnce(new Error("Service unavailable"));
+    click(generate(view()));
+    expect(renderToStaticMarkup(view())).not.toContain("Accepted final plan");
+    await Promise.resolve();
+    await Promise.resolve();
+    const failed = view();
+    expect(renderToStaticMarkup(failed)).toContain("Could not check the assessment");
+    expect(renderToStaticMarkup(failed)).not.toContain("Accepted final plan");
+    expect(vi.mocked(useVoiceCapture).mock.lastCall![0].evaluation).toBe(evaluation);
+    let resolve!: (value: AssessmentEvaluation) => void;
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(new Promise((yes) => { resolve = yes; }));
+    click(button(failed, "Retry assessment"));
+    expect(renderToStaticMarkup(view())).not.toContain("Accepted final plan");
+    resolve(partial);
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(renderToStaticMarkup(view())).toContain(partial.analysis.rendered_response);
+    expect(evaluateAssessment).toHaveBeenCalledTimes(3);
+    expectNoProcessing();
+    unmount(hooks);
+  });
+
+  it.each([false, true])("does not resurrect a deferred old report after reset, new check finished first=%s", async (newFirst) => {
+    const { hooks, view } = await liveSession(partial);
+    let resolveOld!: (value: AssessmentEvaluation) => void;
+    let resolveNew!: (value: AssessmentEvaluation) => void;
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(new Promise((yes) => { resolveOld = yes; }))
+      .mockReturnValueOnce(new Promise((yes) => { resolveNew = yes; }));
+    click(generate(view()));
+    const oldSignal = vi.mocked(evaluateAssessment).mock.lastCall![2]!;
+    const checklist = find(view(), (node) => node.type === AssessmentChecklist);
+    click(button(checklist.props.tools as ReactNode, "Clear encounter"));
+    expect(oldSignal.aborted).toBe(true);
+    const empty = { ...partial, encounter: {}, analysis: { ...partial.analysis, rendered_response: "New empty assessment missing findings" } };
+    for (const resolve of newFirst ? [() => resolveNew(empty), () => resolveOld(partial)] : [() => resolveOld(partial), () => resolveNew(empty)]) {
+      resolve();
+      await Promise.resolve();
+      await Promise.resolve();
+      const html = renderToStaticMarkup(view());
+      expect(html).toContain("Ready when you are");
+      expect(html).not.toContain(partial.analysis.rendered_response);
+      expect(html).not.toContain(empty.analysis.rendered_response);
+      expect(find(view(), (node) => node.type === "main").props["data-active-panel"]).toBe("assessment");
+    }
+    expect(vi.mocked(useVoiceCapture).mock.lastCall![0].evaluation).toBe(empty);
+    expect(vi.mocked(useVoiceCapture).mock.lastCall![0].encounter).toEqual({});
+    expect(voice.clear).toHaveBeenCalledOnce();
+    expect(guide.reset).toHaveBeenCalledOnce();
+    expectNoProcessing();
+    unmount(hooks);
+  });
+});
+
 describe("typed draft context", () => {
+  it.each([false, true])("uses Root authorization for typed fallback without a language, with mobile=%s", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    const rootHooks = createHooks();
+    const captureHooks = createHooks();
+    const root = () => render(rootHooks, App);
+    const capture = () => {
+      const checklist = find(root(), (node) => node.type === AssessmentChecklist) as ReactElement<ComponentProps<typeof AssessmentChecklist>>;
+      return checklist.props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>;
+    };
+    const view = () => {
+      const node = capture();
+      return render(captureHooks, () => AssessmentCapture(node.props));
+    };
+    expect(capture().props.language).toBe("");
+    expect(capture().props.consent).toEqual({ audio: true, understanding: true });
+    edit(find(view(), (node) => node.props.id === "capture-text-ear"), "Synthetic typed finding");
+    expect(button(view(), "Process typed finding").props.disabled).toBe(false);
+    click(button(view(), "Process typed finding"));
+    expect(voice.addText).toHaveBeenCalledExactlyOnceWith("ear", "Synthetic typed finding", true,
+      { encounter: session.encounter, revision: session.revision, question: undefined });
+    expect(voice.startRecording).not.toHaveBeenCalled();
+    unmount(captureHooks);
+    unmount(rootHooks);
+  });
+
   it("freezes the first question and clones the encounter through later edits and acceptance", () => {
     const hooks = createHooks();
     const view = () => render(hooks, () => AssessmentCapture(props));
@@ -225,6 +499,151 @@ describe("assessment review routing", () => {
 });
 
 describe("workspace dirty and restore gates", () => {
+  it.each([false, true].flatMap((mobile) => [false, true].map((savedValue) => ({ mobile, savedValue }))))(
+    "requires explicit resume of saved boolean=$savedValue with mobile=$mobile, then resets to unknown",
+    async ({ mobile, savedValue }) => {
+      const actual = await vi.importActual<typeof import("./lib/useAssessmentSession")>("./lib/useAssessmentSession");
+      vi.mocked(useAssessmentSession).mockImplementation(actual.useAssessmentSession);
+      vi.mocked(useMobileLayout).mockReturnValue(mobile);
+      const savedEncounter = { ear: { ear_pain: savedValue }, danger_signs: { convulsing_now: savedValue } };
+      const historical = { ...evaluation, encounter: savedEncounter, analysis: { ...evaluation.analysis,
+        is_urgent: true, urgent_actions: ["Historical urgency"], rendered_response: "Historical final plan" } };
+      const raw = JSON.stringify({ version: 1, encounter: savedEncounter, attempted: ["danger", "ear"], revision: 7,
+        interactions: [{ id: "synthetic-saved", timestamp: "2026-09-15T12:00:00Z", assessment: "ear", status: "accepted",
+          source: { submitted_text: "Synthetic saved report" }, result: historical }] });
+      const storage = new Map([[draftKey, raw]]);
+      vi.stubGlobal("sessionStorage", { getItem: (key: string) => storage.get(key) ?? null,
+        setItem: (key: string, value: string) => { storage.set(key, value); }, removeItem: (key: string) => storage.delete(key) });
+      let resolve!: (value: AssessmentEvaluation) => void;
+      vi.mocked(evaluateAssessment).mockReturnValueOnce(new Promise((yes) => { resolve = yes; }));
+      vi.mocked(useGuideEditor).mockImplementation((active) => ({ ...guide, workingEncounter: active.encounter,
+        field: (assessment, path) => !path.startsWith("danger_signs.") && path !== "ear.ear_pain" ? null : {
+          descriptor: { path, label: path, kind: "boolean", nullable: true, assessments: [assessment] },
+          value: clinicalValue(active.encounter, path), acceptedValue: clinicalValue(active.encounter, path), raw: undefined,
+          error: undefined, jobId: "", pending: false, requiresChoice: false, disabled: !active.ready,
+          source: "accepted", onChange: vi.fn(), onKeep: vi.fn(),
+        } }));
+      const hooks = createHooks();
+      const view = () => render(hooks, App);
+      const gate = view();
+      const hookCount = hooks.cursor;
+      const html = renderToStaticMarkup(gate);
+      expect(html).toContain("Saved assessment</h1>");
+      expect(html).not.toContain('role="radiogroup"');
+      expect(html).not.toContain("Synthetic saved report");
+      expect(html).not.toContain("Historical urgency");
+      expect(elements(gate).some((node) => node.type === AssessmentChecklist)).toBe(false);
+      expect(useVoiceCapture).toHaveBeenCalledOnce();
+      expect(useGuideEditor).toHaveBeenCalledOnce();
+      expect(evaluateAssessment).not.toHaveBeenCalled();
+      expect(storage.get(draftKey)).toBe(raw);
+
+      // Two clicks on the same rendered handler still consume the real session ref only once.
+      click(button(gate, "Resume saved assessment"));
+      click(button(gate, "Resume saved assessment"));
+      const restoring = view();
+      expect(hooks.cursor).toBe(hookCount);
+      expect(evaluateAssessment).toHaveBeenCalledExactlyOnceWith(savedEncounter, ["danger", "ear"], expect.any(AbortSignal));
+      expect(window.confirm).not.toHaveBeenCalled();
+      expect(voice.clear).not.toHaveBeenCalled();
+      expect(guide.reset).not.toHaveBeenCalled();
+      const checklist = find(restoring, (node) => node.type === AssessmentChecklist);
+      const renderField = checklist.props.renderField as (id: AssessmentId, path: string) => ReactNode;
+      const control = find(renderField("ear", "ear.ear_pain"), (node) => node.type === ClinicalFieldControl);
+      expect(control.props.value).toBe(savedValue);
+      expect(control.props.disabled).toBe(true);
+      expect(renderToStaticMarkup(control)).toContain(`aria-checked="true" tabindex="0" disabled="">${savedValue ? "Yes" : "No"}`);
+      expect(renderToStaticMarkup(restoring)).not.toContain('aria-label="Immediate management"');
+      expect(renderToStaticMarkup(restoring)).not.toContain('aria-label="View urgent guidance"');
+      expect(renderToStaticMarkup(restoring)).not.toContain("Clinical synthesis ready");
+      const fresh = { ...historical, analysis: { ...historical.analysis, state: "URGENT_COMPLETE" as const,
+        urgent_actions: ["Fresh urgent action"], rendered_response: "Fresh urgent action\n\nFresh final plan" } };
+      resolve(fresh);
+      await Promise.resolve();
+      const restoredHtml = renderToStaticMarkup(view());
+      expect(restoredHtml.slice(restoredHtml.indexOf('<section class="output-panel"'))).toContain("Fresh urgent action");
+      expect(restoredHtml.slice(0, restoredHtml.indexOf("<main"))).not.toContain("Fresh urgent action");
+      expect(restoredHtml.split("Fresh urgent action")).toHaveLength(2);
+      expect(restoredHtml).not.toContain("workspace-urgent");
+      if (mobile) {
+        const dock = find(view(), (node) => node.type === MobileDock) as ReactElement<ComponentProps<typeof MobileDock>>;
+        dock.props.onLanguageChange("yo");
+        expect(voice.startRecording).not.toHaveBeenCalled();
+        (find(view(), (node) => node.type === MobileDock) as typeof dock).props.onSpeak();
+        const snapshot = vi.mocked(useVoiceCapture).mock.lastCall![0].snapshot();
+        expect(snapshot).toMatchObject({ encounter: savedEncounter, evaluation: fresh });
+        expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("danger", "yo", { audio: true, understanding: true },
+          { ...snapshot, question: undefined });
+      }
+
+      vi.mocked(evaluateAssessment).mockResolvedValueOnce({ ...evaluation, encounter: {}, analysis: { ...evaluation.analysis,
+        is_complete: false, state: "INCOMPLETE", rendered_response: "Unknown observations" } });
+      const resumed = find(view(), (node) => node.type === AssessmentChecklist) as ReactElement<ComponentProps<typeof AssessmentChecklist>>;
+      expect((resumed.props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>).props.consent)
+        .toEqual({ audio: true, understanding: true });
+      expect(renderToStaticMarkup(view())).toContain("Synthetic saved report");
+      const tools = mobile ? (find(resumed.props.mobileHome, (node) => node.type === MobileAssessmentHome)
+        .props.tools as ReactNode) : resumed.props.tools;
+      click(button(tools, mobile ? "Start new assessment" : "Clear encounter"));
+      expect(voice.clear).toHaveBeenCalledOnce();
+      expect(guide.reset).toHaveBeenCalledOnce();
+      expect(storage.has(draftKey)).toBe(false);
+      await Promise.resolve();
+      const cleared = view();
+      expect(hooks.cursor).toBe(hookCount);
+      const empty = find(cleared, (node) => node.type === AssessmentChecklist);
+      const emptyCapture = (empty.props.renderCapture as (id: AssessmentId) => ReactElement<ComponentProps<typeof AssessmentCapture>>)("ear");
+      expect(emptyCapture.props.consent).toEqual({ audio: true, understanding: true });
+      expect(empty.props.encounter).toEqual({});
+      const emptyField = empty.props.renderField as typeof renderField;
+      expect(find(emptyField("ear", "ear.ear_pain"), (node) => node.type === ClinicalFieldControl).props.value).toBeNull();
+      expect(find(emptyField("danger", "danger_signs.convulsing_now"), (node) => node.type === ClinicalFieldControl).props.value).toBeNull();
+      const clearedHtml = renderToStaticMarkup(cleared);
+      expect(clearedHtml).toContain("Ready when you are");
+      for (const hidden of ["Fresh urgent action", "Fresh final plan", "Historical urgency", "Synthetic saved report", "Saved assessment</h1>"])
+        expect(clearedHtml).not.toContain(hidden);
+      click(button(gate, "Resume saved assessment"));
+      await Promise.resolve();
+      expect(evaluateAssessment).toHaveBeenCalledTimes(2);
+      expect(storage.has(draftKey)).toBe(false);
+      expect(find(view(), (node) => node.type === AssessmentChecklist).props.encounter).toEqual({});
+      unmount(hooks);
+    });
+
+  it.each([false, true])("only confirmed Start new leaves the saved gate and clears voice, guide, then session with mobile=%s", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    session.needsResumeDecision = true;
+    vi.mocked(session.reset).mockImplementation(() => {
+      session.needsResumeDecision = false;
+      session.encounter = {};
+      session.evaluation = null;
+      session.hasData = false;
+      session.ready = false;
+    });
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    const tree = view();
+    const hookCount = hooks.cursor;
+    vi.mocked(window.confirm).mockReturnValue(false);
+    click(button(tree, "Start new assessment"));
+    expect(window.confirm).toHaveBeenCalledWith("Start a new assessment? This clears the saved answers, pending captures, and history in this tab.");
+    expect(renderToStaticMarkup(view())).toContain("Saved assessment</h1>");
+    for (const operation of [voice.clear, guide.reset, session.reset, session.resumeSaved]) expect(operation).not.toHaveBeenCalled();
+    vi.mocked(window.confirm).mockReturnValue(true);
+    click(button(tree, "Start new assessment"));
+    for (const operation of [voice.clear, guide.reset, session.reset]) expect(operation).toHaveBeenCalledOnce();
+    expect(vi.mocked(voice.clear).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(guide.reset).mock.invocationCallOrder[0]);
+    expect(vi.mocked(guide.reset).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(session.reset).mock.invocationCallOrder[0]);
+    const normal = view();
+    expect(hooks.cursor).toBe(hookCount);
+    expect(find(normal, (node) => node.type === AssessmentChecklist).key).toBe("1");
+    expect(renderToStaticMarkup(normal)).not.toContain("Saved assessment</h1>");
+    expect(session.resumeSaved).not.toHaveBeenCalled();
+    expect(useVoiceCapture).toHaveBeenCalledTimes(3);
+    expect(useGuideEditor).toHaveBeenCalledTimes(3);
+    unmount(hooks);
+  });
+
   it("marks dirty sections pending, withholds the final plan, and warns before leaving", () => {
     const hooks = createHooks();
     const view = () => render(hooks, App);
@@ -237,7 +656,10 @@ describe("workspace dirty and restore gates", () => {
     expect(renderToStaticMarkup(tree)).toContain("Process or discard unprocessed edits before final plan");
     expect(renderToStaticMarkup(tree)).not.toContain("Accepted final plan");
     const html = renderToStaticMarkup(tree);
-    expect(html.slice(0, html.indexOf("<main"))).toContain("Accepted urgent action");
+    expect(html.slice(0, html.indexOf("<main"))).not.toContain("Accepted urgent action");
+    expect(html.slice(html.indexOf('<section class="output-panel"'))).toContain("Accepted urgent action");
+    expect(html.split("Accepted urgent action")).toHaveLength(2);
+    expect(html).not.toContain("workspace-urgent");
     expect(find(tree, (node) => node.type === AssessmentChecklist).props.pendingAssessments).toContain("ear");
     expect(window.addEventListener).toHaveBeenCalledWith("beforeunload", expect.any(Function));
     const warn = vi.mocked(window.addEventListener).mock.calls[0][1] as (event: { preventDefault: () => void; returnValue: unknown }) => void;
@@ -339,25 +761,36 @@ describe("interactive guide integration", () => {
     expect(window.confirm).not.toHaveBeenCalled();
   });
 
-  it("opens and focuses a desktop origin section only after explicit Review on assessment", () => {
+  it.each(["recording card", "global progress"])("opens and focuses a desktop origin section only after explicit review from %s", (source) => {
     setupJob();
     const focus = vi.fn();
     const section = { open: false, querySelector: vi.fn().mockReturnValue({ focus }), scrollIntoView: vi.fn() };
     vi.stubGlobal("document", { activeElement: null, querySelector: vi.fn().mockReturnValue(section) });
     vi.stubGlobal("HTMLElement", class {});
-    const tree = checklist();
+    const root = render(createHooks(), App);
+    const tree = find(root, (node) => node.type === AssessmentChecklist);
     expect(section.open).toBe(false);
     expect(section.scrollIntoView).not.toHaveBeenCalled();
     const capture = (tree.props.renderCapture as (id: AssessmentId) => ReactElement<ComponentProps<typeof AssessmentCapture>>)("ear");
-    capture.props.onReviewJob("guide-clip");
+    const progress = find(root, (node) => node.type === CaptureProgress) as ReactElement<ComponentProps<typeof CaptureProgress>>;
+    expect(progress.props.jobs).toBe(voice.jobs);
+    expect(progress.props.onReview).toBe(capture.props.onReviewJob);
+    expect(guide.selectJob).not.toHaveBeenCalled();
+    const original = structuredClone(voice.jobs);
+    if (source === "global progress") click(button(CaptureProgress(progress.props), "Review"));
+    else capture.props.onReviewJob("guide-clip");
     expect(guide.selectJob).toHaveBeenCalledWith("guide-clip");
     expect(section.open).toBe(true);
     expect(focus).toHaveBeenCalledOnce();
     expect(section.scrollIntoView).toHaveBeenCalledOnce();
     expect(guide.confirm).not.toHaveBeenCalled();
+    expect(voice.jobs).toEqual(original);
+    for (const operation of [voice.accept, voice.discard, voice.prepareReview, voice.startRecording, voice.addText,
+      voice.retry, voice.clear, session.accept, session.rejectPending]) expect(operation).not.toHaveBeenCalled();
   });
 
-  it.each(["schema", "unready", "busy", "invalid", "preparing_review", "applying"])("disables confirmation for %s", (gate) => {
+  it.each([false, true].flatMap((mobile) => ["schema", "unready", "busy", "invalid", "preparing_review", "applying"].map((gate) => ({ mobile, gate }))))("disables confirmation for $gate with mobile=$mobile", ({ mobile, gate }) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
     const job = setupJob();
     if (gate === "schema") guide.schema = null;
     if (gate === "unready") session.ready = false;
@@ -371,16 +804,18 @@ describe("interactive guide integration", () => {
     expect(guide.confirm).not.toHaveBeenCalled();
   });
 
-  it.each([undefined, 1])("labels stale capture/review context %s as Refresh review, delegating the first-click guard", (reviewRevision) => {
+  it.each([false, true].flatMap((mobile) => [undefined, 1].map((reviewRevision) => ({ mobile, reviewRevision }))))("labels stale context $reviewRevision as Refresh review with mobile=$mobile, delegating the first-click guard", ({ mobile, reviewRevision }) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
     setupJob({ originalRevision: 1, reviewRevision });
     const tree = footer();
-    expect(renderToStaticMarkup(tree)).toContain("Refresh review first");
+    expect(renderToStaticMarkup(tree)).toContain(mobile ? "Answers changed. Refresh review." : "Refresh review first");
     click(button(tree, "Refresh review"));
     expect(guide.confirm).toHaveBeenCalledWith("ear");
     expect(voice.accept).not.toHaveBeenCalled();
   });
 
-  it("requires a separate no-change acknowledgement before calling confirm", () => {
+  it.each([false, true])("requires a separate no-change acknowledgement before calling confirm with mobile=%s", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
     setupJob({ candidate: { ...candidate, changes: [] }, originalCandidate: { ...candidate, changes: [] } });
     vi.mocked(window.confirm).mockReturnValue(false);
     click(button(footer(), "Confirm findings"));
@@ -398,15 +833,42 @@ describe("interactive guide integration", () => {
     expect(guide.confirm).toHaveBeenCalledOnce();
   });
 
-  it("keeps flagged answers actionable on the guide and original evidence under Details", () => {
+  it("keeps flagged answers actionable without duplicating source and technical details in confirmation", () => {
     const guarded = { ...candidate, changes: [{ ...candidate.changes[0], uncertain: true }] };
     setupJob({ candidate: guarded, originalCandidate: guarded, question: { field: "ear.ear_pain", text: "Original question?" } });
     const tree = footer();
     const html = renderToStaticMarkup(tree);
     expect(html).toContain("Choose answers above or keep confirmed answers for 1 flagged observation(s)");
     expect(button(tree, "Ear pain")).toBeDefined();
-    expect(html.indexOf("Original question?")).toBeGreaterThan(html.indexOf("Details: original report and review"));
-    expect(html.indexOf("Original words")).toBeGreaterThan(html.indexOf("Details: original report and review"));
+    for (const text of ["Details: original report and review", "Original words", "Review metadata", "Control schema", "<pre", "<code"]) expect(html).not.toContain(text);
+    expect(voice.jobs[0].originalCandidate).toEqual(guarded);
+  });
+
+  it.each([false, true])("focuses unresolved age in the single Scope editor with mobile=%s without accepting it", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    const age = { ...candidate.changes[0], field: "patient_facts.age_months", label: "Age", value: 12, uncertain: true, outside_assessment: true };
+    const guarded = { ...candidate, changes: [age] };
+    setupJob({ candidate: guarded, originalCandidate: guarded });
+    guide.schema!.fields[age.field] = { path: age.field, label: "Age", kind: "integer", nullable: true, assessments: ["danger"] };
+    const focus = vi.fn();
+    const field = { querySelector: vi.fn().mockReturnValue({ focus }), scrollIntoView: vi.fn() };
+    const section = { open: false };
+    vi.mocked(document.querySelector).mockImplementation((selector) => selector === 'details[data-assessment="danger"]' ? section as unknown as HTMLDetailsElement
+      : selector === '.assessment-scope [data-guide-field="patient_facts.age_months"]' ? field as unknown as HTMLElement : null);
+    vi.stubGlobal("requestAnimationFrame", (callback: FrameRequestCallback) => { callback(0); return 1; });
+    const hooks = createHooks();
+    const view = () => find(render(hooks, App), (node) => node.type === AssessmentChecklist);
+    const review = (view().props.renderSectionReview as (id: AssessmentId) => ReactNode)("ear");
+    expect(renderToStaticMarkup(review)).toContain(mobile ? "1 answer(s) need review." : "1 flagged observation(s)");
+    click(button(review, "Age"));
+    expect(document.querySelector).toHaveBeenCalledWith('.assessment-scope [data-guide-field="patient_facts.age_months"]');
+    expect(field.querySelector).toHaveBeenCalledWith("input, button");
+    expect(focus).toHaveBeenCalledOnce();
+    expect(field.scrollIntoView).toHaveBeenCalledOnce();
+    expect(section.open).toBe(!mobile);
+    if (mobile) expect(view().props.mobileView).toEqual({ screen: "assessment", assessment: "danger", tab: "guidance", intro: false });
+    expect(guide.confirm).not.toHaveBeenCalled();
+    expect(voice.accept).not.toHaveBeenCalled();
   });
 
   it("retains worker drafts when selecting another recording and keeps pending work out of final results", () => {

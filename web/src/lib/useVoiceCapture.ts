@@ -196,12 +196,12 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
 
   return {
     clear,
-    startRecording(assessment: AssessmentId, language: ASRLanguage, consent: { audio: boolean; understanding: boolean }) {
+    startRecording(assessment: AssessmentId, language: ASRLanguage, consent: { audio: boolean; understanding: boolean }, context?: CaptureContext) {
       if (state.recordingId || state.audioState !== "idle") return;
       if (!consent.audio || !consent.understanding || !["en", "pcm", "yo", "ig", "ha"].includes(language)) {
         state = { ...state, error: "Select a language and consent to both transcription and structuring before recording." }; publish(); return;
       }
-      const job = newJob(assessment);
+      const job = newJob(assessment, context);
       if (!job) return;
       job.status = "recording"; job.language = language;
       job.trace.source = { ...job.trace.source, recording_id: job.id, language };

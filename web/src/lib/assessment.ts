@@ -59,7 +59,7 @@ export function recordDraftInteraction(draft: AssessmentDraft, interaction: Inte
 }
 
 export function assessmentBadge(progress?: AssessmentProgress, pending = false) {
-  if (progress?.status === "URGENT" || progress?.decision === "URGENT") return { label: "Urgent", kind: "urgent" };
+  if (progress?.status === "URGENT") return { label: "Urgent", kind: "urgent" };
   if (pending) return { label: "Needs review", kind: "incomplete" };
   if (progress?.decision === "BLOCK") return { label: "Blocked", kind: "incomplete" };
   if (progress?.status === "COMPLETE") return { label: "Complete", kind: "complete" };

@@ -28,5 +28,49 @@ describe("local interaction history", () => {
     expect(html).toContain("sensitive health information (PHI)");
     expect(html).not.toMatch(/<details[^>]*open/);
     expect(html).not.toContain("<audio");
+    expect(html).toContain("<pre>");
+    expect(html).toBe(renderToStaticMarkup(<InteractionHistory interactions={interactions} showDebug />));
+  });
+
+  it("renders nondebug events, errors, and source words without serializing history or showing technical identifiers", () => {
+    const interactions: InteractionTrace[] = [{ id: "private-trace", timestamp: "today", assessment: "ear", status: "failed", error: "Recording could not be processed",
+      source: { raw_asr_transcript: "Original spoken words", submitted_text: "Worker words", recording_id: "private-recording", asr_provider: "intron", asr_model: "private-asr",
+        question: { field: "ear.ear_pain", text: "Does the child have ear pain?" } },
+      candidate: { assessment: "ear", input_text: "normalized", extraction_mode: "frontier", changes: [],
+        warnings: ["Check the reported duration", 'JSON schema mismatch: {"ear.ear_pain": null} from azure_openai'], english_rendering: "English words",
+        understanding: { provider: "azure_openai", model: "private-model", request_id: "private-request", prompt_version: "v1", usage: { input_tokens: 42 } },
+        uncertainties: [{ field: "ear.ear_pain", reason: "The answer was unclear", source_text: "Maybe pain" }],
+      },
+      before_encounter: { ear: { ear_pain: true } }, resolutions: { "ear.ear_pain": "keep" }, worker_edits: { "ear.ear_pain": { value: false, label: "Ear pain", previous: true, revision: 2 } },
+    }];
+    const before = JSON.stringify(interactions);
+    const html = renderToStaticMarkup(<InteractionHistory interactions={interactions} showDebug={false} />);
+    for (const text of ["<pre", "<code", "JSON", "schema", "private-", "azure_openai", "intron", "ear.ear_pain", "input_tokens", "before_encounter", "resolutions", "worker_edits", "extraction_mode", "English words", "Check the reported duration", "normalized"]) {
+      expect(html).not.toContain(text);
+    }
+    for (const text of ["Recording history (1)", "Ear symptoms / Capture failed", "Original spoken words", "Worker words", "Does the child have ear pain?", "Please review the report and confirm the findings on the assessment.", "The answer was unclear", "Maybe pain"]) {
+      expect(html).toContain(text);
+    }
+    expect(html).toContain('role="alert">Recording could not be processed');
+    expect(JSON.stringify(interactions)).toBe(before);
+  });
+
+  it.each(["same", "typed", "candidate"] as const)("shows the report once for %s nondebug sources without changing history", (source) => {
+    const interactions: InteractionTrace[] = [{ id: "1", timestamp: "today", assessment: "ear", status: "accepted",
+      source: source === "candidate" ? {} : { submitted_text: "Original report words", ...(source === "same" ? { raw_asr_transcript: "Original report words" } : {}) },
+      candidate: { assessment: "ear", input_text: "Original report words", extraction_mode: "frontier", changes: [], warnings: [], english_rendering: "Original report words" },
+    }];
+    const before = JSON.stringify(interactions);
+    const html = renderToStaticMarkup(<InteractionHistory interactions={interactions} showDebug={false} />);
+    expect(html.match(/Original report words/g)).toHaveLength(1);
+    expect(html).not.toContain("Please review the report");
+    expect(html).not.toMatch(/<details[^>]*open/);
+    expect(JSON.stringify(interactions)).toBe(before);
+  });
+
+  it.each([["transcribed", "Transcribed"], ["candidate", "Awaiting confirmation"], ["accepted", "Reviewed"], ["rejected", "Not accepted"]] as const)("uses a human mobile status for %s", (status, label) => {
+    const entry: InteractionTrace = { id: "1", timestamp: "today", assessment: "full-note", source: {}, status };
+    expect(renderToStaticMarkup(<InteractionHistory interactions={[entry]} showDebug={false} />)).toContain(`Full report / ${label}`);
+    expect(renderToStaticMarkup(<InteractionHistory interactions={[{ ...entry, pending: true }]} showDebug={false} />)).toContain("request in progress");
   });
 });

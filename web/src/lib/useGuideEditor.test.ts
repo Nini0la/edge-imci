@@ -83,6 +83,7 @@ function setup(encounter: Record<string, unknown> = {}) {
   let state: State = { jobs: [], recordingId: null, audioState: "idle", error: "" };
   const session: Session = { version: 1, encounter: structuredClone(encounter), attempted: [], revision: 10, interactions: [],
     evaluation: evaluation(encounter), hasData: true, busy: false, ready: true, error: "", storageHint: "", interruptedCount: 0,
+    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
     currentRevision: () => session.revision,
     snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation, interactions: session.interactions }),
     recordInteraction: vi.fn((trace) => { session.interactions = [...session.interactions.filter((entry) => entry.id !== trace.id), structuredClone(trace)]; }),

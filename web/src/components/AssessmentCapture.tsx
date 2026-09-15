@@ -16,21 +16,23 @@ interface AssessmentCaptureProps {
   ready: boolean;
   onDirty: Dispatch<SetStateAction<Partial<Record<AssessmentId, boolean>>>>;
   onReviewJob: (id: string) => void;
+  showDebug?: boolean;
 }
 
 /** Read-only source evidence, kept separate from answers corrected on the guide. */
-export function CandidateDetails({ candidate }: { candidate: AssessmentCandidate }) {
+export function CandidateDetails({ candidate, showDebug = true, showReport = true }: { candidate: AssessmentCandidate; showDebug?: boolean; showReport?: boolean }) {
   return <>
-    <strong>Original submitted report (read-only)</strong><p className="trace-text">{candidate.input_text}</p>
-    <p>Optional English rendering is nonauthoritative. It is not the original transcript, editable input, or accepted clinical evidence.</p>
-    {candidate.english_rendering != null ? <><strong>English rendering</strong><p className="trace-text">{candidate.english_rendering}</p></>
-      : <p>No English rendering supplied.</p>}
-    {!!candidate.warnings.length && <ul className="capture-warning">{candidate.warnings.map((warning, index) => <li key={index}>{warning}</li>)}</ul>}
+    {showReport && <><strong>{showDebug ? "Original submitted report (read-only)" : "Original report"}</strong><p className="trace-text">{candidate.input_text}</p></>}
+    {showDebug && <><p>Optional English rendering is nonauthoritative. It is not the original transcript, editable input, or accepted clinical evidence.</p>
+      {candidate.english_rendering != null ? <><strong>English rendering</strong><p className="trace-text">{candidate.english_rendering}</p></>
+        : <p>No English rendering supplied.</p>}</>}
+    {!!candidate.warnings.length && (showDebug ? <ul className="capture-warning">{candidate.warnings.map((warning, index) => <li key={index}>{warning}</li>)}</ul>
+      : <p className="capture-warning">Please review the report and confirm the findings on the assessment.</p>)}
     {!!candidate.uncertainties?.length && <><strong>Reported ambiguities</strong><ul>{candidate.uncertainties.map((item, index) => <li key={index}>
-      <code>{item.field ?? "Report-level uncertainty"}</code>: {item.reason} <q>{item.source_text}</q>
+      {showDebug && <><code>{item.field ?? "Report-level uncertainty"}</code>: </>}{item.reason} <q>{item.source_text}</q>
     </li>)}</ul></>}
-    {!!candidate.evidence_spans?.length && <ul>{candidate.evidence_spans.map((span, index) => <li key={index}><code>{span.field}</code>: <q>{span.source_text}</q></li>)}</ul>}
-    <strong>Original candidate (not the accepted encounter)</strong><pre>{JSON.stringify(candidate, null, 2)}</pre>
+    {showDebug && !!candidate.evidence_spans?.length && <ul>{candidate.evidence_spans.map((span, index) => <li key={index}><code>{span.field}</code>: <q>{span.source_text}</q></li>)}</ul>}
+    {showDebug && <><strong>Original candidate (not the accepted encounter)</strong><pre>{JSON.stringify(candidate, null, 2)}</pre></>}
   </>;
 }
 
@@ -41,27 +43,30 @@ const jobStatus: Record<CaptureJob["status"], string> = {
   applying: "Processing / confirming findings", accepted: "Reviewed", failed: "Capture failed", discarded: "Discarded",
 };
 
-function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob }: {
-  job: CaptureJob; reviewDisabled: boolean; voice: AssessmentCaptureProps["voice"]; onReviewJob: (id: string) => void;
+function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob, showDebug = true }: {
+  job: CaptureJob; reviewDisabled: boolean; voice: AssessmentCaptureProps["voice"]; onReviewJob: (id: string) => void; showDebug?: boolean;
 }) {
   const retryableInput = Boolean(job.inputText?.trim() || (job.audio?.size && job.language));
-  return <article className={`capture-job capture-job--${job.status}`} aria-label={`Capture ${job.id}`}>
+  const report = job.transcript?.transcript ?? job.inputText ?? job.originalCandidate?.input_text;
+  return <article className={`capture-job capture-job--${job.status}`} aria-label={showDebug ? `Capture ${job.id}` : "Recording"}>
     <header className="capture-job-heading"><strong role="status">{jobStatus[job.status]}</strong>
       <span>{job.language ?? "Text / worker review"}</span></header>
     {job.error && <p className="capture-error" role="alert">{job.error}</p>}
     {job.status === "accepted" && <p className="capture-meta">{job.changedFields.length
-      ? `Reviewed changes: ${job.changedFields.map((field) => job.candidate?.changes.find((change) => change.field === field)?.label ?? field).join(", ")}.`
+      ? showDebug ? `Reviewed changes: ${job.changedFields.map((field) => job.candidate?.changes.find((change) => change.field === field)?.label ?? field).join(", ")}.` : "Findings reviewed."
       : "Reviewed; no accepted values changed."} Confirmed observations are shown on the assessment.</p>}
     {["captured", "review", "preparing_review"].includes(job.status) && <>
       <p className="capture-meta">Findings populate the assessment controls. Correct answers there or record another clip; the original source stays unchanged.</p>
       <button type="button" disabled={reviewDisabled} onClick={() => onReviewJob(job.id)}>Review on assessment</button>
     </>}
     {(job.transcript || job.inputText !== undefined || job.originalCandidate || job.question) && <details className="capture-details">
-      <summary>Details: original source (read-only)</summary>
-      {job.question && <><strong>Question at capture</strong><p>{job.question.text}</p><code>{job.question.field}</code></>}
-      {job.transcript && <><strong>Original ASR transcript (read-only)</strong><p className="trace-text">{job.transcript.transcript}</p></>}
-      {job.inputText !== undefined && <><strong>Submitted input (read-only)</strong><p className="trace-text">{job.inputText}</p></>}
-      {job.originalCandidate && <CandidateDetails candidate={job.originalCandidate} />}
+      <summary>{showDebug ? "Details: original source (read-only)" : "Transcript"}</summary>
+      {job.question && <><strong>Question at capture</strong><p>{job.question.text}</p>{showDebug && <code>{job.question.field}</code>}</>}
+      {showDebug ? <>
+        {job.transcript && <><strong>Original ASR transcript (read-only)</strong><p className="trace-text">{job.transcript.transcript}</p></>}
+        {job.inputText !== undefined && <><strong>Submitted input (read-only)</strong><p className="trace-text">{job.inputText}</p></>}
+      </> : report !== undefined && <p className="trace-text">{report}</p>}
+      {job.originalCandidate && <CandidateDetails candidate={job.originalCandidate} showDebug={showDebug} showReport={showDebug} />}
     </details>}
     {job.status !== "accepted" && job.status !== "recording" && job.status !== "applying" && <div className="capture-actions">
       {job.status === "failed" && (retryableInput
@@ -72,7 +77,7 @@ function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob }: {
   </article>;
 }
 
-export function AssessmentCapture({ assessment, encounter, revision, progress, urgent, voice, language, consent, reviewDisabled, ready, onDirty, onReviewJob }: AssessmentCaptureProps) {
+export function AssessmentCapture({ assessment, encounter, revision, progress, urgent, voice, language, consent, reviewDisabled, ready, onDirty, onReviewJob, showDebug = true }: AssessmentCaptureProps) {
   // Undefined means untouched; null means typing began before a valid question existed.
   const [draft, setDraft] = useState<{ text: string; context?: CaptureContext | null }>({ text: "" });
   const jobs = voice.jobs.filter((job) => job.assessment === assessment && job.status !== "discarded");
@@ -85,7 +90,7 @@ export function AssessmentCapture({ assessment, encounter, revision, progress, u
     onDirty((previous) => { const next = { ...previous }; delete next[assessment]; return next; });
   }, [assessment, onDirty]);
   return <section className="assessment-capture" aria-label={`${assessment} findings capture`}>
-    <h3>Capture findings</h3>
+    <h3>{showDebug ? "Capture findings" : "Recordings"}</h3>
     {!urgent && progress?.decision === "ASK" && progress.question && <div className="capture-question">
       <strong>Next observation</strong><p>{progress.question.text}</p>
     </div>}
@@ -103,12 +108,12 @@ export function AssessmentCapture({ assessment, encounter, revision, progress, u
       : voice.audioState === "stopping" ? "Finishing recording..." : "Recording. Stop when finished."
       : "Stop to process automatically. Continue to any section while processing."} Maximum 60 seconds / 5 MB.</p>
     <p className="capture-meta">Recording does not complete an assessment. Review or correct the answers on the assessment, then confirm findings.</p>
-    <div className="capture-jobs">{jobs.map((job) => <CaptureJobCard key={job.id} job={job} reviewDisabled={reviewDisabled} voice={voice} onReviewJob={onReviewJob} />)}</div>
+    <div className="capture-jobs">{jobs.map((job) => <CaptureJobCard key={job.id} job={job} reviewDisabled={reviewDisabled} voice={voice} onReviewJob={onReviewJob} showDebug={showDebug} />)}</div>
 
     <details className="capture-details typed-fallback">
       <summary>Type a finding instead</summary>
       <p>Optional fallback if the microphone or ASR fails. Language understanding still needs connectivity, followed by explicit review.</p>
-      {draft.context?.question && <div className="capture-source-question"><strong>Question when typing began</strong><p>{draft.context.question.text}</p><code>{draft.context.question.field}</code></div>}
+      {draft.context?.question && <div className="capture-source-question"><strong>Question when typing began</strong><p>{draft.context.question.text}</p>{showDebug && <code>{draft.context.question.field}</code>}</div>}
       {draft.context && draft.context.revision !== revision && <p className="capture-warning">Accepted findings changed while you were typing. This draft keeps its original question and encounter context; it will not answer the new question.</p>}
       {draft.context === null && <p className="capture-meta">Typing began before the encounter was ready. This draft will use the latest accepted encounter without binding to a newly appearing question.</p>}
       <label htmlFor={`capture-text-${assessment}`}>Typed finding for this section</label>

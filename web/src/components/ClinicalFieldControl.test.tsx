@@ -1,13 +1,40 @@
-import { Children, isValidElement, type KeyboardEvent, type ReactElement, type ReactNode } from "react";
+import { Children, isValidElement, type KeyboardEvent, type ReactElement, type ReactNode, type RefObject } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { ClinicalFieldControl, type ClinicalFieldControlProps } from "./ClinicalFieldControl";
+
+type Hooks = { cursor: number; values: unknown[] };
+const runtime = vi.hoisted(() => ({ current: null as Hooks | null }));
+vi.mock("react", async (importOriginal) => {
+  const react = await importOriginal<typeof import("react")>();
+  return { ...react,
+    useState(initial: unknown) {
+      const hooks = runtime.current;
+      if (!hooks) return react.useState(initial);
+      const index = hooks.cursor++;
+      if (!(index in hooks.values)) hooks.values[index] = initial;
+      return [hooks.values[index], (next: unknown) => { hooks.values[index] = next; }];
+    },
+    useRef(initial: unknown) {
+      const hooks = runtime.current;
+      if (!hooks) return react.useRef(initial);
+      const index = hooks.cursor++;
+      if (!(index in hooks.values)) hooks.values[index] = { current: initial };
+      return hooks.values[index];
+    },
+  };
+});
 
 type ElementProps = {
   children?: ReactNode;
   role?: string;
   value?: unknown;
   disabled?: boolean;
+  hidden?: boolean;
+  id?: string;
+  className?: string;
+  ref?: RefObject<HTMLInputElement | null>;
+  onBlur?: () => void;
   "aria-checked"?: boolean;
   onClick?: () => void;
   onChange?: (event: { target: { value: string } }) => void;
@@ -15,7 +42,7 @@ type ElementProps = {
 };
 
 // Capture the rendered elements under React's hook dispatcher, without a DOM dependency.
-function renderControl(overrides: Partial<ClinicalFieldControlProps> = {}) {
+function renderControl(overrides: Partial<ClinicalFieldControlProps> = {}, hooks?: Hooks) {
   const props: ClinicalFieldControlProps = {
     descriptor: { path: "respiratory.wheezing", label: "Wheezing", kind: "boolean", nullable: true, assessments: ["respiratory"] },
     value: null, acceptedValue: null, pending: false, source: "accepted", onChange: vi.fn(),
@@ -31,12 +58,16 @@ function renderControl(overrides: Partial<ClinicalFieldControlProps> = {}) {
     });
   }
   function Capture() {
-    const tree = ClinicalFieldControl(props);
-    visit(tree);
-    return tree;
+    if (hooks) { hooks.cursor = 0; runtime.current = hooks; }
+    try {
+      const tree = ClinicalFieldControl(props);
+      visit(tree);
+      return tree;
+    } finally { runtime.current = null; }
   }
   const html = renderToStaticMarkup(<Capture />);
-  return { html, elements, onChange: props.onChange };
+  return { html, elements, onChange: props.onChange,
+    rerender: (next: Partial<ClinicalFieldControlProps> = {}) => renderControl({ ...props, ...next }, hooks) };
 }
 
 describe("ClinicalFieldControl", () => {
@@ -188,6 +219,85 @@ describe("ClinicalFieldControl", () => {
     const { elements } = renderControl({
       descriptor: { path: "test", label: "Observation", kind, nullable: true, assessments: ["danger"] },
       disabled: true, onKeep: vi.fn(),
+    });
+    expect(elements.filter((element) => element.type === "input" || element.type === "button").every((element) => element.props.disabled)).toBe(true);
+  });
+
+  it.each([undefined, null, 0, 12, "12."])("shows a compact value %j with a mounted, hidden editor", (value) => {
+    const { html, elements, onChange } = renderControl({ compact: true, value,
+      descriptor: { path: "patient_facts.age_months", label: "Age", kind: "integer", nullable: true, assessments: ["danger"], unit: "months", minimum: 0, maximum: 59 },
+    });
+    expect(elements.find((element) => element.props.className === "clinical-field-control__number")?.props.hidden).toBe(true);
+    expect(elements.find((element) => element.type === "input")?.props.value).toBe(value == null ? "" : String(value));
+    expect(html).toContain(`>${value == null ? "Not recorded" : value}</button><span>months</span>`);
+    expect(html).toContain(`aria-label="Edit Age: ${value == null ? "Not recorded" : value} months"`);
+    expect(html).not.toContain("Minimum:");
+    expect(html).not.toContain("-bounds");
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it.each(["", "-", "1.", "12x", "0", "37.5"])("opens, focuses, and closes raw %j without accepting or losing it across layouts", (raw) => {
+    let view = renderControl({ compact: true, raw, value: 37,
+      descriptor: { path: "fever.temperature_c", label: "Temperature", kind: "number", nullable: true, unit: "C", assessments: ["fever"] },
+    }, { cursor: 0, values: [] });
+    const onChange = view.onChange;
+    const input = () => view.elements.find((element) => element.type === "input")!;
+    const editor = () => view.elements.find((element) => element.props.className === "clinical-field-control__number")!;
+    const valueButton = () => view.elements.find((element) => element.props.className === "clinical-field-control__value")!.props.children;
+    const ref = input().props.ref!;
+    const focus = vi.fn(() => {
+      view = view.rerender();
+      expect(editor().props.hidden).toBe(false);
+    });
+    ref.current = { focus } as unknown as HTMLInputElement;
+    const pill = Children.toArray(valueButton()).find((node) => isValidElement(node) && node.type === "button") as ReactElement<ElementProps>;
+    expect(pill.props.children).toBe(raw || "Not recorded");
+    pill.props.onClick?.();
+    expect(focus).toHaveBeenCalledOnce();
+    expect(input().props.ref).toBe(ref);
+    expect(view.html).toContain('type="text" inputMode="decimal"');
+    input().props.onChange?.({ target: { value: raw } });
+    expect(onChange).toHaveBeenCalledExactlyOnceWith(raw);
+    vi.mocked(onChange).mockClear();
+    const preventDefault = vi.fn();
+    input().props.onKeyDown?.({ key: "Enter", preventDefault } as unknown as KeyboardEvent<HTMLButtonElement>);
+    expect(preventDefault).toHaveBeenCalledOnce();
+    expect(input().props.onBlur).toBeUndefined();
+    view.elements.find((element) => element.props.children === "Done")!.props.onClick?.();
+    view = view.rerender();
+    expect(editor().props.hidden).toBe(true);
+    expect(input().props.value).toBe(raw);
+    view = view.rerender({ compact: false });
+    expect(editor().props.hidden).toBe(false);
+    expect(input().props.value).toBe(raw);
+    expect(input().props.ref).toBe(ref);
+    expect(view.html).not.toContain("Done");
+    expect(view.html).not.toContain("clinical-field-control__value");
+    expect(input().props.onKeyDown).toBeUndefined();
+    view = view.rerender({ compact: true });
+    expect(editor().props.hidden).toBe(true);
+    expect(input().props.value).toBe(raw);
+    expect(onChange).not.toHaveBeenCalled();
+    view.elements.find((element) => element.type === "button" && element.props.children === "Not assessed")!.props.onClick?.();
+    expect(onChange).toHaveBeenCalledExactlyOnceWith(null);
+  });
+
+  it("keeps compact validation and required choices accessible without dangling descriptions", () => {
+    const { html } = renderControl({ compact: true, raw: "40x", value: 40, acceptedValue: 40, pending: true, source: "worker",
+      error: "Enter a whole number.", requiresChoice: true,
+      descriptor: { path: "respiratory.respiratory_rate", label: "Respiratory rate", kind: "integer", nullable: true, unit: "breaths/min", minimum: 0, assessments: ["respiratory"] },
+    });
+    expect(html).toContain('>40x</button><span>breaths/min</span>');
+    expect(html).toContain('role="alert">Enter a whole number.');
+    expect(html).toContain("Choose an answer to confirm");
+    for (const match of html.matchAll(/aria-(?:describedby|labelledby|controls)="([^"]+)"/g)) {
+      for (const id of match[1].split(" ")) expect(html).toContain(`id="${id}"`);
+    }
+  });
+
+  it("disables compact numeric actions", () => {
+    const { elements } = renderControl({ compact: true, disabled: true,
+      descriptor: { path: "age", label: "Age", kind: "integer", nullable: true, assessments: ["danger"] },
     });
     expect(elements.filter((element) => element.type === "input" || element.type === "button").every((element) => element.props.disabled)).toBe(true);
   });

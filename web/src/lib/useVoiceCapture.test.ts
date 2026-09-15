@@ -93,6 +93,7 @@ function setup(encounter: Record<string, unknown> = {}) {
   const session: Session = {
     version: 1, encounter: structuredClone(encounter), attempted: [], revision: 10, interactions: [],
     evaluation: evaluation(structuredClone(encounter)), hasData: true, busy: false, error: "", storageHint: "", ready: true,
+    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
     currentRevision: () => session.revision,
     interruptedCount: 0, acknowledgeInterrupted: vi.fn(),
     snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation, interactions: session.interactions }),

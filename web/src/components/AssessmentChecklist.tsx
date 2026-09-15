@@ -25,6 +25,7 @@ interface AssessmentChecklistProps {
   workingEncounter?: Record<string, unknown>;
   pendingFieldPaths?: string[];
   requiredFieldPaths?: string[];
+  ageReview?: ReactNode;
 }
 
 const methodOrder: AssessmentMethod[] = ["ASK", "LOOK / LISTEN / FEEL", "MEASURE", "IF INDICATED"];
@@ -38,7 +39,7 @@ function stateLabel(state: ChecklistState): string {
 export function AssessmentChecklist({
   encounter, result, progress, pendingAssessments = [], captureStatuses, guideStatus, tools,
   renderCapture, mobileView, mobileHome, mobileFocus, renderField, renderSectionReview,
-  workingEncounter, pendingFieldPaths, requiredFieldPaths,
+  workingEncounter, pendingFieldPaths, requiredFieldPaths, ageReview,
 }: AssessmentChecklistProps) {
   const accepted = buildChecklist(encounter, result);
   const acceptedFields = renderField ? buildChecklist(encounter, result, { interactive: true }) : accepted;
@@ -62,8 +63,6 @@ export function AssessmentChecklist({
         <p>Follow each prompt while assessing the child. Capture findings beside the procedure, then explicitly review and apply them.</p>
       </header>
 
-      <div className="mobile-only mobile-home">{mobileHome}</div>
-
       {guideStatus}
 
       <div className="assessment-scope">
@@ -74,7 +73,10 @@ export function AssessmentChecklist({
             {accepted.age.value}
           </span>
         )}
+        {ageReview}
       </div>
+
+      <div className="mobile-only mobile-home">{mobileHome}</div>
 
       <div className="mobile-only mobile-focus-header">{mobileFocus}</div>
 
@@ -152,7 +154,8 @@ export function AssessmentChecklist({
                         return (
                         <li className={`assessment-item assessment-item--${annotation?.state ?? "unknown"}`} key={item.id}>
                           <div className="assessment-item__instruction">
-                            {item.instruction}
+                            {id === "danger" && <span className="danger-compact-label">{item.label}</span>}
+                            <span className="assessment-full-instruction">{item.instruction}</span>
                             {item.conditional && (
                               <span className="assessment-item__conditional">Conditional if yes</span>
                             )}

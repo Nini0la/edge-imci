@@ -133,3 +133,20 @@
 .app-frame--mobile .mobile-assessment-home .clinical-field-control__error { color: #882c25; }
 .app-frame--mobile .mobile-assessment-home .clinical-field-control__keep { color: #205236; }
 .app-frame--mobile .mobile-assessment-home .capture-meta { color: #4e6456; }
+
+.clinical-field-control [hidden] { display: none !important; }
+.clinical-field-control__value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.clinical-field-control[data-compact="true"] .clinical-field-control__value button {
+  flex: 0 1 auto;
+  min-height: 44px;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
