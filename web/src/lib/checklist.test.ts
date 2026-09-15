@@ -198,4 +198,73 @@ describe("buildChecklist", () => {
       "fever.mouth_ulcers_deep_or_extensive",
     ].forEach((path) => expect(itemIds.has(path), path).toBe(true));
   });
+
+  it("collapses unknown entries in interactive mode without hiding universal danger checks", () => {
+    const checklist = buildChecklist(undefined, null, { interactive: true });
+    expect(checklist.sections.find((section) => section.id === "danger")?.items).toHaveLength(5);
+    for (const section of checklist.sections.filter((section) => section.id !== "danger")) {
+      expect(section.items).toHaveLength(1);
+      expect(section.items[0].state).toBe("unknown");
+      expect(section.items[0].conditional).toBe(false);
+    }
+  });
+
+  it("reveals the normal positive branch from the working preview", () => {
+    const respiratory = buildChecklist({
+      patient_facts: { has_cough_or_difficult_breathing: true },
+      respiratory: { wheezing: true, child_calm: true, chest_indrawing: true },
+    }, null, { interactive: true }).sections.find((section) => section.id === "respiratory")!;
+    expect(respiratory.items.map((item) => item.id)).toEqual(expect.arrayContaining([
+      "respiratory.cough_duration_days", "respiratory.respiratory_rate", "respiratory.bronchodilator_trial_completed",
+    ]));
+    expect(respiratory.items.map((item) => item.id)).not.toContain("respiratory.oxygen_saturation_percent");
+    expect(respiratory.items.every((item) => !item.conditional)).toBe(true);
+  });
+
+  it.each([null, false, true])("retains hidden known and pending observations with entry %s", (entry) => {
+    const respiratory = buildChecklist({
+      patient_facts: { has_cough_or_difficult_breathing: entry },
+      respiratory: {
+        oxygen_saturation_percent: 0,
+        post_bronchodilator_chest_indrawing: false,
+        post_bronchodilator_child_calm: null,
+      },
+    }, null, {
+      interactive: true,
+      pendingFields: ["respiratory.post_bronchodilator_child_calm"],
+    }).sections.find((section) => section.id === "respiratory")!;
+    expect(respiratory.items.map((item) => item.id)).toEqual(expect.arrayContaining([
+      "respiratory.oxygen_saturation_percent", "respiratory.post_bronchodilator_chest_indrawing",
+      "respiratory.post_bronchodilator_child_calm",
+    ]));
+    if (entry !== true) expect(respiratory.items).toHaveLength(4);
+  });
+
+  it.each([null, false])("does not reopen unknown required children when entry is %s", (entry) => {
+    const respiratory = buildChecklist({
+      patient_facts: { has_cough_or_difficult_breathing: entry },
+      respiratory: { child_calm: null, post_bronchodilator_child_calm: null },
+    }, null, {
+      interactive: true,
+      requiredFields: ["respiratory.child_calm", "respiratory.post_bronchodilator_child_calm"],
+    }).sections.find((section) => section.id === "respiratory")!;
+    expect(respiratory.items.map((item) => item.id)).toEqual(["patient_facts.has_cough_or_difficult_breathing"]);
+  });
+
+  it("forces server-required post-bronchodilator definitions despite local conditions", () => {
+    const requiredFields = [
+      "respiratory.post_bronchodilator_respiratory_rate",
+      "respiratory.post_bronchodilator_child_calm",
+      "respiratory.post_bronchodilator_breaths_counted_one_minute",
+      "respiratory.post_bronchodilator_chest_indrawing",
+      "respiratory.hiv_exposed_or_infected",
+    ];
+    const encounter = { patient_facts: { has_cough_or_difficult_breathing: true } };
+    const ids = (interactive: boolean) => buildChecklist(encounter, null, { interactive, requiredFields })
+      .sections.find((section) => section.id === "respiratory")!.items.map((item) => item.id);
+    expect(ids(true)).toEqual(expect.arrayContaining(requiredFields));
+    expect(ids(false)).not.toEqual(expect.arrayContaining(requiredFields));
+    expect(ids(true)).not.toContain("respiratory.oxygen_saturation_percent");
+    expect(new Set(ids(true)).size).toBe(ids(true).length);
+  });
 });

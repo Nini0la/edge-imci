@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId, Transcription } from "../types";
+import type { ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId, FieldDescriptor, Transcription } from "../types";
 import type { extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import type { createAudioCapture } from "./audio";
 import type { useAssessmentSession } from "./useAssessmentSession";
 import { createVoiceCapture } from "./useVoiceCapture";
+import { effectiveChanges, guideResolutions, pendingEvidenceVersion } from "./guideEvidence";
 
 type Session = ReturnType<typeof useAssessmentSession>;
 type State = Parameters<Parameters<typeof createVoiceCapture>[0]["onChange"]>[0];
@@ -296,7 +297,7 @@ describe("voice capture controller", () => {
     await h.capture.accept(id, { "ear.ear_pain": "replace" });
     expect(h.accept).not.toHaveBeenCalled();
     expect(h.prepare).toHaveBeenNthCalledWith(2, "ear", h.session.encounter, original.changes, expect.any(AbortSignal));
-    expect(h.prepare.mock.calls[1][2]).toBe(original.changes);
+    expect(h.prepare.mock.calls[1][2]).toEqual(original.changes);
     const newRows = original.changes.map((change) => ({ ...change, review_changed: true }));
     h.reviews[1].resolve({ changes: newRows, changed_fields: ["ear.discharge_duration_days"] }); await pending;
     expect(h.job(id)).toMatchObject({ status: "review", reviewRevision: 12, reviewVersion: 2,
@@ -339,7 +340,9 @@ describe("voice capture controller", () => {
     expect(h.accept).not.toHaveBeenCalled();
     await h.reviewed(id);
     const failed = h.capture.accept(id, resolutions);
-    expect(h.accept).toHaveBeenCalledWith(h.job(id).candidate, resolutions, 11, h.job(id).trace);
+    expect(h.accept).toHaveBeenCalledWith(h.job(id).candidate, resolutions, 11, {
+      ...h.job(id).trace, original_candidate: h.job(id).originalCandidate, worker_edits: h.job(id).workerEdits,
+    });
     h.applies[0].resolve(false); await failed;
     expect(h.job(id)).toMatchObject({ status: "review", error: expect.stringContaining("not applied") });
     const retry = h.capture.accept(id, resolutions);
@@ -411,7 +414,7 @@ describe("voice capture controller", () => {
     for (const stage of ["asr", "extract", "review", "accept"] as const) {
       const h = setup();
       const id = h.record();
-      let pending: Promise<void> | undefined;
+      let pending: Promise<unknown> | undefined;
       if (stage !== "asr") { h.asr[0].resolve(transcript()); await flush(); }
       if (stage === "review" || stage === "accept") { h.extracts[0].resolve(candidate()); await flush(); }
       if (stage === "review") pending = h.capture.prepareReview(id);
@@ -562,6 +565,181 @@ describe("voice capture controller", () => {
     expect(h.job(wrong)).toMatchObject({ status: "failed", error: expect.stringContaining("wrong assessment") });
     expect(h.job(wrong).candidate).toBeUndefined();
     expect(h.prepare).not.toHaveBeenCalled();
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.session.encounter).toEqual({});
+  });
+});
+
+const pain: FieldDescriptor = { path: "ear.ear_pain", label: "Ear pain", kind: "boolean", nullable: true, assessments: ["ear"] };
+const rate: FieldDescriptor = { path: "respiratory.respiratory_rate", label: "Respiratory rate", kind: "integer", nullable: true,
+  minimum: 0, maximum: 200, unit: "breaths/min", assessments: ["respiratory"] };
+
+describe("direct structured field staging", () => {
+  it.each(["arrival", "discard"] as const)("rejects a stale pending-evidence fingerprint after %s even before React can rerender", async (event) => {
+    const h = setup();
+    const field = "danger_signs.lethargic_or_unconscious";
+    const id = await h.captured(candidate("danger", [row(field, true)]));
+    await h.reviewed(id);
+    const other = event === "discard" ? await h.captured(candidate("danger", [row(field, false)])) : undefined;
+    // Hold the immutable jobs snapshot a rendered hook would still have while the controller receives new events.
+    const renderedJobs = h.state().jobs;
+    const expected = { revision: h.session.revision, editVersion: h.job(id).editVersion ?? 0,
+      pendingEvidence: pendingEvidenceVersion(renderedJobs, [field], h.session.encounter) };
+    if (event === "arrival") await h.captured(candidate("danger", [row(field, false)]));
+    else h.capture.discard(other!);
+    expect(h.session.revision).toBe(expected.revision);
+    expect(h.job(id).editVersion ?? 0).toBe(expected.editVersion);
+    expect(pendingEvidenceVersion(renderedJobs, [field], h.session.encounter)).toBe(expected.pendingEvidence);
+    expect(pendingEvidenceVersion(h.state().jobs, [field], h.session.encounter)).not.toBe(expected.pendingEvidence);
+    await h.capture.accept(id, {}, expected);
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.job(id)).toMatchObject({ status: "review", error: expect.stringContaining("pending evidence") });
+    expect(h.session.encounter).toEqual({});
+  });
+
+  it("accepts a matching fingerprint through preparation and re-review metadata changes", async () => {
+    const h = setup();
+    const id = await h.captured();
+    const expected = { revision: h.session.revision, editVersion: 0,
+      pendingEvidence: pendingEvidenceVersion(h.state().jobs, [pain.path], h.session.encounter) };
+    await h.reviewed(id);
+    await h.reviewed(id, [{ ...row(), review_changed: false }]);
+    expect(h.job(id)).toMatchObject({ reviewVersion: 2, reviewRevision: expected.revision, reviewEditVersion: 0 });
+    expect(pendingEvidenceVersion(h.state().jobs, [pain.path], h.session.encounter)).toBe(expected.pendingEvidence);
+    const accepting = h.capture.accept(id, {}, expected);
+    expect(h.accept).toHaveBeenCalledOnce();
+    h.applies[0].resolve(true); await accepting;
+    expect(h.job(id).status).toBe("accepted");
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: true } });
+  });
+
+  it("stages without remote consents, ASR, extraction, recording, or changes to accepted evidence", async () => {
+    const h = setup();
+    h.capture.addText("ear", "Not consented", false);
+    const id = h.capture.stageField("ear", pain, false)!;
+    expect(id).toBeTruthy();
+    expect(h.job(id)).toMatchObject({ status: "captured", originalRevision: 10, question: undefined,
+      originalCandidate: { extraction_mode: "worker-review", changes: [] },
+      workerEdits: { [pain.path]: { value: false, previous: null, revision: 10 } }, editVersion: 1 });
+    expect(h.job(id).trace.source).toEqual({ submitted_text: "Worker-entered structured observations" });
+    expect(h.transcribe).not.toHaveBeenCalled();
+    expect(h.extract).not.toHaveBeenCalled();
+    expect(h.microphone.record).not.toHaveBeenCalled();
+    expect(h.prepare).not.toHaveBeenCalled();
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.session.encounter).toEqual({});
+    expect(h.session.revision).toBe(10);
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const accepting = h.capture.accept(id, guideResolutions(h.job(id)));
+    h.applies[0].resolve(true); await accepting;
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false } });
+    expect(h.session.interactions[0]).toMatchObject({ status: "accepted", original_candidate: { changes: [] },
+      worker_edits: { [pain.path]: { value: false } }, resolutions: { [pain.path]: "replace" } });
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it.each(["12x", "-", "1.5", "201"])("preserves invalid numeric text %j and blocks preparation and acceptance until corrected", async (raw) => {
+    const h = setup({ respiratory: { respiratory_rate: 42 } });
+    const id = h.capture.stageField("respiratory", rate, "42")!;
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    h.prepare.mockClear();
+    expect(h.capture.stageField("respiratory", rate, raw, id)).toBe(id);
+    expect(h.job(id).workerEdits![rate.path]).toMatchObject({ raw, error: expect.any(String) });
+    expect(h.job(id).workerEdits![rate.path].value).toBeUndefined();
+    expect(h.job(id)).toMatchObject({ status: "captured", editVersion: 2, reviewEditVersion: 1 });
+    await h.capture.prepareReview(id);
+    await h.capture.accept(id, { [rate.path]: "replace" });
+    expect(h.prepare).not.toHaveBeenCalled();
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.session.encounter).toEqual({ respiratory: { respiratory_rate: 42 } });
+    h.capture.stageField("respiratory", rate, "43", id);
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    expect(h.job(id).workerEdits![rate.path]).toMatchObject({ raw: "43", value: 43 });
+    expect(h.job(id).workerEdits![rate.path].error).toBeUndefined();
+    expect(h.job(id)).toMatchObject({ editVersion: 3, reviewEditVersion: 3, reviewVersion: 2 });
+  });
+
+  it.each([null, "", "42"])("retains manual unknown or same-value reconfirmation %j through an accepted receipt", async (input) => {
+    const h = setup({ respiratory: { respiratory_rate: 42 } });
+    const id = h.capture.stageField("respiratory", rate, input)!;
+    const value = input === "42" ? 42 : null;
+    expect(h.job(id).candidate!.changes).toHaveLength(1);
+    expect(h.job(id).candidate!.changes[0]).toMatchObject({ field: rate.path, previous: 42, value, worker_entered: true });
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const resolutions = guideResolutions(h.job(id));
+    expect(resolutions).toEqual({ [rate.path]: value === null ? "unknown" : "replace" });
+    const accepting = h.capture.accept(id, resolutions);
+    h.applies[0].resolve(true); await accepting;
+    expect(h.session.interactions[0]).toMatchObject({ status: "accepted", worker_edits: { [rate.path]: { value } },
+      candidate: { changes: [expect.objectContaining({ field: rate.path, value })] }, resolutions });
+    expect(h.job(id).changedFields).toEqual(value === null ? [rate.path] : []);
+  });
+
+  it("retains immutable ASR quotes and original uncertainty when a worker corrects null to known", async () => {
+    const h = setup();
+    const id = h.record();
+    h.asr[0].resolve(transcript("Maybe ear pain")); await flush();
+    const original = { ...candidate("ear", [{ ...row(pain.path, null), uncertain: true }], "Maybe ear pain"),
+      uncertainties: [{ field: pain.path, source_text: "Maybe ear pain", reason: "Unclear" }],
+      evidence_spans: [{ field: pain.path, source_text: "Maybe ear pain" }] };
+    h.extracts[0].resolve(original); await flush();
+    const before = structuredClone(original);
+    const source = structuredClone(h.job(id).trace.source);
+    Object.freeze(original.changes[0]); Object.freeze(original.changes); Object.freeze(original);
+    h.capture.stageField("ear", pain, true, id);
+    expect(h.job(id).candidate!.changes[0]).toMatchObject({ value: true, uncertain: false, worker_entered: true });
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const accepting = h.capture.accept(id, guideResolutions(h.job(id)));
+    h.applies[0].resolve(true); await accepting;
+    expect(original).toEqual(before);
+    expect(h.job(id).originalCandidate).toEqual(before);
+    expect(h.session.interactions[0]).toMatchObject({ status: "accepted", source, original_candidate: before,
+      worker_edits: { [pain.path]: { value: true } }, candidate: { uncertainties: before.uncertainties, evidence_spans: before.evidence_spans,
+        changes: [expect.objectContaining({ value: true, uncertain: false })] } });
+    expect(h.transcribe).toHaveBeenCalledOnce();
+    expect(h.extract).toHaveBeenCalledOnce();
+  });
+
+  it("keeps worker edits across re-review but invalidates old versions and choices against changed evidence", async () => {
+    const h = setup();
+    const id = h.capture.stageField("ear", pain, true)!;
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const edit = structuredClone(h.job(id).workerEdits);
+    h.commit({ ear: { ear_pain: false } });
+    await h.capture.accept(id, guideResolutions(h.job(id)));
+    expect(h.accept).not.toHaveBeenCalled();
+    const rows = effectiveChanges(h.job(id)).map((change) => ({ ...change, previous: false, conflict: true, review_changed: true }));
+    await h.reviewed(id, rows, [pain.path]);
+    expect(h.prepare.mock.calls[1][2]).toEqual(effectiveChanges(h.job(id)));
+    expect(h.job(id)).toMatchObject({ workerEdits: edit, reviewVersion: 2, reviewRevision: 11 });
+    expect(guideResolutions(h.job(id))).toEqual({});
+    await h.capture.accept(id, guideResolutions(h.job(id)));
+    expect(h.accept).not.toHaveBeenCalled();
+    h.capture.stageField("ear", pain, true, id);
+    expect(h.job(id)).toMatchObject({ status: "captured", editVersion: 2, reviewEditVersion: 1 });
+    await h.capture.accept(id, { [pain.path]: "replace" });
+    expect(h.accept).not.toHaveBeenCalled();
+    await h.reviewed(id, rows, [pain.path]);
+    expect(guideResolutions(h.job(id))).toEqual({ [pain.path]: "replace" });
+  });
+
+  it("aborts preparation when edited and ignores its late reply without cancelling a newer review", async () => {
+    const h = setup();
+    const id = h.capture.stageField("ear", pain, true)!;
+    const first = h.capture.prepareReview(id);
+    const oldRows = h.prepare.mock.calls[0][2];
+    h.capture.stageField("ear", pain, false, id);
+    expect(h.prepare.mock.calls[0][3]!.aborted).toBe(true);
+    const second = h.capture.prepareReview(id);
+    const currentRows = h.prepare.mock.calls[1][2];
+    h.reviews[0].resolve({ changes: oldRows, changed_fields: [] }); await first;
+    expect(h.job(id)).toMatchObject({ status: "preparing_review", editVersion: 2, reviewVersion: 0 });
+    expect(h.prepare.mock.calls[1][3]!.aborted).toBe(false);
+    h.capture.stageField("ear", pain, null, id);
+    expect(h.prepare.mock.calls[1][3]!.aborted).toBe(true);
+    h.reviews[1].resolve({ changes: currentRows, changed_fields: [] }); await second;
+    expect(h.job(id)).toMatchObject({ status: "captured", editVersion: 3, reviewVersion: 0,
+      candidate: { changes: [expect.objectContaining({ value: null })] } });
     expect(h.accept).not.toHaveBeenCalled();
     expect(h.session.encounter).toEqual({});
   });

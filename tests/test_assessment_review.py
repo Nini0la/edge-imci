@@ -154,10 +154,13 @@ def test_fake_flags_recomputed_and_shared_scope_preserved():
     ("ear.ear_pain", {}), ("ear.ear_pain", []),
 ])
 @pytest.mark.parametrize("key", ["value", "previous"])
-def test_candidate_and_original_previous_validate_against_canonical_shape(field, value, key):
+@pytest.mark.parametrize("choice", ["keep", "unknown", "replace"])
+def test_candidate_and_original_previous_validate_against_canonical_shape(field, value, key, choice):
     body = review_body(empty_encounter(), [{"field": field, "previous": None, "value": None, key: value}])
     with pytest.raises(AssessmentError):
         prepare_assessment_review(body)
+    with pytest.raises(AssessmentError):
+        accept_assessment({**body, "resolutions": {field: choice}})
 
 
 @pytest.mark.parametrize("changes", [
@@ -177,7 +180,23 @@ def test_invalid_review_rows_rejected_without_mutation(changes):
     before = deepcopy(body)
     with pytest.raises(AssessmentError):
         prepare_assessment_review(body)
+    with pytest.raises(AssessmentError):
+        accept_assessment(body)
     assert body == before
+
+
+@pytest.mark.parametrize("uncertain,value", [
+    (None, None), (0, None), (1, None), ("false", None), ([], None), ({}, None),
+    (True, False), (True, True),
+])
+@pytest.mark.parametrize("choice", ["keep", "unknown", "replace"])
+def test_accept_validates_uncertainty_even_for_discarded_rows(uncertain, value, choice):
+    field = "respiratory.wheezing"
+    body = review_body(empty_encounter(), [
+        {"field": field, "previous": None, "value": value, "uncertain": uncertain},
+    ], resolutions={field: choice})
+    with pytest.raises(AssessmentError, match="uncertainty"):
+        accept_assessment(body)
 
 
 @pytest.mark.parametrize("overrides", [

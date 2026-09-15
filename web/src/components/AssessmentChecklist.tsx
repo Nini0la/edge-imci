@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
+import type { MobileView } from "./MobileWorkspace";
 import type { AnalysisResult, AssessmentId, AssessmentProgress } from "../types";
 import { assessmentBadge } from "../lib/assessment";
 import {
@@ -16,6 +17,14 @@ interface AssessmentChecklistProps {
   guideStatus?: ReactNode;
   tools?: ReactNode;
   renderCapture?: (id: AssessmentId) => ReactNode;
+  mobileView?: MobileView;
+  mobileHome?: ReactNode;
+  mobileFocus?: ReactNode;
+  renderField?: (assessment: AssessmentId, field: string, labels?: { yes: string; no: string }) => ReactNode;
+  renderSectionReview?: (assessment: AssessmentId) => ReactNode;
+  workingEncounter?: Record<string, unknown>;
+  pendingFieldPaths?: string[];
+  requiredFieldPaths?: string[];
 }
 
 const methodOrder: AssessmentMethod[] = ["ASK", "LOOK / LISTEN / FEEL", "MEASURE", "IF INDICATED"];
@@ -26,8 +35,24 @@ function stateLabel(state: ChecklistState): string {
   return "Recorded";
 }
 
-export function AssessmentChecklist({ encounter, result, progress, pendingAssessments = [], captureStatuses, guideStatus, tools, renderCapture }: AssessmentChecklistProps) {
-  const checklist = buildChecklist(encounter, result);
+export function AssessmentChecklist({
+  encounter, result, progress, pendingAssessments = [], captureStatuses, guideStatus, tools,
+  renderCapture, mobileView, mobileHome, mobileFocus, renderField, renderSectionReview,
+  workingEncounter, pendingFieldPaths, requiredFieldPaths,
+}: AssessmentChecklistProps) {
+  const accepted = buildChecklist(encounter, result);
+  const acceptedFields = renderField ? buildChecklist(encounter, result, { interactive: true }) : accepted;
+  const acceptedItems = new Map(acceptedFields.sections.flatMap((section) => section.items.map((item) => [item.id, item] as const)));
+  const checklist = buildChecklist(workingEncounter ?? encounter, result, {
+    interactive: !!renderField,
+    pendingFields: [
+      ...(pendingFieldPaths ?? []),
+      // Retain accepted observations even when a proposal clears or closes their branch.
+      ...Array.from(acceptedItems.values()).filter((item) => item.state !== "unknown").map((item) => item.id),
+    ],
+    requiredFields: requiredFieldPaths,
+  });
+  const [desktopOpen, setDesktopOpen] = useState<Partial<Record<AssessmentId, boolean>>>({ danger: true });
 
   return (
     <aside className="panel checklist-panel" aria-label="IMCI assessment guide">
@@ -37,25 +62,40 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
         <p>Follow each prompt while assessing the child. Capture findings beside the procedure, then explicitly review and apply them.</p>
       </header>
 
+      <div className="mobile-only mobile-home">{mobileHome}</div>
+
       {guideStatus}
 
       <div className="assessment-scope">
         <span className="assessment-scope__label">First confirm</span>
         <span className="assessment-scope__instruction">{checklist.age.instruction}</span>
-        <span className={`assessment-value assessment-value--${checklist.age.state}`}>
-          {checklist.age.value}
-        </span>
+        {renderField ? renderField("danger", "patient_facts.age_months") : (
+          <span className={`assessment-value assessment-value--${accepted.age.state}`}>
+            {accepted.age.value}
+          </span>
+        )}
       </div>
+
+      <div className="mobile-only mobile-focus-header">{mobileFocus}</div>
 
       <div className="assessment-sections">
         {checklist.sections.map((section, sectionIndex) => {
           const id = section.id as AssessmentId;
-          const badge = assessmentBadge(progress?.[id]);
+           const acceptedBadge = assessmentBadge(progress?.[id]);
+           const badge = pendingAssessments.includes(id) && acceptedBadge.kind !== "urgent"
+             ? { label: "Awaiting confirmation", kind: "incomplete" } : acceptedBadge;
           return (
           <details
-            className={`assessment-section assessment-section--${section.state}`}
-            key={section.id}
-            open={section.id === "danger"}
+            className={`assessment-section assessment-section--${accepted.sections[sectionIndex].state}`}
+             key={section.id}
+             data-assessment={id}
+             open={mobileView ? mobileView.screen === "assessment" && mobileView.assessment === id : desktopOpen[id] ?? false}
+             onToggle={(event) => {
+               if (!mobileView) {
+                 const open = event.currentTarget.open;
+                 setDesktopOpen((previous) => previous[id] === open ? previous : { ...previous, [id]: open });
+               }
+             }}
           >
             <summary>
               <span className="assessment-section__number">{String(sectionIndex + 1).padStart(2, "0")}</span>
@@ -81,8 +121,8 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
               <div className="assessment-procedure">
               {section.inactive && (
                 <div className="assessment-inactive">
-                  <strong>No further checks triggered</strong>
-                  <span>The entry question was documented as absent.</span>
+                  <strong>{accepted.sections[sectionIndex].inactive ? "No further checks triggered" : "No further checks if this answer is confirmed"}</strong>
+                  <span>{accepted.sections[sectionIndex].inactive ? "The entry question was documented as absent." : "The No answer is pending confirmation. Retained findings still need review."}</span>
                 </div>
               )}
 
@@ -107,8 +147,10 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
                   <section className="assessment-method" key={method}>
                     <h3>{method}</h3>
                     <ol>
-                      {items.map((item) => (
-                        <li className={`assessment-item assessment-item--${item.state}`} key={item.id}>
+                      {items.map((item) => {
+                        const annotation = acceptedItems.get(item.id);
+                        return (
+                        <li className={`assessment-item assessment-item--${annotation?.state ?? "unknown"}`} key={item.id}>
                           <div className="assessment-item__instruction">
                             {item.instruction}
                             {item.conditional && (
@@ -117,18 +159,24 @@ export function AssessmentChecklist({ encounter, result, progress, pendingAssess
                           </div>
                           {item.note && <div className="assessment-item__note">{item.note}</div>}
                           <div className="assessment-item__observation">
-                            <span className="assessment-item__dot" aria-hidden="true" />
-                            <span>{stateLabel(item.state)}</span>
-                            <strong>{item.value}</strong>
+                            {renderField ? (item.booleanLabels ? renderField(id, item.id, item.booleanLabels) : renderField(id, item.id)) : (
+                              <>
+                                <span className="assessment-item__dot" aria-hidden="true" />
+                                <span>{stateLabel(annotation?.state ?? "unknown")}</span>
+                                <strong>{annotation?.value ?? "Unknown"}</strong>
+                              </>
+                            )}
                           </div>
                         </li>
-                      ))}
+                        );
+                      })}
                     </ol>
                   </section>
                 );
               })}
 
               <div className="assessment-source">WHO IMCI Chart Booklet, page {section.sourcePage}</div>
+              {renderSectionReview?.(id)}
               </div>
               {renderCapture && <div className="assessment-evidence">{renderCapture(id)}</div>}
             </div>

@@ -1,6 +1,6 @@
 import type {
   AnalysisResult, ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId,
-  ExampleCase, ExtractionPreview, Resolutions, Transcription,
+  ClinicalSchema, ExampleCase, ExtractionPreview, Resolutions, Transcription,
 } from "../types";
 import { maxAudioBytes } from "./audio";
 
@@ -21,6 +21,10 @@ export async function fetchExamples(signal?: AbortSignal): Promise<ExampleCase[]
   const response = await fetch("/api/examples", { signal });
   const payload = await readJson<{ examples: ExampleCase[] }>(response);
   return payload.examples;
+}
+
+export async function fetchClinicalSchema(signal?: AbortSignal): Promise<ClinicalSchema> {
+  return readJson<ClinicalSchema>(await fetch("/api/assessment/schema", { signal }));
 }
 
 export async function analyzeFindings(findings: string): Promise<AnalysisResult> {

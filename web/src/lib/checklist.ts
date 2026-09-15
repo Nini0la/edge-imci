@@ -13,6 +13,7 @@ export interface ChecklistItem {
   state: ChecklistState;
   conditional: boolean;
   note?: string;
+  booleanLabels?: { yes: string; no: string };
 }
 
 export interface AssessmentGuidance {
@@ -22,7 +23,7 @@ export interface AssessmentGuidance {
 }
 
 export interface ChecklistSection {
-  id: string;
+  id: AssessmentId;
   label: string;
   prompt: string;
   sourcePage: number;
@@ -47,7 +48,7 @@ type FieldDefinition = {
 };
 
 type SectionDefinition = {
-  id: string;
+  id: AssessmentId;
   label: string;
   prompt: string;
   sourcePage: number;
@@ -627,7 +628,10 @@ function displayValue(value: unknown, field: FieldDefinition): string {
 export function buildChecklist(
   encounter?: Record<string, unknown>,
   result?: AnalysisResult | null,
+  options: { interactive?: boolean; pendingFields?: string[]; requiredFields?: string[] } = {},
 ): { age: ChecklistItem; sections: ChecklistSection[] } {
+  const pendingFields = new Set(options.pendingFields);
+  const requiredFields = new Set(options.requiredFields);
   const urgentLabels = new Set(
     result?.is_urgent
       ? result.decision_trace.flatMap((trace) => trace.findings.map(([label]) => label))
@@ -649,6 +653,7 @@ export function buildChecklist(
       state,
       conditional,
       note: field.note,
+      booleanLabels: field.trueLabel && field.falseLabel ? { yes: field.trueLabel, no: field.falseLabel } : undefined,
     };
   };
 
@@ -659,6 +664,17 @@ export function buildChecklist(
     );
     const inactive = Boolean(encounter && section.entryPath && entryValue === false);
     const fields = section.fields.filter((field) => {
+      if (options.interactive) {
+        const value = getValue(encounter, field.path);
+        if (field.path === section.entryPath || value != null || pendingFields.has(field.path)) return true;
+        // A negative/unknown entry must not reopen stale required follow-ups.
+        if (unresolvedEntry || inactive) return false;
+        // Use the supplied backend IDs, including definitions hidden by local predicates.
+        if (requiredFields.has(field.path)) return true;
+        if (field.whenPredicate) return field.whenPredicate(encounter ?? {});
+        if (!field.when) return true;
+        return getValue(encounter, field.when[0]) === field.when[1];
+      }
       if (!encounter) return true;
       if (unresolvedEntry) return true;
       if (field.whenPredicate) return field.whenPredicate(encounter);

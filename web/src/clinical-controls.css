@@ -1,0 +1,135 @@
+.clinical-field-control {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  color: #e1e4e2;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.clinical-field-control__heading,
+.clinical-field-control__number,
+.clinical-field-control__choices {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.clinical-field-control__heading {
+  justify-content: space-between;
+}
+
+.clinical-field-control__source {
+  padding: 2px 6px;
+  border: 1px solid #475c57;
+  border-radius: 3px;
+  color: #a4d7cc;
+  font-size: 11px;
+}
+
+.clinical-field-control button,
+.clinical-field-control input {
+  min-height: 44px;
+  min-width: 44px;
+  max-width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #646d69;
+  border-radius: 4px;
+  background: #25292d;
+  color: #eef0ef;
+  font: inherit;
+}
+
+.clinical-field-control input {
+  width: 8ch;
+  flex: 1 1 8ch;
+}
+
+.clinical-field-control button {
+  cursor: pointer;
+  white-space: normal;
+}
+
+.clinical-field-control button[aria-checked="true"] {
+  color: #c9fff0;
+  border-color: #7ecdc4;
+  background: #17463e;
+  box-shadow: inset 0 0 0 1px #7ecdc4;
+}
+
+.clinical-field-control button:hover:not(:disabled) {
+  border-color: #a4d7cc;
+}
+
+.clinical-field-control button:focus-visible,
+.clinical-field-control input:focus-visible {
+  outline: 3px solid #e2b65f;
+  outline-offset: 3px;
+}
+
+.clinical-field-control input[aria-invalid="true"] {
+  border-color: #ffaaa5;
+}
+
+.clinical-field-control button:disabled,
+.clinical-field-control input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.clinical-field-control .clinical-field-control__keep {
+  justify-self: start;
+  color: #a4d7cc;
+  background: transparent;
+}
+
+.clinical-field-control__help,
+.clinical-field-control__warning,
+.clinical-field-control__error {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+
+.clinical-field-control__help { color: #b7bcba; }
+.assessment-item__observation .clinical-field-control__heading label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.clinical-field-control[data-pending="true"] .clinical-field-control__source { color: #f0c36c; border-color: #a88b57; }
+.clinical-field-control button[aria-checked="true"][data-unknown="true"] { background: #343a39; color: #d6dcda; border-color: #87958e; box-shadow: none; }
+.clinical-field-control__warning { color: #f0c36c; }
+.clinical-field-control__error { color: #ffaaa5; }
+
+.assessment-scope > [data-guide-field] {
+  grid-column: 1 / -1;
+  margin-top: 6px;
+}
+
+[data-guide-field] { width: 100%; min-width: 0; }
+.guide-review { margin-top: 16px; padding: 14px; border: 1px solid #48635f; border-radius: 3px; color: #e1e4e2; font-size: 13px; line-height: 1.5; }
+.guide-review h3 { margin: 0; font-size: 14px; color: #a4d7cc; }
+.guide-review button { min-height: 44px; padding: 9px 11px; max-width: 100%; border: 1px solid #7ecdc4; border-radius: 3px; background: #17463e; color: #eef0ef; font: inherit; cursor: pointer; }
+.guide-review button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px #7ecdc4; }
+.guide-review button:disabled { opacity: 0.55; cursor: not-allowed; }
+.guide-review button:focus-visible { outline: 3px solid #e2b65f; outline-offset: 3px; }
+.app-frame--mobile .mobile-age { flex-wrap: wrap; }
+.app-frame--mobile .clinical-field-control input { font-size: 16px; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control { color: #203e30; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control__source { color: #205236; border-color: #a5bea0; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control__help { color: #4e6456; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control__warning { color: #76500e; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control__error { color: #882c25; }
+.app-frame--mobile .mobile-assessment-home .clinical-field-control__keep { color: #205236; }
+.app-frame--mobile .mobile-assessment-home .capture-meta { color: #4e6456; }

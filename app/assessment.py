@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import asdict
+import hashlib
+import json
 from typing import Any
 
 from app.extractor.base import ExtractionError, INVALID_AI_INTERPRETATION_MESSAGE
@@ -21,7 +23,9 @@ from edge_imci.generation.holistic_language_full import (
     ACQUISITION_SPECS,
     _CONTRADICTION_CLARIFICATIONS,
 )
-from edge_imci.model_io.encounter import model_target_to_holistic_encounter
+from edge_imci.model_io.encounter import (
+    MODEL_FACING_ENCOUNTER_SCHEMA_PATH, model_target_to_holistic_encounter,
+)
 from edge_imci.schemas.case import GeneralDangerSignObservations
 from edge_imci.schemas.holistic import (
     HolisticDiarrhoeaObservations,
@@ -122,6 +126,58 @@ def _in_scope(field: str, assessment: str) -> bool:
         or field == "patient_facts.age_months"
         or (assessment == "diarrhoea" and field == "danger_signs.lethargic_or_unconscious")
     )
+
+
+def assessment_schema() -> dict:
+    """Expose supported observation controls, not clinical requirements or rules."""
+    raw = MODEL_FACING_ENCOUNTER_SCHEMA_PATH.read_bytes()
+    schema = json.loads(raw)
+    fields = {}
+    units = {
+        "patient_facts.age_months": "months",
+        "respiratory.cough_duration_days": "days",
+        "diarrhoea.duration_days": "days",
+        "fever.fever_duration_days": "days",
+        "ear.ear_discharge_duration_days": "days",
+        "respiratory.respiratory_rate": "breaths per minute",
+        "respiratory.post_bronchodilator_respiratory_rate": "breaths per minute",
+        "respiratory.oxygen_saturation_percent": "%",
+        "fever.temperature_c": "deg C",
+    }
+
+    def visit(node: dict, path: str = "", nullable: bool = False) -> None:
+        if "$ref" in node:
+            visit(schema["$defs"][node["$ref"].removeprefix("#/$defs/")], path, nullable)
+        elif "oneOf" in node or "anyOf" in node:
+            branches = node.get("oneOf", node.get("anyOf", []))
+            for child in branches:
+                if child.get("type") != "null":
+                    visit(child, path, nullable or any(branch.get("type") == "null" for branch in branches))
+        elif "properties" in node:
+            for name, child in node["properties"].items():
+                visit(child, f"{path}.{name}" if path else name)
+        elif path in _SUPPORTED_FIELDS:
+            types = node["type"] if isinstance(node["type"], list) else [node["type"]]
+            kind = "boolean" if "boolean" in types else "enum" if "enum" in node else next(item for item in types if item != "null")
+            control = {
+                "path": path, "label": humanize_missing_element(path), "kind": kind,
+                "nullable": nullable or "null" in types,
+                "assessments": [assessment for assessment in ASSESSMENTS if _in_scope(path, assessment)],
+            }
+            if kind == "enum":
+                control["options"] = [
+                    {"value": value, "label": value.replace("_", " ").capitalize()}
+                    for value in node["enum"] if value is not None
+                ]
+            for bound in ("minimum", "maximum"):
+                if bound in node:
+                    control[bound] = node[bound]
+            if path in units:
+                control["unit"] = units[path]
+            fields[path] = control
+
+    visit(schema)
+    return {"schema_id": schema["$id"], "schema_sha256": hashlib.sha256(raw).hexdigest(), "fields": fields}
 
 
 def _question(field: str) -> dict[str, str]:
@@ -284,6 +340,19 @@ def extract_assessment(body: dict, language_provider: LanguageUnderstandingProvi
     }
 
 
+def _validate_review_values(changes: list[dict]) -> None:
+    candidate, original = deepcopy(_TEMPLATE), deepcopy(_TEMPLATE)
+    for change in changes:
+        uncertain = change.get("uncertain", False)
+        if not isinstance(uncertain, bool) or (uncertain and change["value"] is not None):
+            raise AssessmentError("Invalid observation uncertainty.")
+        _set(candidate, change["field"], deepcopy(change["value"]))
+        _set(original, change["field"], deepcopy(change["previous"]))
+    # Validate report-only shapes even when a row will be kept or made unknown.
+    _target(candidate)
+    _target(original)
+
+
 def prepare_assessment_review(body: dict) -> dict:
     """Rebase original candidate rows for review, without accepting any evidence.
 
@@ -297,7 +366,6 @@ def prepare_assessment_review(body: dict) -> dict:
     changes = body.get("changes")
     if not isinstance(changes, list) or len(changes) > len(_SUPPORTED_FIELDS):
         raise AssessmentError("Invalid evidence review.")
-    candidate, original = deepcopy(_TEMPLATE), deepcopy(_TEMPLATE)
     reviewed, changed_fields, seen = [], [], set()
     for change in changes:
         if not isinstance(change, dict) or not isinstance(change.get("field"), str):
@@ -308,10 +376,6 @@ def prepare_assessment_review(body: dict) -> dict:
         seen.add(field)
         value, previous = change["value"], _get(target, field)
         uncertain = change.get("uncertain", False)
-        if not isinstance(uncertain, bool) or (uncertain and value is not None):
-            raise AssessmentError("Invalid observation uncertainty.")
-        _set(candidate, field, deepcopy(value))
-        _set(original, field, deepcopy(change["previous"]))
         review_changed = type(previous) is not type(change["previous"]) or previous != change["previous"]
         if review_changed:
             changed_fields.append(field)
@@ -321,9 +385,7 @@ def prepare_assessment_review(body: dict) -> dict:
             "outside_assessment": not _in_scope(field, assessment),
             "uncertain": uncertain, "review_changed": review_changed,
         })
-    # Validate report-only shapes, never a speculative merge into latest evidence.
-    _target(candidate)
-    _target(original)
+    _validate_review_values(changes)
     return {"changes": reviewed, "changed_fields": changed_fields}
 
 
@@ -361,6 +423,9 @@ def accept_assessment(body: dict) -> dict:
         if choice != "keep":
             _set(target, field, None if choice == "unknown" else value)
             applied.add(field)
+    if not resolutions.keys() <= seen:
+        raise AssessmentError("Resolve only submitted observation fields.")
+    _validate_review_values(changes)
     # Keep acquisition episodes linked without altering observations or thresholds.
     # Same-valued explicit reconfirmations are retained in extraction for this check.
     for rate, *qualifiers in _MEASUREMENT_GROUPS:

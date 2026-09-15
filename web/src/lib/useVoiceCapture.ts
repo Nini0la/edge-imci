@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import type { ASRLanguage, AssessmentCandidate, AssessmentId, InteractionTrace, Resolutions, Transcription } from "../types";
+import type { ASRLanguage, AssessmentCandidate, AssessmentId, ClinicalValue, FieldDescriptor, InteractionTrace, Resolutions, Transcription, WorkerEdit } from "../types";
+import { clinicalValue, effectiveChanges, parseClinicalInput, pendingEvidenceVersion } from "./guideEvidence";
 import { extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import { createAudioCapture, type AudioState } from "./audio";
 import { assessmentIds, unresolvedChanges, workerRetraction } from "./assessment";
@@ -30,6 +31,9 @@ export interface CaptureJob {
   changedFields: string[];
   error?: string;
   trace: InteractionTrace;
+  workerEdits?: Record<string, WorkerEdit>;
+  editVersion?: number;
+  reviewEditVersion?: number;
 }
 
 interface CaptureState {
@@ -217,32 +221,47 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
     },
     async prepareReview(id: string) {
       const job = get(id);
-      if (!job?.originalCandidate || !["captured", "review"].includes(job.status)) return;
+      if (!job?.originalCandidate || !["captured", "review"].includes(job.status)
+        || Object.values(job.workerEdits ?? {}).some((edit) => edit.error)) return;
       const snapshot = getSession().snapshot();
       if (!snapshot.evaluation) return;
       const epoch = generation;
+      const editVersion = job.editVersion ?? 0;
       const controller = new AbortController();
       controllers.set(id, controller);
       update(id, { status: "preparing_review", error: undefined });
       try {
-        const review = await prepare(job.assessment, snapshot.encounter, job.originalCandidate.changes, controller.signal);
+        const review = await prepare(job.assessment, snapshot.encounter, effectiveChanges(job), controller.signal);
         if (!alive(id, epoch, controller.signal)) return;
+        if ((get(id)?.editVersion ?? 0) !== editVersion) return;
         if (snapshot.revision !== getSession().currentRevision()) {
           update(id, { status: "captured", error: "Accepted evidence changed during review preparation. Review this capture again." }); return;
         }
         update(id, { status: "review", reviewRevision: snapshot.revision, reviewVersion: job.reviewVersion + 1,
+          reviewEditVersion: editVersion,
           changedFields: review.changed_fields, candidate: { ...job.originalCandidate, changes: review.changes } });
+        return get(id);
       } catch (error) {
         if (alive(id, epoch, controller.signal)) update(id, { status: "captured", error: error instanceof Error ? error.message : "Review could not be prepared. Try again." });
       } finally {
         if (controllers.get(id) === controller) controllers.delete(id);
       }
     },
-    async accept(id: string, resolutions: Resolutions) {
+    async accept(id: string, resolutions: Resolutions, expected?: { revision: number; editVersion: number; pendingEvidence?: string }) {
       const job = get(id);
       if (!job?.candidate || job.status !== "review") return;
       const session = getSession();
-      if (job.reviewRevision !== session.currentRevision() || unresolvedChanges(job.candidate.changes, resolutions).length) {
+      if (expected && (expected.revision !== session.currentRevision() || expected.editVersion !== (job.editVersion ?? 0))) {
+        update(id, { error: "The working answers changed. Review them and confirm again." }); return;
+      }
+      if (expected?.pendingEvidence !== undefined && expected.pendingEvidence !== pendingEvidenceVersion(
+        state.jobs, job.candidate.changes.map((row) => row.field), session.snapshot().encounter,
+      )) {
+        update(id, { error: "Another recording changed the pending evidence. Review the answers and confirm again." }); return;
+      }
+      if (job.reviewRevision !== session.currentRevision() || (job.reviewEditVersion ?? 0) !== (job.editVersion ?? 0)
+        || Object.values(job.workerEdits ?? {}).some((edit) => edit.error)
+        || unresolvedChanges(job.candidate.changes, resolutions).length) {
         update(id, { error: "Review against the latest encounter and resolve all choices before applying." }); return;
       }
       if (session.busy) { update(id, { error: "Another reviewed update is being applied. Try again shortly." }); return; }
@@ -252,7 +271,9 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
         ? { ...job.trace, id: crypto.randomUUID(), timestamp: new Date().toISOString(), status: "candidate" as const, pending: true, error: undefined }
         : job.trace;
       update(id, { status: "applying", error: undefined });
-      const accepted = await session.accept(job.candidate, resolutions, job.reviewRevision, attempt);
+      const accepted = await session.accept(job.candidate, resolutions, job.reviewRevision, {
+        ...attempt, original_candidate: job.originalCandidate, worker_edits: job.workerEdits,
+      });
       if (epoch !== generation || !get(id)) return;
       const receipt = session.snapshot().interactions?.find((entry) => entry.id === attempt.id);
       if (accepted) {
@@ -271,13 +292,38 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
       const nextId = crypto.randomUUID();
       const inputText = correctedText?.trim() ?? job.inputText;
       const next: CaptureJob = { ...job, id: nextId, status: "queued", inputText, originalCandidate: undefined,
-        candidate: undefined, reviewRevision: undefined, reviewVersion: 0, changedFields: [], error: undefined,
+        candidate: undefined, workerEdits: undefined, editVersion: 0, reviewEditVersion: undefined,
+        reviewRevision: undefined, reviewVersion: 0, changedFields: [], error: undefined,
         trace: { id: nextId, timestamp: new Date().toISOString(), assessment: job.assessment, status: "candidate", pending: true,
           capture_context: job.trace.capture_context, before_encounter: job.originalEncounter,
           source: { ...job.trace.source, submitted_text: inputText } } };
       discard(id); add(next); pump();
     },
     discard,
+    stageField(assessment: AssessmentId, descriptor: FieldDescriptor, input: ClinicalValue, jobId?: string, keep = false): string | undefined {
+      let job = jobId ? get(jobId) : undefined;
+      if (job?.status === "applying") return;
+      if (!job?.originalCandidate || !["captured", "review", "preparing_review"].includes(job.status)) {
+        const snapshot = getSession().snapshot();
+        job = newJob(assessment, { ...snapshot, question: undefined });
+        if (!job) return;
+        job.status = "captured";
+        job.originalCandidate = { assessment, input_text: "Worker-entered structured observations", extraction_mode: "worker-review", changes: [], warnings: [] };
+        job.candidate = job.originalCandidate;
+        job.trace.source = { submitted_text: job.originalCandidate.input_text };
+        add(job);
+      }
+      controllers.get(job.id)?.abort();
+      const snapshot = getSession().snapshot();
+      const edit: WorkerEdit = { ...parseClinicalInput(descriptor, input), label: descriptor.label,
+        previous: job.workerEdits?.[descriptor.path] ? job.workerEdits[descriptor.path].previous : clinicalValue(snapshot.encounter, descriptor.path), revision: snapshot.revision, keep };
+      const next = { ...job, workerEdits: { ...job.workerEdits, [descriptor.path]: edit }, editVersion: (job.editVersion ?? 0) + 1 };
+      const candidate = { ...job.originalCandidate!, changes: effectiveChanges(next) };
+      update(job.id, { workerEdits: next.workerEdits, editVersion: next.editVersion, status: "captured", candidate, error: undefined });
+      record(get(job.id)!, { status: "candidate", pending: true, original_candidate: job.originalCandidate,
+        candidate, worker_edits: next.workerEdits, error: undefined });
+      return job.id;
+    },
     retract(assessment: AssessmentId, fields: string[]) {
       const job = newJob(assessment);
       if (!job) return;

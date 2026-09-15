@@ -3,10 +3,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { useAssessmentSession } from "./lib/useAssessmentSession";
 import { useVoiceCapture, type CaptureJob } from "./lib/useVoiceCapture";
+import { useGuideEditor } from "./lib/useGuideEditor";
 import type { AnalysisResult, AssessmentEvaluation, AssessmentProgress, InteractionTrace } from "./types";
 
 vi.mock("./lib/useAssessmentSession", () => ({ useAssessmentSession: vi.fn() }));
 vi.mock("./lib/useVoiceCapture", () => ({ useVoiceCapture: vi.fn() }));
+vi.mock("./lib/useGuideEditor", () => ({ useGuideEditor: vi.fn() }));
 
 const analysis: AnalysisResult = {
   input_text: "", extraction_mode: "test", matched_case_id: null, structured_encounter: {},
@@ -46,8 +48,11 @@ beforeEach(() => {
   vi.mocked(useVoiceCapture).mockReturnValue({
     jobs: [], recordingId: null, audioState: "idle", error: "", startRecording: vi.fn(), stop: vi.fn(), cancelRecording: vi.fn(),
     addText: vi.fn().mockReturnValue(true), prepareReview: vi.fn().mockResolvedValue(undefined), accept: vi.fn().mockResolvedValue(undefined),
-    retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(),
+    retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn(),
   });
+  vi.mocked(useGuideEditor).mockImplementation((session) => ({ schema: null, schemaError: "", workingEncounter: session.encounter,
+    pendingFieldPaths: [], field: () => null, selectedJob: () => undefined, selectJob: vi.fn(), confirm: vi.fn().mockResolvedValue(undefined),
+    reset: vi.fn(), retrySchema: vi.fn() }));
 });
 
 describe("guide-first workspace", () => {

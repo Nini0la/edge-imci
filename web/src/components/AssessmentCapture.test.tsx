@@ -1,8 +1,8 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
-import { AssessmentCapture, CandidateReview } from "./AssessmentCapture";
+import { AssessmentCapture, CandidateDetails } from "./AssessmentCapture";
 import type { CaptureJob, useVoiceCapture } from "../lib/useVoiceCapture";
-import type { AssessmentCandidate, AssessmentChange, AssessmentProgress } from "../types";
+import type { AssessmentCandidate, AssessmentProgress } from "../types";
 
 const progress: AssessmentProgress = {
   status: "INCOMPLETE", decision: "ASK", missing_fields: ["ear.ear_pain", "ear.ear_discharge_reported"],
@@ -13,19 +13,19 @@ const candidate: AssessmentCandidate = { assessment: "ear", input_text: "Provide
 const voice: ReturnType<typeof useVoiceCapture> = {
   jobs: [], recordingId: null, audioState: "idle", error: "", startRecording: vi.fn(), stop: vi.fn(), cancelRecording: vi.fn(),
   addText: vi.fn().mockReturnValue(true), prepareReview: vi.fn().mockResolvedValue(undefined), accept: vi.fn().mockResolvedValue(undefined),
-  retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(),
+  retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn(),
 };
 const props = { assessment: "ear" as const, encounter: {}, revision: 2, progress, urgent: false,
-  voice, language: "yo" as const, consent: { audio: true, understanding: true }, reviewDisabled: false, ready: true, onDirty: vi.fn() };
+  voice, language: "yo" as const, consent: { audio: true, understanding: true }, reviewDisabled: false, ready: true, onDirty: vi.fn(), onReviewJob: vi.fn() };
 function job(status: CaptureJob["status"], overrides: Partial<CaptureJob> = {}): CaptureJob {
   return { id: "clip-1", assessment: "ear", language: "yo", status, originalEncounter: {}, originalRevision: 1,
-    reviewRevision: 2, reviewVersion: 1, changedFields: [], candidate,
+    reviewRevision: 2, reviewVersion: 1, changedFields: [], candidate, originalCandidate: candidate,
     inputText: "No", question: { field: "ear.ear_pain", text: "Original question about pain" },
     trace: { id: "trace", timestamp: "2026-09-14T12:00:00Z", assessment: "ear", status: "candidate", source: {} }, ...overrides };
 }
 
 describe("inline capture presentation", () => {
-  it("shows one server question, automatic processing instructions, and collapsed optional text fallback", () => {
+  it("shows the server question, automatic processing instructions, and collapsed text fallback", () => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} />);
     expect(html).toContain("Does the child have ear pain?");
     expect(html).not.toContain("ear.ear_discharge_reported");
@@ -35,8 +35,6 @@ describe("inline capture presentation", () => {
     expect(html).toMatch(/<details class="capture-details typed-fallback"><summary>Type a finding instead/);
     expect(html).toContain("Process typed finding");
     expect(html).not.toContain("Transcribe audio");
-    expect(html).not.toContain("Interpret section findings");
-    expect(html).not.toContain("editable transcript");
   });
 
   it.each(["queued", "transcribing", "extracting", "preparing_review", "applying"] as const)("keeps recording available during %s and session acceptance", (status) => {
@@ -45,7 +43,7 @@ describe("inline capture presentation", () => {
     expect(html).not.toMatch(/class="record-findings"[^>]*disabled/);
   });
 
-  it.each(["permission", "recording", "stopping"] as const)("disables another section's microphone only while the mic is %s", (audioState) => {
+  it.each(["permission", "recording", "stopping"] as const)("disables another section's microphone while the mic is %s", (audioState) => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, audioState, recordingId: "other" }} />);
     expect(html).toMatch(/class="record-findings"[^>]*disabled/);
   });
@@ -62,29 +60,23 @@ describe("inline capture presentation", () => {
     expect(html).not.toContain("Record findings");
   });
 
-  it("shows captured evidence without automatically opening review or applying it", () => {
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("captured")] }} />);
-    expect(html).toContain("Captured / awaiting review");
-    expect(html).toContain("Ear pain: <strong>false</strong>");
-    expect(html).toContain("Not accepted");
-    expect(html).toContain("Review captured findings");
+  it.each(["captured", "review", "preparing_review"] as const)("routes %s evidence to assessment controls without a parallel form", (status) => {
+    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job(status)] }} />);
+    expect(html).toContain("Findings populate the assessment controls");
+    expect(html).toContain("Review on assessment");
     expect(html).not.toContain("Apply reviewed findings");
+    expect(html).not.toContain("<select");
     expect(html).not.toMatch(/<details[^>]*open/);
   });
 
-  it("keeps failed jobs retryable and accepted evidence independently retractable", () => {
-    const html = renderToStaticMarkup(<AssessmentCapture {...props}
-      encounter={{ patient_facts: { age_months: 24, has_ear_problem: false }, ear: { ear_pain: true } }}
+  it("keeps failed jobs retryable without a duplicate retraction form", () => {
+    const html = renderToStaticMarkup(<AssessmentCapture {...props} encounter={{ ear: { ear_pain: true } }}
       voice={{ ...voice, jobs: [job("failed", { error: "Extraction unavailable" })] }} />);
     expect(html).toContain("Extraction unavailable");
     expect(html).toContain(">Retry</button>");
     expect(html).toContain(">Discard</button>");
-    expect(html).toContain('aria-label="Reviewed observations"');
-    expect(html).toContain("patient_facts.age_months");
-    expect(html).toContain("ear.ear_pain");
-    expect(html).toContain("Mark UNKNOWN (null)");
-    expect(html).toContain("Review selected retractions");
-    expect(html).not.toContain("Confirm selected retractions");
+    expect(html).not.toContain('type="checkbox"');
+    expect(html).not.toContain("Review selected retractions");
   });
 
   it("recommends recording again instead of retrying an empty failed capture", () => {
@@ -115,73 +107,35 @@ describe("inline capture presentation", () => {
   });
 });
 
-describe("explicit job review", () => {
-  it("discloses changed acceptance context even when no proposed fields changed", () => {
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("review", { changedFields: [], candidate: { ...candidate, changes: [] } })] }} />);
-    expect(html).toContain("Acceptance context changed since capture");
-    expect(html).toContain("original captured question remains binding");
-    expect(html).toContain("even if no proposed fields changed");
-    expect(html).toContain("Original question about pain");
-  });
-  it("displays the immutable captured question and source separately from the next server question", () => {
+describe("read-only source details", () => {
+  it("places the immutable captured question under Details, separate from the next server question", () => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} progress={{ ...progress, question: { field: "ear.ear_discharge_reported", text: "New question about discharge" } }}
       voice={{ ...voice, jobs: [job("review")] }} />);
     expect(html).toContain("New question about discharge");
-    expect(html).toContain("Question at capture");
     expect(html).toContain("Original question about pain");
-    expect(html).toContain("Captured source (read-only)</strong><q>No</q>");
-    expect(html).not.toContain("Provider-normalized input");
+    expect(html).toContain('Submitted input (read-only)</strong><p class="trace-text">No</p>');
+    expect(html.indexOf("Question at capture")).toBeGreaterThan(html.indexOf("Details: original source (read-only)"));
   });
 
-  it("disables stale Apply and asks for review again against the latest revision", () => {
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} revision={3} voice={{ ...voice, jobs: [job("review")] }} />);
-    expect(html).toContain("Accepted findings changed. Review again");
-    expect(html).toContain(">Review again</button>");
-    expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Apply reviewed findings/);
-    expect(html).toMatch(/<select[^>]*disabled/);
-  });
-
-  it("allows an ordinary proposal only through the final explicit Apply button", () => {
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("review")] }} />);
-    expect(html).toContain('<option value="replace" selected="">');
-    expect(html).toContain('<button type="button">Apply reviewed findings</button>');
-    expect(html).toContain("Not yet accepted. Check every value");
-  });
-
-  it.each([{ value: null, previous: null, uncertain: true }, { conflict: true }, { outside_assessment: true },
-    { review_changed: true, previous: false, value: false }, { review_changed: true, previous: null, value: null }] as Partial<AssessmentChange>[])("requires a fresh explicit choice for guarded rows: %j", (change) => {
-    const guarded = { ...candidate, changes: [{ ...candidate.changes[0], ...change }] };
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("review", { candidate: guarded })] }} />);
-    expect(html).toContain('<option value="" disabled="" selected="">Choose before applying');
-    expect(html).toMatch(/<button[^>]*disabled=""[^>]*>Apply reviewed findings/);
-    if (change.review_changed) expect(html).toContain("Reconfirm your choice even if the latest value matches");
-  });
-
-  it.each(["keep", "replace", "unknown"] as const)("preserves an explicit %s choice", (resolution) => {
-    const html = renderToStaticMarkup(<CandidateReview candidate={{ ...candidate, changes: [{ ...candidate.changes[0], review_changed: true }] }}
-      resolutions={{ "ear.ear_pain": resolution }} busy={false} onResolve={vi.fn()} />);
-    expect(html).toContain(`<option value="${resolution}" selected="">`);
-  });
-
-  it("keeps original ASR, optional correction, English rendering, and ambiguities distinct", () => {
+  it("keeps original ASR, English rendering, and ambiguities immutable and secondary", () => {
     const detailed: AssessmentCandidate = { ...candidate, english_rendering: "Optional English wording", candidate_encounter: { ear: { ear_pain: null } },
       understanding: { provider: "azure_openai", model: "demo-model", request_id: "req-1", prompt_version: "v1", usage: { input_tokens: 42 } },
       uncertainties: [{ field: null, source_text: "Original ambiguous words", reason: "Unclear speaker" }],
       evidence_spans: [{ field: "ear.ear_pain", source_text: "Source words" }] };
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("review", { candidate: detailed, inputText: "Worker edited words",
+    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("review", { originalCandidate: detailed,
       transcript: { transcript: "Immutable ASR words", provider: "intron", model: null, duration_seconds: 3 } })] }} />);
-    expect(html).toContain("Original ASR transcript (read-only)</strong><p class=\"trace-text\">Immutable ASR words");
-    expect(html).toContain("Submitted input (read-only)</strong><p class=\"trace-text\">Worker edited words");
-    expect(html).toMatch(/<details class="capture-details"><summary>Correct transcript if needed/);
-    expect(html).toContain("Process corrected transcript");
-    expect(html).toContain("Retrying/correcting this clip uses its original processing permission");
-    expect(html).toContain("record another clip instead");
-    expect(html).toContain("Optional English wording");
-    expect(html).not.toContain("Provider-normalized input");
-    expect(html).toContain("nonauthoritative");
-    expect(html).toContain("azure_openai / demo-model");
-    expect(html).toContain("Report-level uncertainty");
-    expect(html).toContain("Unclear speaker");
+    expect(html).toContain('Original ASR transcript (read-only)</strong><p class="trace-text">Immutable ASR words');
+    expect(html).not.toContain("Correct transcript if needed");
+    expect(html).not.toContain("Process corrected transcript");
+    for (const text of ["Optional English wording", "Provider-normalized input", "nonauthoritative", "azure_openai", "Report-level uncertainty", "Unclear speaker"]) {
+      expect(html).toContain(text);
+    }
     expect(html).not.toMatch(/<details[^>]*open/);
+  });
+
+  it("renders only read-only content for candidate details", () => {
+    const html = renderToStaticMarkup(<CandidateDetails candidate={candidate} />);
+    expect(html).toContain("Original candidate (not the accepted encounter)");
+    expect(html).not.toMatch(/<(input|select|textarea|button)/);
   });
 });

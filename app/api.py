@@ -16,7 +16,7 @@ from typing import Any
 from urllib.parse import unquote, urlparse
 
 from app.assessment import (
-    AssessmentError, accept_assessment, evaluate_assessment, extract_assessment,
+    AssessmentError, accept_assessment, assessment_schema, evaluate_assessment, extract_assessment,
     prepare_assessment_review,
 )
 from app.extractor.base import ExtractionError
@@ -74,6 +74,9 @@ def _handler_class(
                 return
             if path == "/api/examples":
                 self._send_json({"examples": examples})
+                return
+            if path == "/api/assessment/schema":
+                self._send_json(assessment_schema())
                 return
             if path.startswith("/api/"):
                 self._send_json({"error": "API route not found."}, HTTPStatus.NOT_FOUND)

@@ -72,6 +72,7 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | Document | Authority | Lifecycle | Relationship |
 |---|---|---|---|
 | `README.md` | `DOCUMENT_CONTROL` | `CURRENT` | This documentation index. |
+| `voice_first_structured_controls_decisions.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Owner-agreed `variant/intron` interaction/extraction decisions; does not change clinical rules or authorize clinical deployment. |
 | `glossary.md` | `REFERENCE` | `CURRENT` | Terminology aid only. |
 | `clinical_questions.md` | `REVIEW_RECORD` | `CURRENT` | Question/disposition index; canonical answers live in approved decision artifacts. |
 | `major_sick_child_expansion_map_v1.md` | `REVIEW_RECORD` | `CURRENT` | Source-derived engineering map; read with the approved decision set. |

@@ -2,6 +2,11 @@
 
 ## Intron voice variant
 
+The implemented interaction decisions are recorded in
+[`docs/voice_first_structured_controls_decisions.md`](../docs/voice_first_structured_controls_decisions.md):
+voice and direct answers use the existing guide's canonical fields, with explicit
+confirmation and no competing clinical form or requirements engine.
+
 This worktree is the long-lived `variant/intron` app variant, based on
 `feature/demo-workstation-integration`. The original assessment interface and
 deterministic clinical engine remain in place. The scoped demo uses **remote
@@ -80,9 +85,11 @@ disabled; the API is used only for transcription, not clinical post-processing.
 
 ### Assessment loop
 
-1. Start on **Assessment**. Select the recording language and explicitly consent
-   to both ASR and language understanding. Those settings are frozen for each new
-   clip; changing them does not relabel recordings already being processed.
+1. Start on **Assessment**. Existing guide rows are now controls: Yes / No /
+   Not assessed, schema enum choices, and numbers in explicit units. They work
+   without dictation or remote-service consent. For voice, select a language and
+   consent to ASR and language understanding before recording; those settings are
+   frozen for each clip.
 2. Use **Record findings** beside the relevant assessment, then **Stop**. Continue
    scrolling or record the next section immediately. Stop automatically queues
    transcription and structuring; there is no separate Transcribe button.
@@ -90,26 +97,89 @@ disabled; the API is used only for transcription, not clinical post-processing.
    at a time, with up to two ASR/understanding pipelines processing concurrently.
    Additional clips queue. Clips in the same or different sections are retained
    independently and may finish out of order without moving the current view.
-4. Use **Review captured findings** when ready. Review every proposed observation;
-   explicitly resolve conflicts, uncertainties, out-of-section values, and changes
-   since capture. The source question remains the one shown at recording time.
-   Transcripts, English rendering, and technical evidence are optional expandable
-   details. Correcting a transcript is not required; another voice clip can add
-   or correct findings. Typed section input remains a secondary fallback.
-5. **Apply reviewed findings** is still explicit. Only acceptance is serialized,
-   not capture or navigation. The pure `/api/assessment/review` operation prepares
-   the original proposals against the latest accepted encounter without calling a
-   model or changing proposed values. An intervening acceptance invalidates that
-   prepared review and its choices; review again before applying. The existing
-   stale-previous, schema, and measurement-validity guards remain enforced.
+4. Voice suggestions populate those same guide controls, tagged **From recording**.
+   Correct an answer by tapping it or entering a number; corrections are tagged
+   **Your answer**. Shared fields use shared working values. Conflicting recordings
+   never silently choose a winner, and arriving recordings do not overwrite worker
+   edits. **Review on assessment** explicitly selects another report when needed.
+   Original transcripts, English rendering, quotes, and JSON remain under Details.
+5. **Confirm findings** explicitly applies the selected report/direct draft.
+   Only acceptance is serialized, not capture or navigation. The pure
+   `/api/assessment/review` operation prepares effective proposals against the
+   latest accepted encounter without a model call. Original model evidence and
+   worker corrections remain separate in the interaction trace. Changed context,
+   edit versions, or conflicting pending evidence invalidate old confirmations.
+   All existing schema, stale-previous, scope, and measurement guards still apply.
 6. Accepted state is evaluated locally. Required follow-ups appear beside the
    section. Record short answers and repeat review as needed. A clip, transcript,
    or Captured status never constitutes clinical completeness.
 
-The workspace has two panels: a wide assessment guide with evidence alongside
-its procedures, and classification/management. On smaller screens navigation
-switches between Assessment and Result without unmounting capture jobs. Global
+`GET /api/assessment/schema` derives valid control types, options, declared bounds,
+and display units from the unchanged canonical schema, limited to supported fields.
+It does not define required-known observations. The existing guide supplies
+instructions and display labels; the deterministic evaluator supplies missing
+fields and completeness. In particular, the ability-to-drink row uses the existing
+Able / Unable labels so its answers cannot invert the canonical inability field.
+Unknown pathway entries initially show the entry question, not a wall of unknown
+conditional checks. Yes reveals the applicable guide. Known or pending child
+observations remain visible for explicit resolution if the entry changes to No.
+
+Blank numeric input is not zero. Invalid input blocks confirmation and stays in
+the working draft. Not assessed is an explicit null proposal; untouched fields
+are omitted from direct updates. Same-value taps can reconfirm measurement
+qualifiers. Direct answers use no ASR or language-model call, though the local API
+must be reachable to validate and confirm them.
+
+The v2 language-understanding prompt explicitly maps **not vomiting / no vomiting**
+for the assessed child to `danger_signs.vomits_everything=false`, including the
+equivalent Nigerian Pidgin report. Generic positive vomiting without the
+"everything" qualifier remains unknown. English and Pidgin negative cases and
+an English generic-positive control were verified with the live Azure provider;
+this is not a general semantic-accuracy qualification or a local regex override.
+
+The desktop workspace has two panels: a wide assessment guide with evidence
+alongside its procedures, and classification/management. The dedicated phone
+presentation below shares the same capture jobs and accepted state. Global
 Stop/Cancel and accepted urgent guidance remain accessible while moving.
+
+### Mobile presentation
+
+The same app now has a dedicated phone layout rather than a compressed desktop
+workspace. It selects mobile presentation at widths up to 900px. Use
+`?layout=mobile` or `?layout=desktop` to explicitly preview either presentation.
+
+- Home shows the existing five assessments, authoritative progress, and separate
+  capture/dirty states. Age remains shared; no new clinical assessment is added.
+- Selecting an assessment opens its Assessment and Recordings views. The bottom
+  recording control always names the recording's actual assessment and language,
+  including when the worker visits another screen while recording.
+- Results and recording Setup are separate screens. Both processing consents and
+  an explicit language remain required for voice, not direct structured entry. Transcription/structuring still starts
+  automatically on Stop, followed by explicit evidence review and acceptance.
+- There is one session, one capture queue, and one mounted editor per assessment.
+  Navigation and viewport changes hide/reveal those same editors; they do not
+  duplicate or remount them. Typed drafts, original questions, review choices,
+  and background jobs remain intact. Desktop expansion state is retained too.
+- Accepted urgent guidance, errors, and interruption notices remain global.
+  Mobile uses the same quiet-result and final-plan gates as desktop. No clinical
+  logic, provider behavior, or canonical schema differs by layout.
+
+To develop mobile while keeping a built desktop checkpoint running on port 8000:
+
+```bash
+npm --prefix web run dev -- --host 127.0.0.1 --port 5173 --strictPort
+```
+
+Open `http://127.0.0.1:5173/?layout=mobile` for the phone preview, or
+`http://127.0.0.1:5173/?layout=desktop` for desktop comparison. Vite proxies API
+requests to the existing server on port 8000, but does not replace `web/dist`.
+The two origins have independent tab drafts; this is not cross-device encounter
+synchronization. Resizing within the preview preserves that tab's session.
+
+Physical-phone microphone testing needs an authenticated, HTTPS-accessible URL.
+The loopback preview addresses are for the development machine, not a public
+deployment. The browser checks use a simulated Chromium microphone and mock
+speech/model responses with the real local review/evaluation endpoints.
 
 Startup still evaluates the all-unknown encounter to obtain authoritative
 requirements; this is not a clinical-engine defect. The old UI prematurely

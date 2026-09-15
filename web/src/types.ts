@@ -8,6 +8,32 @@ export type AnalysisState =
 
 export type AssessmentId = "danger" | "respiratory" | "diarrhoea" | "fever" | "ear";
 export type ASRLanguage = "en" | "pcm" | "yo" | "ig" | "ha";
+export type ClinicalValue = boolean | number | string | null;
+export interface FieldDescriptor {
+  path: string;
+  label: string;
+  kind: "boolean" | "integer" | "number" | "enum";
+  nullable: boolean;
+  options?: Array<{ value: string; label: string }>;
+  minimum?: number;
+  maximum?: number;
+  unit?: string;
+  assessments: AssessmentId[];
+}
+export interface ClinicalSchema {
+  schema_id: string;
+  schema_sha256: string;
+  fields: Record<string, FieldDescriptor>;
+}
+export interface WorkerEdit {
+  value?: ClinicalValue;
+  raw?: string;
+  error?: string;
+  label: string;
+  previous: ClinicalValue;
+  revision: number;
+  keep?: boolean;
+}
 
 export interface AssessmentProgress {
   status: "NOT_STARTED" | "INCOMPLETE" | "COMPLETE" | "URGENT";
@@ -32,6 +58,7 @@ export interface AssessmentChange {
   outside_assessment: boolean;
   uncertain?: boolean;
   review_changed?: boolean;
+  worker_entered?: boolean;
 }
 
 export interface AssessmentCandidate {
@@ -71,6 +98,8 @@ export interface InteractionTrace {
     question?: { field: string; text: string };
   };
   candidate?: AssessmentCandidate;
+  original_candidate?: AssessmentCandidate;
+  worker_edits?: Record<string, WorkerEdit>;
   native_preview?: ExtractionPreview;
   diagnostic_result?: AnalysisResult;
   resolutions?: Resolutions;
