@@ -1,4 +1,6 @@
-# EdgeIMCI — Work Categories Before Full-Speed Development
+# EdgeIMCI - Work Categories Before Full-Speed Development
+
+> **Status:** `CURRENT` only as pre-Phase-2 planning history. Proposed successor `docs/adtc_2026_gate_2_semifinal_requirements_and_work_plan_v1.md` becomes controlling only after project-owner approval.
 
 ## 1. Clinical substrate integrity
 

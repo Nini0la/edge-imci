@@ -1,6 +1,6 @@
 # EdgeIMCI ADTC submission and ASUS profiling handoff v1
 
-> **Authority:** `PROJECT_EXECUTION_HANDOFF` · **Lifecycle:** `CURRENT` · Execute from the project-owner-designated provisional candidate; do not restart model selection or fine-tuning.
+> **Authority:** `PROJECT_EXECUTION_HANDOFF` · **Lifecycle:** `CURRENT` · Current only for reproducing or auditing the frozen Gate 1 candidate; it does not authorize Gate 2 model selection, training, TEST access, or submission.
 
 ## Objective
 

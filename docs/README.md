@@ -102,7 +102,11 @@ The frozen holistic golden suite is the approved semantic target for the bounded
 | `product_holistic_golden_domain_re_review_v2.md` | `REVIEW_RECORD` | `CURRENT` | Same-agent technical/source verification of oracle-v3 used as the basis for explicit human/domain approval; retains its independence limitation. |
 | `interaction_design_retrieval_assessment_bundles.md` | `APPROVED_PRODUCT_POLICY` | `CURRENT` | Current interaction framing; cannot override clinical artifacts. |
 | `experiment_operations_and_tracking_plan.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
-| `experimental_campaign_map.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
+| `experimental_campaign_map.md` | `WORKING_PLAN` | `CURRENT` | Gate 1 methodology/history only; it does not authorize a Gate 2 sequence. |
+| `adtc_2026_gate_2_semifinal_requirements_and_work_plan_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed canonical Phase 2 requirements interpretation and execution plan through the ADTC 2026 Gate 2 semifinal deadline. |
+| `adtc_submission_and_asus_profiling_handoff_v1.md` | `PROJECT_EXECUTION_HANDOFF` | `CURRENT` | Current only for frozen Gate 1 reproduction/audit; it does not authorize Gate 2 work. |
+| `target_device_model_runtime_qualification_plan.md` | `WORKING_PLAN` | `CURRENT` | Current exact-artifact qualification method; candidate sequence is controlled by the Gate 2 plan after approval. |
+| `pre_phase2_worktree_preservation_20260916.md` | `HISTORICAL_ARCHIVE` | `CURRENT` | Records the reviewed Git preservation boundary and retained raw-artifact boundary at the Phase 2 transition. |
 | `synthetic_data_generation_experiment_plan.md` | `WORKING_PLAN` | `CURRENT` | Maintained Markdown working version; corresponding DOCX is its source snapshot. |
 | `synthetic_data_generation_experiment_notes.md` | `EXPLORATORY_NOTES` | `CURRENT` | Generation hypotheses and options; never a clinical or product decision. |
 | `holistic_language_variant_contract_v1.md` | `WORKING_PLAN` | `PROPOSED_FOR_REVIEW` | Proposed controlled input-language variation boundary; does not authorize model calls or training. |

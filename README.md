@@ -162,9 +162,9 @@ The frozen language layer remains useful, but it is no longer the primary SFT la
 
 Dataset variants are split by parent semantic encounter under [`structured_extraction_dataset_policy_v1.json`](configs/training/structured_extraction_dataset_policy_v1.json). Every paraphrase inherits its parent's partition. Cases 77 and 78 remain out-of-scope TEST parents. The distinct TRAIN parents `oos-extract-young-respiratory-001` and `oos-extract-older-fever-001` are ready as extraction-only structured sources; their language generation/review has not started.
 
-## Experimental campaign
+## Gate 1 experimental campaign (historical)
 
-The hackathon critical path is evidence-driven:
+The following evidence-driven sequence records Gate 1 and does not govern Gate 2:
 
 1. approve the golden-language rendering contract and a small manually reviewed calibration set;
 2. render and review the complete 78-case golden language layer;
@@ -178,15 +178,16 @@ The hackathon critical path is evidence-driven:
 10. convert or quantize the selected fine-tuned checkpoint and rerun the same frozen qualification on the same ASUS; and
 11. select/submit or take only the branch justified by the paired before-and-after evidence.
 
-SFT-v2, Qwen3-4B, Qwen3.5/Tinker, preference optimization or RL, SVD/compression, expanded quantization comparisons, and Lundin evaluation are conditional branches. They are not prerequisites for the first submission.
+For Gate 1, SFT-v2, Qwen3-4B, Qwen3.5/Tinker, preference optimization or RL, SVD/compression, expanded quantization comparisons, and Lundin evaluation were conditional branches rather than prerequisites. The proposed Gate 2 plan separately requires a matched 0.6B/1.7B/4B comparison before selection.
 
 The operating plans are:
 
+- [`adtc_2026_gate_2_semifinal_requirements_and_work_plan_v1.md`](docs/adtc_2026_gate_2_semifinal_requirements_and_work_plan_v1.md) - proposed Phase 2 control plan through the September 22, 2026 semifinal deadline, pending project-owner approval
 - [`experimental_campaign_map.md`](docs/experimental_campaign_map.md)
 - [`synthetic_data_generation_experiment_plan.md`](docs/synthetic_data_generation_experiment_plan.md)
 - [`experiment_operations_and_tracking_plan.md`](docs/experiment_operations_and_tracking_plan.md)
 - [`target_device_model_runtime_qualification_plan.md`](docs/target_device_model_runtime_qualification_plan.md)
-- [`adtc_submission_and_asus_profiling_handoff_v1.md`](docs/adtc_submission_and_asus_profiling_handoff_v1.md) — current execution handoff for the selected Qwen3-0.6B fine-tune
+- [`adtc_submission_and_asus_profiling_handoff_v1.md`](docs/adtc_submission_and_asus_profiling_handoff_v1.md) - historical Gate 1 execution handoff for the selected Qwen3-0.6B fine-tune
 - [`experiments/README.md`](experiments/README.md)
 
 The current Modal fine-tuning runner and first-run handoff are documented in

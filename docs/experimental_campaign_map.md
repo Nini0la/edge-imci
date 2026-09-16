@@ -1,10 +1,10 @@
 # EdgeIMCI Experimental Campaign Map
 
-> **Authority:** `WORKING_PLAN` · **Lifecycle:** `CURRENT` · Maintained Markdown working version; the corresponding DOCX is its source snapshot.
+> **Authority:** `WORKING_PLAN` · **Lifecycle:** `CURRENT` · Current as Gate 1 methodology and history; it does not authorize a Gate 2 sequence.
 
 *Critical path, parallel lanes and evidence-based branches*
 
-**Status:** High-level roadmap for the hackathon campaign; Lundin is off the main track and the domain-expert questionnaire remains separate.
+**Status:** Retained for Gate 1 rationale and methodology. The proposed Gate 2 sequence is in `adtc_2026_gate_2_semifinal_requirements_and_work_plan_v1.md` and is blocked until approval.
 
 > **Critical-path question:** Can the selected EdgeIMCI checkpoint recover canonical whole-encounter state from PHC language accurately enough that the deterministic pipeline preserves safe clinical behavior, while running effectively on target hardware?
 
