@@ -51,6 +51,7 @@ Completion means more than training a model. Gate 2 is complete only when:
 | Schedule | Section 17, recalculated after the exact organizer cutoff is recorded | Pending deadline confirmation |
 | Budget | No paid compute authorized by this plan | Amount/provider/approver pending |
 | Data owner | Accountable for source, license, review, split, deduplication, and release identity | Named owner pending |
+| Dataset-generation agent | A frontier OpenAI coding agent is responsible for the bulk of dataset drafting and variation work that requires an LLM; exact model identity is pinned per run | Role assigned; remote/paid execution authorization pending |
 | Training owner | Accountable for matched plans, budget use, run completeness, and checkpoint identities | Named owner pending |
 | Evaluation owner | Independent custodian for policy, sealed TEST, scoring, adjudication, and deviation records | Named owner pending |
 | Runtime owner | Accountable for GGUF conversion and exact target-device qualification | Named owner pending |
@@ -289,7 +290,15 @@ The multitask mixture must contain:
 
 Extraction remains product-critical and must receive the dominant effective weight. Mixture percentages are experimental configuration, not assumptions baked into the dataset manifest.
 
-### 7.3 Extraction coverage
+### 7.3 LLM dataset-generation responsibility
+
+The coding agent, operating with a frontier OpenAI model, is the primary generator for the bulk of Phase 2 dataset work that requires LLM judgment or language generation. This includes drafting linguistic variants, adversarial and mode-boundary prompts, self-knowledge question variants, OOD examples, and other candidate records defined by frozen construction policies. A different generator requires an explicit, versioned project-owner decision.
+
+This responsibility does not make the coding agent a source of clinical truth or an approval authority. It must generate from frozen semantic parents, canonical clinical artifacts, the factual project card, and the medical safety source manifest. Extraction targets and other mechanically derivable labels must be exported deterministically rather than authored by the model. Generated records remain candidates until they pass deterministic checks and the required independent human, domain, or clinical review; the generating agent cannot self-approve safety-critical records.
+
+Every generation run must pin the OpenAI model identifier and available revision/snapshot, coding-agent and tool version, system and user prompts, generation settings, source artifact identities and hashes, run time, authorization, raw outputs, acceptance/rejection disposition, and token/cost records where applicable. A change of model, material prompt, source boundary, or generation policy creates a new run/config identity. This assignment does not itself authorize a remote API call, paid usage, bulk execution, or relaxation of review gates.
+
+### 7.4 Extraction coverage
 
 Include:
 
@@ -304,7 +313,7 @@ Include:
 - closely related concepts that must not be conflated; and
 - every claimed language/input style in TRAIN, VALIDATION, and the new sealed TEST.
 
-### 7.4 Negation and proposition minimal pairs
+### 7.5 Negation and proposition minimal pairs
 
 Required distinctions include:
 
@@ -318,7 +327,7 @@ Required distinctions include:
 
 Minimal pairs must preserve all non-target facts so polarity sensitivity can be measured directly.
 
-### 7.5 Self-knowledge truth source
+### 7.6 Self-knowledge truth source
 
 Self-knowledge records must be generated from a frozen factual project card covering:
 
@@ -334,13 +343,13 @@ Self-knowledge records must be generated from a frozen factual project card cove
 
 Do not train aspirational or false implementation facts as if they already exist.
 
-### 7.6 Free-form medical safety source
+### 7.7 Free-form medical safety source
 
 Free-form medical data is prohibited until a versioned source-and-review manifest exists. Initial scope is limited to source-grounded IMCI danger recognition, uncertainty, scope statements, and urgent escalation. It does not authorize free-form diagnosis, dosing, prescriptions, or treatment advice beyond approved clinical sources.
 
 The manifest must pin source documents and digests, included and excluded behaviors, target-authoring rules, refusal/escalation policy, reviewer qualifications, adjudication procedure, licenses, and record provenance. Every safety-critical target requires independent clinical review; disagreements remain ineligible until adjudicated. Any scope, source, target policy, or review-policy change creates a new manifest version.
 
-### 7.7 Split and contamination policy
+### 7.8 Split and contamination policy
 
 - Split by semantic parent before creating variants.
 - Group minimal pairs and paraphrase families so they cannot cross partitions.
