@@ -43,12 +43,12 @@ const jobStatus: Record<CaptureJob["status"], string> = {
   applying: "Processing / confirming findings", accepted: "Reviewed", failed: "Capture failed", discarded: "Discarded",
 };
 
-function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob, showDebug = true }: {
+export function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob, showDebug = true }: {
   job: CaptureJob; reviewDisabled: boolean; voice: AssessmentCaptureProps["voice"]; onReviewJob: (id: string) => void; showDebug?: boolean;
 }) {
   const retryableInput = Boolean(job.inputText?.trim() || (job.audio?.size && job.language));
   const report = job.transcript?.transcript ?? job.inputText ?? job.originalCandidate?.input_text;
-  return <article className={`capture-job capture-job--${job.status}`} aria-label={showDebug ? `Capture ${job.id}` : "Recording"}>
+  return <article className={`capture-job capture-job--${job.status}`} aria-label={showDebug ? `Capture ${job.id}` : job.assessment === "full-note" ? "Text report" : "Recording"}>
     <header className="capture-job-heading"><strong role="status">{jobStatus[job.status]}</strong>
       <span>{job.language ?? "Text / worker review"}</span></header>
     {job.error && <p className="capture-error" role="alert">{job.error}</p>}
@@ -60,7 +60,7 @@ function CaptureJobCard({ job, reviewDisabled, voice, onReviewJob, showDebug = t
       <button type="button" disabled={reviewDisabled} onClick={() => onReviewJob(job.id)}>Review on assessment</button>
     </>}
     {(job.transcript || job.inputText !== undefined || job.originalCandidate || job.question) && <details className="capture-details">
-      <summary>{showDebug ? "Details: original source (read-only)" : "Transcript"}</summary>
+      <summary>{showDebug ? "Details: original source (read-only)" : job.assessment === "full-note" ? "Original text report" : "Transcript"}</summary>
       {job.question && <><strong>Question at capture</strong><p>{job.question.text}</p>{showDebug && <code>{job.question.field}</code>}</>}
       {showDebug ? <>
         {job.transcript && <><strong>Original ASR transcript (read-only)</strong><p className="trace-text">{job.transcript.transcript}</p></>}

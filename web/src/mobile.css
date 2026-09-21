@@ -57,6 +57,7 @@
   background: var(--mobile-paper);
 }
 .app-frame--mobile main[data-mobile-screen] .checklist-panel,
+.app-frame--mobile main[data-mobile-screen] .report-panel,
 .app-frame--mobile main[data-mobile-screen] .output-panel {
   display: none;
   height: 100%;
@@ -68,6 +69,9 @@
 }
 .app-frame--mobile main:is([data-mobile-screen="list"], [data-mobile-screen="assessment"]) .checklist-panel { display: block; }
 .app-frame--mobile main[data-mobile-screen="results"] .output-panel { display: block; }
+.app-frame--mobile main[data-mobile-screen="report"] .report-panel { display: block; }
+.app-frame--mobile .report-body textarea { font-size: 16px; }
+.app-frame--mobile .report-panel .mobile-confirmation { margin-block: 16px; color: var(--ink); }
 .app-frame--mobile main[data-mobile-screen="results"] .result-scroll { overflow: visible; padding: 16px; }
 .app-frame--mobile main[data-mobile-screen="list"] .checklist-panel { background: var(--mobile-paper); color: var(--mobile-ink); }
 .app-frame--mobile main[data-show-age="true"] .assessment-scope { display: grid; }
@@ -205,14 +209,15 @@
 .app-frame--mobile .mobile-cancel-button { display: grid; place-items: center; flex: 0 0 48px; min-width: 48px; min-height: 48px; padding: 8px; border: 1px solid #b8c3b3; border-radius: 4px; background: transparent; color: var(--mobile-ink); cursor: pointer; }
 .app-frame--mobile .mobile-intro-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 8px; margin-top: 6px; }
 .app-frame--mobile .mobile-continue { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; margin-left: auto; padding: 8px 12px; border: 1px solid var(--mobile-ink); border-radius: 4px; color: var(--mobile-ink); background: transparent; font-size: 14px; font-weight: 650; cursor: pointer; }
-.app-frame--mobile .mobile-confirmation { flex: 1 1 130px; min-width: 0; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; font-size: 12px; line-height: 1.3; }
+.app-frame--mobile .mobile-write-report { min-height: 48px; padding: 8px 10px; border: 0; background: transparent; color: var(--mobile-ink); font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
+.app-frame--mobile .mobile-confirmation { position: relative; flex: 1 1 130px; min-width: 0; margin: 0; padding: 0; border: 0; background: transparent; color: inherit; font-size: 12px; line-height: 1.3; }
 .app-frame--mobile .mobile-confirmation button { min-height: 48px; max-width: 100%; padding: 6px 8px; white-space: normal; font-size: 12px; }
 .app-frame--mobile .mobile-confirmation > .mobile-confirm-button { width: 100%; border: 1px solid #438372; color: #f4fff8; background: #17463e; font-size: 14px; font-weight: 650; }
 .app-frame--mobile .mobile-confirmation[data-completeness="incomplete"] > .mobile-confirm-button { color: #8b3029; background: #fae5e1; border-color: #bf6258; }
 .app-frame--mobile .mobile-confirmation[data-completeness="urgent"] > .mobile-confirm-button { color: white; background: #9b3028; border-color: #9b3028; }
 .app-frame--mobile .mobile-dock .mobile-confirmation .capture-warning { color: #8b3029; }
 .app-frame--mobile .mobile-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.app-frame--mobile .mobile-dock-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
+.app-frame--mobile .mobile-dock-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding-top: 6px; }
 .app-frame--mobile .mobile-dock-nav button { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; min-width: 0; min-height: 52px; padding: 6px 2px; border: 0; border-radius: 3px; background: transparent; color: #526557; font-size: 12px; font-weight: 600; cursor: pointer; }
 .app-frame--mobile .mobile-dock-nav button[aria-current="page"] { color: var(--mobile-ink); background: #e4eada; box-shadow: inset 0 -2px var(--mobile-ink); }
 .app-frame--mobile :is(button, summary, select, textarea, a):focus-visible { outline: 3px solid #be8732; outline-offset: 2px; }

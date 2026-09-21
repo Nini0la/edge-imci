@@ -7,6 +7,7 @@ export type AnalysisState =
   | "ERROR";
 
 export type AssessmentId = "danger" | "respiratory" | "diarrhoea" | "fever" | "ear";
+export type CaptureScope = AssessmentId | "full-note";
 export type ASRLanguage = "en" | "pcm" | "yo" | "ig" | "ha";
 export type ClinicalValue = boolean | number | string | null;
 export interface FieldDescriptor {
@@ -62,7 +63,7 @@ export interface AssessmentChange {
 }
 
 export interface AssessmentCandidate {
-  assessment: AssessmentId;
+  assessment: CaptureScope;
   input_text: string;
   extraction_mode: string;
   changes: AssessmentChange[];
@@ -83,7 +84,7 @@ export interface AssessmentCandidate {
 export interface InteractionTrace {
   id: string;
   timestamp: string;
-  assessment: AssessmentId | "full-note";
+  assessment: CaptureScope;
   status: "transcribed" | "candidate" | "accepted" | "rejected" | "failed";
   pending?: boolean;
   interruption_acknowledged?: boolean;

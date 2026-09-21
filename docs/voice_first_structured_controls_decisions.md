@@ -232,3 +232,33 @@ application does not claim that an individual checked or signed consent.
   revision. Loading, failed requests, newer accepted findings, and encounter reset
   must not expose an old report as the newly generated recommendation. Preserve
   accepted urgent actions independently while routine results remain gated.
+
+## Additive Text-Panel Checkpoint
+
+The tappable/voice checkpoint remains `9148a17e` on `variant/intron`. The additive
+text-panel iteration is developed separately on `variant/intron-text-panel`.
+
+- Restore the desktop middle panel as a whole-assessment text editor, alongside
+  the existing tappable guide and clinical results. Do not restore the old
+  replace-the-entire-encounter confirmation behavior or remove voice capture.
+- On mobile, Write text and Text report navigation open the same mounted editor;
+  changing layouts or navigating does not clear its draft or other working answers.
+- Interpret text uses the configured understanding provider through the existing
+  assessment extraction endpoint, with explicit `full-note` capture scope and no
+  follow-up question. It does not switch back to native whole-note extraction.
+- `full-note` is an input/review scope, not a sixth clinical assessment. Schema
+  field ownership, clinical progress, and attempted assessments remain the five
+  existing supported assessments. Age alone does not mark all sections attempted.
+- Report proposals populate the existing guide controls with From text provenance.
+  Corrections attach to that report while preserving its original text/candidate.
+  Confirming the report atomically applies only explicitly reviewed observations;
+  omitted findings never clear unrelated accepted evidence.
+- Voice, text, and direct edits coexist. Conflicts, stale revisions, uncertainty,
+  and measurement-episode guards apply equally to whole-report confirmation.
+  A full report still being interpreted blocks confirmation until its potential
+  overlap is known. There is no automatic acceptance of extracted findings.
+- Unprocessed report text and unconfirmed report jobs keep recommendation
+  generation gated. Clear text affects only the editor draft; discarding a report
+  affects only that job. Reset cancels all encounter work and ignores late replies.
+- No engineering JSON, schemas, or provider internals are reintroduced into the
+  worker interface. Readable original reports and shared progress remain available.

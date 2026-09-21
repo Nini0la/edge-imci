@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId, FieldDescriptor, Transcription } from "../types";
+import type { ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId, CaptureScope, FieldDescriptor, Transcription } from "../types";
 import type { extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import type { createAudioCapture } from "./audio";
 import type { useAssessmentSession } from "./useAssessmentSession";
@@ -24,7 +24,7 @@ function row(field = "ear.ear_pain", value: unknown = true, previous: unknown = 
   return { field, label: field, value, previous, conflict: false, outside_assessment: false };
 }
 
-function candidate(assessment: AssessmentId = "ear", changes = [row()], input_text = "Finding"): AssessmentCandidate {
+function candidate(assessment: CaptureScope = "ear", changes = [row()], input_text = "Finding"): AssessmentCandidate {
   return { assessment, input_text, changes, extraction_mode: "test", warnings: [] };
 }
 
@@ -113,7 +113,7 @@ function setup(encounter: Record<string, unknown> = {}) {
     capture.stop();
     return id;
   }
-  function text(assessment: AssessmentId = "ear", input = "Typed finding") {
+  function text(assessment: CaptureScope = "ear", input = "Typed finding") {
     capture.addText(assessment, input, true);
     return latest().id;
   }
@@ -137,6 +137,79 @@ beforeEach(() => { vi.stubGlobal("fetch", vi.fn(() => { throw new Error("Unexpec
 afterEach(() => { vi.unstubAllGlobals(); });
 
 describe("voice capture controller", () => {
+  it("freezes full-note context, strips supplied questions even on retry, and refuses full-note voice", async () => {
+    const h = setup({ ear: { ear_pain: false } });
+    const context = { encounter: structuredClone(h.session.encounter), revision: 10,
+      question: { field: "ear.ear_pain", text: "Ear pain?" } };
+    h.capture.startRecording("full-note" as AssessmentId, "en", { audio: true, understanding: true });
+    expect(h.microphone.record).not.toHaveBeenCalled();
+    expect(h.capture.addText("full-note", "  Report  ", true, context)).toBe(true);
+    const id = h.latest().id;
+    (context.encounter.ear as Record<string, unknown>).ear_pain = true;
+    h.commit({ patient_facts: { has_fever: true } });
+    expect(h.extract).toHaveBeenCalledExactlyOnceWith("full-note", "Report", { ear: { ear_pain: false } }, undefined, expect.any(AbortSignal));
+    expect(h.job(id)).toMatchObject({ originalRevision: 10, originalEncounter: { ear: { ear_pain: false } }, question: undefined });
+    expect(h.job(id).trace.source.question).toBeUndefined();
+    h.extracts[0].reject(new Error("Retry report")); await flush();
+    h.capture.retry(id, "Corrected report");
+    expect(h.latest().assessment).toBe("full-note");
+    expect(h.extract).toHaveBeenLastCalledWith("full-note", "Corrected report", { ear: { ear_pain: false } }, undefined, expect.any(AbortSignal));
+    h.extracts[1].resolve(candidate("full-note")); await flush();
+    expect(h.latest().status).toBe("captured");
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.transcribe).not.toHaveBeenCalled();
+  });
+
+  it("interleaves a report and section capture and merges only explicitly confirmed rows", async () => {
+    const h = setup({ patient_facts: { age_months: 24 } });
+    const report = h.text("full-note");
+    const ear = h.text("ear");
+    h.extracts[1].resolve(candidate()); await flush();
+    await h.reviewed(ear);
+    await h.capture.accept(ear, {});
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.job(ear).error).toContain("full report");
+    h.extracts[0].resolve({ ...candidate("full-note", [row("patient_facts.has_fever", true)]), candidate_encounter: { ear: { ear_pain: null } } }); await flush();
+    await h.reviewed(report);
+    const first = h.capture.accept(ear, {}); h.applies[0].resolve(true); await first;
+    await h.capture.accept(report, {});
+    expect(h.accept).toHaveBeenCalledOnce();
+    await h.reviewed(report);
+    const second = h.capture.accept(report, {}); h.applies[1].resolve(true); await second;
+    expect(h.session.encounter).toEqual({ patient_facts: { age_months: 24, has_fever: true }, ear: { ear_pain: true } });
+    expect(h.state().jobs.map((job) => job.status)).toEqual(["accepted", "accepted"]);
+  });
+
+  it.each(["discard", "reset"] as const)("ignores a late full-note reply after %s", async (action) => {
+    const h = setup(); const id = h.text("full-note");
+    if (action === "discard") h.capture.discard(id);
+    else { h.capture.clear(); h.session.reset(); }
+    expect(h.extract.mock.calls[0][4]!.aborted).toBe(true);
+    const history = structuredClone(h.session.interactions);
+    h.extracts[0].resolve(candidate("full-note")); await flush();
+    expect(h.session.interactions).toEqual(history);
+    expect(h.session.encounter).toEqual({});
+    expect(h.accept).not.toHaveBeenCalled();
+    if (action === "discard") expect(h.job(id).status).toBe("discarded");
+    else expect(h.state().jobs).toEqual([]);
+  });
+
+  it.each(["review", "accept"] as const)("ignores a late full-note %s after reset", async (stage) => {
+    const h = setup(); const id = await h.captured(candidate("full-note"));
+    let pending: Promise<unknown>;
+    if (stage === "review") pending = h.capture.prepareReview(id);
+    else { await h.reviewed(id); pending = h.capture.accept(id, {}); }
+    h.capture.clear(); h.session.reset();
+    if (stage === "review") {
+      expect(h.prepare.mock.calls[0][3]!.aborted).toBe(true);
+      h.reviews[0].resolve({ changes: [row()], changed_fields: [] });
+    } else h.applies[0].resolve(true);
+    await pending; await flush();
+    expect(h.state().jobs).toEqual([]);
+    expect(h.session.interactions).toEqual([]);
+    expect(h.session.encounter).toEqual({});
+  });
+
   it("keeps typed drafts bound to their editing context, not the later question", async () => {
     const h = setup();
     const context = { encounter: structuredClone(h.session.encounter), revision: h.session.revision,
@@ -576,6 +649,27 @@ const rate: FieldDescriptor = { path: "respiratory.respiratory_rate", label: "Re
   minimum: 0, maximum: 200, unit: "breaths/min", assessments: ["respiratory"] };
 
 describe("direct structured field staging", () => {
+  it("only edits existing full-note jobs and never recreates them from stale controls", async () => {
+    const h = setup();
+    expect(h.capture.stageField("full-note", pain, true)).toBeUndefined();
+    expect(h.capture.stageField("fever", pain, true)).toBeUndefined();
+    expect(h.state().jobs).toEqual([]);
+    const original = candidate("full-note");
+    Object.freeze(original.changes[0]); Object.freeze(original.changes); Object.freeze(original);
+    const id = await h.captured(original);
+    expect(h.capture.stageField("full-note", pain, false, id)).toBe(id);
+    expect(h.job(id).originalCandidate).toBe(original);
+    expect(original.changes[0].value).toBe(true);
+    expect(h.job(id).candidate!.changes[0].value).toBe(false);
+    h.capture.discard(id);
+    expect(h.capture.stageField("full-note", pain, true, id)).toBeUndefined();
+    expect(h.capture.stageField("ear", pain, true, id)).toBeUndefined();
+    expect(h.state().jobs).toHaveLength(1);
+    h.capture.clear();
+    expect(h.capture.stageField("ear", pain, true, id)).toBeUndefined();
+    expect(h.state().jobs).toEqual([]);
+  });
+
   it.each(["arrival", "discard"] as const)("rejects a stale pending-evidence fingerprint after %s even before React can rerender", async (event) => {
     const h = setup();
     const field = "danger_signs.lethargic_or_unconscious";

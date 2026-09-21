@@ -219,12 +219,13 @@ a:focus-visible {
   min-height: 0;
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
   background: var(--line);
   gap: 1px;
 }
 
 .checklist-panel,
+.report-panel,
 .output-panel {
   min-width: 0;
   min-height: 0;
@@ -236,6 +237,25 @@ a:focus-visible {
   color: #d8dcda;
 }
 .output-panel { background: #f8f9f6; }
+.report-panel { background: #eef1e9; color: var(--ink); }
+.report-panel .pane-header { display: block; border-bottom: 1px solid var(--line); }
+.report-panel .pane-header > p:last-child { font-size: 13px; line-height: 1.55; color: var(--muted); }
+.report-body { padding: 20px; }
+.report-body > label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 650; }
+.report-body textarea { display: block; width: 100%; min-height: 220px; resize: vertical; padding: 14px; border: 1px solid var(--line-strong); border-radius: 4px; background: var(--surface); color: var(--ink); font: inherit; font-size: 15px; line-height: 1.65; }
+.report-body > p { font-size: 12px; line-height: 1.6; color: var(--muted); }
+.report-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 22px; }
+.report-actions button, .report-panel .capture-job button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 14px; border: 1px solid var(--forest); border-radius: 3px; background: transparent; color: var(--forest); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.report-actions .interpret-report { flex: 1; color: white; background: var(--forest); }
+.report-review-sections h2 { font-size: 15px; margin: 20px 0 10px; }
+.report-panel .guide-review { padding: 14px; margin: 20px 0; background: var(--surface); border-color: var(--line-strong); color: var(--ink); }
+.report-panel .guide-review h3 { color: var(--ink); }
+.report-panel :is(.capture-meta, .capture-job-heading > span) { color: var(--muted); }
+.report-panel .capture-job-heading > strong { color: var(--teal); }
+.report-panel .capture-warning { color: var(--amber); }
+.report-panel .capture-error { color: var(--red-dark); background: var(--red-soft); }
+.report-panel .capture-job { border-color: var(--line-strong); font-size: 13px; line-height: 1.5; }
+.clinical-workspace--three-panel .section-evidence-layout { grid-template-columns: minmax(0, 1fr); }
 
 .checklist-header,
 .pane-header { padding: 22px 22px 17px; }
@@ -746,7 +766,7 @@ details[open] .summary-chevron { transform: rotate(180deg); }
   .mobile-panel-nav {
     min-height: 44px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     background: #fff;
     border-bottom: 1px solid var(--line-strong);
   }
@@ -769,9 +789,11 @@ details[open] .summary-chevron { transform: rotate(180deg); }
 
   .clinical-workspace { display: block; background: #fff; }
   .checklist-panel,
+  .report-panel,
   .output-panel { height: 100%; display: none; }
   .clinical-workspace[data-active-panel="assessment"] .checklist-panel { display: block; }
   .clinical-workspace[data-active-panel="result"] .output-panel { display: flex; }
+  .clinical-workspace[data-active-panel="report"] .report-panel { display: block; }
 }
 
 @media (max-width: 520px) {

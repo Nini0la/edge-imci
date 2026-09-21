@@ -9,7 +9,7 @@ export interface ClinicalFieldControlProps {
   raw?: string;
   acceptedValue: ClinicalValue;
   pending: boolean;
-  source: "accepted" | "voice" | "worker" | "kept" | "conflict";
+  source: "accepted" | "voice" | "text" | "worker" | "kept" | "conflict";
   error?: string;
   requiresChoice?: boolean;
   disabled?: boolean;
@@ -42,7 +42,7 @@ export function ClinicalFieldControl({
       : descriptor.options?.find((option) => option.value === acceptedValue)?.label ?? String(acceptedValue);
   const sourceLabel = source === "accepted" ? (acceptedValue === null ? "Not assessed" : "Confirmed")
     : source === "worker" ? "Your answer"
-      : source === "kept" ? "Kept confirmed answer" : source === "conflict" ? "Conflicting recordings" : "From recording";
+      : source === "kept" ? "Kept confirmed answer" : source === "conflict" ? "Conflicting findings" : source === "text" ? "From text" : "From recording";
   const describedBy = [
     numeric && bounds && (!compact || error) ? `${id}-bounds` : "",
     showAccepted ? `${id}-accepted` : "",

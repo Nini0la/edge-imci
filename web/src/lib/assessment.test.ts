@@ -14,6 +14,11 @@ describe("assessment authority and review", () => {
     expect(affectedAssessments("ear", ["patient_facts.age_months"])).toEqual(assessmentIds);
     expect(affectedAssessments("diarrhoea", ["danger_signs.lethargic_or_unconscious"])).toEqual(assessmentIds);
     expect(affectedAssessments("ear", [])).toEqual(["ear"]);
+    expect(affectedAssessments("full-note", [])).toEqual(assessmentIds);
+    expect(affectedAssessments("full-note", ["ear.ear_pain", "patient_facts.has_fever"])).toEqual(["fever", "ear"]);
+    expect(affectedAssessments("full-note", ["patient_facts.age_months"])).toEqual(assessmentIds);
+    expect(affectedAssessments("full-note", ["danger_signs.convulsing_now"])).toEqual(assessmentIds);
+    expect(affectedAssessments("full-note", ["unknown.field"])).toEqual(assessmentIds);
   });
 
   it("keeps dirty full text pending without a request or candidate, independently of capture selection", () => {
@@ -93,6 +98,15 @@ describe("request revision fence", () => {
 });
 
 describe("tab draft", () => {
+  it("restores full-note candidate history but never a full-note assessment attempt", () => {
+    const candidate = { assessment: "full-note", input_text: "Report", extraction_mode: "frontier", changes: [change], warnings: [] };
+    const entry = { id: "report", timestamp: "today", assessment: "full-note", status: "candidate", pending: true,
+      source: { submitted_text: "Report" }, candidate, original_candidate: candidate };
+    const draft = { version: 1, encounter: {}, attempted: ["danger"], revision: 3, interactions: [entry] };
+    expect(parseDraft(JSON.stringify(draft))?.interactions?.[0]).toMatchObject({ candidate, original_candidate: candidate, pending: false, status: "rejected" });
+    expect(() => parseDraft(JSON.stringify({ ...draft, attempted: ["full-note"] }))).toThrow("Invalid saved assessment");
+  });
+
   it("restores only accepted inputs and revision, never clinical results or audio", () => {
     const draft = { version: 1, encounter: { patient_facts: { age_months: 24 } }, attempted: ["danger"], revision: 3 };
     expect(parseDraft(JSON.stringify({ ...draft, analysis: { is_complete: true }, audio: "blob:old" }))).toEqual({ ...draft, interactions: [] });

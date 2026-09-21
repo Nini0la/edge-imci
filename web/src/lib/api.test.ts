@@ -1,10 +1,31 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { acceptAssessment, evaluateAssessment, extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
+import { acceptAssessment, evaluateAssessment, extractAssessment, extractFindings, prepareAssessmentReview, transcribeAudio } from "./api";
 import type { AssessmentCandidate } from "../types";
 
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe("assessment API contract", () => {
+  it("routes full notes through sparse assessment APIs without a follow-up or changing native extraction", async () => {
+    const fetch = vi.fn().mockImplementation(() => Promise.resolve(new Response("{}")));
+    vi.stubGlobal("fetch", fetch);
+    const encounter = { ear: { ear_pain: false } };
+    const candidate: AssessmentCandidate = { assessment: "full-note", input_text: "Report", extraction_mode: "frontier", warnings: [],
+      changes: [{ field: "patient_facts.has_fever", label: "Fever", previous: null, value: true, conflict: false, outside_assessment: false }],
+      candidate_encounter: { ear: { ear_pain: null } } };
+    await extractAssessment("full-note", "Report", encounter, "ear.ear_pain");
+    await prepareAssessmentReview("full-note", encounter, candidate.changes);
+    await acceptAssessment(candidate, encounter, {}, ["fever"]);
+    await extractFindings("Native report");
+    expect(fetch.mock.calls.map(([url]) => url)).toEqual(["/api/assessment/extract", "/api/assessment/review", "/api/assessment/accept", "/api/extract"]);
+    expect(fetch.mock.calls.map(([, options]) => JSON.parse(options.body))).toEqual([
+      { assessment: "full-note", findings: "Report", encounter },
+      { assessment: "full-note", encounter, changes: candidate.changes },
+      { assessment: "full-note", encounter, changes: candidate.changes, resolutions: {}, confirmed: true, attempted: ["fever"] },
+      { findings: "Native report" },
+    ]);
+    expect(encounter).toEqual({ ear: { ear_pain: false } });
+  });
+
   it("prepares review with the latest encounter and original proposed rows, preserving changed and same-value rows", async () => {
     const encounter = { respiratory: { respiratory_rate: 42 }, ear: { ear_pain: null } };
     const changes = [

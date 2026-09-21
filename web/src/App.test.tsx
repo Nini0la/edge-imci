@@ -94,13 +94,21 @@ describe("guide-first workspace", () => {
     expect(saved.reset).not.toHaveBeenCalled();
   });
 
-  it("has two responsive panels, defaults to Assessment, and removes the central full-note workflow", () => {
+  it("has three responsive panels with one central text report between the guide and results", () => {
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain('class="clinical-workspace clinical-workspace--two-panel" data-active-panel="assessment"');
+    expect(html).toContain('class="clinical-workspace clinical-workspace--three-panel" data-active-panel="assessment"');
     const nav = html.slice(html.indexOf("<nav"), html.indexOf("</nav>"));
-    expect(nav.match(/<button/g)).toHaveLength(2);
+    expect(nav.match(/<button/g)).toHaveLength(3);
     expect(nav).toContain("Assessment");
+    expect(nav).toContain("Text report");
     expect(nav).toContain("Result");
+    expect(html.match(/aria-label="IMCI assessment guide"/g)).toHaveLength(1);
+    expect(html.match(/aria-label="Text assessment report"/g)).toHaveLength(1);
+    expect(html.match(/aria-label="Clinical result"/g)).toHaveLength(1);
+    expect(html.indexOf('class="report-panel"')).toBeGreaterThan(html.indexOf('class="panel checklist-panel"'));
+    expect(html.indexOf('class="report-panel"')).toBeLessThan(html.indexOf('class="output-panel"'));
+    expect(html).toContain("Write assessment findings");
+    expect(html).toContain("Interpret text");
     expect(nav).not.toContain("Findings");
     expect(html).not.toContain("findings-panel");
     expect(html).not.toContain("Describe the completed assessment");

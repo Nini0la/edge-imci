@@ -1,3 +1,4 @@
+import { isValidElement, type ReactElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { buildChecklist } from "../lib/checklist";
@@ -12,6 +13,37 @@ function job(status: CaptureJob["status"], overrides: Partial<CaptureJob> = {}):
 }
 
 describe("recording progress", () => {
+  it.each(["queued", "extracting", "captured", "review", "preparing_review", "applying", "failed"] as const)(
+    "labels full-note %s work as a report and routes only explicit review to its own job", (status) => {
+      const onReview = vi.fn();
+      const jobs = [job(status, { id: "full-report", assessment: "full-note", language: undefined }), job("transcribing", { id: "voice-clip", assessment: "ear" })];
+      const before = structuredClone(jobs);
+      const tree = CaptureProgress({ jobs, sections, onReview });
+      const html = renderToStaticMarkup(tree);
+      expect(html).toContain("Full assessment report");
+      expect(html).toContain("Ear problem");
+      expect(html.match(/class="capture-progress__item"/g)).toHaveLength(2);
+      expect(onReview).not.toHaveBeenCalled();
+      const actions: ReactElement<{ onClick: () => void }>[] = [];
+      function visit(node: ReactNode) {
+        if (Array.isArray(node)) node.forEach(visit);
+        else if (isValidElement<{ children?: ReactNode; onClick: () => void }>(node)) {
+          if (node.type === "button") actions.push(node);
+          visit(node.props.children);
+        }
+      }
+      visit(tree);
+      const reviewable = ["captured", "review", "failed"].includes(status);
+      expect(actions).toHaveLength(reviewable ? 1 : 0);
+      if (reviewable) {
+        expect(renderToStaticMarkup(actions[0])).toContain(status === "failed" ? "View report" : "Review");
+        actions[0].props.onClick();
+        expect(onReview).toHaveBeenCalledExactlyOnceWith("full-report");
+      }
+      expect(html).not.toContain("View recording");
+      expect(jobs).toEqual(before);
+    });
+
   it.each([
     ["queued", "Waiting to process your findings"],
     ["transcribing", "Turning your recording into text"],

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId, ClinicalSchema, ClinicalValue, FieldDescriptor } from "../types";
+import type { AssessmentCandidate, AssessmentChange, AssessmentEvaluation, CaptureScope, ClinicalSchema, ClinicalValue, FieldDescriptor } from "../types";
 import { extractAssessment, fetchClinicalSchema, prepareAssessmentReview, transcribeAudio } from "./api";
 import type { createAudioCapture } from "./audio";
 import { clinicalValue, pendingEvidenceVersion } from "./guideEvidence";
@@ -67,7 +67,7 @@ function deferred<T>() {
 function row(field: string, value: ClinicalValue, previous: ClinicalValue = null): AssessmentChange {
   return { field, label: field, value, previous, conflict: previous !== null && previous !== value, outside_assessment: false };
 }
-function proposal(assessment: AssessmentId, changes: AssessmentChange[]): AssessmentCandidate {
+function proposal(assessment: CaptureScope, changes: AssessmentChange[]): AssessmentCandidate {
   return { assessment, changes, input_text: "Recorded observations", extraction_mode: "test", warnings: [] };
 }
 function evaluation(encounter: Record<string, unknown>): AssessmentEvaluation {
@@ -130,6 +130,12 @@ function setup(encounter: Record<string, unknown> = {}) {
   async function flush() { for (let i = 0; i < 12; i += 1) { await Promise.resolve(); render(); } return editor; }
   async function record(candidate: AssessmentCandidate) {
     vi.mocked(extractAssessment).mockResolvedValueOnce(candidate);
+    if (candidate.assessment === "full-note") {
+      capture.addText("full-note", candidate.input_text, true);
+      const id = state.jobs.at(-1)!.id;
+      await flush();
+      return id;
+    }
     capture.startRecording(candidate.assessment, "yo", { audio: true, understanding: true });
     const id = state.recordingId!;
     render(); capture.stop(); render(); await flush();
@@ -206,6 +212,95 @@ describe("guide schema and control props", () => {
 });
 
 describe("manual guide confirmation", () => {
+  it("merges a report with guide corrections in its original job only on explicit full-note confirmation", async () => {
+    const h = setup({ ear: { ear_pain: false } }); await h.flush();
+    const original = proposal("full-note", [row(rate.path, 42), row(temperature.path, 38)]);
+    const before = structuredClone(original);
+    Object.freeze(original.changes[0]); Object.freeze(original.changes); Object.freeze(original);
+    const id = await h.record(original);
+    expect(h.render().selectedJob("full-note")).toMatchObject({ id, status: "review" });
+    expect(h.render().field("respiratory", rate.path)).toMatchObject({ value: 42, source: "text", jobId: id });
+    h.render().field("respiratory", rate.path)!.onChange("44"); h.render();
+    h.render().field("full-note", temperature.path)!.onChange("37.5"); h.render();
+    expect(h.state().jobs).toHaveLength(1);
+    expect(h.stage).toHaveBeenLastCalledWith("full-note", temperature, "37.5", id, false);
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false } });
+    expect(h.session.accept).not.toHaveBeenCalled();
+    await h.render().confirm("respiratory");
+    expect(h.session.accept).not.toHaveBeenCalled();
+    await h.render().confirm("full-note"); await h.flush();
+    expect(h.session.accept).toHaveBeenCalledOnce();
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false }, respiratory: { respiratory_rate: 44 }, fever: { temperature_c: 37.5 } });
+    expect(h.job(id).originalCandidate).toBe(original);
+    expect(original).toEqual(before);
+    expect(h.session.interactions.at(-1)).toMatchObject({ assessment: "full-note", status: "accepted", original_candidate: before,
+      worker_edits: { [rate.path]: { value: 44 }, [temperature.path]: { value: 37.5 } } });
+    expect(transcribeAudio).not.toHaveBeenCalled();
+  });
+
+  it("routes a central direct edit without a report to the real field owner", async () => {
+    const h = setup(); await h.flush();
+    h.render().field("full-note", pain.path)!.onChange(true); h.render();
+    expect(h.render().selectedJob("full-note")).toBeUndefined();
+    expect(h.render().selectedJob("ear")).toMatchObject({ assessment: "ear", workerEdits: { [pain.path]: { value: true } } });
+  });
+
+  it("requires a new confirmation after a full-note review becomes stale", async () => {
+    const h = setup(); await h.flush();
+    const id = await h.record(proposal("full-note", [row(rate.path, 42)]));
+    h.commit({ ear: { ear_pain: false } }); h.render();
+    await h.render().confirm("full-note"); await h.flush();
+    expect(h.job(id)).toMatchObject({ status: "review", reviewRevision: 11 });
+    expect(h.session.accept).not.toHaveBeenCalled();
+    await h.render().confirm("full-note"); await h.flush();
+    expect(h.session.accept).toHaveBeenCalledOnce();
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false }, respiratory: { respiratory_rate: 42 } });
+  });
+
+  it("blocks section confirmation while report fields are unknown, then exposes cross-scope conflicts", async () => {
+    const h = setup(); await h.flush();
+    const ear = await h.record(proposal("ear", [row(pain.path, true)]));
+    const request = deferred<AssessmentCandidate>();
+    vi.mocked(extractAssessment).mockReturnValueOnce(request.promise);
+    h.capture.addText("full-note", "New report", true); h.render();
+    await h.render().confirm("ear");
+    expect(h.session.accept).not.toHaveBeenCalled();
+    request.resolve(proposal("full-note", [row(pain.path, false), row(rate.path, 42)])); await h.flush();
+    const report = h.render().selectedJob("full-note")!.id;
+    for (const scope of ["ear", "full-note"] as const) {
+      expect(h.render().field(scope, pain.path)).toMatchObject({ source: "conflict", requiresChoice: true });
+      await h.render().confirm(scope);
+    }
+    expect(h.session.accept).not.toHaveBeenCalled();
+    h.render().selectJob(report); await h.flush();
+    h.render().field("ear", pain.path)!.onChange(false); h.render();
+    expect(h.stage).toHaveBeenLastCalledWith("full-note", pain, false, report, false);
+    await h.render().confirm("ear");
+    expect(h.session.accept).not.toHaveBeenCalled();
+    await h.render().confirm("full-note"); await h.flush();
+    expect(h.job(report).status).toBe("accepted");
+    expect(h.job(ear).originalCandidate!.changes[0].value).toBe(true);
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false }, respiratory: { respiratory_rate: 42 } });
+  });
+
+  it("blocks a pending confirmation when a full report starts during review preparation", async () => {
+    const h = setup(); await h.flush();
+    h.render().field("ear", pain.path)!.onChange(true); h.render();
+    const review = deferred<Review>(); vi.mocked(prepareAssessmentReview).mockReturnValueOnce(review.promise);
+    const confirming = h.render().confirm("ear"); h.render();
+    const report = deferred<AssessmentCandidate>(); vi.mocked(extractAssessment).mockReturnValueOnce(report.promise);
+    h.capture.addText("full-note", "Pending report", true); h.render();
+    review.resolve({ changes: [row(pain.path, true)], changed_fields: [] }); await confirming; await h.flush();
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.session.encounter).toEqual({});
+    const id = h.state().jobs.at(-1)!.id;
+    h.capture.discard(id); await h.flush();
+    await h.render().confirm("ear"); await h.flush();
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: true } });
+    report.resolve(proposal("full-note", [row(pain.path, false)])); await h.flush();
+    expect(h.job(id).status).toBe("discarded");
+  });
+
   it.each([
     [pain, false, false], [rate, "42", 42], [temperature, "37.5", 37.5], [skin, "VERY_SLOWLY", "VERY_SLOWLY"],
     [rate, "", null], [pain, null, null],
@@ -334,7 +429,7 @@ describe("manual guide confirmation", () => {
     expect(h.session.encounter).toEqual({ ear: { ear_pain: false } });
   });
 
-  it("does not accept when another recording arrives during preparation without changing the confirmed job's edit or accepted revision", async () => {
+  it.each(["danger", "full-note"] as const)("does not accept when another %s capture arrives during preparation without changing the confirmed job's edit or accepted revision", async (scope) => {
     const h = setup(); await h.flush();
     const first = await h.record(proposal("danger", [row(shared.path, true)]));
     h.render().field("danger", shared.path)!.onChange(true); h.render();
@@ -344,8 +439,8 @@ describe("manual guide confirmation", () => {
     const review = deferred<Review>(); vi.mocked(prepareAssessmentReview).mockReturnValueOnce(review.promise);
     const confirming = h.render().confirm("danger"); h.render();
     expect(h.job(first).status).toBe("preparing_review");
-    const second = await h.record(proposal("danger", [row(shared.path, false)]));
-    expect(h.job(second).status).toBe("captured");
+    const second = await h.record(proposal(scope, [row(shared.path, false)]));
+    expect(h.job(second).status).toBe(scope === "danger" ? "captured" : "review");
     expect(h.job(first).editVersion).toBe(editVersion);
     expect(h.session.revision).toBe(revision);
     expect(pendingEvidenceVersion(h.state().jobs, [shared.path], h.session.encounter)).not.toBe(pendingEvidence);

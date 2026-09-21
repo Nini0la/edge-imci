@@ -1,6 +1,6 @@
 import type {
   AnalysisResult, ASRLanguage, AssessmentCandidate, AssessmentChange, AssessmentEvaluation, AssessmentId,
-  ClinicalSchema, ExampleCase, ExtractionPreview, Resolutions, Transcription,
+  CaptureScope, ClinicalSchema, ExampleCase, ExtractionPreview, Resolutions, Transcription,
 } from "../types";
 import { maxAudioBytes } from "./audio";
 
@@ -72,8 +72,8 @@ export function evaluateAssessment(encounter?: Record<string, unknown>, attempte
   return postJson("/api/assessment/evaluate", { encounter, attempted }, signal);
 }
 
-export function extractAssessment(assessment: AssessmentId, findings: string, encounter: Record<string, unknown>, question_field?: string, signal?: AbortSignal): Promise<AssessmentCandidate> {
-  return postJson("/api/assessment/extract", { assessment, findings, encounter, question_field }, signal);
+export function extractAssessment(assessment: CaptureScope, findings: string, encounter: Record<string, unknown>, question_field?: string, signal?: AbortSignal): Promise<AssessmentCandidate> {
+  return postJson("/api/assessment/extract", { assessment, findings, encounter, question_field: assessment === "full-note" ? undefined : question_field }, signal);
 }
 
 export function acceptAssessment(candidate: AssessmentCandidate, encounter: Record<string, unknown>, resolutions: Resolutions, attempted: AssessmentId[], signal?: AbortSignal): Promise<AssessmentEvaluation> {
@@ -83,7 +83,7 @@ export function acceptAssessment(candidate: AssessmentCandidate, encounter: Reco
   }, signal);
 }
 
-export function prepareAssessmentReview(assessment: AssessmentId, encounter: Record<string, unknown>, changes: AssessmentChange[], signal?: AbortSignal): Promise<{ changes: AssessmentChange[]; changed_fields: string[] }> {
+export function prepareAssessmentReview(assessment: CaptureScope, encounter: Record<string, unknown>, changes: AssessmentChange[], signal?: AbortSignal): Promise<{ changes: AssessmentChange[]; changed_fields: string[] }> {
   return postJson("/api/assessment/review", { assessment, encounter, changes }, signal);
 }
 

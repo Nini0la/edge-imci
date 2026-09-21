@@ -29,10 +29,10 @@ export function CaptureProgress({ jobs, sections, onReview }: {
         <Icon className={busy ? "capture-progress__spinner" : undefined} size={18} aria-hidden="true" />
         <div className="capture-progress__text">
           <strong>{failed ? "Your findings need attention" : messages[job.status]}</strong>
-          <span>{sections.find((section) => section.id === job.assessment)?.label ?? "Assessment"}
+          <span>{job.assessment === "full-note" ? "Full assessment report" : sections.find((section) => section.id === job.assessment)?.label ?? "Assessment"}
             {busy ? " / Please wait" : failed ? " / Open to retry or review" : " / Check the answers before confirming"}</span>
         </div>
-        {!busy && <button type="button" onClick={() => onReview(job.id)}>{job.status === "failed" ? "View recording" : "Review"}</button>}
+        {!busy && <button type="button" onClick={() => onReview(job.id)}>{job.status === "failed" ? job.assessment === "full-note" ? "View report" : "View recording" : "Review"}</button>}
       </div>;
     })}
   </section>;

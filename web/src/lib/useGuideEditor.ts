@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { AssessmentId, ClinicalSchema, ClinicalValue } from "../types";
+import type { CaptureScope, ClinicalSchema, ClinicalValue } from "../types";
 import { fetchClinicalSchema } from "./api";
 import { assessmentIds, unresolvedChanges } from "./assessment";
 import { clinicalValue, effectiveChanges, guideResolutions, pendingEvidenceVersion } from "./guideEvidence";
@@ -18,7 +18,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
   const [schema, setSchema] = useState<ClinicalSchema | null>(null);
   const [schemaError, setSchemaError] = useState("");
   const [schemaAttempt, setSchemaAttempt] = useState(0);
-  const [selected, setSelected] = useState<Partial<Record<AssessmentId, string>>>({});
+  const [selected, setSelected] = useState<Partial<Record<CaptureScope, string>>>({});
   const [owners, setOwners] = useState<Record<string, string>>({});
   const prepared = useRef(new Set<string>());
   useEffect(() => {
@@ -32,11 +32,11 @@ export function useGuideEditor(session: Session, voice: Voice) {
     return () => controller.abort();
   }, [schemaAttempt]);
 
-  function selectedJob(assessment: AssessmentId): CaptureJob | undefined {
+  function selectedJob(assessment: CaptureScope): CaptureJob | undefined {
     const jobs = voice.jobs.filter((job) => job.assessment === assessment && editable(job));
     return jobs.find((job) => job.id === selected[assessment]) ?? jobs[0];
   }
-  const activeJobs = assessmentIds.map(selectedJob).filter((job): job is CaptureJob => Boolean(job));
+  const activeJobs = [...assessmentIds, "full-note" as const].map(selectedJob).filter((job): job is CaptureJob => Boolean(job));
 
   useEffect(() => {
     if (!schema || !session.ready) return;
@@ -50,7 +50,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
     }
   }, [schema, session.ready, session.revision, voice.jobs, selected]);
 
-  function edit(assessment: AssessmentId, field: string, value: ClinicalValue, jobId?: string, keep = false) {
+  function edit(assessment: CaptureScope, field: string, value: ClinicalValue, jobId?: string, keep = false) {
     const descriptor = schema?.fields[field];
     if (!descriptor) return;
     const id = voice.stageField(assessment, descriptor, value, jobId, keep);
@@ -61,7 +61,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
     }
   }
 
-  function field(assessment: AssessmentId, path: string) {
+  function field(assessment: CaptureScope, path: string) {
     const descriptor = schema?.fields[path];
     if (!descriptor) return null;
     const acceptedValue = clinicalValue(session.encounter, path);
@@ -78,7 +78,8 @@ export function useGuideEditor(session: Session, voice: Voice) {
     const conflicting = !(preferred && preferred.job.workerEdits?.[path])
       && allProposals.some(({ job, row }) => (job.workerEdits?.[path]?.keep ? acceptedValue : row.value)
         !== (allProposals[0].job.workerEdits?.[path]?.keep ? acceptedValue : allProposals[0].row.value));
-    const source = conflicting ? "conflict" : worker?.keep ? "kept" : worker ? "worker" : chosen ? "voice" : "accepted";
+    const source = conflicting ? "conflict" : worker?.keep ? "kept" : worker ? "worker"
+      : chosen ? chosen.job.inputText && !chosen.job.language ? "text" : "voice" : "accepted";
     const value = conflicting ? acceptedValue : worker?.keep ? acceptedValue : worker ? worker.value : chosen ? chosen.row.value as ClinicalValue : acceptedValue;
     const raw = worker?.keep ? undefined : worker?.raw;
     const resolutions = chosen ? guideResolutions(chosen.job) : {};
@@ -87,7 +88,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
     return { descriptor, acceptedValue, value, raw, source, pending: Boolean(chosen), requiresChoice,
       error: worker?.error ?? (conflicting ? "Recordings disagree. Choose the observed answer; other recordings remain available for review." : undefined),
       disabled: !session.ready || target?.status === "applying", jobId: chosen?.job.id,
-      onChange: (next: ClinicalValue) => edit(target?.assessment ?? assessment, path, next, target?.id),
+      onChange: (next: ClinicalValue) => edit(target?.assessment ?? (assessment === "full-note" ? descriptor.assessments[0] : assessment), path, next, target?.id),
       onKeep: chosen && acceptedValue !== null ? () => edit(chosen.job.assessment, path, acceptedValue, chosen.job.id, true) : undefined,
     } as const;
   }
@@ -118,10 +119,11 @@ export function useGuideEditor(session: Session, voice: Voice) {
       setOwners((previous) => ({ ...previous, ...Object.fromEntries(effectiveChanges(job).map((row) => [row.field, id])) }));
       if (job.status === "captured") void voice.prepareReview(id);
     },
-    async confirm(assessment: AssessmentId) {
+    async confirm(assessment: CaptureScope) {
       const job = selectedJob(assessment);
       if (!schema || !session.ready || session.busy || !job || job.status === "applying" || job.status === "preparing_review"
-        || Object.values(job.workerEdits ?? {}).some((item) => item.error)) return;
+        || Object.values(job.workerEdits ?? {}).some((item) => item.error)
+        || voice.jobs.some((pending) => pending.assessment === "full-note" && ["queued", "extracting"].includes(pending.status))) return;
       const revision = session.currentRevision();
       const editVersion = job.editVersion ?? 0;
       const rows = job.status === "review" ? job.candidate?.changes ?? [] : effectiveChanges(job);
@@ -139,6 +141,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
         if (!preparedJob) return;
       }
       const current = latest.current;
+      if (current.voice.jobs.some((pending) => pending.assessment === "full-note" && ["queued", "extracting"].includes(pending.status))) return;
       const reviewed = preparedJob ?? current.voice.jobs.find((item) => item.id === job.id);
       if (!contextWasCurrent || !reviewed || reviewed.status !== "review" || (reviewed.editVersion ?? 0) !== editVersion
         || reviewed.reviewRevision !== revision || revision !== current.session.currentRevision()) return;

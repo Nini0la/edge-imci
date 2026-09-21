@@ -7,13 +7,14 @@ The implemented interaction decisions are recorded in
 voice and direct answers use the existing guide's canonical fields, with explicit
 confirmation and no competing clinical form or requirements engine.
 
-This worktree is the long-lived `variant/intron` app variant, based on
-`feature/demo-workstation-integration`. The original assessment interface and
-deterministic clinical engine remain in place. The scoped demo uses **remote
+This worktree now contains the additive `variant/intron-text-panel` iteration,
+based on the preserved tappable/voice checkpoint `9148a17e` on `variant/intron`.
+The deterministic clinical engine remains in place. The demo uses **remote
 Intron ASR and Azure OpenAI language understanding**, with local evidence review,
 encounter state, workflow checks, clinical rules, and rendering. The native
-whole-report API still uses the existing Modal extractor; it is no longer the
-central interaction surface in this voice UI. This is an
+whole-report API still uses the existing Modal extractor, but the restored middle
+text panel uses the configured language-understanding provider, not that legacy
+API. This is an
 intentional demo bypass, not fully offline inference or the final architecture.
 
 ```text
@@ -83,6 +84,28 @@ a version pin. Confirm endpoint-to-Sahara-2.5 mapping with Intron before recordi
 a version-qualified benchmark. LLM transcript corrections and diarization are
 disabled; the API is used only for transcription, not clinical post-processing.
 
+### Text-panel checkpoint
+
+Desktop has three panels: the tappable assessment guide, a whole-report text
+editor, and clinical results. On mobile, **Write text** or **Text report** opens
+the same mounted editor without replacing the guide or interrupting voice work.
+
+1. Type or paste findings and select **Interpret text**. This submits an explicit
+   `full-note` capture through `/api/assessment/extract`; no follow-up question is
+   attached and no ASR call is made.
+2. Proposed answers appear in the existing guide, marked **From text**. Use those
+   controls to inspect and correct findings, including conflicts with other drafts.
+3. Return to the report and **Confirm findings**. Confirmation uses the existing
+   deterministic review/accept endpoints and sparse-patches the accepted encounter.
+   Omitted findings do not erase prior answers. The five clinical assessments and
+   clinical rules are unchanged; `full-note` is only a capture/review scope.
+4. **Generate IMCI recommendations** remains available. Unprocessed text and
+   unconfirmed proposals still require review or discard before generation.
+
+Clearing the text editor does not discard submitted reports, recordings, manual
+edits, or accepted findings. Discarding a report affects only that report. The
+original tappable-only version remains available from commit `9148a17e`.
+
 ### Assessment loop
 
 1. Start on **Assessment**. Existing guide rows are now controls: Yes / No /
@@ -103,7 +126,8 @@ disabled; the API is used only for transcription, not clinical post-processing.
    **Your answer**. Shared fields use shared working values. Conflicting recordings
    never silently choose a winner, and arriving recordings do not overwrite worker
    edits. **Review on assessment** explicitly selects another report when needed.
-   Original transcripts, English rendering, quotes, and JSON remain under Details.
+    Original transcripts remain readable; engineering records are retained
+    internally rather than exposed as JSON or conversion dumps.
 5. **Confirm findings** explicitly applies the selected report/direct draft.
    Only acceptance is serialized, not capture or navigation. The pure
    `/api/assessment/review` operation prepares effective proposals against the

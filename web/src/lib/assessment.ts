@@ -1,4 +1,4 @@
-import type { AssessmentCandidate, AssessmentChange, AssessmentId, AssessmentProgress, InteractionTrace, Resolutions } from "../types";
+import type { AssessmentCandidate, AssessmentChange, AssessmentId, AssessmentProgress, CaptureScope, InteractionTrace, Resolutions } from "../types";
 
 export const assessmentIds: AssessmentId[] = ["danger", "respiratory", "diarrhoea", "fever", "ear"];
 export const draftKey = "edge-imci.assessment.v1";
@@ -43,7 +43,7 @@ function validInteraction(value: unknown): value is InteractionTrace {
   if (source.asr_model != null && typeof source.asr_model !== "string") return false;
   if (source.language !== undefined && !["en", "pcm", "yo", "ig", "ha"].includes(source.language)) return false;
   if (source.question !== undefined && (!record(source.question) || typeof source.question.field !== "string" || typeof source.question.text !== "string")) return false;
-  if (entry.candidate !== undefined && (!record(entry.candidate) || !assessmentIds.includes(entry.candidate.assessment)
+  if (entry.candidate !== undefined && (!record(entry.candidate) || ![...assessmentIds, "full-note"].includes(entry.candidate.assessment)
     || typeof entry.candidate.input_text !== "string" || !Array.isArray(entry.candidate.changes) || !Array.isArray(entry.candidate.warnings))) return false;
   return [entry.before_encounter, entry.result, entry.native_preview, entry.diagnostic_result, entry.resolutions].every((item) => item === undefined || record(item));
 }
@@ -80,14 +80,15 @@ export function hasMeaningfulEvidence(encounter: Record<string, unknown>): boole
   });
 }
 
-export function affectedAssessments(assessment: AssessmentId, fields: string[]): AssessmentId[] {
+export function affectedAssessments(assessment: CaptureScope, fields: string[]): AssessmentId[] {
   const entries: Record<string, AssessmentId> = {
     "patient_facts.has_cough_or_difficult_breathing": "respiratory",
     "patient_facts.has_diarrhoea": "diarrhoea",
     "patient_facts.has_fever": "fever",
     "patient_facts.has_ear_problem": "ear",
   };
-  const affected = new Set<AssessmentId>([assessment]);
+  if (assessment === "full-note" && !fields.length) return [...assessmentIds];
+  const affected = new Set<AssessmentId>(assessment === "full-note" ? [] : [assessment]);
   // UI group routing only. Shared age/danger evidence conservatively marks every group pending.
   for (const field of fields) {
     if (field === "patient_facts.age_months" || field.startsWith("danger_signs.")) return [...assessmentIds];

@@ -1,4 +1,4 @@
-import { ArrowLeft, ChevronRight, ClipboardList, FileCheck2, Mic, Square, X } from "lucide-react";
+import { ArrowLeft, ChevronRight, ClipboardList, FileCheck2, FilePenLine, Mic, Square, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { assessmentBadge } from "../lib/assessment";
 import type { buildChecklist, ChecklistSection } from "../lib/checklist";
@@ -6,7 +6,7 @@ import type { CaptureJob, useVoiceCapture } from "../lib/useVoiceCapture";
 import type { ASRLanguage, AssessmentId, AssessmentProgress } from "../types";
 
 export interface MobileView {
-  screen: "list" | "assessment" | "results";
+  screen: "list" | "assessment" | "report" | "results";
   assessment: AssessmentId | null;
   tab: "guidance" | "findings";
   intro?: boolean;
@@ -30,7 +30,7 @@ export function MobileHeader({ view, sections, onNavigate, urgent = false }: {
   const intro = isIntro(view);
   const title = view.screen === "assessment"
     ? sections.find((section) => section.id === view.assessment)?.label ?? "Assessment"
-    : view.screen === "results" ? "Clinical results" : "Assessment list";
+    : view.screen === "results" ? "Clinical results" : view.screen === "report" ? "Text report" : "Assessment list";
   return <header className="mobile-only mobile-workspace-header" data-mobile-intro={intro || undefined}>
     <div className="mobile-workspace-header__row">
       {view.screen !== "list" && !intro && <button type="button" className="mobile-back" aria-label="Back to assessments"
@@ -161,12 +161,15 @@ export function MobileDock({ view, sections, voice, language, ready, onNavigate,
     </div>}
     {intro ? <div className="mobile-intro-actions">
       {confirmation}
+      <button type="button" className="mobile-write-report" onClick={() => onNavigate({ ...homeView, screen: "report" })}>Write text</button>
       <button type="button" className="mobile-continue" onClick={() => onNavigate(homeView)}>
         Continue<ChevronRight size={18} aria-hidden="true" />
       </button>
     </div> : <nav className="mobile-dock-nav" aria-label="Mobile workspace">
       <button type="button" aria-label="Assessments" aria-current={view.screen === "list" || view.screen === "assessment" ? "page" : undefined}
         onClick={() => onNavigate(homeView)}><ClipboardList size={19} aria-hidden="true" /><span className="mobile-nav-label">Assessments</span><span className="mobile-nav-short" aria-hidden="true">List</span></button>
+      <button type="button" aria-current={view.screen === "report" ? "page" : undefined}
+        onClick={() => onNavigate({ ...homeView, screen: "report" })}><FilePenLine size={19} aria-hidden="true" /><span>Text report</span></button>
       <button type="button" aria-current={view.screen === "results" ? "page" : undefined}
         onClick={() => onNavigate({ ...view, screen: "results" })}><FileCheck2 size={19} aria-hidden="true" /><span>Results</span></button>
     </nav>}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { ASRLanguage, AssessmentCandidate, AssessmentId, ClinicalValue, FieldDescriptor, InteractionTrace, Resolutions, Transcription, WorkerEdit } from "../types";
+import type { ASRLanguage, AssessmentCandidate, AssessmentId, CaptureScope, ClinicalValue, FieldDescriptor, InteractionTrace, Resolutions, Transcription, WorkerEdit } from "../types";
 import { clinicalValue, effectiveChanges, parseClinicalInput, pendingEvidenceVersion } from "./guideEvidence";
 import { extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import { createAudioCapture, type AudioState } from "./audio";
@@ -15,7 +15,7 @@ export interface CaptureContext {
 }
 export interface CaptureJob {
   id: string;
-  assessment: AssessmentId;
+  assessment: CaptureScope;
   language?: ASRLanguage;
   status: "recording" | "queued" | "transcribing" | "extracting" | "captured" | "preparing_review" | "review" | "applying" | "accepted" | "failed" | "discarded";
   audio?: Blob;
@@ -146,13 +146,14 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
     }
   }
 
-  function newJob(assessment: AssessmentId, context?: CaptureContext): CaptureJob | undefined {
+  function newJob(assessment: CaptureScope, context?: CaptureContext): CaptureJob | undefined {
     const snapshot = getSession().snapshot();
-    if (!snapshot.evaluation || !assessmentIds.includes(assessment)) {
+    if (!snapshot.evaluation || (assessment !== "full-note" && !assessmentIds.includes(assessment))) {
       state = { ...state, error: "The encounter must be evaluated before starting a new capture." }; publish(); return;
     }
-    const progress = snapshot.evaluation.assessments[assessment];
-    const question = context ? context.question : progress.decision === "ASK" && progress.question ? progress.question : undefined;
+    const progress = assessment === "full-note" ? undefined : snapshot.evaluation.assessments[assessment];
+    const question = assessment === "full-note" ? undefined : context ? context.question
+      : progress?.decision === "ASK" && progress.question ? progress.question : undefined;
     const encounter = structuredClone(context?.encounter ?? snapshot.encounter);
     const revision = context?.revision ?? snapshot.revision;
     const id = crypto.randomUUID();
@@ -197,6 +198,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
   return {
     clear,
     startRecording(assessment: AssessmentId, language: ASRLanguage, consent: { audio: boolean; understanding: boolean }, context?: CaptureContext) {
+      if (!assessmentIds.includes(assessment)) return;
       if (state.recordingId || state.audioState !== "idle") return;
       if (!consent.audio || !consent.understanding || !["en", "pcm", "yo", "ig", "ha"].includes(language)) {
         state = { ...state, error: "Select a language and consent to both transcription and structuring before recording." }; publish(); return;
@@ -211,7 +213,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
     },
     stop: microphone.stop,
     cancelRecording() { if (state.recordingId) discard(state.recordingId); },
-    addText(assessment: AssessmentId, text: string, consent: boolean, context?: CaptureContext) {
+    addText(assessment: CaptureScope, text: string, consent: boolean, context?: CaptureContext) {
       if (!consent || !text.trim()) return false;
       const job = newJob(assessment, context);
       if (!job) return false;
@@ -251,6 +253,9 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
       const job = get(id);
       if (!job?.candidate || job.status !== "review") return;
       const session = getSession();
+      if (state.jobs.some((pending) => pending.assessment === "full-note" && ["queued", "extracting"].includes(pending.status))) {
+        update(id, { error: "A full report is still being interpreted. Review its findings before confirming." }); return;
+      }
       if (expected && (expected.revision !== session.currentRevision() || expected.editVersion !== (job.editVersion ?? 0))) {
         update(id, { error: "The working answers changed. Review them and confirm again." }); return;
       }
@@ -300,10 +305,12 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
       discard(id); add(next); pump();
     },
     discard,
-    stageField(assessment: AssessmentId, descriptor: FieldDescriptor, input: ClinicalValue, jobId?: string, keep = false): string | undefined {
+    stageField(assessment: CaptureScope, descriptor: FieldDescriptor, input: ClinicalValue, jobId?: string, keep = false): string | undefined {
       let job = jobId ? get(jobId) : undefined;
-      if (job?.status === "applying") return;
+      // A stale control must not recreate a discarded/reset job or split a report correction.
+      if (jobId && (!job?.originalCandidate || !["captured", "review", "preparing_review"].includes(job.status))) return;
       if (!job?.originalCandidate || !["captured", "review", "preparing_review"].includes(job.status)) {
+        if (assessment === "full-note" || !descriptor.assessments.includes(assessment)) return;
         const snapshot = getSession().snapshot();
         job = newJob(assessment, { ...snapshot, question: undefined });
         if (!job) return;

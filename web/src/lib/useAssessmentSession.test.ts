@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useAssessmentSession } from "./useAssessmentSession";
 import { acceptAssessment, evaluateAssessment } from "./api";
 import { draftKey, parseDraft } from "./assessment";
-import type { AssessmentCandidate, AssessmentEvaluation, InteractionTrace } from "../types";
+import type { AssessmentCandidate, AssessmentEvaluation, AssessmentId, InteractionTrace, Resolutions } from "../types";
 
 // Minimal hook scheduler: exercise async session logic without adding a DOM dependency.
 const hooks = vi.hoisted(() => ({ slots: [] as unknown[], cursor: 0, effects: [] as Array<() => unknown> }));
@@ -205,6 +205,64 @@ describe("saved assessment choice", () => {
 });
 
 describe("session provenance and clinical authority", () => {
+  it.each([
+    { fields: ["patient_facts.age_months"], attempted: [] },
+    { fields: ["danger_signs.convulsing_now"], attempted: ["danger"] },
+    { fields: ["respiratory.respiratory_rate", "patient_facts.has_fever"], attempted: ["respiratory", "fever"] },
+    { fields: ["patient_facts.has_cough_or_difficult_breathing", "patient_facts.has_diarrhoea", "patient_facts.has_ear_problem"], attempted: ["respiratory", "diarrhoea", "ear"] },
+    { fields: ["diarrhoea.dehydration.skin_pinch", "ear.ear_pain", "fever.temperature_c"], attempted: ["diarrhoea", "ear", "fever"] },
+  ] satisfies Array<{ fields: string[]; attempted: AssessmentId[] }>) (
+    "marks only full-note applied field owners as attempted: $fields", async ({ fields, attempted }) => {
+    mount(); await Promise.resolve();
+    const session = render();
+    const report: AssessmentCandidate = { ...candidate, assessment: "full-note", changes: fields.map((field) => ({ ...candidate.changes[0], field })) };
+    const request = deferred<AssessmentEvaluation>(); vi.mocked(acceptAssessment).mockReturnValueOnce(request.promise);
+    const accepting = session.accept(report, {}, session.revision);
+    expect(acceptAssessment).toHaveBeenCalledExactlyOnceWith(report, encounter, {}, attempted, expect.any(AbortSignal));
+    expect(render().attempted).toEqual([]);
+    expect(render().encounter).toEqual(encounter);
+    const result: AssessmentEvaluation = { ...evaluation, assessments: Object.fromEntries(Object.entries(evaluation.assessments).map(([id, progress]) =>
+      [id, { ...progress, status: attempted.some((owner) => owner === id) ? "INCOMPLETE" : "NOT_STARTED" }])) as AssessmentEvaluation["assessments"] };
+    request.resolve(result); expect(await accepting).toBe(true);
+    expect(render().attempted).toEqual(attempted);
+    expect(render().evaluation!.assessments).toEqual(result.assessments);
+    expect(Object.keys(render().evaluation!.assessments)).toHaveLength(5);
+    expect(parseDraft(storage.get(draftKey)!)?.interactions?.[0]).toMatchObject({ assessment: "full-note", status: "accepted", candidate: report });
+  });
+
+  it("preserves existing attempts, excludes kept rows, and counts explicit unknown and same-value report answers", async () => {
+    mount(); await Promise.resolve();
+    await render().evaluate(encounter, ["ear"]);
+    const report: AssessmentCandidate = { ...candidate, assessment: "full-note", changes: [
+      { ...candidate.changes[0], field: "danger_signs.convulsing_now", previous: true, value: null },
+      { ...candidate.changes[0], field: "patient_facts.has_fever" },
+      { ...candidate.changes[0], field: "respiratory.respiratory_rate", previous: 42, value: 42 },
+      { ...candidate.changes[0], field: "patient_facts.age_months", value: 24 },
+    ] };
+    const resolutions: Resolutions = { "danger_signs.convulsing_now": "unknown", "patient_facts.has_fever": "keep" };
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(evaluation);
+    expect(await render().accept(report, resolutions, render().revision)).toBe(true);
+    expect(acceptAssessment).toHaveBeenLastCalledWith(report, encounter, resolutions, ["ear", "danger", "respiratory"], expect.any(AbortSignal));
+    expect(render().attempted).toEqual(["ear", "danger", "respiratory"]);
+  });
+
+  it("does not accept staged full notes automatically, rejects stale confirmation and drops late acceptance after reset", async () => {
+    mount(); await Promise.resolve();
+    const report: AssessmentCandidate = { ...candidate, assessment: "full-note" };
+    const reportTrace: InteractionTrace = { ...trace, assessment: "full-note", candidate: report, pending: true };
+    render().recordInteraction(reportTrace);
+    expect(acceptAssessment).not.toHaveBeenCalled();
+    expect(render().attempted).toEqual([]);
+    expect(await render().accept(report, {}, render().revision - 1)).toBe(false);
+    expect(acceptAssessment).not.toHaveBeenCalled();
+    const request = deferred<AssessmentEvaluation>(); vi.mocked(acceptAssessment).mockReturnValueOnce(request.promise);
+    const accepting = render().accept(report, {}, render().revision, reportTrace);
+    render().reset();
+    request.resolve(evaluation); expect(await accepting).toBe(false);
+    expect(render()).toMatchObject({ interactions: [], attempted: [], hasData: false });
+    expect(storage.has(draftKey)).toBe(false);
+  });
+
   it("requires acknowledgement of interrupted captures without trusting or applying them", async () => {
     storage.set(draftKey, JSON.stringify({ version: 1, encounter, attempted: [], revision: 2,
       interactions: [{ ...trace, pending: true }] }));

@@ -64,7 +64,7 @@ function click(button: ReactElement<ComponentProps<"button">> | undefined) {
 describe("mobile assessment navigation", () => {
   it.each([
     ["list", "Assessment list"], ["assessment", "Ear problem"],
-    ["results", "Clinical results"],
+    ["results", "Clinical results"], ["report", "Text report"],
   ] as const)("labels the %s view without duplicating the brand", (screen, title) => {
     const html = renderToStaticMarkup(<MobileHeader view={{ ...focus, screen }} sections={sections} onNavigate={vi.fn()} />);
     expect(html).toContain(`id="mobile-view-heading" tabindex="-1">${title}</h2>`);
@@ -312,6 +312,19 @@ describe("focused mobile tabs", () => {
 });
 
 describe("global mobile recording dock", () => {
+  it.each<MobileView>([intro, focus, { screen: "report", assessment: null, tab: "guidance" }])(
+    "opens text from $screen with navigation only, without microphone or draft actions", (view) => {
+      const props = dockProps({ view, language: "" });
+      const tree = MobileDock(props);
+      const link = buttons(tree).find((button) => renderToStaticMarkup(button).includes(view.intro ? "Write text" : "Text report"));
+      expect(link!.props["aria-current"]).toBe(view.screen === "report" ? "page" : undefined);
+      expect(props.onNavigate).not.toHaveBeenCalled();
+      click(link);
+      expect(props.onNavigate).toHaveBeenCalledExactlyOnceWith({ screen: "report", assessment: null, tab: "guidance" });
+      for (const action of [props.onSpeak, props.voice.startRecording, props.voice.addText, props.voice.clear, props.voice.discard,
+        props.voice.accept, props.voice.prepareReview]) expect(action).not.toHaveBeenCalled();
+    });
+
   it.each([intro, focus, { ...intro, tab: "findings" as const },
     { ...focus, screen: "list" as const }, { ...focus, screen: "results" as const }])("has no setup UX on $screen/$tab", (view) => {
     const props = dockProps({ view });
@@ -328,7 +341,7 @@ describe("global mobile recording dock", () => {
     expect(html).not.toContain("Only applied");
     expect(html).not.toContain("60 seconds");
     expect(html).not.toContain("Record findings");
-    expect(buttons(tree)).toHaveLength(2);
+    expect(buttons(tree)).toHaveLength(3);
     expect(props.onSpeak).not.toHaveBeenCalled();
     click(buttons(tree)[0]);
     expect(props.onSpeak).toHaveBeenCalledExactlyOnceWith();
@@ -466,7 +479,7 @@ describe("global mobile recording dock", () => {
       expect(props.voice.startRecording).not.toHaveBeenCalled();
     });
 
-  it.each(["list", "assessment", "results"] as const)("retains the real mic owner and frozen language on %s", (screen) => {
+  it.each(["list", "assessment", "report", "results"] as const)("retains the real mic owner and frozen language on %s", (screen) => {
     const props = dockProps({ view: { screen, assessment: "fever", tab: "guidance" }, urgent: true, pendingCount: 2 });
     props.voice = { ...props.voice, jobs: [job("recording")], audioState: "recording", recordingId: "clip-1" };
     const tree = MobileDock(props);
@@ -489,10 +502,11 @@ describe("global mobile recording dock", () => {
     click(actions.find((button) => button.props["aria-label"] === "Cancel recording"));
     expect(props.voice.stop).toHaveBeenCalledOnce();
     expect(props.voice.cancelRecording).toHaveBeenCalledOnce();
-    actions.slice(-2).forEach(click);
-    expect(props.onNavigate).toHaveBeenCalledTimes(2);
+    actions.slice(-3).forEach(click);
+    expect(props.onNavigate).toHaveBeenCalledTimes(3);
     expect(props.onNavigate).toHaveBeenNthCalledWith(1, { screen: "list", assessment: null, tab: "guidance" });
-    expect(props.onNavigate).toHaveBeenNthCalledWith(2, { ...props.view, screen: "results" });
+    expect(props.onNavigate).toHaveBeenNthCalledWith(2, { screen: "report", assessment: null, tab: "guidance" });
+    expect(props.onNavigate).toHaveBeenNthCalledWith(3, { ...props.view, screen: "results" });
   });
 
   it.each(["permission", "stopping"] as const)("disables Stop during %s but keeps Cancel and navigation enabled", (audioState) => {
@@ -507,14 +521,14 @@ describe("global mobile recording dock", () => {
     expect(actions[0].props.disabled).toBe(true);
     actions.slice(1).forEach(click);
     expect(props.voice.cancelRecording).toHaveBeenCalledOnce();
-    expect(props.onNavigate).toHaveBeenCalledTimes(2);
+    expect(props.onNavigate).toHaveBeenCalledTimes(3);
   });
 
-  it.each(["list", "results"] as const)("never starts a new capture from idle %s", (screen) => {
+  it.each(["list", "report", "results"] as const)("never starts a new capture from idle %s", (screen) => {
     const props = dockProps({ view: { ...focus, screen } });
     const html = renderToStaticMarkup(<MobileDock {...props} />);
     expect(html).not.toContain('aria-label="Speak"');
-    expect(buttons(MobileDock(props))).toHaveLength(2);
+    expect(buttons(MobileDock(props))).toHaveLength(3);
     expect(html).not.toContain("<select");
     expect(html).toContain('aria-current="page"');
     expect(props.onNavigate).not.toHaveBeenCalled();

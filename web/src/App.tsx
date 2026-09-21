@@ -5,6 +5,7 @@ import { AssessmentCapture } from "./components/AssessmentCapture";
 import { CaptureProgress } from "./components/CaptureProgress";
 import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
 import { ResultPanel } from "./components/ResultPanel";
+import { ReportPanel } from "./components/ReportPanel";
 import { InteractionHistory } from "./components/InteractionHistory";
 import { MobileAssessmentHome, MobileAssessmentTabs, MobileDock, MobileHeader, type MobileView } from "./components/MobileWorkspace";
 import { affectedAssessments, assessmentIds, hasMeaningfulEvidence, unresolvedChanges } from "./lib/assessment";
@@ -13,14 +14,15 @@ import { useGuideEditor } from "./lib/useGuideEditor";
 import { buildChecklist } from "./lib/checklist";
 import { useMobileLayout } from "./lib/layout";
 import { useAssessmentSession } from "./lib/useAssessmentSession";
-import { useVoiceCapture, type CaptureJob } from "./lib/useVoiceCapture";
-import type { ASRLanguage, AssessmentId } from "./types";
+import { useVoiceCapture, type CaptureContext, type CaptureJob } from "./lib/useVoiceCapture";
+import type { ASRLanguage, AssessmentId, CaptureScope } from "./types";
 
 export default function App() {
   const session = useAssessmentSession();
   const voice = useVoiceCapture(session);
   const guide = useGuideEditor(session, voice);
-  const [activePanel, setActivePanel] = useState<"assessment" | "result">("assessment");
+  const [activePanel, setActivePanel] = useState<"assessment" | "report" | "result">("assessment");
+  const [reportDraft, setReportDraft] = useState<{ text: string; context?: CaptureContext }>({ text: "" });
   const [assessmentRequested, setAssessmentRequested] = useState(false);
   const [generatedRevision, setGeneratedRevision] = useState<number | null>(null);
   const [language, setLanguage] = useState<ASRLanguage | "">("");
@@ -33,7 +35,8 @@ export default function App() {
     && mobileView.assessment === "danger" && mobileView.tab === "guidance";
   const lastFocus = useRef<{ node: HTMLElement; dock: boolean } | null>(null);
   const dirtyAssessments = assessmentIds.filter((id) => dirtySections[id]);
-  const hasDirty = dirtyAssessments.length > 0;
+  const hasReportDraft = Boolean(reportDraft.text.trim());
+  const hasDirty = dirtyAssessments.length > 0 || hasReportDraft;
   const interrupted = session.interruptedCount > 0;
   const result = session.evaluation?.analysis;
   const meaningful = hasMeaningfulEvidence(session.encounter);
@@ -45,7 +48,7 @@ export default function App() {
   const immediateActions = meaningful && result?.is_urgent && result.schema_valid && !result.error && !result.outside_supported_scope
     ? result.urgent_actions : [];
   const pendingJobs = voice.jobs.filter((job) => job.status !== "accepted" && job.status !== "discarded");
-  const pendingAssessments = [...new Set([...dirtyAssessments, ...pendingJobs.flatMap((job) => affectedAssessments(job.assessment,
+  const pendingAssessments = [...new Set([...(hasReportDraft ? assessmentIds : []), ...dirtyAssessments, ...pendingJobs.flatMap((job) => affectedAssessments(job.assessment,
     [...job.changedFields, ...effectiveChanges(job).map((change) => change.field)]))])];
   const captureStatuses: Partial<Record<AssessmentId, string>> = {};
   for (const id of assessmentIds) {
@@ -81,7 +84,7 @@ export default function App() {
       : <p className="capture-meta">{guide.schema ? "Control unavailable. Confirmed evidence remains unchanged."
         : "Controls unavailable until assessment metadata loads. Confirmed evidence remains unchanged."}</p>}
       {owner && owner.assessment !== assessment && path !== "patient_facts.age_months" && <button type="button" className="guide-clear"
-        onClick={() => reviewJob(owner.id)}>Review with {checklist.sections.find((section) => section.id === owner.assessment)?.label}</button>}
+        onClick={() => reviewJob(owner.id)}>Review with {owner.assessment === "full-note" ? "text report" : checklist.sections.find((section) => section.id === owner.assessment)?.label}</button>}
     </div>;
   }
 
@@ -102,7 +105,14 @@ export default function App() {
     const job = voice.jobs.find((item) => item.id === id);
     if (!job) return;
     guide.selectJob(id);
-    openAssessment(job.assessment, job.status === "failed" ? "findings" : "guidance");
+    if (job.assessment === "full-note") openReport();
+    else openAssessment(job.assessment, job.status === "failed" ? "findings" : "guidance");
+  }
+
+  function openReport() {
+    setActivePanel("report");
+    if (mobile) setMobileView({ screen: "report", assessment: null, tab: "guidance" });
+    else document.getElementById("report-heading")?.focus({ preventScroll: true });
   }
 
   async function generateRecommendations() {
@@ -117,7 +127,7 @@ export default function App() {
     if (await session.refresh() && session.currentRevision() === revision + 1) setGeneratedRevision(revision + 1);
   }
 
-  function renderSectionReview(assessment: AssessmentId, placement: "section" | "intro" | "age" = "section") {
+  function renderSectionReview(assessment: CaptureScope, placement: "section" | "intro" | "age" = "section") {
     if (dangerIntro && assessment === "danger" && placement === "section") return null;
     const job = guide.selectedJob(assessment);
     if (!job) return null;
@@ -135,18 +145,19 @@ export default function App() {
     const stale = (job.reviewRevision ?? job.originalRevision) !== session.revision;
     const invalid = Object.values(job.workerEdits ?? {}).some((edit) => edit.error);
     const disabled = !session.ready || session.busy || !guide.schema || invalid
-      || job.status === "preparing_review" || job.status === "applying";
+      || job.status === "preparing_review" || job.status === "applying"
+      || pendingJobs.some((pending) => pending.assessment === "full-note" && ["queued", "extracting"].includes(pending.status));
     const extraIntroFields = placement === "intro" && changes.some((row) => !row.field.startsWith("danger_signs."));
-    const progress = session.evaluation?.assessments[assessment];
+    const progress = assessment === "full-note" ? undefined : session.evaluation?.assessments[assessment];
     const completeness = progress?.status === "URGENT" ? "urgent" : progress?.status === "COMPLETE" ? "complete" : "incomplete";
     return <section className={mobile ? "guide-review mobile-confirmation" : "guide-review"}
       data-completeness={mobile ? completeness : undefined} aria-label={`${assessment} findings review`}>
-      {!mobile && <h3>Awaiting confirmation</h3>}
+      {!mobile && <h3>{assessment === "full-note" ? "Confirm text findings" : "Awaiting confirmation"}</h3>}
       {jobs.length > 1 && <>
         <div className="capture-actions">{jobs.map((item, index) => <button type="button" key={item.id}
           aria-pressed={item.id === job.id} disabled={job.status === "applying"}
           onClick={() => guide.selectJob(item.id)}>{item.originalCandidate?.extraction_mode === "worker-review"
-            ? "Review worker answers" : `Review recording ${index + 1}`}</button>)}</div>
+            ? "Review worker answers" : `Review ${item.language ? "recording" : "text report"} ${index + 1}`}</button>)}</div>
         {!mobile && <p className="capture-meta">Other drafts are retained when you switch sources. Confirm each separately.</p>}
       </>}
       {!mobile && <p>{changes.length ? `${changes.length} observation(s) staged. Check the answers on the assessment before confirming.`
@@ -156,7 +167,8 @@ export default function App() {
         <p>{mobile ? `${unresolved.length} answer(s) need review.` : `Choose answers above or keep confirmed answers for ${unresolved.length} flagged observation(s).`}</p>
         <div className="capture-actions">{unresolved.map((change) => <button key={change.field} type="button" onClick={() => {
           const target = guide.schema?.fields[change.field]?.assessments;
-          const origin = target?.includes(assessment) ? assessment : target?.[0] ?? assessment;
+          const origin = assessment !== "full-note" && target?.includes(assessment) ? assessment : target?.[0] ?? "danger";
+          setActivePanel("assessment");
           if (mobile) setMobileView({ screen: "assessment", assessment: origin, tab: "guidance", intro: false });
           const section = document.querySelector<HTMLDetailsElement>(`details[data-assessment="${origin}"]`);
           if (section && !mobile) section.open = true;
@@ -190,17 +202,19 @@ export default function App() {
   }
 
   const ageOwner = voice.jobs.find((job) => job.id === guide.field("danger", "patient_facts.age_months")?.jobId)?.assessment ?? "danger";
+  const fullReport = guide.selectedJob("full-note");
+  const reportChanges = fullReport ? effectiveChanges(fullReport) : [];
   const ageJob = guide.selectedJob(ageOwner);
   const ageOnlyDraft = ageJob && effectiveChanges(ageJob).length > 0
     && effectiveChanges(ageJob).every((row) => row.field === "patient_facts.age_months");
   const ageReview = mobile && mobileView.screen === "list" && agePending
     ? ageOnlyDraft ? renderSectionReview(ageOwner, "age") : <button type="button" className="guide-clear"
-      onClick={() => setMobileView({ screen: "assessment", assessment: ageOwner, tab: "guidance", intro: false })}>
-      Review age with {checklist.sections.find((section) => section.id === ageOwner)?.label}</button> : null;
+      onClick={() => ageOwner === "full-note" ? openReport() : setMobileView({ screen: "assessment", assessment: ageOwner, tab: "guidance", intro: false })}>
+      Review age with {ageOwner === "full-note" ? "text report" : checklist.sections.find((section) => section.id === ageOwner)?.label}</button> : null;
 
   useEffect(() => {
     // A hot-reloaded client may still hold the removed setup screen in memory.
-    if (mobile && !["list", "assessment", "results"].includes(mobileView.screen)) {
+    if (mobile && !["list", "assessment", "report", "results"].includes(mobileView.screen)) {
       setMobileView({ ...mobileView, screen: mobileView.assessment ? "assessment" : "list" });
     }
   }, [mobile, mobileView.screen, mobileView.assessment]);
@@ -211,7 +225,7 @@ export default function App() {
     previousMobileView.current = mobileView;
     if (!mobile) return;
     document.getElementById("mobile-view-heading")?.focus({ preventScroll: true });
-    document.querySelector(mobileView.screen === "results" ? ".output-panel" : ".checklist-panel")?.scrollTo({ top: 0 });
+    document.querySelector(mobileView.screen === "results" ? ".output-panel" : mobileView.screen === "report" ? ".report-panel" : ".checklist-panel")?.scrollTo({ top: 0 });
   }, [mobileView]);
 
   useEffect(() => {
@@ -246,6 +260,7 @@ export default function App() {
     guide.reset();
     session.reset();
     setDirtySections({});
+    setReportDraft({ text: "" });
     setAssessmentRequested(false);
     setGeneratedRevision(null);
     // Only explicit encounter clearing resets local editors, never an accepted revision.
@@ -285,9 +300,9 @@ export default function App() {
     <MobileHeader view={mobileView} sections={checklist.sections} onNavigate={setMobileView} urgent={urgent} />
 
     <nav className="mobile-panel-nav" aria-label="Application panels">
-      {(["assessment", "result"] as const).map((panel) => <button className={activePanel === panel ? "active" : ""}
+      {(["assessment", "report", "result"] as const).map((panel) => <button className={activePanel === panel ? "active" : ""}
         type="button" key={panel} aria-pressed={activePanel === panel} onClick={() => setActivePanel(panel)}>
-        {panel === "assessment" ? "Assessment" : "Result"}
+        {panel === "assessment" ? "Assessment" : panel === "report" ? "Text report" : "Result"}
         {panel === "result" && urgent && <span className="urgent-dot" />}
       </button>)}
     </nav>
@@ -321,7 +336,7 @@ export default function App() {
         {meaningful && progressBlocked && <p role="alert"><strong>Progress blocked; resolve evidence issues before using final synthesis.</strong> Routine classifications and management are withheld. Accepted urgent actions remain active.</p>}
       </section>}
 
-    <main className="clinical-workspace clinical-workspace--two-panel" data-active-panel={activePanel}
+    <main className="clinical-workspace clinical-workspace--three-panel" data-active-panel={activePanel}
       data-mobile-screen={mobile ? mobileView.screen : undefined}
       data-mobile-assessment={mobile ? mobileView.assessment ?? undefined : undefined}
       data-mobile-tab={mobile ? mobileView.tab : undefined}
@@ -371,6 +386,18 @@ export default function App() {
         </>}
       />
 
+      <ReportPanel text={reportDraft.text} ready={session.ready} voice={voice}
+        onChange={(text) => setReportDraft((previous) => ({ text, context: previous.context ?? (session.ready ? { ...session.snapshot(), question: undefined } : undefined) }))}
+        onClear={() => setReportDraft({ text: "" })}
+        onInterpret={() => {
+          if (session.ready && voice.addText("full-note", reportDraft.text, processingAuthorization.understanding,
+            reportDraft.context ?? { ...session.snapshot(), question: undefined })) setReportDraft({ text: "" });
+        }}
+        review={renderSectionReview("full-note")}
+        sections={checklist.sections.filter((section) => reportChanges
+          .some((row) => row.field === "patient_facts.age_months" ? section.id === "danger" : guide.schema?.fields[row.field]?.assessments.includes(section.id)))}
+        onReviewSection={openAssessment} onReviewJob={reviewJob} reviewDisabled={!session.ready || session.busy || !guide.schema} />
+
       <section className="output-panel" aria-label="Clinical result">
         <header className="pane-header result-pane-header">
           <div><p className="panel-index">Clinical result</p><h1>Classification and management</h1></div>
@@ -408,13 +435,14 @@ export default function App() {
               {assessmentRequested && session.error && <button type="button" className="assessment-review-link" disabled={session.busy}
                 onClick={() => void generateRecommendations()}>Retry assessment</button>}
               {assessmentRequested && !session.busy && (requestNeedsReview || progressBlocked) && <div className="assessment-review-links">
-                {[...new Set([...dirtyAssessments, ...pendingJobs.map((job) => job.assessment),
+                {[...new Set([...(hasReportDraft ? ["full-note" as const] : []), ...dirtyAssessments, ...pendingJobs.map((job) => job.assessment),
                   ...assessmentIds.filter((id) => session.evaluation?.assessments[id].blockers.length)])].map((id) => <button type="button"
                     className="assessment-review-link" key={id} onClick={() => {
                       const job = pendingJobs.find((item) => item.assessment === id);
                       if (job) reviewJob(job.id);
+                      else if (id === "full-note") openReport();
                       else openAssessment(id, dirtySections[id] ? "findings" : "guidance");
-                    }}>Review {checklist.sections.find((section) => section.id === id)?.label}</button>)}
+                    }}>Review {id === "full-note" ? "text report" : checklist.sections.find((section) => section.id === id)?.label}</button>)}
               </div>}
             </section>}
         </div>

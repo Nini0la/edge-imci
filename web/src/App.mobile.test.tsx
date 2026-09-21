@@ -8,6 +8,7 @@ import { CaptureProgress } from "./components/CaptureProgress";
 import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
 import { InteractionHistory } from "./components/InteractionHistory";
 import { ResultPanel } from "./components/ResultPanel";
+import { ReportPanel } from "./components/ReportPanel";
 import { MobileAssessmentHome, MobileAssessmentTabs, MobileDock, MobileHeader, type MobileView } from "./components/MobileWorkspace";
 import { assessmentIds } from "./lib/assessment";
 import { buildChecklist } from "./lib/checklist";
@@ -175,6 +176,7 @@ const views: MobileView[] = [
   { screen: "assessment", assessment: "ear", tab: "findings" },
   { screen: "assessment", assessment: "fever", tab: "guidance" },
   { screen: "results", assessment: "fever", tab: "guidance" },
+  { screen: "report", assessment: null, tab: "guidance" },
 ];
 function expectNavigationOnly() {
   for (const operation of [voice.clear, voice.cancelRecording, voice.stop, voice.accept, voice.prepareReview,
@@ -184,6 +186,81 @@ function expectNavigationOnly() {
 }
 
 describe("integrated mobile workspace", () => {
+  it("opens Write text from intro and Text report from the dock without ASR, reset or losing either editor", () => {
+    const app = workspace();
+    const report = () => component(app.root(), ReportPanel).props;
+    const captureHooks = createHooks();
+    const capture = () => {
+      const node = component(app.checklist().props.renderCapture!("ear"), AssessmentCapture);
+      return render(captureHooks, () => AssessmentCapture(node.props));
+    };
+    change(find(capture(), (node) => node.props.id === "capture-text-ear"), { value: "Retain scoped ear edit" });
+    const key = app.checklist().key;
+    const dock = () => MobileDock(component(app.root(), MobileDock).props);
+    click(button(dock(), "Write text"));
+    const reportView: MobileView = { screen: "report", assessment: null, tab: "guidance" };
+    expect(app.checklist().props.mobileView).toEqual(reportView);
+    expect(find(app.root(), (node) => node.type === "main").props["data-mobile-screen"]).toBe("report");
+    expect(renderToStaticMarkup(component(app.root(), MobileHeader))).toContain('id="mobile-view-heading" tabindex="-1">Text report');
+    expect(renderToStaticMarkup(dock())).not.toContain('aria-label="Speak"');
+    report().onChange("Retain full report draft");
+    for (const target of [views[0], views[1], views[4]]) {
+      app.navigate(target);
+      click(find(dock(), (node) => node.type === "button" && renderToStaticMarkup(node).includes("<span>Text report</span>")));
+      expect(app.checklist().props.mobileView).toEqual(reportView);
+      expect(report().text).toBe("Retain full report draft");
+      expect(find(capture(), (node) => node.props.id === "capture-text-ear").props.value).toBe("Retain scoped ear edit");
+      expect(app.checklist().key).toBe(key);
+    }
+    expectNavigationOnly();
+    expect(guide.reset).not.toHaveBeenCalled();
+    expect(session.evaluate).not.toHaveBeenCalled();
+    app.navigate(views[0]);
+    click(button(app.tools(), "Start new assessment"));
+    expect(report().text).toBe("");
+    expect(session.reset).toHaveBeenCalledOnce();
+    expect(app.checklist().key).not.toBe(key);
+  });
+
+  it.each(["captured", "review", "failed"] as const)("routes full-note %s review to the report screen, not a fabricated assessment", (status) => {
+    const candidate: NonNullable<CaptureJob["candidate"]> = { assessment: "full-note", input_text: "Synthetic report", extraction_mode: "test", warnings: [],
+      changes: [{ field: "ear.ear_pain", label: "Ear pain", previous: true, value: false, conflict: true, outside_assessment: false }] };
+    const pending: CaptureJob = { ...job(status), id: "text-report", assessment: "full-note", language: undefined,
+      candidate, originalCandidate: candidate, question: undefined,
+      trace: { id: "text-report", assessment: "full-note", timestamp: "today", status: "candidate", source: { submitted_text: "Synthetic report" } } };
+    voice.jobs = [pending, job("queued", "danger")];
+    const before = structuredClone(voice.jobs);
+    const app = workspace();
+    const report = () => component(app.root(), ReportPanel).props;
+    report().onChange("Keep newer unprocessed report");
+    app.navigate(views[4]);
+    const root = app.root();
+    const progress = component(root, CaptureProgress);
+    expect(progress.props.onReview).toBe(component(root, ReportPanel).props.onReviewJob);
+    click(button(CaptureProgress(progress.props), status === "failed" ? "View report" : "Review"));
+    expect(guide.selectJob).toHaveBeenCalledExactlyOnceWith("text-report");
+    expect(app.checklist().props.mobileView).toEqual({ screen: "report", assessment: null, tab: "guidance" });
+    expect(find(app.root(), (node) => node.type === "main").props).toMatchObject({ "data-active-panel": "report", "data-mobile-screen": "report", "data-mobile-assessment": undefined });
+    expect(report().text).toBe("Keep newer unprocessed report");
+    expect(document.querySelector).not.toHaveBeenCalledWith('details[data-assessment="full-note"]');
+    expect(voice.jobs).toEqual(before);
+    expectNavigationOnly();
+  });
+
+  it("routes blocked generation back to an unprocessed text report without processing it", () => {
+    const app = workspace();
+    component(app.root(), ReportPanel).props.onChange("Unprocessed full report");
+    app.navigate(views[0]);
+    const home = component(app.checklist().props.mobileHome, MobileAssessmentHome);
+    click(find(MobileAssessmentHome(home.props), (node) => node.props.className === "generate-assessment"));
+    expect(app.checklist().props.mobileView?.screen).toBe("results");
+    expect(renderToStaticMarkup(app.root())).toContain("Review findings before generating recommendations");
+    click(find(app.root(), (node) => node.props.className === "assessment-review-link" && renderToStaticMarkup(node).includes("Review text report")));
+    expect(app.checklist().props.mobileView).toEqual({ screen: "report", assessment: null, tab: "guidance" });
+    expect(component(app.root(), ReportPanel).props.text).toBe("Unprocessed full report");
+    expectNavigationOnly();
+  });
+
   it.each(["empty", "partial", "urgent"])("uses the shared Home generation handler for %s while dock Results remains navigation-only", async (kind) => {
     session.encounter = kind === "empty" ? {} : kind === "urgent" ? { danger_signs: { convulsing_now: true } } : evaluation.encounter;
     session.evaluation = { ...evaluation, encounter: session.encounter, analysis: { ...evaluation.analysis,
@@ -438,9 +515,9 @@ describe("integrated mobile workspace", () => {
     const items = buildChecklist({}).sections[0].items;
     expect(items).toHaveLength(5);
     const onChange = vi.fn();
-    vi.mocked(guide.field).mockImplementation((assessment, path) => {
+    vi.mocked(guide.field).mockImplementation((_assessment, path) => {
       const item = items.find((item) => item.id === path);
-      return item ? { descriptor: { path, label: item.label, kind: "boolean", nullable: true, assessments: [assessment] },
+      return item ? { descriptor: { path, label: item.label, kind: "boolean", nullable: true, assessments: ["danger"] },
         value: null, acceptedValue: null, raw: undefined, error: undefined, jobId: "",
         pending: false, requiresChoice: false, disabled: false, source: "accepted", onChange, onKeep: vi.fn() } : null;
     });
@@ -705,11 +782,16 @@ describe("integrated mobile workspace", () => {
     expectNavigationOnly();
   });
 
-  it("keeps one checklist and five capture positions/types/keys through navigation, revisions, and layout switches", () => {
+  it("keeps one guide, one report and five capture positions/types/keys through navigation, revisions, and layout switches", () => {
     const app = workspace();
     const identity = () => {
-      const checklists = locations(app.root()).filter(({ node }) => node.type === AssessmentChecklist);
+      const root = app.root();
+      const checklists = locations(root).filter(({ node }) => node.type === AssessmentChecklist);
       expect(checklists).toHaveLength(1);
+      const reports = locations(root).filter(({ node }) => node.type === ReportPanel);
+      expect(reports).toHaveLength(1);
+      const main = find(root, (node) => node.type === "main");
+      expect((main.props.children as ReactNode[]).filter(isValidElement).map((node) => node.type)).toEqual([AssessmentChecklist, ReportPanel, "section"]);
       const tree = app.captures();
       const captures = locations(tree).filter(({ node }) => node.type === AssessmentCapture);
       expect(captures.map(({ node }) => node.props.assessment)).toEqual(assessmentIds);
@@ -719,7 +801,7 @@ describe("integrated mobile workspace", () => {
       const view = app.checklist().props.mobileView;
       if (view) expect(sections.filter(({ node }) => node.props.open).map(({ node }) => node.key))
         .toEqual(view.screen === "assessment" ? [view.assessment] : []);
-      return { checklist: checklists[0].path, captures: captures.map(({ path }) => path) };
+      return { checklist: checklists[0].path, report: reports[0].path, captures: captures.map(({ path }) => path) };
     };
     const initial = identity();
     expect(app.checklist().key).toBe("0");

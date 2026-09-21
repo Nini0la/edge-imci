@@ -119,7 +119,16 @@ def _assessment(value: Any) -> str:
     return value
 
 
+def _capture_scope(value: Any) -> str:
+    """A whole report is a capture scope, never a sixth clinical assessment."""
+    if isinstance(value, str) and value == "full-note":
+        return value
+    return _assessment(value)
+
+
 def _in_scope(field: str, assessment: str) -> bool:
+    if assessment == "full-note":
+        return field in _SUPPORTED_FIELDS
     _, prefix, entry = ASSESSMENTS[assessment]
     return (
         field.startswith(prefix + ".") or field == entry
@@ -273,13 +282,15 @@ def evaluate_assessment(body: dict) -> dict:
 
 
 def extract_assessment(body: dict, language_provider: LanguageUnderstandingProvider) -> dict:
-    assessment = _assessment(body.get("assessment"))
+    assessment = _capture_scope(body.get("assessment"))
     target = _target(body.get("encounter"))
     findings = body.get("findings")
     if not isinstance(findings, str) or not 0 < len(findings.strip()) <= 8000:
         raise AssessmentError("Provide a short assessment report of 1 to 8,000 characters.")
     question_field = body.get("question_field")
     question_context = None
+    if assessment == "full-note" and "question_field" in body:
+        raise AssessmentError("A full assessment report cannot answer a follow-up question. Select its assessment instead.")
     if question_field is not None:
         current = evaluate_assessment({"encounter": target})["assessments"][assessment]["question"]
         if not isinstance(question_field, str) or not current or current["field"] != question_field:
@@ -288,7 +299,8 @@ def extract_assessment(body: dict, language_provider: LanguageUnderstandingProvi
     try:
         extraction = language_provider.understand(
             findings.strip(),
-            {"assessment": ASSESSMENTS[assessment][0].value, "id": assessment},
+            {"assessment": "Full assessment report" if assessment == "full-note" else ASSESSMENTS[assessment][0].value,
+             "id": assessment},
             question_context, deepcopy(target),
         )
         if not isinstance(extraction.canonical_evidence, dict):
@@ -361,7 +373,7 @@ def prepare_assessment_review(body: dict) -> dict:
     """
     if not isinstance(body, dict):
         raise AssessmentError("Invalid evidence review.")
-    assessment = _assessment(body.get("assessment"))
+    assessment = _capture_scope(body.get("assessment"))
     target = _target(body.get("encounter"))
     changes = body.get("changes")
     if not isinstance(changes, list) or len(changes) > len(_SUPPORTED_FIELDS):
@@ -390,7 +402,7 @@ def prepare_assessment_review(body: dict) -> dict:
 
 
 def accept_assessment(body: dict) -> dict:
-    assessment = _assessment(body.get("assessment"))
+    assessment = _capture_scope(body.get("assessment"))
     target = _target(body.get("encounter"))
     previous_target = deepcopy(target)
     if body.get("confirmed") is not True:
@@ -443,6 +455,11 @@ def accept_assessment(body: dict) -> dict:
         raise AssessmentError("Invalid assessment attempt list.")
     for item in attempted:
         _assessment(item)
+    # Ownership, not section scope: age is shared and lethargy belongs to danger.
+    newly_attempted = [
+        name for name, (_, prefix, entry) in ASSESSMENTS.items()
+        if any(field.startswith(prefix + ".") or field == entry for field in applied)
+    ] if assessment == "full-note" else [assessment]
     return evaluate_assessment({
-        "encounter": target, "attempted": list(dict.fromkeys([*attempted, assessment])),
+        "encounter": target, "attempted": list(dict.fromkeys([*attempted, *newly_attempted])),
     })

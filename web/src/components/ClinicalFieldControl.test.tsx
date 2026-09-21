@@ -172,8 +172,8 @@ describe("ClinicalFieldControl", () => {
   });
 
   it.each([
-    ["voice", "From recording"], ["worker", "Your answer"], ["accepted", "Not assessed"],
-    ["kept", "Kept confirmed answer"], ["conflict", "Conflicting recordings"],
+    ["voice", "From recording"], ["text", "From text"], ["worker", "Your answer"], ["accepted", "Not assessed"],
+    ["kept", "Kept confirmed answer"], ["conflict", "Conflicting findings"],
   ] as const)("shows a small human-readable badge for %s", (source, label) => {
     expect(renderControl({ source }).html).toContain(`class="clinical-field-control__source">${label}</span>`);
   });

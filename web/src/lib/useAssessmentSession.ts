@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { AssessmentCandidate, AssessmentEvaluation, AssessmentId, InteractionTrace, Resolutions } from "../types";
 import { acceptAssessment, evaluateAssessment } from "./api";
-import { createRequestGate, draftKey, hasMeaningfulEvidence, parseDraft, recordDraftInteraction, unresolvedChanges, type AssessmentDraft } from "./assessment";
+import { assessmentIds, createRequestGate, draftKey, hasMeaningfulEvidence, parseDraft, recordDraftInteraction, unresolvedChanges, type AssessmentDraft } from "./assessment";
 
 const emptyDraft = (revision = 0): AssessmentDraft => ({ version: 1, encounter: {}, attempted: [], revision, interactions: [] });
 
@@ -150,7 +150,18 @@ export function useAssessmentSession() {
         setError("Review is stale or has unresolved choices. Interpret the findings again before applying.");
         return Promise.resolve(false);
       }
-      const attempted = [...new Set([...current.current.attempted, candidate.assessment])];
+      // Completion attempts follow applied field ownership, not shared evaluation dependencies.
+      const entries: Record<string, AssessmentId> = {
+        "patient_facts.has_cough_or_difficult_breathing": "respiratory",
+        "patient_facts.has_diarrhoea": "diarrhoea",
+        "patient_facts.has_fever": "fever",
+        "patient_facts.has_ear_problem": "ear",
+      };
+      const appliedOwners = candidate.assessment === "full-note" ? candidate.changes
+        .filter((change) => resolutions[change.field] !== "keep")
+        .map((change) => entries[change.field] ?? (change.field.startsWith("danger_signs.") ? "danger" : change.field.split(".")[0]))
+        .filter((owner): owner is AssessmentId => assessmentIds.includes(owner as AssessmentId)) : [candidate.assessment];
+      const attempted = [...new Set([...current.current.attempted, ...appliedOwners])];
       const encounter = current.current.encounter;
       const trace: InteractionTrace = { ...interaction, id: interaction?.id ?? crypto.randomUUID(),
         timestamp: interaction?.timestamp ?? new Date().toISOString(), assessment: candidate.assessment,
