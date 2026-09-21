@@ -30,11 +30,12 @@ const trace: InteractionTrace = { id: "trace", timestamp: "2026-09-14T12:00:00Z"
 
 function session(overrides: Partial<ReturnType<typeof useAssessmentSession>> = {}): ReturnType<typeof useAssessmentSession> {
   return {
-    version: 1, encounter: {}, attempted: [], revision: 1, evaluation: null, hasData: false,
-    busy: false, error: "", storageHint: "", ready: false, currentRevision: () => 1,
-    snapshot: () => ({ encounter: {}, revision: 1, evaluation: null }),
+    version: 1, encounter, patientName: "Synthetic Patient", attempted: [], revision: 1, hasData: true,
+    evaluation: { ...accepted, analysis: { ...analysis, is_complete: false, state: "INCOMPLETE" } },
+    busy: false, error: "", storageHint: "", ready: true, currentRevision: () => 1,
+    snapshot: () => ({ encounter, revision: 1, evaluation: { ...accepted, analysis: { ...analysis, is_complete: false, state: "INCOMPLETE" } } }),
     interruptedCount: 0, acknowledgeInterrupted: vi.fn(),
-    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
+    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false), updateIntake: vi.fn().mockResolvedValue(false),
     refresh: vi.fn().mockResolvedValue(true), reset: vi.fn(), evaluate: vi.fn().mockResolvedValue(true),
     accept: vi.fn().mockResolvedValue(true), interactions: [], recordInteraction: vi.fn(), rejectPending: vi.fn(), ...overrides,
   };
@@ -60,11 +61,41 @@ beforeEach(() => {
 });
 
 describe("guide-first workspace", () => {
-  it.each([false, true].flatMap((mobile) => ["empty", "incomplete", "busy"].map((state) => ({ mobile, state }))))(
+  it.each([false, true].flatMap((mobile) => [
+    { patientName: undefined, encounter }, { patientName: "", encounter }, { patientName: "   ", encounter },
+    { patientName: "x".repeat(201), encounter },
+    ...[null, 1, 60, 24.5, "24"].map((age) => ({ patientName: "Synthetic Patient", encounter: { patient_facts: { age_months: age } } })),
+    { patientName: "Synthetic Patient", encounter: {} },
+  ].map((details) => ({ mobile, ...details }))))("gates invalid intake before all workspace content: %j", ({ mobile, ...details }) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    const active = session({ ...details, evaluation: accepted });
+    vi.mocked(useAssessmentSession).mockReturnValue(active);
+    const html = renderToStaticMarkup(<App />);
+    expect(html).toContain("Patient intake</h1>");
+    expect(html).toContain("Start assessment</button>");
+    for (const hidden of ["clinical-workspace", "mobile-dock", "Clinical synthesis ready", "Generate IMCI recommendations", "Interpret text"])
+      expect(html).not.toContain(hidden);
+    expect(useVoiceCapture).toHaveBeenCalledWith(active, false);
+    expect(active.updateIntake).not.toHaveBeenCalled();
+  });
+
+  it.each([2, 59])("shows accepted age %s only in the patient summary, not an ordinary age editor", (age) => {
+    vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter: { patient_facts: { age_months: age } } }));
+    const html = renderToStaticMarkup(<App />);
+    expect(html).toContain('aria-label="Patient details"');
+    expect(html).toContain("Synthetic Patient");
+    expect(html).toContain(`Age: ${age} months`);
+    expect(html).toContain("Edit patient details</button>");
+    expect(html).not.toContain('class="assessment-scope"');
+    expect(html).not.toContain('id="patient-age"');
+    expect(html).toContain("Assessment in progress");
+  });
+
+  it.each([false, true].flatMap((mobile) => ["intake-only", "incomplete", "busy"].map((state) => ({ mobile, state }))))(
     "offers generation for $state evidence with mobile=$mobile, disabling only while busy", ({ mobile, state }) => {
       vi.mocked(useMobileLayout).mockReturnValue(mobile);
       vi.mocked(useAssessmentSession).mockReturnValue(session({ ready: true, busy: state === "busy",
-        encounter: state === "empty" ? {} : encounter, evaluation: { ...accepted,
+        encounter, evaluation: { ...accepted,
           analysis: { ...analysis, is_complete: false, state: "INCOMPLETE" } } }));
       const html = renderToStaticMarkup(<App />);
       const action = html.match(/<button[^>]*class="generate-assessment"[^>]*>[\s\S]*?<\/button>/g);
@@ -87,7 +118,7 @@ describe("guide-first workspace", () => {
     expect(html.match(/<button/g)).toHaveLength(2);
     for (const hidden of ["clinical-workspace", "assessment-scope", "mobile-dock", "Interaction trace", "Old urgent action",
       "Clinical synthesis ready", "Acknowledge interrupted captures", 'role="radiogroup"', "Clear encounter"]) expect(html).not.toContain(hidden);
-    expect(useVoiceCapture).toHaveBeenCalledWith(saved);
+    expect(useVoiceCapture).toHaveBeenCalledWith(saved, false);
     expect(useGuideEditor).toHaveBeenCalledWith(saved, vi.mocked(useVoiceCapture).mock.results[0].value);
     expect(saved.resumeSaved).not.toHaveBeenCalled();
     expect(saved.refresh).not.toHaveBeenCalled();
@@ -119,51 +150,26 @@ describe("guide-first workspace", () => {
     expect(html).toContain('class="checklist-footer"');
     expect(html).toContain('>Clear encounter</button>');
     expect(html).not.toContain('>Start new assessment</button>');
-    expect(html).toMatch(/<details class="interaction-history"><summary>Recording history \(0\)/);
+    expect(html).toMatch(/<details class="interaction-history"><summary>Assessment history \(0\)/);
     expect(html).not.toContain('class="app-frame app-frame--mobile"');
     expect(html).toContain('class="mobile-only mobile-workspace-header" data-mobile-intro="true"');
     const main = html.slice(html.indexOf("<main"), html.indexOf(">", html.indexOf("<main")));
     expect(main).not.toMatch(/data-mobile-|data-show-age/);
     expect(html.match(/data-assessment="[^"]+" open=""/g)).toEqual(['data-assessment="danger" open=""']);
-    expect(html.match(/class="assessment-scope"/g)).toHaveLength(1);
+    expect(html).not.toContain('class="assessment-scope"');
   });
 
-  it("uses desktop deployment authorization with optional disclosure and explicit language selection", () => {
+  it.each([false, true])("exposes text-only processing and no speech controls with mobile=%s", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain('<details class="processing-disclosure"><summary>About processing</summary>');
-    expect(html).toContain("deployment-authorized processing");
-    expect(html).toContain("audio goes to Intron");
-    expect(html).toContain("transcripts/encounter context go to the language-understanding service");
-    for (const removed of ['type="checkbox"', "I agree to send", "both consents"]) expect(html).not.toContain(removed);
-    expect(html).toContain('<option value="" disabled="" selected="">Select language');
-    for (const language of ["en", "pcm", "yo", "ig", "ha"]) expect(html).toContain(`value="${language}"`);
-    expect(html.match(/class="record-findings"[^>]*disabled/g)).toHaveLength(5);
-  });
-
-  it("renders mobile preauthorization disclosure without a desktop toolbar, setup screen or gear", () => {
-    vi.mocked(useMobileLayout).mockReturnValue(true);
-    const html = renderToStaticMarkup(<App />);
-    expect(html).toContain('class="app-frame app-frame--mobile" data-mobile-intro="true"');
-    expect(html).toContain('id="mobile-speech-language"');
-    expect(html).toContain("pre-authorized processing");
-    expect(html).toContain("audio goes to Intron");
-    expect(html).toContain("transcripts/encounter context go to the language-understanding service");
     expect(html).toContain("About processing");
-    expect(html).toContain("Recording history (0)");
-    expect(html).toContain("Start new assessment</button>");
-    for (const removed of ['type="checkbox"', 'id="capture-language"', "capture-toolbar", "Encounter recording settings", "lucide-settings", "Agree to language-understanding processing"])
+    expect(html).toContain("Submitted text and clinical context go to the language-understanding service");
+    expect(html).toContain("The intake name is not included automatically");
+    expect(html).toContain("Assessment history (0)");
+    for (const removed of ['type="checkbox"', '<select', "Intron", "microphone", 'aria-label="Speak"', 'id="mobile-speech-language"', 'id="capture-language"', "record-findings", "capture-toolbar"])
       expect(html).not.toContain(removed);
+    expect(useVoiceCapture).toHaveBeenCalledWith(expect.anything(), false);
     expect(vi.mocked(useVoiceCapture).mock.results[0].value.startRecording).not.toHaveBeenCalled();
-  });
-
-  it("keeps Stop and Cancel outside the mobile-switched panes", () => {
-    vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: [job("recording")], recordingId: "ear-clip", audioState: "recording" });
-    const html = renderToStaticMarkup(<App />);
-    const global = html.slice(0, html.indexOf("<main"));
-    expect(global).toContain('aria-label="Active recording"');
-    expect(global).toContain("ear / yo");
-    expect(global).toContain(">Stop</button>");
-    expect(global).toContain(">Cancel</button>");
   });
 });
 
@@ -177,16 +183,16 @@ describe("quiet accepted results", () => {
     });
 
   it.each([false, true].flatMap((mobile) => [false, true].map((pending) => ({ mobile, pending }))))(
-    "shows confirmed danger-sign management before age or overall completion, mobile=$mobile pending=$pending",
+    "shows confirmed danger-sign management after intake before overall completion, mobile=$mobile pending=$pending",
     ({ mobile, pending }) => {
       vi.mocked(useMobileLayout).mockReturnValue(mobile);
-      const dangerEncounter = { danger_signs: { unable_to_drink_or_breastfeed: true, vomits_everything: true,
+      const dangerEncounter = { ...encounter, danger_signs: { unable_to_drink_or_breastfeed: true, vomits_everything: true,
         had_convulsions: false, lethargic_or_unconscious: false, convulsing_now: false } };
       const urgentActions = ["Complete the remaining assessment quickly.", "Give the indicated pre-referral treatment immediately.",
         "Keep the child warm.", "Prevent low blood sugar.", "Arrange urgent referral."];
       const evaluation = { ...accepted, encounter: dangerEncounter, analysis: { ...analysis, is_complete: false, is_urgent: true,
         state: "URGENT_INCOMPLETE" as const, classifications: [], final_actions: [], urgent_actions: urgentActions,
-        missing_elements: { patient_facts: ["age_months"] } } };
+        missing_elements: { ear: ["ear_pain"] } } };
       const original = structuredClone(evaluation);
       vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter: dangerEncounter, ready: true, evaluation }));
       vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: pending ? [job("transcribing")] : [] });
@@ -235,8 +241,8 @@ describe("quiet accepted results", () => {
     vi.mocked(useAssessmentSession).mockReturnValue(restored);
     const html = renderToStaticMarkup(<App />);
     const global = html.slice(0, html.indexOf("<main"));
-    expect(global).toContain("2 capture(s) interrupted and not applied");
-    expect(global).toContain("Audio jobs are not resumed after reload");
+    expect(global).toContain("2 report(s) interrupted and not applied");
+    expect(global).toContain("Check the assessment history");
     expect(global).toContain("Acknowledge interrupted captures");
     expect(global).not.toContain("Authoritative urgent transfer action");
     expect(html.slice(html.indexOf('<section class="output-panel"'))).toContain("Authoritative urgent transfer action");
@@ -247,35 +253,36 @@ describe("quiet accepted results", () => {
     expect(renderToStaticMarkup(<App />)).toContain("Clinical synthesis ready");
   });
 
-  it("shows the interruption notice even with no meaningful accepted evidence", () => {
+  it("shows the interruption notice after intake even without other accepted findings", () => {
     vi.mocked(useAssessmentSession).mockReturnValue(session({ interruptedCount: 1 }));
     const html = renderToStaticMarkup(<App />);
-    expect(html.slice(0, html.indexOf("<main"))).toContain("1 capture(s) interrupted and not applied");
-    expect(html).toContain("Ready when you are");
+    expect(html.slice(0, html.indexOf("<main"))).toContain("1 report(s) interrupted and not applied");
+    expect(html).toContain("Acknowledge interrupted captures before final plan");
   });
 
-  it.each([{}, { patient_facts: { age_months: null }, ear: { ear_pain: null } }])("stays neutral for empty or all-null accepted evidence", (empty) => {
+  it.each([{}, { patient_facts: { age_months: null }, ear: { ear_pain: null } }])("requires intake for empty or all-null accepted evidence", (empty) => {
     vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter: empty, hasData: true, ready: true,
       evaluation: { ...accepted, encounter: empty, analysis: { ...analysis, state: "INCOMPLETE", is_complete: false,
         rendered_response: "Information needed: all fields" } } }));
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain("Ready when you are");
+    expect(html).toContain("Patient intake</h1>");
+    expect(html).not.toContain("clinical-workspace");
     expect(html).not.toContain("Assessment incomplete");
     expect(html).not.toContain("Information needed");
     expect(html).not.toContain("Assessment in progress");
   });
 
   it("does not treat trace-only drafts or unaccepted captures as clinical evidence", () => {
-    vi.mocked(useAssessmentSession).mockReturnValue(session({ hasData: true, ready: true, interactions: [trace], evaluation: { ...accepted, encounter: {} } }));
+    vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter: {}, hasData: true, ready: true, interactions: [trace], evaluation: { ...accepted, encounter: {} } }));
     vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: [job("captured")] });
     const html = renderToStaticMarkup(<App />);
-    expect(html).toContain("Ready when you are");
-    expect(html).toContain("Recording history (1)");
+    expect(html).toContain("Patient intake</h1>");
+    expect(html).not.toContain("Assessment history (1)");
     expect(html).not.toContain("Clinical synthesis ready");
     expect(html).not.toContain('aria-label="Immediate management"');
   });
 
-  it.each([{ patient_facts: { has_ear_problem: false } }, { ear: { ear_discharge_duration_days: 0 } }])("counts known false and zero values, showing only a compact partial note", (known) => {
+  it.each([{ patient_facts: { age_months: 24, has_ear_problem: false } }, { ...encounter, ear: { ear_discharge_duration_days: 0 } }])("counts known false and zero values after intake, showing only a compact partial note", (known) => {
     vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter: known, ready: true,
       evaluation: { ...accepted, encounter: known, analysis: { ...analysis, is_complete: false, state: "INCOMPLETE", rendered_response: "Information needed: remaining fields" } } }));
     const html = renderToStaticMarkup(<App />);
@@ -303,7 +310,7 @@ describe("quiet accepted results", () => {
     const original = structuredClone({ evaluation, trace });
     vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter, evaluation, ready: true, interactions: [trace] }));
     const html = renderToStaticMarkup(<App />);
-    for (const text of ["Clinical synthesis ready", "Recording history (1)", "Unaccepted words", "Accepted rationale"]) expect(html).toContain(text);
+    for (const text of ["Clinical synthesis ready", "Assessment history (1)", "Unaccepted words", "Accepted rationale"]) expect(html).toContain(text);
     for (const text of ["Interaction trace", "<pre", "<code", "JSON", "original-rule", "Processing trace", "Original processing detail"]) expect(html).not.toContain(text);
     expect({ evaluation, trace }).toEqual(original);
   });
@@ -320,16 +327,16 @@ describe("quiet accepted results", () => {
   it("keeps accepted urgent guidance only in results while unrelated processing remains global", () => {
     vi.mocked(useAssessmentSession).mockReturnValue(session({ encounter, ready: true, evaluation: { ...accepted,
       analysis: { ...analysis, is_complete: false, is_urgent: true, state: "URGENT_INCOMPLETE", urgent_actions: ["Authoritative urgent transfer action"] } } }));
-    vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: [job("transcribing")] });
+    vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: [job("extracting")] });
     const html = renderToStaticMarkup(<App />);
     const global = html.slice(0, html.indexOf("<main"));
     expect(global).not.toContain("Authoritative urgent transfer action");
-    expect(global).toContain('aria-label="Recording progress"');
-    expect(global).toContain("Turning your recording into text");
+    expect(global).toContain('aria-label="Assessment progress"');
+    expect(global).toContain("Adding your findings to the assessment");
     expect(html.slice(html.indexOf('<section class="output-panel"'))).toContain("Authoritative urgent transfer action");
     expect(html.split("Authoritative urgent transfer action")).toHaveLength(2);
     expect(html).not.toContain("workspace-urgent");
-    expect(html).toContain("Processing / transcribing");
+    expect(html).toContain("Processing / structuring findings");
     expect(html).not.toContain(analysis.rendered_response);
   });
 
@@ -350,14 +357,10 @@ describe("quiet accepted results", () => {
     expect(JSON.stringify(evaluation)).toBe(before);
   });
 
-  it("keeps startup errors, storage warnings, and retry global without hiding background jobs", () => {
-    vi.mocked(useAssessmentSession).mockReturnValue(session({ error: "Server unavailable", storageHint: "Tab storage unavailable" }));
-    vi.mocked(useVoiceCapture).mockReturnValue({ ...useVoiceCapture(session()), jobs: [job("extracting")], error: "Microphone unavailable" });
+  it("keeps setup errors and storage warnings on intake without exposing the workspace", () => {
+    vi.mocked(useAssessmentSession).mockReturnValue(session({ ready: false, error: "Server unavailable", storageHint: "Tab storage unavailable" }));
     const html = renderToStaticMarkup(<App />);
-    const global = html.slice(0, html.indexOf("<main"));
-    for (const message of ["Server unavailable", "Tab storage unavailable", "Microphone unavailable", "Retry accepted assessment evaluation"]) expect(global).toContain(message);
-    expect(global).toContain("Adding your findings to the assessment");
-    expect(html).toContain("Processing / structuring findings");
-    expect(html).toContain("Ready when you are");
+    for (const message of ["Server unavailable", "Tab storage unavailable", "Retry assessment setup", "Patient intake</h1>"]) expect(html).toContain(message);
+    expect(html).not.toContain("clinical-workspace");
   });
 });

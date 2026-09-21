@@ -1,31 +1,32 @@
 import { useEffect, useRef, useState } from "react";
-import { ClipboardCheck, LockKeyhole, Mic, ShieldCheck } from "lucide-react";
+import { ClipboardCheck, ShieldCheck } from "lucide-react";
 import { AssessmentChecklist } from "./components/AssessmentChecklist";
 import { AssessmentCapture } from "./components/AssessmentCapture";
 import { CaptureProgress } from "./components/CaptureProgress";
 import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
 import { ResultPanel } from "./components/ResultPanel";
 import { ReportPanel } from "./components/ReportPanel";
+import { PatientIntake } from "./components/PatientIntake";
 import { InteractionHistory } from "./components/InteractionHistory";
 import { MobileAssessmentHome, MobileAssessmentTabs, MobileDock, MobileHeader, type MobileView } from "./components/MobileWorkspace";
-import { affectedAssessments, assessmentIds, hasMeaningfulEvidence, unresolvedChanges } from "./lib/assessment";
+import { affectedAssessments, assessmentIds, hasMeaningfulEvidence, normalizePatientName, unresolvedChanges } from "./lib/assessment";
 import { clinicalValue, effectiveChanges, guideResolutions } from "./lib/guideEvidence";
 import { useGuideEditor } from "./lib/useGuideEditor";
 import { buildChecklist } from "./lib/checklist";
 import { useMobileLayout } from "./lib/layout";
 import { useAssessmentSession } from "./lib/useAssessmentSession";
 import { useVoiceCapture, type CaptureContext, type CaptureJob } from "./lib/useVoiceCapture";
-import type { ASRLanguage, AssessmentId, CaptureScope } from "./types";
+import type { AssessmentId, CaptureScope } from "./types";
 
 export default function App() {
   const session = useAssessmentSession();
-  const voice = useVoiceCapture(session);
+  const voice = useVoiceCapture(session, false);
   const guide = useGuideEditor(session, voice);
   const [activePanel, setActivePanel] = useState<"assessment" | "report" | "result">("assessment");
   const [reportDraft, setReportDraft] = useState<{ text: string; context?: CaptureContext }>({ text: "" });
   const [assessmentRequested, setAssessmentRequested] = useState(false);
   const [generatedRevision, setGeneratedRevision] = useState<number | null>(null);
-  const [language, setLanguage] = useState<ASRLanguage | "">("");
+  const [editingPatient, setEditingPatient] = useState(false);
   const [captureResetKey, setCaptureResetKey] = useState(0);
   const [dirtySections, setDirtySections] = useState<Partial<Record<AssessmentId, boolean>>>({});
   const mobile = useMobileLayout();
@@ -54,33 +55,33 @@ export default function App() {
   for (const id of assessmentIds) {
     const jobs: CaptureJob[] = voice.jobs.filter((job) => job.assessment === id && job.status !== "discarded");
     if (dirtySections[id]) captureStatuses[id] = "Unprocessed edits";
-    else if (jobs.some((job) => job.id === voice.recordingId)) captureStatuses[id] = "Recording";
     else if (jobs.some((job) => ["queued", "transcribing", "extracting", "preparing_review", "applying"].includes(job.status))) captureStatuses[id] = "Processing";
-    else if (jobs.some((job) => job.status === "failed")) captureStatuses[id] = "Capture failed";
+    else if (jobs.some((job) => job.status === "failed")) captureStatuses[id] = "Report needs attention";
     else if (jobs.some((job) => job.status === "captured" || job.status === "review")) captureStatuses[id] = "Captured";
     else if (jobs.some((job) => job.status === "accepted")) captureStatuses[id] = "Reviewed";
   }
-  const recording = voice.jobs.find((job) => job.id === voice.recordingId);
   const resultReady = session.ready && !session.busy && !session.error && result?.schema_valid && !result.error && !result.outside_supported_scope
-    && !pendingJobs.length && !hasDirty && !interrupted && !progressBlocked;
+    && !pendingJobs.length && !hasDirty && !editingPatient && !interrupted && !progressBlocked;
   const finalReady = meaningful && resultReady && result?.is_complete;
   const requestedIncomplete = resultReady && generatedRevision === session.revision
     && (result?.state === "INCOMPLETE" || result?.state === "URGENT_INCOMPLETE");
   const requestNeedsReview = assessmentRequested && (pendingJobs.length > 0 || hasDirty);
   const checklist = buildChecklist(session.encounter, result);
   const selectedSection = checklist.sections.find((section) => section.id === mobileView.assessment);
-  // Both layouts use deployment-authorized processing, not per-encounter consent boxes.
-  const processingAuthorization = { audio: true, understanding: true };
-  const canProcessSpeech = Boolean(language && processingAuthorization.audio && processingAuthorization.understanding);
   const requiredFieldPaths = [...new Set(Object.values(session.evaluation?.assessments ?? {})
     .flatMap((progress) => [...progress.missing_fields, ...(progress.question ? [progress.question.field] : [])]))];
   const agePending = guide.pendingFieldPaths.includes("patient_facts.age_months");
-  const ageUnknown = (session.encounter.patient_facts as { age_months?: number | null } | undefined)?.age_months == null;
+  const ageValue = clinicalValue(session.encounter, "patient_facts.age_months");
+  const patientAge = typeof ageValue === "number" ? ageValue : null;
+  const intakeComplete = Boolean(normalizePatientName(session.patientName)) && patientAge !== null
+    && Number.isInteger(patientAge) && patientAge >= 2 && patientAge <= 59;
 
   function renderField(assessment: AssessmentId, path: string, labels?: { yes: string; no: string }) {
     const field = guide.field(assessment, path);
     const owner = voice.jobs.find((job) => job.id === field?.jobId);
-    return <div data-guide-field={path}>{field ? <ClinicalFieldControl {...field} booleanLabels={labels} compact={mobile} />
+    return <div data-guide-field={path}>{field ? <ClinicalFieldControl {...field} booleanLabels={labels} compact={mobile}
+      required={path === "patient_facts.age_months"}
+      descriptor={path === "patient_facts.age_months" ? { ...field.descriptor, minimum: 2, maximum: 59 } : field.descriptor} />
       : <p className="capture-meta">{guide.schema ? "Control unavailable. Confirmed evidence remains unchanged."
         : "Controls unavailable until assessment metadata loads. Confirmed evidence remains unchanged."}</p>}
       {owner && owner.assessment !== assessment && path !== "patient_facts.age_months" && <button type="button" className="guide-clear"
@@ -122,7 +123,7 @@ export default function App() {
     setActivePanel("result");
     if (mobile) setMobileView({ ...mobileView, screen: "results" });
     document.querySelector<HTMLElement>(".result-scroll")?.scrollTo?.({ top: 0 });
-    if (pendingJobs.length || hasDirty || interrupted || progressBlocked) return;
+    if (pendingJobs.length || hasDirty || editingPatient || interrupted || progressBlocked) return;
     const revision = session.currentRevision();
     if (await session.refresh() && session.currentRevision() === revision + 1) setGeneratedRevision(revision + 1);
   }
@@ -144,7 +145,7 @@ export default function App() {
     });
     const stale = (job.reviewRevision ?? job.originalRevision) !== session.revision;
     const invalid = Object.values(job.workerEdits ?? {}).some((edit) => edit.error);
-    const disabled = !session.ready || session.busy || !guide.schema || invalid
+    const disabled = !session.ready || session.busy || editingPatient || !guide.schema || invalid
       || job.status === "preparing_review" || job.status === "applying"
       || pendingJobs.some((pending) => pending.assessment === "full-note" && ["queued", "extracting"].includes(pending.status));
     const extraIntroFields = placement === "intro" && changes.some((row) => !row.field.startsWith("danger_signs."));
@@ -157,7 +158,7 @@ export default function App() {
         <div className="capture-actions">{jobs.map((item, index) => <button type="button" key={item.id}
           aria-pressed={item.id === job.id} disabled={job.status === "applying"}
           onClick={() => guide.selectJob(item.id)}>{item.originalCandidate?.extraction_mode === "worker-review"
-            ? "Review worker answers" : `Review ${item.language ? "recording" : "text report"} ${index + 1}`}</button>)}</div>
+            ? "Review worker answers" : `Review text report ${index + 1}`}</button>)}</div>
         {!mobile && <p className="capture-meta">Other drafts are retained when you switch sources. Confirm each separately.</p>}
       </>}
       {!mobile && <p>{changes.length ? `${changes.length} observation(s) staged. Check the answers on the assessment before confirming.`
@@ -236,14 +237,11 @@ export default function App() {
       && (!previous.node.isConnected || previous.node.matches(":disabled"));
     if (removed || (active instanceof HTMLElement && !active.getClientRects().length)) {
       const dockTarget = mobile && previous?.dock
-        ? document.querySelector<HTMLElement>(voice.audioState === "idle"
-          ? '.mobile-dock .mobile-record-button:not(:disabled)'
-          : '.mobile-dock [aria-label="Stop recording"]:not(:disabled), .mobile-dock [aria-label="Cancel recording"]')
-        : null;
+        ? document.querySelector<HTMLElement>('.mobile-dock [aria-current="page"]') : null;
       const target = mobile ? dockTarget ?? document.getElementById("mobile-view-heading") : document.querySelector<HTMLElement>(".brand");
       target?.focus({ preventScroll: true });
     }
-  }, [mobile, voice.audioState]);
+  }, [mobile, guide.pendingFieldPaths]);
 
   useEffect(() => {
     if (!hasDirty) return;
@@ -255,7 +253,7 @@ export default function App() {
   function clearAssessment() {
     if (!window.confirm(mobile || session.needsResumeDecision
       ? "Start a new assessment? This clears the saved answers, pending captures, and history in this tab."
-      : "Clear this encounter, all unaccepted findings, audio, interaction history, and the saved tab draft? This cannot be undone.")) return;
+      : "Clear this patient's details, unconfirmed findings, assessment history, and saved tab draft? This cannot be undone.")) return;
     voice.clear();
     guide.reset();
     session.reset();
@@ -263,6 +261,7 @@ export default function App() {
     setReportDraft({ text: "" });
     setAssessmentRequested(false);
     setGeneratedRevision(null);
+    setEditingPatient(false);
     // Only explicit encounter clearing resets local editors, never an accepted revision.
     setCaptureResetKey((previous) => previous + 1);
     setActivePanel("assessment");
@@ -286,6 +285,19 @@ export default function App() {
     </main>
   </div>;
 
+  if (!intakeComplete || !session.ready) return <div className={mobile ? "app-frame app-frame--mobile" : "app-frame"}>
+    <header className="site-header"><span className="brand">Edge<strong>IMCI</strong></span></header>
+    <main className="patient-intake" aria-labelledby="patient-intake-title">
+      <h1 id="patient-intake-title">Patient intake</h1>
+      <p>Enter the patient's name and age before starting the assessment.</p>
+      {session.storageHint && <p role="status">{session.storageHint}</p>}
+      {session.ready ? <PatientIntake patientName={session.patientName} age={patientAge} revision={session.revision}
+        busy={session.busy} error={session.error} onSave={session.updateIntake} />
+        : <p role={session.error ? "alert" : "status"}>{session.error || "Preparing the assessment..."}</p>}
+      {!session.ready && !session.busy && <button type="button" onClick={() => void session.refresh()}>Retry assessment setup</button>}
+    </main>
+  </div>;
+
   return <div className={mobile ? "app-frame app-frame--mobile" : "app-frame"} data-mobile-intro={dangerIntro || undefined}
     onFocusCapture={(event) => { lastFocus.current = { node: event.target, dock: Boolean(event.target.closest(".mobile-dock")) }; }}>
     <header className="site-header">
@@ -294,8 +306,20 @@ export default function App() {
         <span>Edge<strong>IMCI</strong></span>
       </a>
       <div className="header-context"><span>Initial sick-child assessment</span><span>Ages 2–59 months</span></div>
-      <div className="header-trust"><LockKeyhole aria-hidden="true" size={14} /> Intron voice demo</div>
     </header>
+
+    <section className="patient-summary" aria-label="Patient details" data-editing={editingPatient || undefined}>
+      <div className="patient-summary__row"><strong className="patient-summary__name" title={session.patientName}>{session.patientName}</strong>
+        <span className="patient-summary__age">Age: {patientAge} months</span>
+        {!editingPatient && <button type="button" className="patient-details-toggle" onClick={() => setEditingPatient(true)}>Edit patient details</button>}
+      </div>
+      {editingPatient && <PatientIntake patientName={session.patientName} age={patientAge} revision={session.revision}
+        busy={session.busy} error={session.error} onCancel={() => setEditingPatient(false)} onSave={async (name, age, revision) => {
+          const saved = await session.updateIntake(name, age, revision);
+          if (saved) setEditingPatient(false);
+          return saved;
+        }} />}
+    </section>
 
     <MobileHeader view={mobileView} sections={checklist.sections} onNavigate={setMobileView} urgent={urgent} />
 
@@ -307,14 +331,6 @@ export default function App() {
       </button>)}
     </nav>
 
-    {voice.audioState !== "idle" && <section className="recording-banner" aria-label="Active recording">
-      <Mic aria-hidden="true" size={18} />
-      <span role="status"><strong>{voice.audioState === "permission" ? "Waiting for microphone permission"
-        : voice.audioState === "stopping" ? "Finishing recording" : "Recording"}</strong>{recording && ` / ${recording.assessment} / ${recording.language}`}</span>
-      <button type="button" disabled={voice.audioState !== "recording"} onClick={voice.stop}>Stop</button>
-      <button type="button" onClick={voice.cancelRecording}>Cancel</button>
-    </section>}
-
     <CaptureProgress jobs={voice.jobs} sections={checklist.sections} onReview={reviewJob} />
 
     {(!guide.schema || guide.schemaError || !session.ready || session.storageHint || session.error || voice.error || interrupted || (meaningful && (progressBlocked || result?.error))) &&
@@ -323,7 +339,7 @@ export default function App() {
           <button type="button" onClick={guide.retrySchema}>Retry controls</button></div>
           : !guide.schema && <p role="status">Loading assessment controls...</p>}
         {interrupted && <div role="status">
-          <p><strong>{session.interruptedCount} capture(s) interrupted and not applied.</strong> Audio jobs are not resumed after reload. Check the recording history and record the findings again as needed.</p>
+          <p><strong>{session.interruptedCount} report(s) interrupted and not applied.</strong> Check the assessment history and enter the findings again as needed.</p>
           <button type="button" onClick={session.acknowledgeInterrupted}>Acknowledge interrupted captures</button>
         </div>}
         {!session.ready && <p role="status">{session.busy ? "Checking accepted findings with the server. Completion is not yet verified."
@@ -341,44 +357,32 @@ export default function App() {
       data-mobile-assessment={mobile ? mobileView.assessment ?? undefined : undefined}
       data-mobile-tab={mobile ? mobileView.tab : undefined}
       data-mobile-intro={dangerIntro || undefined}
-      data-show-age={mobile && !dangerIntro && (mobileView.screen === "list"
-        || (mobileView.screen === "assessment" && (ageUnknown || agePending))) || undefined}>
+      data-show-age={mobile && agePending && (mobileView.screen === "list" || mobileView.screen === "assessment") || undefined}>
       <AssessmentChecklist key={captureResetKey} encounter={session.encounter} result={result} progress={session.evaluation?.assessments}
         workingEncounter={guide.workingEncounter} renderField={renderField} renderSectionReview={renderSectionReview}
         pendingFieldPaths={guide.pendingFieldPaths} requiredFieldPaths={requiredFieldPaths}
         pendingAssessments={pendingAssessments} captureStatuses={captureStatuses}
-        ageReview={ageReview}
+        ageReview={ageReview} showAge={agePending}
         mobileView={mobile ? mobileView : undefined}
         mobileHome={mobile && <MobileAssessmentHome checklist={checklist} progress={session.evaluation?.assessments}
           captureStatuses={captureStatuses} pendingAssessments={pendingAssessments} onNavigate={setMobileView}
           assessmentAction={assessmentAction}
           tools={<details className="mobile-assessment-options"><summary>Assessment options</summary>
-            <details><summary>About processing</summary><p id="capture-disclosure">This mobile demo uses pre-authorized processing: audio goes to Intron and transcripts/encounter context go to the language-understanding service. Clinical rules remain local. Use synthetic data only.</p></details>
+            <details><summary>About processing</summary><p>Submitted text and clinical context go to the language-understanding service. The intake name is not included automatically. Clinical rules remain local. Use synthetic data only.</p></details>
             <InteractionHistory interactions={session.interactions} showDebug={false} />
             <button type="button" className="guide-clear" onClick={clearAssessment}>Start new assessment</button>
           </details>} />}
         mobileFocus={mobile && <MobileAssessmentTabs view={mobileView} section={selectedSection}
           progress={mobileView.assessment ? session.evaluation?.assessments[mobileView.assessment] : undefined}
           urgent={urgent} jobs={voice.jobs} onNavigate={setMobileView} />}
-        guideStatus={!mobile && <section className="capture-toolbar" aria-label="Encounter recording settings">
-          <div className="capture-settings">
-            <label className="capture-language" htmlFor="capture-language">Recording language
-              <select id="capture-language" value={language} onChange={(event) => setLanguage(event.target.value as ASRLanguage | "")}>
-                <option value="" disabled>Select language</option>
-                <option value="en">English</option><option value="pcm">Nigerian Pidgin-English</option>
-                <option value="yo">Yoruba-English</option><option value="ig">Igbo-English</option><option value="ha">Hausa-English</option>
-              </select>
-            </label>
-          </div>
-          <details className="processing-disclosure"><summary>About processing</summary>
-            <p id="capture-disclosure">This demo uses deployment-authorized processing: audio goes to Intron and transcripts/encounter context go to the language-understanding service. Clinical rules remain local. Use synthetic data only. Audio stays in memory; transcripts and interaction history remain in this tab.</p>
-          </details>
-        </section>}
         renderCapture={(assessment) => <AssessmentCapture assessment={assessment} encounter={session.encounter}
           revision={session.revision} progress={session.evaluation?.assessments[assessment]} urgent={urgent}
-          voice={voice} language={language} consent={processingAuthorization}
+          voice={voice}
           ready={session.ready} onDirty={setDirtySections} reviewDisabled={!session.ready || session.busy || !guide.schema} onReviewJob={reviewJob} showDebug={false} />}
         tools={!mobile && <>
+          <details className="processing-disclosure"><summary>About processing</summary>
+            <p>Submitted text and clinical context go to the language-understanding service. The intake name is not included automatically. Clinical rules remain local. Use synthetic data only.</p>
+          </details>
           <InteractionHistory interactions={session.interactions} showDebug={false} />
           <button className="guide-clear" type="button" onClick={clearAssessment}>Clear encounter</button>
           <p>AI only structures documented findings. After your explicit review, the deterministic engine produces classifications and management guidance.</p>
@@ -390,7 +394,7 @@ export default function App() {
         onChange={(text) => setReportDraft((previous) => ({ text, context: previous.context ?? (session.ready ? { ...session.snapshot(), question: undefined } : undefined) }))}
         onClear={() => setReportDraft({ text: "" })}
         onInterpret={() => {
-          if (session.ready && voice.addText("full-note", reportDraft.text, processingAuthorization.understanding,
+          if (session.ready && voice.addText("full-note", reportDraft.text, true,
             reportDraft.context ?? { ...session.snapshot(), question: undefined })) setReportDraft({ text: "" });
         }}
         review={renderSectionReview("full-note")}
@@ -407,7 +411,7 @@ export default function App() {
           {(finalReady || requestedIncomplete) && result ? <ResultPanel result={result} showDebug={false} />
           : !meaningful && !assessmentRequested ? <section className="compact-empty-result">
             <ClipboardCheck aria-hidden="true" size={27} /><h2>Ready when you are</h2>
-            <p>Follow the assessment guide. Record findings beside each section, then review what was captured.</p>
+            <p>Follow the assessment guide. Enter findings using the buttons or text report, then review and confirm them.</p>
             <p>Clinical results appear here after findings are accepted.</p>
           </section> :
             <section className="quiet-result" aria-live="polite">
@@ -417,16 +421,17 @@ export default function App() {
                 <h3>Immediate management</h3>
                 <ul>{immediateActions.map((action, index) => <li key={index}>{action}</li>)}</ul>
               </section>}
-              <h2>{assessmentRequested && session.busy ? "Checking assessment..." : assessmentRequested && session.error ? "Could not check the assessment"
+              <h2>{assessmentRequested && session.busy ? "Checking assessment..." : editingPatient ? "Save patient details first" : assessmentRequested && session.error ? "Could not check the assessment"
                 : progressBlocked ? "Review evidence issues" : interrupted ? "Acknowledge interrupted captures before final plan"
                 : requestNeedsReview ? "Review findings before generating recommendations"
                 : result?.is_complete && hasDirty ? "Process or discard unprocessed edits before final plan" : result?.is_complete && pendingJobs.length
                 ? "Review captured findings before final plan" : immediateActions.length ? "Assessment incomplete" : "Assessment in progress"}</h2>
               <p>{assessmentRequested && session.busy ? "Checking your confirmed findings for IMCI recommendations and missing information."
+                : editingPatient ? "Save or cancel the patient details edit before confirming findings or generating recommendations."
                 : assessmentRequested && session.error ? "The assessment check failed. Your confirmed findings have not changed. Try again when the service is available."
                 : progressBlocked ? "Resolve the blockers shown in the assessment sections. Final synthesis is withheld."
                 : interrupted ? "Review the interruption notice above. Acknowledgement does not accept or recover interrupted findings."
-                : requestNeedsReview ? "Recordings and edited answers must be confirmed or discarded first. Only confirmed findings are used."
+                : requestNeedsReview ? "Reports and edited answers must be confirmed or discarded first. Only confirmed findings are used."
                   : result?.is_complete && hasDirty ? "Typed findings still need processing or clearing in the assessment sections."
                  : result?.is_complete && pendingJobs.length ? "The accepted assessment is complete. New captures still need review or discard."
                   : immediateActions.length ? "Final classifications and the complete management plan remain pending until the required findings are confirmed. Immediate care must not wait for the remaining assessment."
@@ -449,15 +454,8 @@ export default function App() {
       </section>
     </main>
 
-    <MobileDock view={mobileView} sections={checklist.sections} voice={voice} language={language}
-      onLanguageChange={setLanguage} ready={session.ready}
-      onNavigate={setMobileView} urgent={urgent} pendingCount={pendingJobs.length}
-      confirmation={dangerIntro ? renderSectionReview("danger", "intro") : undefined}
-      onSpeak={() => {
-        if (!mobileView.assessment || !language || !canProcessSpeech || !session.ready) return;
-        if (dangerIntro) voice.startRecording("danger", language, processingAuthorization, { ...session.snapshot(), question: undefined });
-        else voice.startRecording(mobileView.assessment, language, processingAuthorization);
-      }} />
+    <MobileDock view={mobileView} onNavigate={setMobileView}
+      confirmation={dangerIntro ? renderSectionReview("danger", "intro") : undefined} />
 
     <footer className="site-footer">
       <p><strong>Research prototype.</strong> Not a production medical device or authorization for autonomous clinical use.</p>

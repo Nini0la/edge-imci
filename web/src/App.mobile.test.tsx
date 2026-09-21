@@ -9,6 +9,7 @@ import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
 import { InteractionHistory } from "./components/InteractionHistory";
 import { ResultPanel } from "./components/ResultPanel";
 import { ReportPanel } from "./components/ReportPanel";
+import { PatientIntake } from "./components/PatientIntake";
 import { MobileAssessmentHome, MobileAssessmentTabs, MobileDock, MobileHeader, type MobileView } from "./components/MobileWorkspace";
 import { assessmentIds } from "./lib/assessment";
 import { buildChecklist } from "./lib/checklist";
@@ -128,7 +129,7 @@ beforeEach(() => {
   voice = { jobs: [], recordingId: null, audioState: "idle", error: "", startRecording: vi.fn(), stop: vi.fn(), cancelRecording: vi.fn(),
     addText: vi.fn().mockReturnValue(true), prepareReview: vi.fn().mockResolvedValue(undefined), accept: vi.fn().mockResolvedValue(undefined),
     retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn() };
-  session = { version: 1, encounter: structuredClone(evaluation.encounter), attempted: [], revision: 2,
+  session = { version: 1, patientName: "Synthetic Patient", updateIntake: vi.fn().mockResolvedValue(false), encounter: structuredClone(evaluation.encounter), attempted: [], revision: 2,
     evaluation: structuredClone(evaluation), hasData: true, ready: true, busy: false, error: "", storageHint: "",
     currentRevision: () => session.revision, snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation }),
     interruptedCount: 0, acknowledgeInterrupted: vi.fn(), refresh: vi.fn().mockResolvedValue(true), reset: vi.fn(),
@@ -186,6 +187,125 @@ function expectNavigationOnly() {
 }
 
 describe("integrated mobile workspace", () => {
+  it.each([false, true])("preserves report and section draft identity through failed and successful inline intake edits, mobile=%s", async (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    voice.jobs = [job("review")];
+    const pending = structuredClone(voice.jobs);
+    const app = workspace();
+    const report = () => component(app.root(), ReportPanel).props;
+    const captureHooks = createHooks();
+    const capture = () => {
+      const node = component(app.checklist().props.renderCapture!("ear"), AssessmentCapture);
+      return render(captureHooks, () => AssessmentCapture(node.props));
+    };
+    const identity = () => ({
+      workspace: locations(app.root()).find(({ node }) => node.type === "main")!.path,
+      checklist: locations(app.root()).find(({ node }) => node.type === AssessmentChecklist)!.path,
+      report: locations(app.root()).find(({ node }) => node.type === ReportPanel)!.path,
+      textarea: locations(ReportPanel(report())).find(({ node }) => node.type === "textarea")!.path,
+      captures: locations(app.captures()).filter(({ node }) => node.type === AssessmentCapture).map(({ path }) => path),
+    });
+    const initial = identity();
+    const frozen = structuredClone(session.snapshot());
+    const revision = session.revision;
+    report().onChange("Retain full report draft");
+    change(find(capture(), (node) => node.props.id === "capture-text-ear"), { value: "Retain section draft" });
+    capture();
+    click(button(app.root(), "Edit patient details"));
+    const intakeHooks = createHooks();
+    const intake = () => {
+      const node = component(app.root(), PatientIntake);
+      return render(intakeHooks, () => PatientIntake(node.props));
+    };
+    const submit = () => (find(intake(), (node) => node.type === "form").props.onSubmit as (event: { preventDefault: () => void }) => void)({ preventDefault: vi.fn() });
+    change(find(intake(), (node) => node.props.id === "patient-name"), { value: "Updated Patient" });
+    change(find(intake(), (node) => node.props.id === "patient-age"), { value: "36" });
+    const retained = () => {
+      expect(identity()).toEqual(initial);
+      expect(report().text).toBe("Retain full report draft");
+      expect(find(capture(), (node) => node.props.id === "capture-text-ear").props.value).toBe("Retain section draft");
+      expect(app.checklist().props.captureStatuses?.ear).toBe("Unprocessed edits");
+      expect(voice.jobs).toEqual(pending);
+      expect(renderToStaticMarkup(app.root())).not.toContain("Accepted final plan");
+      for (const operation of [voice.clear, voice.discard, voice.accept, guide.reset, guide.confirm, session.reset, session.accept, session.refresh])
+        expect(operation).not.toHaveBeenCalled();
+    };
+    let resolve!: (saved: boolean) => void;
+    vi.mocked(session.updateIntake).mockImplementation(() => {
+      session.busy = true;
+      return new Promise((yes) => { resolve = yes; });
+    });
+    submit();
+    expect(session.updateIntake).toHaveBeenCalledExactlyOnceWith("Updated Patient", 36, revision);
+    expect(button(intake(), "Saving patient details...").props.disabled).toBe(true);
+    retained();
+    session.busy = false;
+    session.error = "Patient details could not be saved";
+    resolve(false);
+    await Promise.resolve();
+    expect(renderToStaticMarkup(intake())).toContain("Patient details could not be saved");
+    expect(find(intake(), (node) => node.props.id === "patient-name").props.value).toBe("Updated Patient");
+    expect(find(intake(), (node) => node.props.id === "patient-age").props.value).toBe("36");
+    expect(session.revision).toBe(revision);
+    retained();
+    submit();
+    expect(session.updateIntake).toHaveBeenNthCalledWith(2, "Updated Patient", 36, revision);
+    session.busy = false;
+    session.error = "";
+    session.patientName = "Updated Patient";
+    session.encounter = { ...session.encounter, patient_facts: { age_months: 36 } };
+    session.revision++;
+    resolve(true);
+    await Promise.resolve();
+    expect(locations(app.root()).some(({ node }) => node.type === PatientIntake)).toBe(false);
+    expect(renderToStaticMarkup(app.root())).toContain("Age: 36 months");
+    expect(button(app.root(), "Edit patient details")).toBeDefined();
+    expect(session.revision).toBe(revision + 1);
+    retained();
+    expectNavigationOnly();
+    report().onInterpret();
+    expect(voice.addText).toHaveBeenNthCalledWith(1, "full-note", "Retain full report draft", true, { ...frozen, question: undefined });
+    click(button(capture(), "Process typed finding"));
+    expect(voice.addText).toHaveBeenNthCalledWith(2, "ear", "Retain section draft", true,
+      { encounter: frozen.encounter, revision, question: undefined });
+    expect(guide.confirm).not.toHaveBeenCalled();
+    expect(session.accept).not.toHaveBeenCalled();
+  });
+
+  it("reloads stale inline details only on request and saves against the new revision without clearing reports", async () => {
+    const app = workspace();
+    component(app.root(), ReportPanel).props.onChange("Keep report through stale reload");
+    click(button(app.root(), "Edit patient details"));
+    const hooks = createHooks();
+    const intake = () => {
+      const node = component(app.root(), PatientIntake);
+      return render(hooks, () => PatientIntake(node.props));
+    };
+    change(find(intake(), (node) => node.props.id === "patient-name"), { value: "Local draft" });
+    change(find(intake(), (node) => node.props.id === "patient-age"), { value: "24.5" });
+    session.patientName = "Current Patient";
+    session.encounter = { ...session.encounter, patient_facts: { age_months: 30 } };
+    session.revision = 8;
+    expect(find(intake(), (node) => node.props.id === "patient-name").props.value).toBe("Local draft");
+    expect(find(intake(), (node) => node.props.id === "patient-age").props.value).toBe("24.5");
+    expect(button(intake(), "Save patient details").props.disabled).toBe(true);
+    expect(renderToStaticMarkup(intake())).toContain("Patient details or confirmed findings changed");
+    click(button(intake(), "Reload patient details"));
+    expect(find(intake(), (node) => node.props.id === "patient-name").props.value).toBe("Current Patient");
+    expect(find(intake(), (node) => node.props.id === "patient-age").props.value).toBe("30");
+    expect(button(intake(), "Save patient details").props.disabled).toBe(false);
+    expectNavigationOnly();
+    expect(component(app.root(), ReportPanel).props.text).toBe("Keep report through stale reload");
+    await component(app.root(), PatientIntake).props.onSave("Current Patient", 30, 8);
+    expect(session.updateIntake).toHaveBeenCalledExactlyOnceWith("Current Patient", 30, 8);
+    expect(component(app.root(), PatientIntake)).toBeDefined();
+    click(button(intake(), "Cancel"));
+    expect(locations(app.root()).some(({ node }) => node.type === PatientIntake)).toBe(false);
+    expect(component(app.root(), ReportPanel).props.text).toBe("Keep report through stale reload");
+    expect(voice.clear).not.toHaveBeenCalled();
+    expect(session.reset).not.toHaveBeenCalled();
+  });
+
   it("opens Write text from intro and Text report from the dock without ASR, reset or losing either editor", () => {
     const app = workspace();
     const report = () => component(app.root(), ReportPanel).props;
@@ -261,12 +381,12 @@ describe("integrated mobile workspace", () => {
     expectNavigationOnly();
   });
 
-  it.each(["empty", "partial", "urgent"])("uses the shared Home generation handler for %s while dock Results remains navigation-only", async (kind) => {
-    session.encounter = kind === "empty" ? {} : kind === "urgent" ? { danger_signs: { convulsing_now: true } } : evaluation.encounter;
+  it.each(["intake-only", "partial", "urgent"])("uses the shared Home generation handler for %s while dock Results remains navigation-only", async (kind) => {
+    session.encounter = kind === "intake-only" ? { patient_facts: { age_months: 24 } } : kind === "urgent" ? { patient_facts: { age_months: 24 }, danger_signs: { convulsing_now: true } } : evaluation.encounter;
     session.evaluation = { ...evaluation, encounter: session.encounter, analysis: { ...evaluation.analysis,
       is_complete: false, state: kind === "urgent" ? "URGENT_INCOMPLETE" : "INCOMPLETE", is_urgent: kind === "urgent",
       urgent_actions: kind === "urgent" ? ["Accepted urgent care now"] : [],
-      missing_elements: { patient_facts: ["age_months"] }, rendered_response: `Backend ${kind} missing findings response` } };
+      missing_elements: { ear: ["ear_pain"] }, rendered_response: `Backend ${kind} missing findings response` } };
     let resolve!: (success: boolean) => void;
     vi.mocked(session.refresh).mockImplementation(() => {
       session.busy = true;
@@ -340,34 +460,20 @@ describe("integrated mobile workspace", () => {
       expectNavigationOnly();
     });
 
-  it("selects language directly in the dock without speaking or navigating, then speaks only on an explicit click", () => {
+  it("exposes only navigation and confirmation in the dock, with audio capability disabled", () => {
     const app = workspace();
-    const onSpeak = vi.fn();
-    const dock = () => {
-      const props = component(app.root(), MobileDock).props;
-      return MobileDock({ ...props, onSpeak: () => { onSpeak(); props.onSpeak(); } });
-    };
-    const speak = () => find(dock(), (node) => node.props["aria-label"] === "Speak");
-    expect(speak().props.disabled).toBe(true);
-    click(speak());
-    for (const value of ["yo", "ha", ""]) {
-      change(find(dock(), (node) => node.props.id === "mobile-speech-language"), { value });
-      expect(component(app.root(), MobileDock).props.language).toBe(value);
-      expect(app.checklist().props.mobileView).toEqual(intro);
-      expect(onSpeak).not.toHaveBeenCalled();
-      expectNavigationOnly();
+    for (const view of [intro, ...views]) {
+      app.navigate(view);
+      const dock = component(app.root(), MobileDock);
+      expect(Object.keys(dock.props).sort()).toEqual(["confirmation", "onNavigate", "view"]);
+      const html = renderToStaticMarkup(app.root());
+      expect(html).not.toMatch(/Intron|microphone|mobile-speech-language|capture-language|record-findings|aria-label="Speak"|<select/);
+      const capture = component(app.checklist().props.renderCapture!("ear"), AssessmentCapture);
+      expect(capture.props).not.toHaveProperty("language");
+      expect(capture.props).not.toHaveProperty("consent");
     }
-    component(app.root(), MobileDock).props.onLanguageChange("en");
-    session.ready = false;
-    expect(speak().props.disabled).toBe(true);
-    click(speak());
-    expect(onSpeak).not.toHaveBeenCalled();
-    session.ready = true;
-    expect(speak().props.disabled).toBe(false);
-    click(speak());
-    expect(onSpeak).toHaveBeenCalledOnce();
-    expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("danger", "en", { audio: true, understanding: true },
-      { ...session.snapshot(), question: undefined });
+    expect(useVoiceCapture).toHaveBeenLastCalledWith(session, false);
+    expectNavigationOnly();
   });
 
   it("keeps About, original history and New assessment in Home tools before generation with no mobile setup UI", () => {
@@ -379,13 +485,13 @@ describe("integrated mobile workspace", () => {
       app.navigate(view);
       const root = app.root();
       expect((root as Element).props["data-mobile-intro"]).toBe(view.intro || undefined);
-      expect(app.checklist().props.guideStatus).toBe(false);
+      expect(app.checklist().props.guideStatus).toBeUndefined();
       expect(app.checklist().props.tools).toBe(false);
       const html = renderToStaticMarkup(root);
       for (const removed of ['type="checkbox"', "capture-toolbar", "capture-settings", "Encounter recording settings", "lucide-settings", 'data-mobile-screen="settings"'])
         expect(html).not.toContain(removed);
       const home = renderToStaticMarkup(app.checklist().props.mobileHome);
-      for (const label of ["About processing", "Recording history (1)", "Retained source words", "Start new assessment"]) {
+      for (const label of ["About processing", "Assessment history (1)", "Retained source words", "Start new assessment"]) {
         expect(home).toContain(label);
         expect(home.indexOf(label)).toBeLessThan(home.indexOf("Generate IMCI recommendations"));
       }
@@ -394,48 +500,6 @@ describe("integrated mobile workspace", () => {
     expect(session.interactions).toEqual(original);
     expectNavigationOnly();
   });
-
-  it.each([false, true])(
-    "shares deployment authorization across layouts and after reset with mobile=%s",
-    (mobile) => {
-      const app = workspace();
-      const capture = () => component(app.checklist().props.renderCapture!("ear"), AssessmentCapture);
-      const captureHooks = createHooks();
-      const record = () => {
-        const node = capture();
-        return find(render(captureHooks, () => AssessmentCapture(node.props)), (node) => node.props.className === "record-findings");
-      };
-      vi.mocked(useMobileLayout).mockReturnValue(false);
-      expect(record().props.disabled).toBe(true);
-      expect(renderToStaticMarkup(app.root())).not.toContain('type="checkbox"');
-      change(find(app.checklist().props.guideStatus, (node) => node.props.id === "capture-language"), { value: "yo" });
-      expect(voice.startRecording).not.toHaveBeenCalled();
-      expect(capture().props.consent).toEqual({ audio: true, understanding: true });
-      expect(record().props.disabled).toBe(false);
-      click(record());
-      expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("ear", "yo", { audio: true, understanding: true });
-      vi.mocked(useMobileLayout).mockReturnValue(true);
-      expect(capture().props.consent).toEqual({ audio: true, understanding: true });
-      expect(component(app.root(), MobileDock).props.language).toBe("yo");
-      component(app.root(), MobileDock).props.onSpeak();
-      expect(voice.startRecording).toHaveBeenCalledTimes(2);
-      expect(voice.startRecording).toHaveBeenLastCalledWith("danger", "yo", { audio: true, understanding: true },
-        { ...session.snapshot(), question: undefined });
-      vi.mocked(useMobileLayout).mockReturnValue(false);
-      expect(capture().props.consent).toEqual({ audio: true, understanding: true });
-      expect(record().props.disabled).toBe(false);
-      vi.mocked(useMobileLayout).mockReturnValue(mobile);
-      if (mobile) app.navigate(views[0]);
-      click(button(mobile ? app.tools() : app.checklist().props.tools, mobile ? "Start new assessment" : "Clear encounter"));
-      expect(session.reset).toHaveBeenCalledOnce();
-      vi.mocked(useMobileLayout).mockReturnValue(false);
-      expect(renderToStaticMarkup(app.root())).not.toContain('type="checkbox"');
-      expect(capture().props.consent).toEqual({ audio: true, understanding: true });
-      expect(record().props.disabled).toBe(false);
-      expect(voice.startRecording).toHaveBeenCalledTimes(2);
-      expect(session.accept).not.toHaveBeenCalled();
-      expect(guide.confirm).not.toHaveBeenCalled();
-    });
 
   it("routes an explicit recording review to its assessment without discarding other drafts", () => {
     voice.jobs = [job("review"), { ...job("review"), id: "other-clip", assessment: "fever" }];
@@ -472,9 +536,9 @@ describe("integrated mobile workspace", () => {
         expect(component(root, CaptureProgress).props.jobs).toBe(jobs);
         const html = renderToStaticMarkup(root);
         const global = html.slice(0, html.indexOf("<main"));
-        expect(global).toContain('aria-label="Recording progress"');
+        expect(global).toContain('aria-label="Assessment progress"');
         for (const status of statuses) expect(global).toContain(`data-stage="${status}"`);
-        expect(html.match(/aria-label="Recording progress"/g)).toHaveLength(1);
+        expect(html.match(/aria-label="Assessment progress"/g)).toHaveLength(1);
         expect(html).not.toContain("mobile-intro-feedback");
         expect(app.checklist().props.mobileView).toEqual(mobile ? view : undefined);
         expect(voice.jobs).toBe(jobs);
@@ -501,7 +565,7 @@ describe("integrated mobile workspace", () => {
         const progress = component(root, CaptureProgress);
         const capture = component(component(root, AssessmentChecklist).props.renderCapture!(assessment), AssessmentCapture);
         expect(progress.props.onReview).toBe(capture.props.onReviewJob);
-        click(button(CaptureProgress(progress.props), status === "failed" ? "View recording" : "Review"));
+        click(button(CaptureProgress(progress.props), status === "failed" ? "View report" : "Review"));
         expect(guide.selectJob).toHaveBeenLastCalledWith(pending.id);
         expect(app.checklist().props.mobileView).toEqual({ screen: "assessment", assessment, tab: status === "failed" ? "findings" : "guidance" });
         expect(voice.jobs).toEqual(original);
@@ -570,7 +634,8 @@ describe("integrated mobile workspace", () => {
         expect(controls).toHaveLength(1);
         identity ??= controls[0].path;
         expect(controls[0].path).toEqual(identity);
-        expect(component(scopes[0].node, ClinicalFieldControl).props).toMatchObject({ ...age, compact: mobile });
+        expect(component(scopes[0].node, ClinicalFieldControl).props).toMatchObject({ ...age, compact: mobile,
+          required: true, descriptor: { ...age.descriptor, minimum: 2, maximum: 59 } });
         if (mobile) {
           for (const chrome of [app.checklist().props.mobileHome, app.checklist().props.mobileFocus]) {
             expect((chrome as Element).props).not.toHaveProperty("ageControl");
@@ -590,14 +655,14 @@ describe("integrated mobile workspace", () => {
     expect(voice.accept).not.toHaveBeenCalled();
   });
 
-  it.each(["known", "unknown", "pending"])("uses main visibility attributes for %s age without exposing Scope on intro", (state) => {
-    if (state === "unknown") session.encounter = { patient_facts: { age_months: null } };
+  it.each(["known", "pending"])("shows the scope editor only for a pending proposal, age state=%s", (state) => {
     if (state === "pending") guide.pendingFieldPaths = ["patient_facts.age_months"];
     const app = workspace();
     for (const view of [intro, ...views]) {
       app.navigate(view);
       expect(find(app.root(), (node) => node.type === "main").props["data-show-age"])
-        .toBe(!view.intro && (view.screen === "list" || view.screen === "assessment" && state !== "known") || undefined);
+        .toBe(state === "pending" && (view.screen === "list" || view.screen === "assessment") || undefined);
+      expect(app.checklist().props.showAge).toBe(state === "pending");
     }
     vi.mocked(useMobileLayout).mockReturnValue(false);
     app.navigate(views[0]);
@@ -685,6 +750,12 @@ describe("integrated mobile workspace", () => {
     if (gate === "invalid") pending.workerEdits = { "patient_facts.age_months": { raw: "12x", error: "Invalid number", previous: null, label: "Age", revision: 2 } };
     if (gate === "preparing_review" || gate === "applying") pending.status = gate;
     const app = workspace();
+    if (gate === "unready") {
+      expect(renderToStaticMarkup(app.root())).toContain("Patient intake</h1>");
+      expect(locations(app.root()).some(({ node }) => node.type === MobileDock)).toBe(false);
+      expectNavigationOnly();
+      return;
+    }
     const review = component(app.root(), MobileDock).props.confirmation;
     const confirm = find(review, (node) => node.type === "button" && node.props.className === "mobile-confirm-button");
     expect(confirm.props.disabled).toBe(true);
@@ -712,44 +783,12 @@ describe("integrated mobile workspace", () => {
     expect(pending).toEqual(original);
   });
 
-  it("passes an explicit question-free accepted snapshot only for intro speech, leaving ordinary three-argument capture unchanged", () => {
-    session.evaluation!.assessments.danger = { ...complete, status: "INCOMPLETE", decision: "ASK",
-      question: { field: "patient_facts.age_months", text: "Hidden age question?" }, missing_fields: ["patient_facts.age_months"] };
-    const original = structuredClone(session.evaluation);
-    const app = workspace();
-    component(app.root(), MobileDock).props.onLanguageChange("yo");
-    expectNavigationOnly();
-    expect(renderToStaticMarkup(app.checklist().props.mobileFocus)).not.toContain("Hidden age question?");
-    component(app.root(), MobileDock).props.onSpeak();
-    expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("danger", "yo", { audio: true, understanding: true },
-      { ...session.snapshot(), question: undefined });
-    expect(vi.mocked(voice.startRecording).mock.calls[0][3]).toHaveProperty("question", undefined);
-    for (const view of [{ ...intro, intro: false }, views[1]]) {
-      app.navigate(view);
-      component(app.root(), MobileDock).props.onSpeak();
-      expect(voice.startRecording).toHaveBeenLastCalledWith(view.assessment, "yo", { audio: true, understanding: true });
-      expect(vi.mocked(voice.startRecording).mock.lastCall).toHaveLength(3);
-    }
-    expect(session.evaluation).toEqual(original);
-    expect(voice.accept).not.toHaveBeenCalled();
-    expect(guide.confirm).not.toHaveBeenCalled();
-  });
-
-  it.each(["language", "unready", "no assessment"])("guards the Root onSpeak handler itself against missing %s", (gate) => {
-    const app = workspace();
-    if (gate !== "language") component(app.root(), MobileDock).props.onLanguageChange("en");
-    if (gate === "unready") session.ready = false;
-    for (const view of gate === "no assessment" ? [views[0]] : [intro, views[1]]) {
-      app.navigate(view);
-      component(app.root(), MobileDock).props.onSpeak();
-    }
-    expectNavigationOnly();
-  });
-
-  it("omits debug output across recordings, history, confirmation and results in both layouts without changing source data", () => {
+  it("omits engineering and provider labels across legacy history, reports and results without changing source data", () => {
     const pending = job("review");
     pending.originalCandidate!.understanding = { provider: "private-provider", model: "private-model", request_id: "private-request", prompt_version: "private-prompt", usage: { input_tokens: 42 } };
-    session.interactions = [{ ...pending.trace, source: { submitted_text: "Retained original words" }, candidate: pending.originalCandidate }];
+    session.interactions = [{ ...pending.trace, source: { submitted_text: "Retained original words",
+      raw_asr_transcript: "Retained legacy source", language: "yo", asr_provider: "Intron", asr_model: "private-asr-model" },
+      error: "Intron private-service error", candidate: pending.originalCandidate }];
     session.evaluation!.analysis.pipeline_trace = [{ kind: "LEARNED", label: "Private processing step", detail: "private-pipeline" }];
     session.evaluation!.analysis.decision_trace = [{ rule_id: "private-rule", pathway: "Ear", classification: "Accepted explanation", findings: [["Pain", "Absent"]], rule_description: "Accepted rationale" }];
     voice.jobs = [pending];
@@ -765,8 +804,9 @@ describe("integrated mobile workspace", () => {
         expect(component(app.tools(), InteractionHistory).props.showDebug).toBe(false);
         if (status === "accepted") expect(component(tree, ResultPanel).props.showDebug).toBe(false);
         const html = renderToStaticMarkup(tree);
-        for (const hidden of ["<pre", "<code", "JSON", "private-", "Private processing step", "Processing trace", "Details: original report and review", "Review metadata", "Control schema"]) expect(html).not.toContain(hidden);
+        for (const hidden of ["<pre", "<code", "JSON", "Intron", "ASR", "microphone", "Select language", "Original ASR transcript", "private-", "Private processing step", "Processing trace", "Details: original report and review", "Review metadata", "Control schema"]) expect(html).not.toContain(hidden);
         expect(html).toContain("Retained original words");
+        expect(html).toContain("Retained legacy source");
         if (status === "accepted") {
           expect(html).toContain("Accepted final plan");
           expect(html).toContain("Accepted rationale");
@@ -778,7 +818,7 @@ describe("integrated mobile workspace", () => {
     const desktop = app.root();
     expect(component(desktop, ResultPanel).props.showDebug).toBe(false);
     const html = renderToStaticMarkup(desktop);
-    for (const debug of ["<pre", "<code", "private-model", "private-rule", "private-pipeline", "Processing trace"]) expect(html).not.toContain(debug);
+    for (const debug of ["<pre", "<code", "Intron", "ASR", "microphone", "Select language", "private-model", "private-rule", "private-pipeline", "Processing trace"]) expect(html).not.toContain(debug);
     expectNavigationOnly();
   });
 
@@ -825,13 +865,12 @@ describe("integrated mobile workspace", () => {
     app.navigate(views[0], "header");
     expect(identity()).toEqual(initial);
     expectNavigationOnly();
-    expect(useVoiceCapture).toHaveBeenLastCalledWith(session);
+    expect(useVoiceCapture).toHaveBeenLastCalledWith(session, false);
   });
 
-  it.each(["recording", "transcribing", "review"] as const)("keeps a %s job with its original owner and context while navigating and changing language", (status) => {
+  it.each(["extracting", "review"] as const)("keeps a %s report with its original owner and context while navigating", (status) => {
     const pending = job(status);
     voice.jobs = [pending];
-    if (status === "recording") { voice.recordingId = pending.id; voice.audioState = "recording"; }
     const original = structuredClone(pending);
     const app = workspace();
     const captureHooks = Object.fromEntries(assessmentIds.map((id) => [id, createHooks()])) as Record<AssessmentId, Hooks>;
@@ -840,16 +879,8 @@ describe("integrated mobile workspace", () => {
     for (const view of views) {
       app.navigate(view);
       if (view.screen === "results") {
-        component(app.root(), MobileDock).props.onLanguageChange("ha");
         session.revision = 9;
-        session.encounter = { ear: { ear_pain: false } };
-      }
-      if (status === "recording") {
-        const dock = component(app.root(), MobileDock).props;
-        const select = find(MobileDock(dock), (node) => node.props.id === "mobile-speech-language");
-        expect(select.props).toMatchObject({ disabled: true, value: "yo" });
-        change(select, { value: "ig" });
-        expect(component(app.root(), MobileDock).props.language).toBe(dock.language);
+        session.encounter = { ...session.encounter, ear: { ear_pain: false } };
       }
       const captures = locations(app.captures()).filter(({ node }) => node.type === AssessmentCapture);
       for (const { node } of captures) {
@@ -872,29 +903,22 @@ describe("integrated mobile workspace", () => {
       }
       expect(pending).toEqual(original);
       expect(app.checklist().props.pendingAssessments).toEqual(["ear"]);
-      expect(component(app.root(), MobileDock).props.pendingCount).toBe(1);
       expectNavigationOnly();
     }
-    expect(component(app.root(), MobileDock).props.language).toBe("ha");
+    expect(component(app.root(), MobileDock).props).not.toHaveProperty("language");
     expect(component(app.root(), MobileDock).props).not.toHaveProperty("consent");
     expect(pending.language).toBe("yo");
     expect(voice.jobs[0]).toBe(pending);
-    // Finish the mocked active recording before explicitly starting the next clip.
-    voice.recordingId = null;
-    voice.audioState = "idle";
-    app.navigate(views[3]);
-    component(app.root(), MobileDock).props.onSpeak();
-    expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("fever", "ha", { audio: true, understanding: true });
+    expect(voice.startRecording).not.toHaveBeenCalled();
     expect(pending).toEqual(original);
   });
 
-  it("only confirmed encounter clearing resets drafts and view while retaining mobile preauthorization", () => {
+  it("only confirmed encounter clearing resets drafts and returns to intake", () => {
     voice.jobs = [job("review")];
     const app = workspace();
     const capture = app.checklist().props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>;
     capture.props.onDirty((previous) => ({ ...previous, ear: true }));
     app.navigate(views[0]);
-    component(app.root(), MobileDock).props.onLanguageChange("en");
     const key = app.checklist().key;
     vi.mocked(window.confirm).mockReturnValue(false);
     expect(renderToStaticMarkup(app.tools())).not.toContain(">Clear encounter</button>");
@@ -903,6 +927,7 @@ describe("integrated mobile workspace", () => {
     expect(app.checklist().props.mobileView).toEqual(views[0]);
     expect(app.checklist().props.captureStatuses?.ear).toBe("Unprocessed edits");
     expectNavigationOnly();
+    vi.mocked(session.reset).mockImplementation(() => { session.patientName = undefined; session.encounter = {}; });
     vi.mocked(window.confirm).mockReturnValue(true);
     click(button(app.tools(), "Start new assessment"));
     expect(voice.clear).toHaveBeenCalledOnce();
@@ -911,19 +936,10 @@ describe("integrated mobile workspace", () => {
     expect(vi.mocked(voice.clear).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(guide.reset).mock.invocationCallOrder[0]);
     expect(vi.mocked(guide.reset).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(session.reset).mock.invocationCallOrder[0]);
     expect(vi.mocked(voice.clear).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(session.reset).mock.invocationCallOrder[0]);
-    expect(app.checklist().key).toBe(String(Number(key) + 1));
-    expect(app.checklist().props.mobileView).toEqual(intro);
-    expect(find(app.root(), (node) => node.type === "main").props["data-mobile-intro"]).toBe(true);
-    expect(find(app.root(), (node) => node.type === "main").props["data-show-age"]).toBeUndefined();
-    expect(component(app.root(), MobileDock).props).not.toHaveProperty("consent");
-    expect(component(app.checklist().props.renderCapture!("ear"), AssessmentCapture).props.consent).toEqual({ audio: true, understanding: true });
-    component(app.root(), MobileDock).props.onSpeak();
-    expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("danger", "en", { audio: true, understanding: true },
-      { ...session.snapshot(), question: undefined });
-    // Simulate the mocked queue's reset output; the root must have cleared its own dirty gate.
-    voice.jobs = [];
-    expect(app.checklist().props.pendingAssessments).toEqual([]);
-    expect(renderToStaticMarkup(app.root())).toContain("Accepted final plan");
+    expect(component(app.root(), PatientIntake).props).toMatchObject({ patientName: undefined, age: null });
+    expect(renderToStaticMarkup(app.root())).toContain("Patient intake</h1>");
+    expect(renderToStaticMarkup(app.root())).not.toContain("Accepted final plan");
+    expect(voice.startRecording).not.toHaveBeenCalled();
     expect(voice.accept).not.toHaveBeenCalled();
     expect(session.accept).not.toHaveBeenCalled();
     expect(voice.cancelRecording).not.toHaveBeenCalled();
@@ -964,7 +980,7 @@ describe("integrated mobile workspace", () => {
   });
 
   it.each([
-    ["empty", "Ready when you are"],
+    ["empty", "Patient intake</h1>"],
     ["incomplete", "Assessment in progress"],
     ["dirty", "Process or discard unprocessed edits before final plan"],
     ["interrupted", "Acknowledge interrupted captures before final plan"],
@@ -982,9 +998,9 @@ describe("integrated mobile workspace", () => {
       const capture = app.checklist().props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>;
       capture.props.onDirty({ ear: true });
     }
-    app.navigate({ screen: "results", assessment: "ear", tab: "findings" });
+    if (gate !== "empty") app.navigate({ screen: "results", assessment: "ear", tab: "findings" });
     const html = renderToStaticMarkup(app.root());
-    expect(html).toContain('data-mobile-screen="results"');
+    if (gate !== "empty") expect(html).toContain('data-mobile-screen="results"');
     expect(html).toContain(message);
     for (const final of ["Clinical synthesis ready", "Accepted final plan", "Accepted routine classification", "Accepted routine management"]) {
       expect(html).not.toContain(final);

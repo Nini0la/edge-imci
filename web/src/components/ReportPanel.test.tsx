@@ -46,6 +46,9 @@ describe("ReportPanel", () => {
     expect(textarea.props.disabled).not.toBe(true);
     const html = renderToStaticMarkup(tree);
     expect(html).toContain('for="assessment-report"');
+    expect(html).toContain("tap answers directly");
+    expect(html).toContain("Do not include patient names in submitted text");
+    expect(html).not.toMatch(/voice|microphone|recording|intron|<select|<audio/i);
     expect(html.includes("Waiting for the assessment to be ready.")).toBe(!ready);
     expect(html.includes("Clear text")).toBe(Boolean(text));
     expect(input.onInterpret).not.toHaveBeenCalled();
@@ -79,7 +82,7 @@ describe("ReportPanel", () => {
       expect(node.props).toMatchObject({ showDebug: false, voice: input.voice, onReviewJob: input.onReviewJob, reviewDisabled: false });
     });
     const html = renderToStaticMarkup(tree);
-    expect(html.match(/Original text report/g)).toHaveLength(2);
+    expect(html.match(/Original report/g)).toHaveLength(2);
     expect(html.match(/Original synthetic report &lt;unchanged&gt;/g)).toHaveLength(2);
     expect(html.match(/<textarea/g)).toHaveLength(1);
     for (const hidden of ["private-", "JSON", "<pre", "<code", "ear-clip", "Discarded", "Apply reviewed findings"]) expect(html).not.toContain(hidden);
@@ -124,7 +127,7 @@ describe("ReportPanel", () => {
     const before = structuredClone(input.voice.jobs);
     const card = elements(ReportPanel(input)).find((node) => node.type === CaptureJobCard) as ReactElement<ComponentProps<typeof CaptureJobCard>>;
     const tree = CaptureJobCard(card.props);
-    expect(renderToStaticMarkup(tree)).toContain("Understanding unavailable");
+    expect(renderToStaticMarkup(tree)).toContain("Could not process these findings");
     expect(input.voice.retry).not.toHaveBeenCalled();
     expect(input.voice.discard).not.toHaveBeenCalled();
     click(button(tree, "Retry"));

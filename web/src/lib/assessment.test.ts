@@ -98,6 +98,24 @@ describe("request revision fence", () => {
 });
 
 describe("tab draft", () => {
+  it("keeps a trimmed local name in version 1 without adding it to clinical input or history", () => {
+    const draft = { version: 1, patientName: "  Synthetic Patient  ", encounter: { patient_facts: { age_months: 11 } }, attempted: [], revision: 3 };
+    const restored = parseDraft(JSON.stringify(draft))!;
+    expect(restored).toEqual({ ...draft, patientName: "Synthetic Patient", interactions: [] });
+    const recorded = recordDraftInteraction(restored, { id: "local", timestamp: "today", assessment: "ear", status: "failed", source: {} });
+    expect(recorded.patientName).toBe("Synthetic Patient");
+    expect(JSON.stringify([recorded.encounter, recorded.interactions])).not.toContain("Synthetic Patient");
+    expect(parseDraft(JSON.stringify({ ...draft, patientName: `  ${"n".repeat(200)}  ` }))?.patientName).toHaveLength(200);
+  });
+
+  it.each([undefined, null, false, 12, {}, [], "", " \n\t ", "n".repeat(201)])(
+    "treats invalid name metadata %j as missing without discarding clinical work", (patientName) => {
+      const draft = { version: 1, encounter: { patient_facts: { age_months: 24 }, ear: { ear_pain: false } }, attempted: ["ear"], revision: 3,
+        interactions: [{ id: "old", timestamp: "today", assessment: "ear", status: "accepted", source: {} }] };
+      expect(parseDraft(JSON.stringify({ ...draft, patientName }))).toEqual(draft);
+    },
+  );
+
   it("restores full-note candidate history but never a full-note assessment attempt", () => {
     const candidate = { assessment: "full-note", input_text: "Report", extraction_mode: "frontier", changes: [change], warnings: [] };
     const entry = { id: "report", timestamp: "today", assessment: "full-note", status: "candidate", pending: true,

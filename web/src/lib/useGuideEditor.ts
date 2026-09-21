@@ -86,7 +86,7 @@ export function useGuideEditor(session: Session, voice: Voice) {
     const requiresChoice = conflicting || Boolean(chosen && unresolvedChanges([chosen.row], resolutions).length);
     const target = chosen?.job ?? selectedJob(assessment);
     return { descriptor, acceptedValue, value, raw, source, pending: Boolean(chosen), requiresChoice,
-      error: worker?.error ?? (conflicting ? "Recordings disagree. Choose the observed answer; other recordings remain available for review." : undefined),
+      error: worker?.error ?? (conflicting ? "Reports disagree. Choose the observed answer; other reports remain available for review." : undefined),
       disabled: !session.ready || target?.status === "applying", jobId: chosen?.job.id,
       onChange: (next: ClinicalValue) => edit(target?.assessment ?? (assessment === "full-note" ? descriptor.assessments[0] : assessment), path, next, target?.id),
       onKeep: chosen && acceptedValue !== null ? () => edit(chosen.job.assessment, path, acceptedValue, chosen.job.id, true) : undefined,

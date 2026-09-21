@@ -1,7 +1,7 @@
 import { Children, isValidElement, type ReactNode } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
-import { AssessmentCapture, CandidateDetails } from "./AssessmentCapture";
+import { AssessmentCapture, CandidateDetails, CaptureJobCard } from "./AssessmentCapture";
 import type { CaptureJob, useVoiceCapture } from "../lib/useVoiceCapture";
 import type { AssessmentCandidate, AssessmentProgress } from "../types";
 
@@ -27,7 +27,7 @@ const voice: ReturnType<typeof useVoiceCapture> = {
   retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn(),
 };
 const props = { assessment: "ear" as const, encounter: {}, revision: 2, progress, urgent: false,
-  voice, language: "yo" as const, consent: { audio: true, understanding: true }, reviewDisabled: false, ready: true, onDirty: vi.fn(), onReviewJob: vi.fn() };
+  voice, reviewDisabled: false, ready: true, onDirty: vi.fn(), onReviewJob: vi.fn() };
 function job(status: CaptureJob["status"], overrides: Partial<CaptureJob> = {}): CaptureJob {
   return { id: "clip-1", assessment: "ear", language: "yo", status, originalEncounter: {}, originalRevision: 1,
     reviewRevision: 2, reviewVersion: 1, changedFields: [], candidate, originalCandidate: candidate,
@@ -36,39 +36,88 @@ function job(status: CaptureJob["status"], overrides: Partial<CaptureJob> = {}):
 }
 
 describe("inline capture presentation", () => {
-  it("shows the server question, automatic processing instructions, and collapsed text fallback", () => {
+  it.each([
+    { ready: false, text: "No ear pain", queued: true },
+    { ready: true, text: " \n ", queued: true },
+    { ready: true, text: "No ear pain", queued: false },
+    { ready: true, text: "No ear pain", queued: true },
+  ])("gates text submission and clears only queued drafts: %j", ({ ready, text, queued }) => {
+    const draft = { text, context: null };
+    const state = { value: draft as unknown };
+    const addText = vi.fn().mockReturnValue(queued);
+    let submit: (() => void) | undefined;
+    function Capture() {
+      runtime.current = state;
+      try {
+        const tree = AssessmentCapture({ ...props, ready, voice: { ...voice, addText }, showDebug: false });
+        function visit(node: ReactNode) {
+          Children.forEach(node, (child) => {
+            if (!isValidElement<{ children?: ReactNode; disabled?: boolean; onClick?: () => void }>(child)) return;
+            if (child.type === "button" && child.props.children === "Process typed finding") {
+              expect(child.props.disabled).toBe(!ready || !text.trim());
+              submit = child.props.onClick;
+            }
+            visit(child.props.children);
+          });
+        }
+        visit(tree);
+        return tree;
+      } finally { runtime.current = null; }
+    }
+    const html = renderToStaticMarkup(<Capture />);
+    expect(html).not.toMatch(/<textarea[^>]*disabled/);
+    submit!();
+    if (ready && text.trim()) {
+      expect(addText).toHaveBeenCalledExactlyOnceWith("ear", text, true, { encounter: {}, revision: 2, question: undefined });
+    } else expect(addText).not.toHaveBeenCalled();
+    expect(state.value).toEqual(ready && text.trim() && queued ? { text: "" } : draft);
+    expect(voice.startRecording).not.toHaveBeenCalled();
+  });
+
+  it.each([false, true])("preserves the explicit review gate=%s without accepting a report", (reviewDisabled) => {
+    const onReviewJob = vi.fn();
+    const tree = CaptureJobCard({ job: job("review"), reviewDisabled, voice, onReviewJob, showDebug: false });
+    let review: { disabled?: boolean; onClick?: () => void } | undefined;
+    function visit(node: ReactNode) {
+      Children.forEach(node, (child) => {
+        if (!isValidElement<{ children?: ReactNode; disabled?: boolean; onClick?: () => void }>(child)) return;
+        if (child.type === "button" && child.props.children === "Review on assessment") review = child.props;
+        visit(child.props.children);
+      });
+    }
+    visit(tree);
+    expect(review?.disabled).toBe(reviewDisabled);
+    expect(onReviewJob).not.toHaveBeenCalled();
+    if (!reviewDisabled) {
+      review?.onClick?.();
+      expect(onReviewJob).toHaveBeenCalledExactlyOnceWith("clip-1");
+    }
+    expect(voice.accept).not.toHaveBeenCalled();
+  });
+
+  it("shows the server question and primary text entry without audio or language controls", () => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} />);
     expect(html).toContain("Does the child have ear pain?");
     expect(html).not.toContain("ear.ear_discharge_reported");
-    expect(html).toContain("Record findings");
-    expect(html).toContain("Stop to process automatically");
-    expect(html).toContain("Recording does not complete an assessment");
-    expect(html).toMatch(/<details class="capture-details typed-fallback"><summary>Type a finding instead/);
+    expect(html).toContain("Section findings");
+    expect(html).toContain("Type a finding");
+    expect(html).toContain("then confirm findings");
+    expect(html).not.toMatch(/<details|<select|<audio|microphone|Record findings|ASR|fallback/i);
     expect(html).toContain("Process typed finding");
     expect(html).not.toContain("Transcribe audio");
   });
 
-  it.each(["queued", "transcribing", "extracting", "preparing_review", "applying"] as const)("keeps recording available during %s and session acceptance", (status) => {
+  it.each(["queued", "transcribing", "extracting", "preparing_review", "applying"] as const)("keeps text entry available during %s and session acceptance", (status) => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} reviewDisabled voice={{ ...voice, jobs: [job(status)] }} />);
-    expect(html).toContain("Processing /");
-    expect(html).not.toMatch(/class="record-findings"[^>]*disabled/);
+    expect(html).toContain("Processing");
+    expect(html).toContain("Reports");
+    expect(html).not.toMatch(/<textarea[^>]*disabled/);
   });
 
-  it.each(["permission", "recording", "stopping"] as const)("disables another section's microphone while the mic is %s", (audioState) => {
+  it.each(["permission", "recording", "stopping"] as const)("never exposes legacy audio controls while internal state is %s", (audioState) => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, audioState, recordingId: "other" }} />);
-    expect(html).toMatch(/class="record-findings"[^>]*disabled/);
-  });
-
-  it.each([{ audio: false, understanding: true }, { audio: true, understanding: false }])("requires both consents before recording", (consent) => {
-    expect(renderToStaticMarkup(<AssessmentCapture {...props} consent={consent} />)).toMatch(/class="record-findings"[^>]*disabled/);
-  });
-
-  it("requires a language and switches the active section control to Stop", () => {
-    expect(renderToStaticMarkup(<AssessmentCapture {...props} language="" />)).toMatch(/class="record-findings"[^>]*disabled/);
-    const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("recording")], recordingId: "clip-1", audioState: "recording" }} />);
-    expect(html).toContain("Stop</button>");
-    expect(html).toContain("Cancel recording");
-    expect(html).not.toContain("Record findings");
+    expect(html).not.toMatch(/<select|<audio|microphone|record-findings|Cancel recording|Stop<\/button>/i);
+    expect(html).not.toMatch(/<textarea[^>]*disabled/);
   });
 
   it.each(["captured", "review", "preparing_review"] as const)("routes %s evidence to assessment controls without a parallel form", (status) => {
@@ -90,10 +139,10 @@ describe("inline capture presentation", () => {
     expect(html).not.toContain("Review selected retractions");
   });
 
-  it("recommends recording again instead of retrying an empty failed capture", () => {
+  it("recommends new text instead of retrying an empty failed report", () => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} voice={{ ...voice, jobs: [job("failed", { inputText: undefined, audio: undefined })] }} />);
     expect(html).not.toContain(">Retry</button>");
-    expect(html).toContain("Record again or type a finding instead");
+    expect(html).toContain("Type a finding to try again");
     expect(html).toContain(">Discard</button>");
   });
 
@@ -106,7 +155,7 @@ describe("inline capture presentation", () => {
     expect(html).not.toContain("Correct transcript if needed");
   });
 
-  it("pauses targeted questioning for urgent or blocked assessments without hiding fallback", () => {
+  it("pauses targeted questioning for urgent or blocked assessments without hiding text entry", () => {
     const urgent = renderToStaticMarkup(<AssessmentCapture {...props} urgent />);
     expect(urgent).not.toContain("Does the child have ear pain?");
     expect(urgent).toContain("Ordinary questions are paused");
@@ -119,6 +168,15 @@ describe("inline capture presentation", () => {
 });
 
 describe("read-only source details", () => {
+  it("preserves historical source words even when they mention a former provider", () => {
+    const report = "Intron was mentioned in the original report.";
+    const capture = job("accepted", { inputText: report, transcript: undefined });
+    const before = JSON.stringify(capture);
+    const html = renderToStaticMarkup(<AssessmentCapture {...props} showDebug={false} voice={{ ...voice, jobs: [capture] }} />);
+    expect(html).toContain(report);
+    expect(JSON.stringify(capture)).toBe(before);
+  });
+
   it("places the immutable captured question under Details, separate from the next server question", () => {
     const html = renderToStaticMarkup(<AssessmentCapture {...props} progress={{ ...progress, question: { field: "ear.ear_discharge_reported", text: "New question about discharge" } }}
       voice={{ ...voice, jobs: [job("review")] }} />);
@@ -150,7 +208,7 @@ describe("read-only source details", () => {
     expect(html).not.toMatch(/<(input|select|textarea|button)/);
   });
 
-  it.each(["captured", "accepted", "failed"] as const)("omits technical markup from nondebug %s recordings, not just their visible surface", (status) => {
+  it.each(["captured", "accepted", "failed"] as const)("omits technical markup from nondebug %s reports, not just their visible surface", (status) => {
     const detailed: AssessmentCandidate = { ...candidate, input_text: "Original spoken words",
       warnings: ["Check the reported duration", 'JSON schema mismatch: {"ear.ear_pain": null} from azure_openai'], english_rendering: "Optional English words",
       candidate_encounter: { ear: { ear_pain: false } },
@@ -159,21 +217,21 @@ describe("read-only source details", () => {
       evidence_spans: [{ field: "ear.ear_pain", source_text: "Original source words" }],
     };
     const capture = job(status, { originalCandidate: detailed, inputText: "Original spoken words", changedFields: ["unknown.internal_field"],
-      error: status === "failed" ? "Recording could not be processed" : undefined,
+      error: status === "failed" ? "Intron ASR recording could not be processed" : undefined,
       transcript: { transcript: "Original spoken words", provider: "intron", model: null, duration_seconds: 3 },
     });
     const before = JSON.stringify(capture);
     const html = renderToStaticMarkup(<AssessmentCapture {...props} showDebug={false} voice={{ ...voice, jobs: [capture] }} />);
-    for (const text of ["<pre", "<code", "JSON", "schema", "ear.ear_pain", "unknown.internal_field", "candidate_encounter", "extraction_mode", "azure_openai", "private-model", "private-request", "input_tokens", "clip-1", "Optional English words", "Check the reported duration", "Original source words", "Submitted input", "Original submitted report"]) {
+    for (const text of ["<pre", "<code", "JSON", "schema", "ear.ear_pain", "unknown.internal_field", "candidate_encounter", "extraction_mode", "azure_openai", "private-model", "private-request", "input_tokens", "clip-1", "Optional English words", "Check the reported duration", "Original source words", "Submitted input", "Original submitted report", "Intron", "intron", "ASR", "Recording", "<select", "<audio"]) {
       expect(html).not.toContain(text);
     }
-    for (const text of ["Recordings", "<summary>Transcript</summary>", "Original spoken words", "Original question about pain", "Please review the report and confirm the findings on the assessment.", "The answer was unclear", "Maybe pain", "Type a finding instead", "Process typed finding", "Record findings"]) {
+    for (const text of ["Reports", "<summary>Original report</summary>", "Original spoken words", "Original question about pain", "Please review the report and confirm the findings on the assessment.", "The answer was unclear", "Maybe pain", "Type a finding", "Process typed finding", "Section findings"]) {
       expect(html).toContain(text);
     }
     expect(html.match(/Original spoken words/g)).toHaveLength(1);
     expect(html).not.toMatch(/<details[^>]*open/);
     if (status === "failed") {
-      expect(html).toContain('role="alert">Recording could not be processed');
+      expect(html).toContain('role="alert">Could not process these findings.');
       expect(html).toContain(">Retry</button>");
       expect(html).toContain(">Discard</button>");
     }

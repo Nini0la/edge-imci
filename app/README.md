@@ -1,6 +1,41 @@
 # EdgeIMCI prototype application
 
-## Intron voice variant
+## Text-Only Intake Variant
+
+The current interface on `variant/text-only-intake` requires a patient name and
+age in completed months (2-59) before assessment. Patient name is local tab
+metadata, never automatically added to the clinical schema or interpretation
+requests. Text explicitly containing a name is still submitted as written: use
+synthetic names and reports for this prototype, not identifying clinical data.
+
+The three-panel interface retains tappable clinical controls, the text editor,
+and deterministic results. There are no recording controls, microphone requests,
+speech-language selectors, or provider branding. Main assessment text and inputs
+are larger, with at least 48px action targets. Other clinical observations remain
+nullable; required intake age cannot be cleared with Not assessed.
+
+Use **Edit patient details** to correct intake later. Changes are validated and
+re-evaluated before name and age are committed together. Failed or stale saves
+leave the current patient unchanged; accepted clinical facts, pending reports,
+and typed drafts are preserved. Resuming older assessments without a name
+requires completing intake, with the saved age prefilled.
+
+```bash
+npm --prefix web ci
+npm --prefix web run build
+uv run --extra azure --extra modal-training python scripts/run_text_demo.py
+```
+
+The text launcher uses the authorized Azure resource and keeps its credential in
+process memory, or uses an existing `EDGEIMCI_FRONTIER_API_KEY`. No speech key is
+needed. `--port` and `--static-root` allow an isolated preview without overwriting
+older builds. Browser tab storage is not a secure or durable patient-record store.
+
+Previous checkpoints remain in Git: `9148a17e` is tappable/voice, and `24528e4b`
+adds the text panel. The historical integration notes below describe those
+earlier variants; they do not enable audio in this interface.
+
+## Earlier Voice Variant
 
 The implemented interaction decisions are recorded in
 [`docs/voice_first_structured_controls_decisions.md`](../docs/voice_first_structured_controls_decisions.md):

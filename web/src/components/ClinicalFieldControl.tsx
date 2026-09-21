@@ -13,6 +13,7 @@ export interface ClinicalFieldControlProps {
   error?: string;
   requiresChoice?: boolean;
   disabled?: boolean;
+  required?: boolean;
   compact?: boolean;
   onChange: (value: ClinicalValue) => void;
   onKeep?: () => void;
@@ -20,8 +21,8 @@ export interface ClinicalFieldControlProps {
 }
 
 export function ClinicalFieldControl({
-  descriptor, value, raw, acceptedValue, pending, source, error,
-  requiresChoice = false, disabled = false, compact = false, onChange, onKeep, booleanLabels,
+  descriptor, value, raw, acceptedValue, pending, source, error: suppliedError,
+  requiresChoice = false, disabled = false, required = false, compact = false, onChange, onKeep, booleanLabels,
 }: ClinicalFieldControlProps) {
   const id = useId();
   const [editing, setEditing] = useState(false);
@@ -29,6 +30,7 @@ export function ClinicalFieldControl({
   const valueRef = useRef<HTMLButtonElement>(null);
   const numeric = descriptor.kind === "integer" || descriptor.kind === "number";
   const inputValue = raw ?? (typeof value === "number" || typeof value === "string" ? String(value) : "");
+  const error = suppliedError || (required && numeric && !inputValue.trim() ? `${descriptor.label} is required.` : undefined);
   const compactValue = raw !== undefined ? raw.trim() ? raw : "Not recorded"
     : typeof value === "number" || typeof value === "string" ? String(value) : "Not recorded";
   const bounds = [
@@ -40,9 +42,9 @@ export function ClinicalFieldControl({
   const acceptedLabel = acceptedValue === null ? "Not assessed"
     : typeof acceptedValue === "boolean" ? (acceptedValue ? booleanLabels?.yes ?? "Yes" : booleanLabels?.no ?? "No")
       : descriptor.options?.find((option) => option.value === acceptedValue)?.label ?? String(acceptedValue);
-  const sourceLabel = source === "accepted" ? (acceptedValue === null ? "Not assessed" : "Confirmed")
+  const sourceLabel = source === "accepted" ? (acceptedValue === null ? required && numeric ? "Required" : "Not assessed" : "Confirmed")
     : source === "worker" ? "Your answer"
-      : source === "kept" ? "Kept confirmed answer" : source === "conflict" ? "Conflicting findings" : source === "text" ? "From text" : "From recording";
+      : source === "kept" ? "Kept confirmed answer" : source === "conflict" ? "Conflicting findings" : source === "text" ? "From text" : "From report";
   const describedBy = [
     numeric && bounds && (!compact || error) ? `${id}-bounds` : "",
     showAccepted ? `${id}-accepted` : "",
@@ -92,13 +94,14 @@ export function ClinicalFieldControl({
             inputMode={descriptor.kind === "integer" ? "numeric" : "decimal"}
             value={inputValue}
             disabled={disabled}
+            required={required}
             aria-invalid={Boolean(error)}
             aria-describedby={[describedBy, descriptor.unit ? `${id}-unit` : ""].filter(Boolean).join(" ") || undefined}
             onChange={(event) => onChange(event.target.value)}
             onKeyDown={compact ? (event) => { if (event.key === "Enter") event.preventDefault(); } : undefined}
           />
           {descriptor.unit && <span id={`${id}-unit`}>{descriptor.unit}</span>}
-          <button type="button" disabled={disabled} onClick={() => onChange(null)}>Not assessed</button>
+          {!required && <button type="button" disabled={disabled} onClick={() => onChange(null)}>Not assessed</button>}
           {compact && <button type="button" disabled={disabled} onClick={() => {
             flushSync(() => setEditing(false));
             valueRef.current?.focus();

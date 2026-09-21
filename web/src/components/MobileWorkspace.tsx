@@ -1,9 +1,9 @@
-import { ArrowLeft, ChevronRight, ClipboardList, FileCheck2, FilePenLine, Mic, Square, X } from "lucide-react";
+import { ArrowLeft, ChevronRight, ClipboardList, FileCheck2, FilePenLine } from "lucide-react";
 import type { ReactNode } from "react";
 import { assessmentBadge } from "../lib/assessment";
 import type { buildChecklist, ChecklistSection } from "../lib/checklist";
-import type { CaptureJob, useVoiceCapture } from "../lib/useVoiceCapture";
-import type { ASRLanguage, AssessmentId, AssessmentProgress } from "../types";
+import type { CaptureJob } from "../lib/useVoiceCapture";
+import type { AssessmentId, AssessmentProgress } from "../types";
 
 export interface MobileView {
   screen: "list" | "assessment" | "report" | "results";
@@ -14,9 +14,6 @@ export interface MobileView {
 
 type Navigate = (view: MobileView) => void;
 const homeView: MobileView = { screen: "list", assessment: null, tab: "guidance" };
-const languageLabels: Record<ASRLanguage, string> = {
-  en: "English", pcm: "Pidgin-English", yo: "Yoruba", ig: "Igbo", ha: "Hausa",
-};
 function isIntro(view: MobileView) {
   return view.intro && view.screen === "assessment" && view.assessment === "danger" && view.tab === "guidance";
 }
@@ -99,66 +96,27 @@ export function MobileAssessmentTabs({ view, section, progress, urgent, jobs, on
       <button type="button" aria-pressed={view.tab === "guidance"}
         onClick={() => onNavigate({ ...view, tab: "guidance" })}>Assessment</button>
       <button type="button" aria-pressed={view.tab === "findings"}
-        onClick={() => onNavigate({ ...view, tab: "findings" })}>Recordings
-        {pending > 0 && <span className="mobile-count" aria-label={`${pending} pending captures`}>{pending}</span>}
+        onClick={() => onNavigate({ ...view, tab: "findings" })}>Reports
+        {pending > 0 && <span className="mobile-count" aria-label={`${pending} pending reports`}>{pending}</span>}
       </button>
     </div>
     {view.tab === "guidance" && <div className="mobile-guidance-context">
       {!urgent && progress?.decision === "ASK" && progress.question && <div className="mobile-next-observation">
         <strong>Next observation</strong><p>{progress.question.text}</p>
       </div>}
-      {urgent && <p className="capture-warning">Ordinary questions are paused. Prioritize urgent actions. Further captures are your choice.</p>}
+      {urgent && <p className="capture-warning">Ordinary questions are paused. Prioritize urgent actions. You may still add findings.</p>}
       {progress?.blockers.map((blocker, index) => <p className="capture-warning" key={index}>{blocker}</p>)}
     </div>}
   </div>;
 }
 
-export function MobileDock({ view, sections, voice, language, ready, onNavigate, onSpeak, onLanguageChange, confirmation }: {
+export function MobileDock({ view, onNavigate, confirmation }: {
   view: MobileView;
-  sections: ChecklistSection[];
-  voice: ReturnType<typeof useVoiceCapture>;
-  language: ASRLanguage | "";
-  ready: boolean;
   onNavigate: Navigate;
-  urgent: boolean;
-  pendingCount: number;
-  onSpeak: () => void;
-  onLanguageChange: (language: ASRLanguage | "") => void;
   confirmation?: ReactNode;
 }) {
   const intro = isIntro(view);
-  const active = voice.recordingId !== null || voice.audioState !== "idle";
-  const owner = voice.jobs.find((job) => job.id === voice.recordingId);
-  const ownerLabel = sections.find((section) => section.id === owner?.assessment)?.label ?? "Current capture";
-  const selected = view.screen === "assessment" ? sections.find((section) => section.id === view.assessment) : undefined;
-  const showContext = active && (owner?.assessment !== selected?.id || !selected || voice.audioState !== "recording");
-  const phase = voice.audioState === "permission" ? "Waiting for microphone permission"
-    : voice.audioState === "stopping" ? "Finishing recording" : "Recording";
-  return <footer className="mobile-only mobile-dock" data-mobile-intro={intro || undefined} data-capture-controls={active || Boolean(selected)} aria-label="Recording and workspace navigation">
-    {(active || selected) && <div className="mobile-dock-recording">
-      {showContext && <p id="mobile-recording-context" className="mobile-recording-context" role="status">
-        <strong>{phase}: {ownerLabel}</strong>
-      </p>}
-      <div className="mobile-dock-actions" role="group" aria-label="Speech controls">
-        <select id="mobile-speech-language" aria-label="Speech language"
-          aria-describedby={showContext ? "mobile-recording-context" : undefined}
-          value={active ? owner?.language ?? "" : language} disabled={active}
-          onChange={(event) => { if (!active) onLanguageChange(event.target.value as ASRLanguage | ""); }}>
-          <option value="">Language</option>
-          {Object.entries(languageLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-        </select>
-        {active ? <>
-          <button type="button" className="mobile-record-button mobile-record-button--stop" aria-label="Stop recording"
-            aria-describedby={showContext ? "mobile-recording-context" : undefined} disabled={voice.audioState !== "recording"} onClick={voice.stop}>
-            <Square size={20} aria-hidden="true" />Stop
-          </button>
-          <button type="button" className="mobile-cancel-button" aria-label="Cancel recording"
-            aria-describedby={showContext ? "mobile-recording-context" : undefined} onClick={voice.cancelRecording}><X size={20} aria-hidden="true" /></button>
-        </> : <button type="button" className="mobile-record-button" aria-label="Speak"
-          disabled={!ready || !language}
-          onClick={() => { if (ready && language) onSpeak(); }}><Mic size={22} aria-hidden="true" />Speak</button>}
-      </div>
-    </div>}
+  return <footer className="mobile-only mobile-dock" data-mobile-intro={intro || undefined} aria-label="Workspace navigation">
     {intro ? <div className="mobile-intro-actions">
       {confirmation}
       <button type="button" className="mobile-write-report" onClick={() => onNavigate({ ...homeView, screen: "report" })}>Write text</button>
@@ -166,8 +124,8 @@ export function MobileDock({ view, sections, voice, language, ready, onNavigate,
         Continue<ChevronRight size={18} aria-hidden="true" />
       </button>
     </div> : <nav className="mobile-dock-nav" aria-label="Mobile workspace">
-      <button type="button" aria-label="Assessments" aria-current={view.screen === "list" || view.screen === "assessment" ? "page" : undefined}
-        onClick={() => onNavigate(homeView)}><ClipboardList size={19} aria-hidden="true" /><span className="mobile-nav-label">Assessments</span><span className="mobile-nav-short" aria-hidden="true">List</span></button>
+      <button type="button" aria-current={view.screen === "list" || view.screen === "assessment" ? "page" : undefined}
+        onClick={() => onNavigate(homeView)}><ClipboardList size={19} aria-hidden="true" /><span>Assessment</span></button>
       <button type="button" aria-current={view.screen === "report" ? "page" : undefined}
         onClick={() => onNavigate({ ...homeView, screen: "report" })}><FilePenLine size={19} aria-hidden="true" /><span>Text report</span></button>
       <button type="button" aria-current={view.screen === "results" ? "page" : undefined}

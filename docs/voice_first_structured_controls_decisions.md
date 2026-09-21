@@ -262,3 +262,35 @@ text-panel iteration is developed separately on `variant/intron-text-panel`.
   affects only that job. Reset cancels all encounter work and ignores late replies.
 - No engineering JSON, schemas, or provider internals are reintroduced into the
   worker interface. Readable original reports and shared progress remain available.
+
+## Text-Only Patient Intake
+
+The owner requested the next iteration on `variant/text-only-intake`, after
+publishing `24528e4b` on `variant/intron-text-panel`. Earlier versions remain
+unchanged on their own branches and previews.
+
+- Require patient name and whole-number age in completed months (2-59) at intake.
+  The normal guide no longer presents age as an optional Not assessed observation.
+  Other clinical observations retain their existing unknown/negative distinction.
+- Keep the name in local tab metadata, outside the canonical encounter, model
+  context, and clinical API request bodies. Do not automatically prefix submitted
+  reports with it. User-written identifying text is not automatically de-identified;
+  this prototype remains synthetic-data-only and is not secure record storage.
+- Intake updates change only name and canonical age, using current accepted data
+  and fresh deterministic evaluation. Commit both only after success and revision
+  validation. Failures, stale saves, reset, or late responses cannot change the
+  current patient's identity or undo other accepted findings.
+- Preserve metadata through confirmation, reload/resume, and history updates.
+  Legacy drafts without a name require intake after explicit resume, with any
+  saved age prefilled. Starting a new assessment clears both identity and findings.
+- Later intake edits keep the workspace mounted and retain report/section drafts.
+  Pending age proposals remain explicitly reviewable, but cannot clear required
+  intake age; the worker must keep the accepted age or enter a valid correction.
+- Remove recording controls, language selection, and speech-provider branding
+  throughout the user interface. The shared job controller is instantiated with
+  audio disabled: no microphone factory or transcription calls can be invoked.
+  Text interpretation, direct controls, confirmation, and clinical rules remain.
+- Use larger clinical text and inputs with accessible touch targets on desktop
+  and mobile. Processing/history use assessment/report terminology, not audio
+  terminology. Preserve original historical source content without displaying
+  provider metadata or restoring recording capabilities.

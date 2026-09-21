@@ -92,6 +92,20 @@ describe("AssessmentChecklist", () => {
     expect(html).toMatch(/<div class="assessment-scope">.*<button>patient_facts.age_months<\/button><\/div>/);
   });
 
+  it.each([false, true])("renders age only when explicitly requested, showAge=%s", (showAge) => {
+    const encounter = { patient_facts: { age_months: 24 } };
+    const renderField = vi.fn((_assessment: string, path: string) => <button>{path}</button>);
+    const html = renderToStaticMarkup(<AssessmentChecklist encounter={encounter}
+      workingEncounter={{ patient_facts: { age_months: 36 } }} pendingFieldPaths={["patient_facts.age_months"]}
+      showAge={showAge} renderField={renderField} ageReview={<button>Confirm age</button>} />);
+    expect(html.includes('class="assessment-scope"')).toBe(showAge);
+    expect(html.includes("Confirm age")).toBe(showAge);
+    expect(renderField.mock.calls.filter(([, path]) => path === "patient_facts.age_months")).toHaveLength(showAge ? 1 : 0);
+    expect(renderField).toHaveBeenCalledWith("danger", "danger_signs.convulsing_now");
+    expect(html.match(/class="assessment-section__body/g)).toHaveLength(5);
+    expect(encounter.patient_facts.age_months).toBe(24);
+  });
+
   it.each([false, true])("renders five canonical short danger labels beside full instructions, retaining read-only annotations: interactive=%s", (interactive) => {
     const encounter = { danger_signs: { unable_to_drink_or_breastfeed: false, convulsing_now: true } };
     const original = structuredClone(encounter);

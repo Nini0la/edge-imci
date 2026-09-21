@@ -5,10 +5,18 @@ export const draftKey = "edge-imci.assessment.v1";
 
 export interface AssessmentDraft {
   version: 1;
+  // Tab-local identity, not clinical evidence or capture context.
+  patientName?: string;
   encounter: Record<string, unknown>;
   attempted: AssessmentId[];
   revision: number;
   interactions?: InteractionTrace[];
+}
+
+export function normalizePatientName(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const name = value.trim();
+  return name.length > 0 && name.length <= 200 ? name : undefined;
 }
 
 export function parseDraft(raw: string | null): AssessmentDraft | null {
@@ -23,7 +31,9 @@ export function parseDraft(raw: string | null): AssessmentDraft | null {
   const interactions = draft.interactions === undefined ? [] : draft.interactions;
   if (!Array.isArray(interactions) || !interactions.every(validInteraction)) throw new Error("Invalid saved interaction trace");
   // Historical outputs are debug data only. The hook re-evaluates accepted input.
+  const patientName = normalizePatientName(draft.patientName);
   return { version: 1, encounter: draft.encounter, attempted: draft.attempted, revision: draft.revision,
+    ...(patientName ? { patientName } : {}),
     interactions: interactions.map((entry) => entry.pending
       ? { ...entry, pending: false, status: "rejected", error: "Request interrupted by tab reload; no result accepted." } : entry) };
 }

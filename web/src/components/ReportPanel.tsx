@@ -22,14 +22,14 @@ export function ReportPanel({ text, onChange, onInterpret, onClear, ready, voice
   return <section className="report-panel" aria-label="Text assessment report">
     <header className="pane-header">
       <p className="panel-index">Text report</p><h1 id="report-heading" tabIndex={-1}>Write assessment findings</h1>
-      <p>Type or paste findings from one or several assessments. Voice and the guide buttons remain available.</p>
+      <p>Type or paste findings from one or several assessments. You can also tap answers directly in the assessment guide.</p>
     </header>
     <div className="report-body">
       <label htmlFor="assessment-report">Assessment findings</label>
       <textarea id="assessment-report" value={text} maxLength={8000} rows={10}
-        placeholder="Describe the child's age and the findings you assessed. Leave unassessed observations out."
+        placeholder="Describe your assessment findings. Leave unassessed observations out."
         onChange={(event) => onChange(event.target.value)} aria-describedby="report-help" />
-      <p id="report-help">Interpretation proposes answers on the guide. Check or correct them, then confirm. Existing confirmed findings are kept unless you explicitly change them.</p>
+       <p id="report-help">Interpretation proposes answers on the guide. Check or correct them, then confirm. Existing confirmed findings are kept unless you explicitly change them. Do not include patient names in submitted text.</p>
       <div className="report-actions">
         <button type="button" className="interpret-report" disabled={!ready || !text.trim()} onClick={onInterpret}>
           <FilePenLine size={18} aria-hidden="true" />Interpret text

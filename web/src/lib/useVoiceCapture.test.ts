@@ -45,7 +45,7 @@ function evaluation(encounter: Record<string, unknown>): AssessmentEvaluation {
   };
 }
 
-function setup(encounter: Record<string, unknown> = {}) {
+function setup(encounter: Record<string, unknown> = {}, audioEnabled?: boolean) {
   let state: State = { jobs: [], recordingId: null, audioState: "idle", error: "" };
   let audioCallbacks!: Parameters<typeof createAudioCapture>[0];
   const audio = new Blob(["synthetic audio"], { type: "audio/webm" });
@@ -98,6 +98,7 @@ function setup(encounter: Record<string, unknown> = {}) {
     interruptedCount: 0, acknowledgeInterrupted: vi.fn(),
     snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation, interactions: session.interactions }),
     recordInteraction, accept, refresh: vi.fn(async () => true), evaluate: vi.fn(async () => true), rejectPending: vi.fn(),
+    updateIntake: vi.fn(async () => true),
     reset: vi.fn(() => { commit({}); session.interactions = []; session.busy = false; }),
   };
   function commit(next: Record<string, unknown>) {
@@ -105,7 +106,7 @@ function setup(encounter: Record<string, unknown> = {}) {
     session.revision += 1;
     session.evaluation = evaluation(session.encounter);
   }
-  const capture = createVoiceCapture({ getSession: () => session, onChange: (next) => { state = next; }, transcribe, extract, prepare, audioFactory });
+  const capture = createVoiceCapture({ getSession: () => session, onChange: (next) => { state = next; }, transcribe, extract, prepare, audioFactory, audioEnabled });
   const latest = () => state.jobs[state.jobs.length - 1];
   function record(assessment: AssessmentId = "ear", language: ASRLanguage = "yo") {
     capture.startRecording(assessment, language, { audio: true, understanding: true });
@@ -137,6 +138,82 @@ beforeEach(() => { vi.stubGlobal("fetch", vi.fn(() => { throw new Error("Unexpec
 afterEach(() => { vi.unstubAllGlobals(); });
 
 describe("voice capture controller", () => {
+  it("never constructs or accesses a microphone when audio is disabled, including cleanup", () => {
+    const getUserMedia = vi.fn();
+    vi.stubGlobal("navigator", { mediaDevices: { getUserMedia } });
+    const h = setup({}, false);
+    h.capture.startRecording("ear", "en", { audio: true, understanding: true });
+    h.capture.startRecording("ear", "en", { audio: false, understanding: false });
+    h.capture.stop();
+    h.capture.cancelRecording();
+    h.capture.clear();
+    h.capture.clear(false);
+    expect(h.state()).toEqual({ jobs: [], recordingId: null, audioState: "idle", error: "" });
+    expect(h.audioFactory).not.toHaveBeenCalled();
+    expect(h.microphone.record).not.toHaveBeenCalled();
+    expect(h.microphone.stop).not.toHaveBeenCalled();
+    expect(h.microphone.cancel).not.toHaveBeenCalled();
+    expect(getUserMedia).not.toHaveBeenCalled();
+    expect(h.transcribe).not.toHaveBeenCalled();
+    expect(h.recordInteraction).not.toHaveBeenCalled();
+  });
+
+  it("rejects an audio-only retry in malformed state without ASR, and recovers with text", async () => {
+    const h = setup({}, false);
+    const id = await h.captured();
+    // Simulate a malformed audio-only job reaching the reusable queue's retry path.
+    Object.assign(h.job(id), { inputText: undefined, audio: h.audio, language: "en" });
+    h.capture.retry(id);
+    await flush();
+    const failed = h.latest().id;
+    expect(h.job(failed)).toMatchObject({ status: "failed", error: "Audio capture is disabled. Type a finding instead." });
+    expect(h.transcribe).not.toHaveBeenCalled();
+    expect(h.extract).toHaveBeenCalledOnce();
+    h.capture.retry(failed, "Corrected typed finding");
+    h.extracts[1].resolve(candidate()); await flush();
+    expect(h.latest()).toMatchObject({ status: "captured", inputText: "Corrected typed finding" });
+    expect(h.audioFactory).not.toHaveBeenCalled();
+    expect(h.transcribe).not.toHaveBeenCalled();
+  });
+
+  it("keeps text readiness, retries, review, acceptance and discard working without audio", async () => {
+    const h = setup({}, false);
+    h.session.evaluation = null;
+    expect(h.capture.addText("full-note", "Keep draft", true)).toBe(false);
+    expect(h.capture.stageField("ear", pain, false)).toBeUndefined();
+    expect(h.state().jobs).toEqual([]);
+    h.session.evaluation = evaluation({});
+    expect(h.capture.addText("full-note", "No consent", false)).toBe(false);
+    expect(h.capture.addText("full-note", "   ", true)).toBe(false);
+    const failed = h.text("full-note");
+    h.extracts[0].reject(new Error("Extraction unavailable")); await flush();
+    h.capture.retry(failed, "  No ear pain  ");
+    const id = h.latest().id;
+    h.extracts[1].resolve(candidate("full-note", [row(pain.path, false)])); await flush();
+    expect(h.job(id)).toMatchObject({ status: "captured", inputText: "No ear pain" });
+    expect(h.prepare).not.toHaveBeenCalled();
+    expect(h.accept).not.toHaveBeenCalled();
+    await h.reviewed(id);
+    const accepting = h.capture.accept(id, {});
+    h.applies[0].resolve(true); await accepting;
+    expect(h.session.encounter).toEqual({ ear: { ear_pain: false } });
+    expect(h.job(id).status).toBe("accepted");
+    const discarded = h.text();
+    h.capture.discard(discarded);
+    expect(h.extract.mock.calls[2][4]!.aborted).toBe(true);
+    h.extracts[2].resolve(candidate()); await flush();
+    expect(h.job(discarded).status).toBe("discarded");
+    const reset = h.text();
+    h.capture.clear(false);
+    expect(h.extract.mock.calls[3][4]!.aborted).toBe(true);
+    const history = structuredClone(h.session.interactions);
+    h.extracts[3].resolve(candidate()); await flush();
+    expect(h.session.interactions).toEqual(history);
+    expect(h.capture.stageField("ear", pain, true, reset)).toBeUndefined();
+    expect(h.audioFactory).not.toHaveBeenCalled();
+    expect(h.transcribe).not.toHaveBeenCalled();
+  });
+
   it("freezes full-note context, strips supplied questions even on retry, and refuses full-note voice", async () => {
     const h = setup({ ear: { ear_pain: false } });
     const context = { encounter: structuredClone(h.session.encounter), revision: 10,
@@ -647,8 +724,78 @@ describe("voice capture controller", () => {
 const pain: FieldDescriptor = { path: "ear.ear_pain", label: "Ear pain", kind: "boolean", nullable: true, assessments: ["ear"] };
 const rate: FieldDescriptor = { path: "respiratory.respiratory_rate", label: "Respiratory rate", kind: "integer", nullable: true,
   minimum: 0, maximum: 200, unit: "breaths/min", assessments: ["respiratory"] };
+const age: FieldDescriptor = { path: "patient_facts.age_months", label: "Age", kind: "integer", nullable: true,
+  minimum: 0, maximum: 59, unit: "months", assessments: ["respiratory"] };
 
 describe("direct structured field staging", () => {
+  it.each([false, 0])("preserves structured %j through review and acceptance without audio", async (input) => {
+    const h = setup({}, false);
+    const descriptor = input === false ? pain : rate;
+    const assessment = descriptor.assessments[0];
+    const id = h.capture.stageField(assessment, descriptor, input)!;
+    expect(h.job(id).workerEdits![descriptor.path]).toMatchObject({ value: input });
+    expect(h.extract).not.toHaveBeenCalled();
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const accepting = h.capture.accept(id, guideResolutions(h.job(id)));
+    h.applies[0].resolve(true); await accepting;
+    expect(h.job(id)).toMatchObject({ status: "accepted", candidate: { changes: [expect.objectContaining({ value: input })] } });
+    expect(h.session.encounter).toEqual(input === false ? { ear: { ear_pain: false } } : { respiratory: { respiratory_rate: 0 } });
+    expect(h.audioFactory).not.toHaveBeenCalled();
+    expect(h.transcribe).not.toHaveBeenCalled();
+  });
+
+  it.each([null, "", "  ", 0, "1", "60", "2.5", "12x", false])("rejects required intake age %j while preserving raw input", async (input) => {
+    const h = setup({ patient_facts: { age_months: 24 } }, false);
+    const id = h.capture.stageField("respiratory", age, "24")!;
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    // Identity is read at edit time, not frozen when the queue or job is created.
+    h.session.patientName = "Test Child";
+    h.prepare.mockClear();
+    h.capture.stageField("respiratory", age, input, id);
+    const edit = h.job(id).workerEdits![age.path];
+    expect(edit.error).toBe("Enter age in completed months from 2 to 59.");
+    expect(edit.raw).toBe(input === null ? undefined : String(input));
+    expect(edit.value).toBeUndefined();
+    expect(guideResolutions(h.job(id))).toEqual({});
+    await h.capture.prepareReview(id);
+    await h.capture.accept(id, { [age.path]: "unknown" });
+    expect(h.prepare).not.toHaveBeenCalled();
+    expect(h.accept).not.toHaveBeenCalled();
+    expect(h.session.encounter).toEqual({ patient_facts: { age_months: 24 } });
+    h.capture.stageField("respiratory", age, "2", id);
+    expect(h.job(id).workerEdits![age.path]).toMatchObject({ raw: "2", value: 2 });
+    expect(h.job(id).workerEdits![age.path].error).toBeUndefined();
+    await h.reviewed(id, effectiveChanges(h.job(id)));
+    const accepting = h.capture.accept(id, guideResolutions(h.job(id)));
+    h.applies[0].resolve(true); await accepting;
+    expect(h.session.encounter).toEqual({ patient_facts: { age_months: 2 } });
+  });
+
+  it("keeps valid intake ages and other nullable fields unchanged", () => {
+    const h = setup({}, false);
+    h.session.patientName = "Test Child";
+    for (const input of [2, "59"]) {
+      const id = h.capture.stageField("respiratory", age, input)!;
+      expect(h.job(id).workerEdits![age.path]).toMatchObject({ value: Number(input) });
+      expect(h.job(id).workerEdits![age.path].error).toBeUndefined();
+    }
+    for (const input of [null, ""]) {
+      const id = h.capture.stageField("respiratory", rate, input)!;
+      expect(h.job(id).workerEdits![rate.path]).toMatchObject({ value: null });
+      expect(h.job(id).workerEdits![rate.path].error).toBeUndefined();
+    }
+  });
+
+  it.each([undefined, "", "   "])("retains nullable legacy age without a valid identity (%j)", (patientName) => {
+    const h = setup();
+    h.session.patientName = patientName;
+    for (const input of [null, "", 0]) {
+      const id = h.capture.stageField("respiratory", age, input)!;
+      expect(h.job(id).workerEdits![age.path]).toMatchObject({ value: input === 0 ? 0 : null });
+      expect(h.job(id).workerEdits![age.path].error).toBeUndefined();
+    }
+  });
+
   it("only edits existing full-note jobs and never recreates them from stale controls", async () => {
     const h = setup();
     expect(h.capture.stageField("full-note", pain, true)).toBeUndefined();

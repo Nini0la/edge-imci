@@ -12,7 +12,7 @@ function job(status: CaptureJob["status"], overrides: Partial<CaptureJob> = {}):
     ...overrides };
 }
 
-describe("recording progress", () => {
+describe("assessment progress", () => {
   it.each(["queued", "extracting", "captured", "review", "preparing_review", "applying", "failed"] as const)(
     "labels full-note %s work as a report and routes only explicit review to its own job", (status) => {
       const onReview = vi.fn();
@@ -46,7 +46,7 @@ describe("recording progress", () => {
 
   it.each([
     ["queued", "Waiting to process your findings"],
-    ["transcribing", "Turning your recording into text"],
+    ["transcribing", "Processing findings"],
     ["extracting", "Adding your findings to the assessment"],
     ["preparing_review", "Getting your findings ready for review"],
     ["applying", "Confirming your findings"],
@@ -75,7 +75,7 @@ describe("recording progress", () => {
     const html = renderToStaticMarkup(<CaptureProgress jobs={[job(status, { error: "private-service JSON error" })]} sections={sections} onReview={vi.fn()} />);
     expect(html).toContain("Your findings need attention");
     expect(html).toContain("Open to retry or review");
-    expect(html).toContain(status === "failed" ? ">View recording</button>" : ">Review</button>");
+    expect(html).toContain(status === "failed" ? ">View report</button>" : ">Review</button>");
     for (const hidden of ["capture-progress__spinner", "Ready for your review", "private-service", "JSON"]) expect(html).not.toContain(hidden);
   });
 
@@ -97,6 +97,6 @@ describe("recording progress", () => {
     })];
     const render = (jobs: CaptureJob[]) => renderToStaticMarkup(<CaptureProgress jobs={jobs} sections={sections} onReview={vi.fn()} />);
     expect(render(jobs)).toBe(render([]));
-    expect(render([])).toBe('<section class="capture-progress" aria-label="Recording progress" aria-live="polite" aria-atomic="false"></section>');
+    expect(render([])).toBe('<section class="capture-progress" aria-label="Assessment progress" aria-live="polite" aria-atomic="false"></section>');
   });
 });

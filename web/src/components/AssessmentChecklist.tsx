@@ -26,6 +26,7 @@ interface AssessmentChecklistProps {
   pendingFieldPaths?: string[];
   requiredFieldPaths?: string[];
   ageReview?: ReactNode;
+  showAge?: boolean;
 }
 
 const methodOrder: AssessmentMethod[] = ["ASK", "LOOK / LISTEN / FEEL", "MEASURE", "IF INDICATED"];
@@ -39,7 +40,7 @@ function stateLabel(state: ChecklistState): string {
 export function AssessmentChecklist({
   encounter, result, progress, pendingAssessments = [], captureStatuses, guideStatus, tools,
   renderCapture, mobileView, mobileHome, mobileFocus, renderField, renderSectionReview,
-  workingEncounter, pendingFieldPaths, requiredFieldPaths, ageReview,
+  workingEncounter, pendingFieldPaths, requiredFieldPaths, ageReview, showAge = true,
 }: AssessmentChecklistProps) {
   const accepted = buildChecklist(encounter, result);
   const acceptedFields = renderField ? buildChecklist(encounter, result, { interactive: true }) : accepted;
@@ -65,7 +66,7 @@ export function AssessmentChecklist({
 
       {guideStatus}
 
-      <div className="assessment-scope">
+       {showAge && <div className="assessment-scope">
         <span className="assessment-scope__label">First confirm</span>
         <span className="assessment-scope__instruction">{checklist.age.instruction}</span>
         {renderField ? renderField("danger", "patient_facts.age_months") : (
@@ -74,7 +75,7 @@ export function AssessmentChecklist({
           </span>
         )}
         {ageReview}
-      </div>
+       </div>}
 
       <div className="mobile-only mobile-home">{mobileHome}</div>
 

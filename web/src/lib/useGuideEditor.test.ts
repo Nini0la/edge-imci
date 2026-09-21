@@ -83,7 +83,7 @@ function setup(encounter: Record<string, unknown> = {}) {
   let state: State = { jobs: [], recordingId: null, audioState: "idle", error: "" };
   const session: Session = { version: 1, encounter: structuredClone(encounter), attempted: [], revision: 10, interactions: [],
     evaluation: evaluation(encounter), hasData: true, busy: false, ready: true, error: "", storageHint: "", interruptedCount: 0,
-    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
+    needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false), updateIntake: vi.fn().mockResolvedValue(false),
     currentRevision: () => session.revision,
     snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation, interactions: session.interactions }),
     recordInteraction: vi.fn((trace) => { session.interactions = [...session.interactions.filter((entry) => entry.id !== trace.id), structuredClone(trace)]; }),
@@ -520,7 +520,8 @@ describe("voice proposals in guide fields", () => {
     const first = await h.record(proposal("danger", [row(shared.path, true)]));
     const second = await h.record(proposal("diarrhoea", [row(shared.path, false)]));
     for (const assessment of ["danger", "diarrhoea"] as const) {
-      expect(h.render().field(assessment, shared.path)).toMatchObject({ value: null, source: "conflict", requiresChoice: true, error: expect.stringContaining("disagree") });
+      expect(h.render().field(assessment, shared.path)).toMatchObject({ value: null, source: "conflict", requiresChoice: true,
+        error: "Reports disagree. Choose the observed answer; other reports remain available for review." });
     }
     expect(h.render().workingEncounter).toEqual({});
     await h.render().confirm("danger"); await h.flush();

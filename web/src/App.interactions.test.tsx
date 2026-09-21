@@ -9,6 +9,7 @@ import { ClinicalFieldControl } from "./components/ClinicalFieldControl";
 import { MobileAssessmentHome, MobileDock } from "./components/MobileWorkspace";
 import { ResultPanel } from "./components/ResultPanel";
 import { ReportPanel } from "./components/ReportPanel";
+import { PatientIntake } from "./components/PatientIntake";
 import { acceptAssessment, evaluateAssessment, extractAssessment, transcribeAudio } from "./lib/api";
 import { draftKey } from "./lib/assessment";
 import { clinicalValue } from "./lib/guideEvidence";
@@ -113,7 +114,7 @@ beforeEach(() => {
   voice = { jobs: [], recordingId: null, audioState: "idle", error: "", startRecording: vi.fn(), stop: vi.fn(), cancelRecording: vi.fn(),
     addText: vi.fn().mockReturnValue(true), prepareReview: vi.fn().mockResolvedValue(undefined), accept: vi.fn().mockResolvedValue(undefined),
     retry: vi.fn(), discard: vi.fn(), retract: vi.fn(), clear: vi.fn(), stageField: vi.fn() };
-  session = { version: 1, encounter: evaluation.encounter, attempted: [], revision: 2, evaluation, hasData: true, ready: true,
+  session = { version: 1, patientName: "Synthetic Patient", updateIntake: vi.fn().mockResolvedValue(false), encounter: evaluation.encounter, attempted: [], revision: 2, evaluation, hasData: true, ready: true,
     busy: false, error: "", storageHint: "", currentRevision: () => session.revision,
     needsResumeDecision: false, resumeSaved: vi.fn().mockResolvedValue(false),
     snapshot: () => ({ encounter: session.encounter, revision: session.revision, evaluation: session.evaluation }), interruptedCount: 0, acknowledgeInterrupted: vi.fn(),
@@ -128,13 +129,107 @@ beforeEach(() => {
   dirtySections = {};
   props = { assessment: "ear", encounter: { ear: { ear_pain: null } }, revision: 2, urgent: false, ready: true,
     progress: { ...complete, status: "INCOMPLETE", decision: "ASK", question: { field: "ear.ear_pain", text: "Question A: ear pain?" } },
-    language: "en", consent: { audio: true, understanding: true }, reviewDisabled: false, voice, onReviewJob: vi.fn(),
+    reviewDisabled: false, voice, onReviewJob: vi.fn(),
     onDirty: (next) => { dirtySections = typeof next === "function" ? next(dirtySections) : next; } };
   vi.stubGlobal("window", { addEventListener: vi.fn(), removeEventListener: vi.fn(), confirm: vi.fn().mockReturnValue(true) });
   vi.stubGlobal("document", { getElementById: vi.fn().mockReturnValue(null), querySelector: vi.fn().mockReturnValue(null), activeElement: null });
   vi.stubGlobal("HTMLElement", class {});
 });
 afterEach(() => { runtime.current = null; vi.unstubAllGlobals(); });
+
+describe("patient intake integration", () => {
+  it.each([false, true])("starts only through updateIntake with the form's name, numeric age and revision, mobile=%s", (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    session.patientName = undefined;
+    session.encounter = {};
+    const rootHooks = createHooks();
+    const intakeHooks = createHooks();
+    const root = () => render(rootHooks, App);
+    const intake = () => {
+      const node = find(root(), (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>;
+      expect(node.props.onSave).toBe(session.updateIntake);
+      return render(intakeHooks, () => PatientIntake(node.props));
+    };
+    edit(find(intake(), (node) => node.props.id === "patient-name"), "  Synthetic Patient  ");
+    edit(find(intake(), (node) => node.props.id === "patient-age"), "24");
+    (find(intake(), (node) => node.type === "form").props.onSubmit as (event: { preventDefault: () => void }) => void)({ preventDefault: vi.fn() });
+    expect(session.updateIntake).toHaveBeenCalledExactlyOnceWith("Synthetic Patient", 24, 2);
+    for (const operation of [session.refresh, session.evaluate, session.accept, voice.addText, voice.startRecording, voice.clear,
+      guide.confirm, guide.reset, extractAssessment, transcribeAudio, acceptAssessment]) expect(operation).not.toHaveBeenCalled();
+    expect(useVoiceCapture).toHaveBeenLastCalledWith(session, false);
+    expect(elements(root()).some((node) => node.type === AssessmentChecklist)).toBe(false);
+    unmount(intakeHooks);
+    unmount(rootHooks);
+  });
+
+  it.each([false, true])("retries setup and intake save without losing fields or sending the name to processing, mobile=%s", async (mobile) => {
+    vi.mocked(useMobileLayout).mockReturnValue(mobile);
+    const actual = await vi.importActual<typeof import("./lib/useAssessmentSession")>("./lib/useAssessmentSession");
+    vi.mocked(useAssessmentSession).mockImplementation(actual.useAssessmentSession);
+    const storage = new Map<string, string>();
+    vi.stubGlobal("sessionStorage", { getItem: (key: string) => storage.get(key) ?? null,
+      setItem: (key: string, value: string) => storage.set(key, value), removeItem: (key: string) => storage.delete(key) });
+    let rejectSetup!: (reason: Error) => void;
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(new Promise((_resolve, reject) => { rejectSetup = reject; }));
+    const rootHooks = createHooks();
+    const intakeHooks = createHooks();
+    const root = () => render(rootHooks, App);
+    const settle = async () => { for (let i = 0; i < 5; i++) { await Promise.resolve(); root(); } };
+    expect(renderToStaticMarkup(root())).toContain("Preparing the assessment...");
+    expect(elements(root()).some((node) => node.type === PatientIntake)).toBe(false);
+    expect(renderToStaticMarkup(root())).not.toContain("Retry assessment setup");
+    rejectSetup(new Error("Setup unavailable"));
+    await settle();
+    expect(renderToStaticMarkup(root())).toContain('role="alert">Setup unavailable');
+    expect(elements(root()).some((node) => node.type === AssessmentChecklist)).toBe(false);
+    const template = { ...evaluation, encounter: { patient_facts: { age_months: null } },
+      analysis: { ...evaluation.analysis, is_complete: false, state: "INCOMPLETE" as const } };
+    vi.mocked(evaluateAssessment).mockResolvedValueOnce(template);
+    click(button(root(), "Retry assessment setup"));
+    await settle();
+    const intake = () => {
+      const node = find(root(), (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>;
+      return render(intakeHooks, () => PatientIntake(node.props));
+    };
+    const submit = () => (find(intake(), (node) => node.type === "form").props.onSubmit as (event: { preventDefault: () => void }) => void)({ preventDefault: vi.fn() });
+    edit(find(intake(), (node) => node.props.id === "patient-name"), "  Synthetic   Patient  ");
+    edit(find(intake(), (node) => node.props.id === "patient-age"), "24");
+    vi.mocked(evaluateAssessment).mockRejectedValueOnce(new Error("Intake check unavailable"));
+    submit();
+    expect(button(intake(), "Saving patient details...").props.disabled).toBe(true);
+    expect(elements(root()).some((node) => node.type === AssessmentChecklist)).toBe(false);
+    await settle();
+    expect(renderToStaticMarkup(intake())).toContain('role="alert">Intake check unavailable');
+    expect(find(intake(), (node) => node.props.id === "patient-name").props.value).toBe("  Synthetic   Patient  ");
+    expect(find(intake(), (node) => node.props.id === "patient-age").props.value).toBe("24");
+    expect(storage.has(draftKey)).toBe(false);
+    const accepted = { ...template, encounter: { patient_facts: { age_months: 24 } } };
+    vi.mocked(evaluateAssessment).mockResolvedValueOnce(accepted);
+    submit();
+    await settle();
+    const html = renderToStaticMarkup(root());
+    expect(html).toContain("Synthetic   Patient");
+    expect(html).toContain("Age: 24 months");
+    expect(html).toContain("Assessment in progress");
+    expect(html).not.toContain("Patient intake</h1>");
+    const saved = JSON.parse(storage.get(draftKey)!);
+    expect(saved).toMatchObject({ patientName: "Synthetic   Patient", encounter: accepted.encounter, revision: 2, interactions: [] });
+    expect(evaluateAssessment).toHaveBeenCalledTimes(4);
+    for (const [encounter, attempted, signal] of vi.mocked(evaluateAssessment).mock.calls.slice(2)) {
+      expect(encounter).toEqual({ patient_facts: { age_months: 24 } });
+      expect(attempted).toEqual([]);
+      expect(signal).toBeInstanceOf(AbortSignal);
+      expect(JSON.stringify(encounter)).not.toContain("Synthetic");
+    }
+    for (const operation of [voice.addText, voice.startRecording, voice.clear, voice.accept, guide.confirm, guide.reset,
+      extractAssessment, transcribeAudio, acceptAssessment]) expect(operation).not.toHaveBeenCalled();
+    const active = vi.mocked(useVoiceCapture).mock.lastCall![0];
+    expect(useVoiceCapture).toHaveBeenLastCalledWith(active, false);
+    expect(active.snapshot()).not.toHaveProperty("patientName");
+    unmount(intakeHooks);
+    unmount(rootHooks);
+  });
+});
 
 describe("explicit recommendation generation", () => {
   const partial: AssessmentEvaluation = { ...evaluation, analysis: { ...evaluation.analysis, is_complete: false, state: "INCOMPLETE",
@@ -149,8 +244,40 @@ describe("explicit recommendation generation", () => {
       expect(operation).not.toHaveBeenCalled();
   }
 
-  it.each(["empty", "partial", "urgent"])("renders the backend missing response for %s only after a successful new revision", async (kind) => {
-    session.encounter = kind === "empty" ? {} : kind === "urgent" ? { danger_signs: { convulsing_now: true } } : partial.encounter;
+  it("withholds the complete plan and generation while patient details are open, restoring results on cancel", () => {
+    const hooks = createHooks();
+    const view = () => render(hooks, App);
+    const initial = view();
+    const checklist = find(initial, (node) => node.type === AssessmentChecklist);
+    const report = find(initial, (node) => node.type === ReportPanel);
+    expect(renderToStaticMarkup(initial)).toContain("Accepted final plan");
+    click(button(initial, "Edit patient details"));
+    expect(elements(view()).some((node) => node.type === ResultPanel)).toBe(false);
+    click(generate(view()));
+    const editing = view();
+    const html = renderToStaticMarkup(editing);
+    expect(html).toContain("Save patient details first");
+    expect(html).toContain("Save or cancel the patient details edit before confirming findings or generating recommendations.");
+    expect(html).not.toContain("Accepted final plan");
+    expect(html).not.toContain("Clinical synthesis ready");
+    expect(find(editing, (node) => node.type === AssessmentChecklist).key).toBe(checklist.key);
+    expect(find(editing, (node) => node.type === ReportPanel).key).toBe(report.key);
+    expect(session.refresh).not.toHaveBeenCalled();
+    expect(evaluateAssessment).not.toHaveBeenCalled();
+    expectNoProcessing();
+    const intake = find(editing, (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>;
+    intake.props.onCancel!();
+    expect(renderToStaticMarkup(view())).toContain("Accepted final plan");
+    expect(find(view(), (node) => node.type === ResultPanel).props.result).toBe(evaluation.analysis);
+    expect(session.revision).toBe(2);
+    expect(session.updateIntake).not.toHaveBeenCalled();
+    expect(session.refresh).not.toHaveBeenCalled();
+    expectNoProcessing();
+    unmount(hooks);
+  });
+
+  it.each(["intake-only", "partial", "urgent"])("renders the backend missing response for %s only after a successful new revision", async (kind) => {
+    session.encounter = kind === "urgent" ? { ...partial.encounter, danger_signs: { convulsing_now: true } } : partial.encounter;
     session.evaluation = { ...partial, encounter: session.encounter, analysis: { ...partial.analysis,
       state: kind === "urgent" ? "URGENT_INCOMPLETE" : "INCOMPLETE", is_urgent: kind === "urgent",
       urgent_actions: kind === "urgent" ? ["Begin accepted urgent care now."] : [] } };
@@ -313,6 +440,11 @@ describe("explicit recommendation generation", () => {
     view();
     await Promise.resolve();
     view();
+    vi.mocked(evaluateAssessment).mockResolvedValueOnce(initial);
+    const intake = find(view(), (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>;
+    await intake.props.onSave("Synthetic Patient", 24, intake.props.revision);
+    view();
+    vi.mocked(evaluateAssessment).mockClear();
     return { hooks, view };
   }
 
@@ -336,7 +468,7 @@ describe("explicit recommendation generation", () => {
     await Promise.resolve();
     await Promise.resolve();
     expect(renderToStaticMarkup(view())).toContain(partial.analysis.rendered_response);
-    expect(evaluateAssessment).toHaveBeenCalledTimes(3);
+    expect(evaluateAssessment).toHaveBeenCalledTimes(2);
     expectNoProcessing();
     unmount(hooks);
   });
@@ -358,10 +490,10 @@ describe("explicit recommendation generation", () => {
       await Promise.resolve();
       await Promise.resolve();
       const html = renderToStaticMarkup(view());
-      expect(html).toContain("Ready when you are");
+      expect(html).toContain("Patient intake</h1>");
       expect(html).not.toContain(partial.analysis.rendered_response);
       expect(html).not.toContain(empty.analysis.rendered_response);
-      expect(find(view(), (node) => node.type === "main").props["data-active-panel"]).toBe("assessment");
+      expect(elements(view()).some((node) => node.type === AssessmentChecklist)).toBe(false);
     }
     expect(vi.mocked(useVoiceCapture).mock.lastCall![0].evaluation).toBe(empty);
     expect(vi.mocked(useVoiceCapture).mock.lastCall![0].encounter).toEqual({});
@@ -373,7 +505,7 @@ describe("explicit recommendation generation", () => {
 });
 
 describe("typed draft context", () => {
-  it.each([false, true])("uses Root authorization for typed fallback without a language, with mobile=%s", (mobile) => {
+  it.each([false, true])("processes typed findings without language or audio props, with mobile=%s", (mobile) => {
     vi.mocked(useMobileLayout).mockReturnValue(mobile);
     const rootHooks = createHooks();
     const captureHooks = createHooks();
@@ -386,8 +518,9 @@ describe("typed draft context", () => {
       const node = capture();
       return render(captureHooks, () => AssessmentCapture(node.props));
     };
-    expect(capture().props.language).toBe("");
-    expect(capture().props.consent).toEqual({ audio: true, understanding: true });
+    expect(capture().props).not.toHaveProperty("language");
+    expect(capture().props).not.toHaveProperty("consent");
+    expect(useVoiceCapture).toHaveBeenLastCalledWith(session, false);
     edit(find(view(), (node) => node.props.id === "capture-text-ear"), "Synthetic typed finding");
     expect(button(view(), "Process typed finding").props.disabled).toBe(false);
     click(button(view(), "Process typed finding"));
@@ -480,6 +613,67 @@ describe("full text report integration", () => {
       guide.confirm, guide.reset, session.evaluate, session.accept, session.reset, session.refresh, session.rejectPending]) expect(operation).not.toHaveBeenCalled();
   }
 
+  it.each(["cancel", "save"])("blocks pending-report confirmation during patient edits and retains the draft after %s", async (action) => {
+    const job = reportJob();
+    const original = structuredClone(job);
+    const rootHooks = createHooks();
+    const intakeHooks = createHooks();
+    const view = () => render(rootHooks, App);
+    const intakeProps = () => (find(view(), (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>).props;
+    const intake = () => {
+      const props = intakeProps();
+      return render(intakeHooks, () => PatientIntake(props));
+    };
+    report(view()).onChange("Keep the unprocessed report draft");
+    expect(button(report(view()).review, "Confirm findings").props.disabled).toBe(false);
+    click(button(view(), "Edit patient details"));
+    edit(find(intake(), (node) => node.props.id === "patient-name"), "Updated Patient");
+    edit(find(intake(), (node) => node.props.id === "patient-age"), "36");
+    const blocked = button(report(view()).review, "Confirm findings");
+    expect(blocked.props.disabled).toBe(true);
+    click(blocked);
+    expectNoAcceptanceOrDiscard();
+    expect(renderToStaticMarkup(view())).toContain("Save patient details first");
+    expect(report(view()).text).toBe("Keep the unprocessed report draft");
+    expect(job).toEqual(original);
+
+    if (action === "cancel") click(button(intake(), "Cancel"));
+    else {
+      expect(await intakeProps().onSave("Updated Patient", 36, 2)).toBe(false);
+      expect(button(report(view()).review, "Confirm findings").props.disabled).toBe(true);
+      expect(find(intake(), (node) => node.props.id === "patient-name").props.value).toBe("Updated Patient");
+      expect(find(intake(), (node) => node.props.id === "patient-age").props.value).toBe("36");
+      vi.mocked(session.updateIntake).mockImplementationOnce(async (name, age, revision) => {
+        expect(revision).toBe(session.revision);
+        session.patientName = name;
+        session.encounter = { patient_facts: { age_months: age } };
+        session.revision++;
+        session.evaluation = { ...evaluation, encounter: session.encounter };
+        return true;
+      });
+      expect(await intakeProps().onSave("Updated Patient", 36, 2)).toBe(true);
+      expect(session.updateIntake).toHaveBeenNthCalledWith(2, "Updated Patient", 36, 2);
+      expect(session.revision).toBe(3);
+      expect(job.reviewRevision).toBe(2);
+      expect(renderToStaticMarkup(report(view()).review)).toContain("Accepted findings changed. Refresh review first");
+    }
+
+    expect(elements(view()).some((node) => node.type === PatientIntake)).toBe(false);
+    expect(report(view()).text).toBe("Keep the unprocessed report draft");
+    expect(job).toEqual(original);
+    expectNoAcceptanceOrDiscard();
+    const confirm = button(report(view()).review, action === "save" ? "Refresh review" : "Confirm findings");
+    expect(confirm.props.disabled).toBe(false);
+    click(confirm);
+    expect(guide.confirm).toHaveBeenCalledExactlyOnceWith("full-note");
+    expect(voice.accept).not.toHaveBeenCalled();
+    expect(session.accept).not.toHaveBeenCalled();
+    expect(voice.addText).not.toHaveBeenCalled();
+    expect(renderToStaticMarkup(view())).not.toContain("Accepted final plan");
+    unmount(intakeHooks);
+    unmount(rootHooks);
+  });
+
   it.each([false, true])("freezes a question-free snapshot on first report edit and only queues text on interpretation, mobile=%s", (mobile) => {
     vi.mocked(useMobileLayout).mockReturnValue(mobile);
     session.evaluation = { ...evaluation, assessments: { ...evaluation.assessments, ear: { ...complete, decision: "ASK",
@@ -506,20 +700,20 @@ describe("full text report integration", () => {
     unmount(hooks);
   });
 
-  it("does not submit an unready draft or bind it to a later assessment question", () => {
+  it("keeps reports inaccessible until setup is ready and does not bind them to an assessment question", () => {
     session.ready = false;
     const hooks = createHooks();
     const view = () => render(hooks, App);
-    report(view()).onChange("Draft before readiness");
-    report(view()).onInterpret();
+    expect(renderToStaticMarkup(view())).toContain("Patient intake</h1>");
+    expect(elements(view()).some((node) => node.type === ReportPanel)).toBe(false);
     expect(voice.addText).not.toHaveBeenCalled();
-    expect(report(view()).text).toBe("Draft before readiness");
     session.ready = true;
     session.revision = 4;
     session.evaluation = { ...evaluation, assessments: { ...evaluation.assessments, danger: { ...complete, decision: "ASK",
       question: { field: "patient_facts.age_months", text: "New question" } } } };
+    report(view()).onChange("Draft after readiness");
     report(view()).onInterpret();
-    expect(voice.addText).toHaveBeenCalledExactlyOnceWith("full-note", "Draft before readiness", true, { ...session.snapshot(), question: undefined });
+    expect(voice.addText).toHaveBeenCalledExactlyOnceWith("full-note", "Draft after readiness", true, { ...session.snapshot(), question: undefined });
     expectNoAcceptanceOrDiscard();
     unmount(hooks);
   });
@@ -542,7 +736,7 @@ describe("full text report integration", () => {
     report(view()).onInterpret();
     expect(report(view()).text).toBe("Keep failed report");
     session.revision = 5;
-    session.encounter = { ear: { ear_pain: true } };
+    session.encounter = { ...session.encounter, ear: { ear_pain: true } };
     report(view()).onInterpret();
     expect(voice.addText).toHaveBeenNthCalledWith(2, "full-note", "Keep failed report", true, frozen);
     report(view()).onClear();
@@ -759,7 +953,7 @@ describe("workspace dirty and restore gates", () => {
       const actual = await vi.importActual<typeof import("./lib/useAssessmentSession")>("./lib/useAssessmentSession");
       vi.mocked(useAssessmentSession).mockImplementation(actual.useAssessmentSession);
       vi.mocked(useMobileLayout).mockReturnValue(mobile);
-      const savedEncounter = { ear: { ear_pain: savedValue }, danger_signs: { convulsing_now: savedValue } };
+      const savedEncounter = { patient_facts: { age_months: 24 }, ear: { ear_pain: savedValue }, danger_signs: { convulsing_now: savedValue } };
       const historical = { ...evaluation, encounter: savedEncounter, analysis: { ...evaluation.analysis,
         is_urgent: true, urgent_actions: ["Historical urgency"], rendered_response: "Historical final plan" } };
       const raw = JSON.stringify({ version: 1, encounter: savedEncounter, attempted: ["danger", "ear"], revision: 7,
@@ -801,12 +995,10 @@ describe("workspace dirty and restore gates", () => {
       expect(window.confirm).not.toHaveBeenCalled();
       expect(voice.clear).not.toHaveBeenCalled();
       expect(guide.reset).not.toHaveBeenCalled();
-      const checklist = find(restoring, (node) => node.type === AssessmentChecklist);
-      const renderField = checklist.props.renderField as (id: AssessmentId, path: string) => ReactNode;
-      const control = find(renderField("ear", "ear.ear_pain"), (node) => node.type === ClinicalFieldControl);
-      expect(control.props.value).toBe(savedValue);
-      expect(control.props.disabled).toBe(true);
-      expect(renderToStaticMarkup(control)).toContain(`aria-checked="true" tabindex="0" disabled="">${savedValue ? "Yes" : "No"}`);
+      expect(renderToStaticMarkup(restoring)).toContain("Patient intake</h1>");
+      expect(renderToStaticMarkup(restoring)).toContain("Preparing the assessment...");
+      expect(elements(restoring).some((node) => node.type === AssessmentChecklist)).toBe(false);
+      expect(vi.mocked(useVoiceCapture).mock.lastCall![0].encounter).toEqual(savedEncounter);
       expect(renderToStaticMarkup(restoring)).not.toContain('aria-label="Immediate management"');
       expect(renderToStaticMarkup(restoring)).not.toContain('aria-label="View urgent guidance"');
       expect(renderToStaticMarkup(restoring)).not.toContain("Clinical synthesis ready");
@@ -814,27 +1006,28 @@ describe("workspace dirty and restore gates", () => {
         urgent_actions: ["Fresh urgent action"], rendered_response: "Fresh urgent action\n\nFresh final plan" } };
       resolve(fresh);
       await Promise.resolve();
+      const intake = find(view(), (node) => node.type === PatientIntake) as ReactElement<ComponentProps<typeof PatientIntake>>;
+      expect(intake.props).toMatchObject({ patientName: undefined, age: 24, revision: 8 });
+      expect(renderToStaticMarkup(view())).not.toContain("Fresh urgent action");
+      expect(elements(view()).some((node) => node.type === AssessmentChecklist)).toBe(false);
+      vi.mocked(evaluateAssessment).mockResolvedValueOnce(fresh);
+      expect(await intake.props.onSave("Synthetic Patient", 24, 8)).toBe(true);
       const restoredHtml = renderToStaticMarkup(view());
       expect(restoredHtml.slice(restoredHtml.indexOf('<section class="output-panel"'))).toContain("Fresh urgent action");
       expect(restoredHtml.slice(0, restoredHtml.indexOf("<main"))).not.toContain("Fresh urgent action");
       expect(restoredHtml.split("Fresh urgent action")).toHaveLength(2);
       expect(restoredHtml).not.toContain("workspace-urgent");
-      if (mobile) {
-        const dock = find(view(), (node) => node.type === MobileDock) as ReactElement<ComponentProps<typeof MobileDock>>;
-        dock.props.onLanguageChange("yo");
-        expect(voice.startRecording).not.toHaveBeenCalled();
-        (find(view(), (node) => node.type === MobileDock) as typeof dock).props.onSpeak();
-        const snapshot = vi.mocked(useVoiceCapture).mock.lastCall![0].snapshot();
-        expect(snapshot).toMatchObject({ encounter: savedEncounter, evaluation: fresh });
-        expect(voice.startRecording).toHaveBeenCalledExactlyOnceWith("danger", "yo", { audio: true, understanding: true },
-          { ...snapshot, question: undefined });
-      }
+      const snapshot = vi.mocked(useVoiceCapture).mock.lastCall![0].snapshot();
+      expect(snapshot).toMatchObject({ encounter: savedEncounter, evaluation: fresh });
+      expect(snapshot).not.toHaveProperty("patientName");
+      expect(voice.startRecording).not.toHaveBeenCalled();
 
       vi.mocked(evaluateAssessment).mockResolvedValueOnce({ ...evaluation, encounter: {}, analysis: { ...evaluation.analysis,
         is_complete: false, state: "INCOMPLETE", rendered_response: "Unknown observations" } });
       const resumed = find(view(), (node) => node.type === AssessmentChecklist) as ReactElement<ComponentProps<typeof AssessmentChecklist>>;
-      expect((resumed.props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>).props.consent)
-        .toEqual({ audio: true, understanding: true });
+      expect((resumed.props.renderCapture!("ear") as ReactElement<ComponentProps<typeof AssessmentCapture>>).props).not.toHaveProperty("consent");
+      const renderField = resumed.props.renderField!;
+      expect(find(renderField("ear", "ear.ear_pain"), (node) => node.type === ClinicalFieldControl).props.value).toBe(savedValue);
       expect(renderToStaticMarkup(view())).toContain("Synthetic saved report");
       const tools = mobile ? (find(resumed.props.mobileHome, (node) => node.type === MobileAssessmentHome)
         .props.tools as ReactNode) : resumed.props.tools;
@@ -845,22 +1038,18 @@ describe("workspace dirty and restore gates", () => {
       await Promise.resolve();
       const cleared = view();
       expect(hooks.cursor).toBe(hookCount);
-      const empty = find(cleared, (node) => node.type === AssessmentChecklist);
-      const emptyCapture = (empty.props.renderCapture as (id: AssessmentId) => ReactElement<ComponentProps<typeof AssessmentCapture>>)("ear");
-      expect(emptyCapture.props.consent).toEqual({ audio: true, understanding: true });
-      expect(empty.props.encounter).toEqual({});
-      const emptyField = empty.props.renderField as typeof renderField;
-      expect(find(emptyField("ear", "ear.ear_pain"), (node) => node.type === ClinicalFieldControl).props.value).toBeNull();
-      expect(find(emptyField("danger", "danger_signs.convulsing_now"), (node) => node.type === ClinicalFieldControl).props.value).toBeNull();
+      const empty = find(cleared, (node) => node.type === PatientIntake);
+      expect(empty.props).toMatchObject({ patientName: undefined, age: null });
+      expect(vi.mocked(useVoiceCapture).mock.lastCall![0].encounter).toEqual({});
       const clearedHtml = renderToStaticMarkup(cleared);
-      expect(clearedHtml).toContain("Ready when you are");
+      expect(clearedHtml).toContain("Patient intake</h1>");
       for (const hidden of ["Fresh urgent action", "Fresh final plan", "Historical urgency", "Synthetic saved report", "Saved assessment</h1>"])
         expect(clearedHtml).not.toContain(hidden);
       click(button(gate, "Resume saved assessment"));
       await Promise.resolve();
-      expect(evaluateAssessment).toHaveBeenCalledTimes(2);
+      expect(evaluateAssessment).toHaveBeenCalledTimes(3);
       expect(storage.has(draftKey)).toBe(false);
-      expect(find(view(), (node) => node.type === AssessmentChecklist).props.encounter).toEqual({});
+      expect(vi.mocked(useVoiceCapture).mock.lastCall![0].encounter).toEqual({});
       unmount(hooks);
     });
 
@@ -890,7 +1079,8 @@ describe("workspace dirty and restore gates", () => {
     expect(vi.mocked(guide.reset).mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(session.reset).mock.invocationCallOrder[0]);
     const normal = view();
     expect(hooks.cursor).toBe(hookCount);
-    expect(find(normal, (node) => node.type === AssessmentChecklist).key).toBe("1");
+    expect(renderToStaticMarkup(normal)).toContain("Patient intake</h1>");
+    expect(elements(normal).some((node) => node.type === AssessmentChecklist)).toBe(false);
     expect(renderToStaticMarkup(normal)).not.toContain("Saved assessment</h1>");
     expect(session.resumeSaved).not.toHaveBeenCalled();
     expect(useVoiceCapture).toHaveBeenCalledTimes(3);
@@ -1051,6 +1241,13 @@ describe("interactive guide integration", () => {
     if (gate === "busy") session.busy = true;
     if (gate === "invalid") job.workerEdits = { "ear.ear_pain": { raw: "12x", error: "Invalid number", previous: null, label: "Ear pain", revision: 2 } };
     if (gate === "preparing_review" || gate === "applying") job.status = gate;
+    if (gate === "unready") {
+      const tree = render(createHooks(), App);
+      expect(renderToStaticMarkup(tree)).toContain("Patient intake</h1>");
+      expect(elements(tree).some((node) => node.type === AssessmentChecklist)).toBe(false);
+      expect(guide.confirm).not.toHaveBeenCalled();
+      return;
+    }
     const label = gate === "preparing_review" ? "Preparing review..." : gate === "applying" ? "Confirming findings..." : "Confirm findings";
     const confirm = button(footer(), label);
     expect(confirm.props.disabled).toBe(true);
@@ -1134,7 +1331,7 @@ describe("interactive guide integration", () => {
     expect(renderToStaticMarkup(tree)).toContain("Other drafts are retained");
     click(button(tree, "Review worker answers"));
     expect(guide.selectJob).toHaveBeenCalledWith("worker");
-    click(button(tree, language ? "Review recording 1" : "Review text report 1"));
+    click(button(tree, "Review text report 1"));
     expect(guide.selectJob).toHaveBeenLastCalledWith("guide-clip");
     expect(voice.jobs).toEqual(snapshot);
     expect(voice.discard).not.toHaveBeenCalled();

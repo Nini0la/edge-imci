@@ -3,7 +3,7 @@ import type { ASRLanguage, AssessmentCandidate, AssessmentId, CaptureScope, Clin
 import { clinicalValue, effectiveChanges, parseClinicalInput, pendingEvidenceVersion } from "./guideEvidence";
 import { extractAssessment, prepareAssessmentReview, transcribeAudio } from "./api";
 import { createAudioCapture, type AudioState } from "./audio";
-import { assessmentIds, unresolvedChanges, workerRetraction } from "./assessment";
+import { assessmentIds, normalizePatientName, unresolvedChanges, workerRetraction } from "./assessment";
 import { acceptedSectionFields } from "./checklist";
 import type { useAssessmentSession } from "./useAssessmentSession";
 
@@ -47,13 +47,14 @@ const initialState = (): CaptureState => ({ jobs: [], recordingId: null, audioSt
 
 /** Jobs belong to an encounter, not an expanded section or an accepted revision. */
 export function createVoiceCapture({ getSession, onChange, transcribe = transcribeAudio, extract = extractAssessment,
-  prepare = prepareAssessmentReview, audioFactory = createAudioCapture }: {
+  prepare = prepareAssessmentReview, audioFactory = createAudioCapture, audioEnabled = true }: {
   getSession: () => Session;
   onChange: (state: CaptureState) => void;
   transcribe?: typeof transcribeAudio;
   extract?: typeof extractAssessment;
   prepare?: typeof prepareAssessmentReview;
   audioFactory?: typeof createAudioCapture;
+  audioEnabled?: boolean;
 }) {
   let state = initialState();
   let generation = 0;
@@ -78,7 +79,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
     record(get(id)!, { status: "failed", pending: false, error: message });
   };
 
-  const microphone = audioFactory({
+  const microphone = audioEnabled ? audioFactory({
     state(phase) { state = { ...state, audioState: phase }; publish(); },
     audio(blob) {
       const id = state.recordingId;
@@ -93,7 +94,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
       if (id) fail(id, message);
       publish();
     },
-  });
+  }) : { record: async () => {}, stop: () => {}, cancel: () => {} };
 
   const alive = (id: string, epoch: number, signal: AbortSignal) =>
     epoch === generation && !signal.aborted && get(id)?.status !== "discarded" && Boolean(get(id));
@@ -107,6 +108,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
     try {
       let job = get(id)!;
       if (job.inputText === undefined) {
+        if (!audioEnabled) throw new Error("Audio capture is disabled. Type a finding instead.");
         if (!job.audio || !job.language) throw new Error("No usable recording or language. Record again or type a finding.");
         update(id, { status: "transcribing" });
         const transcript = await transcribe(job.audio, job.language, signal);
@@ -198,6 +200,7 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
   return {
     clear,
     startRecording(assessment: AssessmentId, language: ASRLanguage, consent: { audio: boolean; understanding: boolean }, context?: CaptureContext) {
+      if (!audioEnabled) return;
       if (!assessmentIds.includes(assessment)) return;
       if (state.recordingId || state.audioState !== "idle") return;
       if (!consent.audio || !consent.understanding || !["en", "pcm", "yo", "ig", "ha"].includes(language)) {
@@ -321,9 +324,16 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
         add(job);
       }
       controllers.get(job.id)?.abort();
-      const snapshot = getSession().snapshot();
+      const session = getSession();
+      const snapshot = session.snapshot();
       const edit: WorkerEdit = { ...parseClinicalInput(descriptor, input), label: descriptor.label,
         previous: job.workerEdits?.[descriptor.path] ? job.workerEdits[descriptor.path].previous : clinicalValue(snapshot.encounter, descriptor.path), revision: snapshot.revision, keep };
+      // Named intake requires a supported age; legacy clinical observations remain nullable.
+      if (descriptor.path === "patient_facts.age_months" && normalizePatientName(session.patientName)
+        && (typeof edit.value !== "number" || !Number.isInteger(edit.value) || edit.value < 2 || edit.value > 59)) {
+        edit.value = undefined;
+        edit.error = "Enter age in completed months from 2 to 59.";
+      }
       const next = { ...job, workerEdits: { ...job.workerEdits, [descriptor.path]: edit }, editVersion: (job.editVersion ?? 0) + 1 };
       const candidate = { ...job.originalCandidate!, changes: effectiveChanges(next) };
       update(job.id, { workerEdits: next.workerEdits, editVersion: next.editVersion, status: "captured", candidate, error: undefined });
@@ -345,11 +355,11 @@ export function createVoiceCapture({ getSession, onChange, transcribe = transcri
   };
 }
 
-export function useVoiceCapture(session: Session) {
+export function useVoiceCapture(session: Session, audioEnabled = true) {
   const latest = useRef(session);
   latest.current = session;
   const [state, setState] = useState(initialState);
-  const [capture] = useState(() => createVoiceCapture({ getSession: () => latest.current, onChange: setState }));
+  const [capture] = useState(() => createVoiceCapture({ getSession: () => latest.current, onChange: setState, audioEnabled }));
   useEffect(() => () => capture.clear(false), [capture]);
   const pending = state.jobs.some((job) => job.status !== "accepted" && job.status !== "discarded");
   useEffect(() => {

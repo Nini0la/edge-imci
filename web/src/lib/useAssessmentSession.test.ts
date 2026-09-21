@@ -62,6 +62,280 @@ beforeEach(() => {
 });
 afterEach(() => { vi.unstubAllGlobals(); });
 
+describe("local patient intake", () => {
+  const name = "Synthetic Intake Patient";
+  const template = { patient_facts: { age_months: null, has_cough_or_difficult_breathing: null },
+    danger_signs: { convulsing_now: null }, respiratory: { respiratory_rate: null, child_calm: null, breaths_counted_one_minute: null } };
+  const withAge = (age_months: number | null) => ({ ...structuredClone(template), patient_facts: { ...template.patient_facts, age_months } });
+  const resultFor = (encounter: Record<string, unknown>): AssessmentEvaluation => ({ ...evaluation, encounter: structuredClone(encounter),
+    analysis: { ...evaluation.analysis, input_text: "Worker-reviewed assessment evidence", extraction_mode: "reviewed-assessment-evidence",
+      structured_encounter: structuredClone(encounter) } });
+
+  beforeEach(() => {
+    vi.mocked(evaluateAssessment).mockImplementation(async (encounter = template) => resultFor(encounter));
+  });
+
+  it.each([2, 59])("initializes intake at age %s only after evaluation and keeps identity out of clinical channels", async (age) => {
+    const { session } = mount();
+    await Promise.resolve();
+    expect(render()).toMatchObject({ ready: true, hasData: false, attempted: [] });
+    expect(render().patientName).toBeUndefined();
+    const before = render().snapshot();
+    const pending = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(pending.promise);
+    const updating = session.updateIntake(`  ${name}  `, age, render().revision);
+    expect(render().snapshot()).toEqual(before);
+    expect(render().patientName).toBeUndefined();
+    expect(storage.has(draftKey)).toBe(false);
+    expect(evaluateAssessment).toHaveBeenLastCalledWith(withAge(age), [], expect.any(AbortSignal));
+    const canonical = resultFor(withAge(age));
+    pending.resolve(canonical);
+    expect(await updating).toBe(true);
+    expect(render()).toMatchObject({ patientName: name, encounter: canonical.encounter, evaluation: canonical, revision: before.revision + 1,
+      hasData: true, busy: false, attempted: [], interactions: [] });
+    expect(render().evaluation).toBe(canonical);
+    expect(parseDraft(storage.get(draftKey)!)).toEqual({ version: 1, patientName: name, encounter: canonical.encounter,
+      revision: before.revision + 1, attempted: [], interactions: [] });
+    expect(JSON.stringify(render().snapshot())).not.toContain(name);
+    expect(JSON.stringify(vi.mocked(evaluateAssessment).mock.calls)).not.toContain(name);
+    expect(acceptAssessment).not.toHaveBeenCalled();
+    expect(setItem).toHaveBeenCalledOnce();
+  });
+
+  it.each([false, true])("updates age 11 to 12 from CURRENT input preserving attempts, history and respiratory evidence, known=%s", async (known) => {
+    const { session: retained } = mount(); await Promise.resolve();
+    expect(await retained.updateIntake(name, 11, render().revision)).toBe(true);
+    const clinical = { ...withAge(11), ear: { ear_pain: false, ear_discharge_duration_days: 0 },
+      respiratory: known ? { respiratory_rate: 45, child_calm: false, breaths_counted_one_minute: true } : template.respiratory,
+      danger_signs: { convulsing_now: false }, diarrhoea: { dehydration: { sunken_eyes: true } } };
+    expect(await render().evaluate(clinical, ["danger", "ear"])).toBe(true);
+    render().recordInteraction({ ...trace, status: "accepted", before_encounter: clinical, result: resultFor(clinical) });
+    const before = render();
+    const snapshot = structuredClone(before.snapshot());
+    const pending = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(pending.promise);
+    const updating = retained.updateIntake(" Renamed Synthetic Patient ", 12, before.revision);
+    const expected = { ...clinical, patient_facts: { ...clinical.patient_facts, age_months: 12 } };
+    const sent = vi.mocked(evaluateAssessment).mock.lastCall![0]!;
+    expect(sent).toEqual(expected);
+    expect(sent).not.toBe(before.encounter);
+    expect(sent.diarrhoea).not.toBe(before.encounter.diarrhoea);
+    expect(sent.respiratory).toEqual(clinical.respiratory);
+    expect(render().snapshot()).toEqual(snapshot);
+    expect(render().patientName).toBe(name);
+    // History arriving during evaluation must not be overwritten by a captured draft.
+    render().recordInteraction({ ...trace, id: "during-intake", status: "failed" });
+    pending.resolve(resultFor(expected));
+    expect(await updating).toBe(true);
+    expect(before.snapshot().encounter).toEqual(expected);
+    expect(snapshot.encounter).toEqual(clinical);
+    expect(render()).toMatchObject({ patientName: "Renamed Synthetic Patient", attempted: before.attempted, revision: before.revision + 1 });
+    expect(render().interactions).toEqual([...before.interactions, { ...trace, id: "during-intake", status: "failed" }]);
+    expect(render().evaluation?.analysis.is_complete).toBe(false);
+    expect(await retained.refresh()).toBe(true);
+    expect(evaluateAssessment).toHaveBeenLastCalledWith(expected, before.attempted, expect.any(AbortSignal));
+    expect(render()).toMatchObject({ patientName: "Renamed Synthetic Patient", encounter: expected, hasData: true });
+    expect(JSON.stringify(render().snapshot())).not.toContain("Renamed Synthetic Patient");
+  });
+
+  it.each([undefined, "  Legacy Synthetic Patient  ", 42])("resumes legacy clinical age with name metadata %j for prefill", async (patientName) => {
+    storage.set(draftKey, JSON.stringify({ version: 1, patientName, encounter: withAge(11), attempted: ["ear"], revision: 7 }));
+    const { session } = mount();
+    expect(session.patientName).toBeUndefined();
+    expect(await session.updateIntake(name, 12, 0)).toBe(false);
+    expect(evaluateAssessment).not.toHaveBeenCalled();
+    expect(await session.resumeSaved()).toBe(true);
+    expect(render().patientName).toBe(typeof patientName === "string" ? patientName.trim() : undefined);
+    expect(render().encounter).toEqual(withAge(11));
+    expect(await session.updateIntake(name, 12, render().revision)).toBe(true);
+    expect(parseDraft(storage.get(draftKey)!)).toMatchObject({ version: 1, patientName: name, encounter: withAge(12), attempted: ["ear"] });
+  });
+
+  it("gates an identity-only draft, allows completing its intake, and removes identity on reset", async () => {
+    storage.set(draftKey, JSON.stringify({ version: 1, patientName: name, encounter: {}, attempted: [], revision: 7 }));
+    const { session } = mount();
+    expect(session.needsResumeDecision).toBe(true);
+    expect(await session.refresh()).toBe(false);
+    expect(await session.resumeSaved()).toBe(true);
+    expect(render()).toMatchObject({ patientName: name, ready: true, hasData: true });
+    expect(await session.updateIntake(name, 11, render().revision)).toBe(true);
+    session.reset(); await Promise.resolve();
+    expect(render().patientName).toBeUndefined();
+    expect(render()).toMatchObject({ hasData: false, encounter: template });
+    expect(storage.has(draftKey)).toBe(false);
+  });
+
+  it.each([
+    ["", 11], [" \n\t ", 11], ["n".repeat(201), 11], [null, 11], [name, null], [name, "11"],
+    [name, 1], [name, 60], [name, 11.5], [name, NaN], [name, Infinity],
+  ])("rejects invalid intake name=%j age=%j without touching accepted data", async (invalidName, age) => {
+    mount(); await Promise.resolve();
+    const before = render().snapshot();
+    expect(await render().updateIntake(invalidName as string, age as number, before.revision)).toBe(false);
+    expect(render().snapshot()).toEqual(before);
+    expect(render().patientName).toBeUndefined();
+    expect(evaluateAssessment).toHaveBeenCalledOnce();
+    expect(setItem).not.toHaveBeenCalled();
+  });
+
+  it("requires a ready template, a current revision, and a single in-flight invocation", async () => {
+    const initial = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(initial.promise);
+    const { session } = mount();
+    expect(await session.updateIntake(name, 11, 0)).toBe(false);
+    initial.reject(new Error("No template")); await initial.promise.catch(() => {});
+    expect(await session.updateIntake(name, 11, 0)).toBe(false);
+    expect(await session.refresh()).toBe(true);
+    const revision = render().revision;
+    expect(await session.updateIntake(name, 11, revision - 1)).toBe(false);
+    const pending = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(pending.promise);
+    const first = session.updateIntake(name, 11, revision);
+    expect(await session.updateIntake("Duplicate", 12, revision)).toBe(false);
+    expect(await render().refresh()).toBe(false);
+    expect(evaluateAssessment).toHaveBeenCalledTimes(3);
+    pending.resolve(resultFor(withAge(11)));
+    expect(await first).toBe(true);
+    expect(await session.updateIntake("Stale", 12, revision)).toBe(false);
+    expect(render().patientName).toBe(name);
+  });
+
+  it.each(["network", "schema", "error", "state", "age"])("does not commit metadata or clinical changes on %s failure", async (failure) => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    render().recordInteraction({ ...trace, status: "accepted" });
+    const before = render().snapshot();
+    const saved = storage.get(draftKey);
+    if (failure === "network") vi.mocked(evaluateAssessment).mockRejectedValueOnce(new Error("Synthetic failure"));
+    else {
+      const invalid = resultFor(withAge(failure === "age" ? null : 12));
+      if (failure === "schema") invalid.analysis.schema_valid = false;
+      if (failure === "error") invalid.analysis.error = "Synthetic invalid result";
+      if (failure === "state") invalid.analysis.state = "ERROR";
+      vi.mocked(evaluateAssessment).mockResolvedValueOnce(invalid);
+    }
+    expect(await render().updateIntake("Uncommitted Synthetic Name", 12, before.revision)).toBe(false);
+    expect(render().snapshot()).toEqual(before);
+    expect(render().patientName).toBe(name);
+    expect(render().busy).toBe(false);
+    expect(render().error).not.toBe("");
+    expect(storage.get(draftKey)).toBe(saved);
+  });
+
+  it.each(["resolve", "reject"].flatMap((outcome) => [false, true].map((freshFirst) => ({ outcome, freshFirst }))))(
+    "ignores late intake $outcome after reset, fresh evaluation finished=$freshFirst", async ({ outcome, freshFirst }) => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    const old = deferred<AssessmentEvaluation>();
+    const fresh = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(old.promise).mockReturnValueOnce(fresh.promise);
+    const updating = render().updateIntake("Late Synthetic Name", 12, render().revision);
+    const signal = vi.mocked(evaluateAssessment).mock.lastCall![2]!;
+    render().reset();
+    if (freshFirst) { fresh.resolve(resultFor(template)); await fresh.promise; }
+    const before = render().snapshot();
+    expect(signal.aborted).toBe(true);
+    if (outcome === "resolve") old.resolve(resultFor(withAge(12)));
+    else old.reject(new Error("Late intake error"));
+    expect(await updating).toBe(false);
+    expect(render().snapshot()).toEqual(before);
+    expect(render()).toMatchObject({ busy: !freshFirst, hasData: false, error: "" });
+    expect(render().patientName).toBeUndefined();
+    expect(storage.has(draftKey)).toBe(false);
+    fresh.resolve(resultFor(template)); await fresh.promise;
+    expect(render()).toMatchObject({ busy: false, hasData: false, encounter: template });
+    expect(storage.has(draftKey)).toBe(false);
+  });
+
+  it("ignores intake after unmount without changing metadata or storage", async () => {
+    const { unmount } = mount(); await Promise.resolve();
+    const before = render().snapshot();
+    const pending = deferred<AssessmentEvaluation>();
+    vi.mocked(evaluateAssessment).mockReturnValueOnce(pending.promise);
+    const updating = render().updateIntake(name, 11, before.revision);
+    unmount(); pending.resolve(resultFor(withAge(11)));
+    expect(await updating).toBe(false);
+    expect(render().snapshot()).toEqual(before);
+    expect(render().patientName).toBeUndefined();
+    expect(storage.has(draftKey)).toBe(false);
+  });
+
+  it.each([false, true])("keeps a coherent in-memory intake on storage failure, stale removal fails=%s", async (removeFails) => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    const previous = storage.get(draftKey);
+    setItem.mockImplementation(() => { throw new Error("QuotaExceededError"); });
+    if (removeFails) vi.spyOn(sessionStorage, "removeItem").mockImplementation(() => { throw new Error("SecurityError"); });
+    expect(await render().updateIntake("New Synthetic Name", 12, render().revision)).toBe(true);
+    expect(render()).toMatchObject({ patientName: "New Synthetic Name", encounter: withAge(12), hasData: true });
+    expect(render().snapshot().evaluation?.encounter).toEqual(withAge(12));
+    expect(render().storageHint).toContain(removeFails ? "Safe restoration cannot be guaranteed" : "older saved draft was removed");
+    expect(storage.get(draftKey)).toBe(removeFails ? previous : undefined);
+  });
+
+  it.each([
+    { value: null, resolution: "replace" }, { value: 12, resolution: "unknown" }, { value: null, resolution: "unknown" },
+    { value: 1, resolution: "replace" }, { value: 60, resolution: "replace" }, { value: 11.5, resolution: "replace" },
+  ] as const)("rejects age proposal $value resolved as $resolution before API or trace writes", async ({ value, resolution }) => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    const before = render().snapshot();
+    const saved = storage.get(draftKey);
+    const ageCandidate = { ...candidate, changes: [{ ...candidate.changes[0], field: "patient_facts.age_months", previous: 11, value, conflict: true }] };
+    expect(await render().accept(ageCandidate, { "patient_facts.age_months": resolution }, before.revision)).toBe(false);
+    expect(acceptAssessment).not.toHaveBeenCalled();
+    expect(render().snapshot()).toEqual(before);
+    expect(storage.get(draftKey)).toBe(saved);
+  });
+
+  it("allows keeping age, supported age replacement, and unknown on other clinical fields without leaking the name", async () => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    const ageCandidate = { ...candidate, changes: [{ ...candidate.changes[0], field: "patient_facts.age_months", previous: 11, value: null, conflict: true }] };
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(resultFor(withAge(11)));
+    expect(await render().accept(ageCandidate, { "patient_facts.age_months": "keep" }, render().revision)).toBe(true);
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(resultFor(withAge(12)));
+    expect(await render().accept({ ...ageCandidate, changes: [{ ...ageCandidate.changes[0], value: 12 }] },
+      { "patient_facts.age_months": "replace" }, render().revision)).toBe(true);
+    const unknownEar = { ...candidate, changes: [{ ...candidate.changes[0], value: null }] };
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(resultFor({ ...withAge(12), ear: { ear_pain: null } }));
+    expect(await render().accept(unknownEar, { "ear.ear_pain": "unknown" }, render().revision)).toBe(true);
+    expect(render().patientName).toBe(name);
+    expect(render().interactions).toHaveLength(3);
+    expect(JSON.stringify(render().snapshot())).not.toContain(name);
+    expect(JSON.stringify(vi.mocked(acceptAssessment).mock.calls)).not.toContain(name);
+    expect(JSON.stringify(vi.mocked(evaluateAssessment).mock.calls)).not.toContain(name);
+    expect(parseDraft(storage.get(draftKey)!)?.patientName).toBe(name);
+  });
+
+  it("does not let generic evaluation or a backend response erase a known intake age", async () => {
+    mount(); await Promise.resolve();
+    await render().updateIntake(name, 11, render().revision);
+    const before = render().snapshot();
+    for (const input of [{}, withAge(null), withAge(60)]) {
+      expect(await render().evaluate(input, [])).toBe(false);
+    }
+    expect(evaluateAssessment).toHaveBeenCalledTimes(2);
+    vi.mocked(evaluateAssessment).mockResolvedValueOnce(resultFor(withAge(null)));
+    expect(await render().evaluate(withAge(12), [])).toBe(false);
+    expect(render().snapshot()).toEqual(before);
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(resultFor(withAge(null)));
+    expect(await render().accept(candidate, {}, render().revision)).toBe(false);
+    expect(render()).toMatchObject({ patientName: name, encounter: before.encounter, evaluation: before.evaluation, revision: before.revision });
+    expect(render().interactions[0].status).toBe("failed");
+  });
+
+  it("retains legacy unnamed age-clearing semantics", async () => {
+    mount(); await Promise.resolve();
+    await render().evaluate(withAge(11), []);
+    const ageCandidate = { ...candidate, changes: [{ ...candidate.changes[0], field: "patient_facts.age_months", previous: 11, value: null }] };
+    vi.mocked(acceptAssessment).mockResolvedValueOnce(resultFor(withAge(null)));
+    expect(await render().accept(ageCandidate, { "patient_facts.age_months": "unknown" }, render().revision)).toBe(true);
+    expect(render().encounter).toEqual(withAge(null));
+    expect(render().patientName).toBeUndefined();
+  });
+});
+
 describe("saved assessment choice", () => {
   it.each([false, true])("holds saved ear pain=%s and history outside the active draft until a choice", async (earPain) => {
     const raw = JSON.stringify({ version: 1, encounter: { ear: { ear_pain: earPain } }, attempted: ["ear"], revision: 7,

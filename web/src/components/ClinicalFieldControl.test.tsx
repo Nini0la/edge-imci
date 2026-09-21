@@ -101,6 +101,11 @@ describe("ClinicalFieldControl", () => {
     expect(onChange).toHaveBeenNthCalledWith(3, null);
   });
 
+  it("does not remove unknown choices from nonnumeric controls when required is supplied", () => {
+    const { elements } = renderControl({ required: true });
+    expect(elements.filter((element) => element.props.role === "radio").map((element) => element.props.children)).toEqual(["Yes", "No", "Not assessed"]);
+  });
+
   it.each([["ArrowRight", false, 1], ["ArrowLeft", null, 2], ["Home", true, 0], ["End", null, 2]] as const)(
     "supports explicit radio keyboard selection with %s", (key, value, index) => {
       const { elements, onChange } = renderControl({ value: true });
@@ -154,6 +159,25 @@ describe("ClinicalFieldControl", () => {
     expect(html).toContain("Minimum: 0. Maximum: 59 (months)");
   });
 
+  it.each([false, true])("requires age without an unknown action, compact=%s", (compact) => {
+    const control = renderControl({ required: true, compact, value: null,
+      descriptor: { path: "patient_facts.age_months", label: "Age", kind: "integer", nullable: true, assessments: ["danger"], unit: "months", minimum: 2, maximum: 59 },
+    });
+    expect(control.html).toMatch(/<input[^>]*required=""[^>]*aria-invalid="true"/);
+    expect(control.html).toContain('role="alert">Age is required.');
+    expect(control.html).not.toContain("Not assessed");
+    expect(control.onChange).not.toHaveBeenCalled();
+    for (const match of control.html.matchAll(/aria-(?:describedby|labelledby|controls)="([^"]+)"/g)) {
+      for (const id of match[1].split(" ")) expect(control.html).toContain(`id="${id}"`);
+    }
+    for (const raw of ["", "  "]) expect(control.rerender({ value: 24, raw }).html).toContain("Age is required.");
+    const filled = control.rerender({ value: 24 });
+    expect(filled.html).not.toContain("Age is required.");
+    expect(filled.html).toMatch(/<input[^>]*required=""[^>]*aria-invalid="false"/);
+    expect(control.rerender({ error: "Enter a whole number." }).html).toContain("Enter a whole number.");
+    expect(control.rerender({ required: false }).html).toContain(">Not assessed</button>");
+  });
+
   it("uses actual enum values with human-readable labels and an explicit unknown choice", () => {
     const { html, elements, onChange } = renderControl({
       descriptor: {
@@ -172,7 +196,7 @@ describe("ClinicalFieldControl", () => {
   });
 
   it.each([
-    ["voice", "From recording"], ["text", "From text"], ["worker", "Your answer"], ["accepted", "Not assessed"],
+    ["voice", "From report"], ["text", "From text"], ["worker", "Your answer"], ["accepted", "Not assessed"],
     ["kept", "Kept confirmed answer"], ["conflict", "Conflicting findings"],
   ] as const)("shows a small human-readable badge for %s", (source, label) => {
     expect(renderControl({ source }).html).toContain(`class="clinical-field-control__source">${label}</span>`);
