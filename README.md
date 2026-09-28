@@ -1,127 +1,106 @@
 # EdgeIMCI
 
-EdgeIMCI is a hackathon research project testing whether a small, locally deployable language model can normalize free-form primary-health-care findings from a whole sick-child encounter into canonical structured encounter state. The existing deterministic clinical pipeline then checks completeness and produces the supported IMCI classifications and management actions.
+**Offline-first clinical NLP with deterministic decision support for sick-child primary care.**
 
-The target interaction is:
+EdgeIMCI explores how a locally deployable language model can normalize free-form primary-health-care findings into a bounded encounter schema while keeping clinical decision authority in a deterministic, source-backed Integrated Management of Childhood Illness (IMCI) engine. The system is designed for constrained hardware and settings where connectivity may be limited or unavailable.
+
+This repository documents the full engineering path: clinical-rule encoding, information-state design, synthetic-data governance, model training, leakage-controlled evaluation, experiment tracking, edge packaging, and a worker-facing prototype.
+
+> EdgeIMCI is research software, not a diagnostic system or production medical device. It does not authorize autonomous clinical use and does not cover every IMCI pathway or follow-up algorithm.
+
+## Product demo
+
+[![Watch the two-minute EdgeIMCI prototype demo](https://img.youtube.com/vi/4GQwY4otV_8/hqdefault.jpg)](https://youtu.be/4GQwY4otV_8)
+
+**[Watch the two-minute EdgeIMCI prototype demo](https://youtu.be/4GQwY4otV_8).**
+
+The video demonstrates the worker-facing encounter flow. The interface shown uses the earlier 0.6B model integration; the latest 4B artifact is published and evaluated separately in the [ADTC submission repository](https://github.com/Nini0la/edgeIMCI-adtc-2026-submission).
+
+## System design
+
+The learned component interprets language. It does not own clinical decisions:
 
 ```text
-free-form whole-encounter PHC findings
-        |
-        v
-small EdgeIMCI structured extractor
-        |
-        v
-model-facing encounter JSON
-        |
-        v
-schema + deterministic completeness/IMCI engine
-        |
-        v
-integrated classifications, actions and presentation
+free-form whole-encounter findings
+                |
+                v
+      EdgeIMCI extractor
+                |
+                v
+   model-facing encounter JSON
+                |
+                v
+ schema and information-state checks
+                |
+                v
+ deterministic completeness + IMCI engine
+                |
+                v
+ classifications, actions and presentation
 ```
 
-This repository is research software. It is **not** a production medical device, does not authorize autonomous clinical use, and does not claim coverage of every IMCI pathway or follow-up algorithm.
+The model-facing target deliberately excludes classifications, urgency, referral, treatments, rule IDs, evaluator traces, provenance, and presentation text. Those outputs are produced by deterministic code after schema validation.
 
-## Current status
+`null` means `UNKNOWN`, never a negative finding. Silence is not converted into clinical evidence.
 
-The bounded clinical-semantic foundation and 78-case frozen product suite are implemented. The first 1,497-record structured-extraction corpus, Qwen3-0.6B Modal calibration matrix, and reserved 143-record TEST evaluation are complete. The selected fine-tune reached 97.20% exact-record and decision equivalence with 99.89% field accuracy, but failed six preregistered clinical thresholds; the TEST authorization is permanently closed and further work requires a new versioned training/evaluation line. The original base control was not given the project-specific schema or an example output, so that preregistered paired comparison is methodologically confounded. A separately authorized post-hoc base run received the complete schema and a valid example but still reached 0% JSON parse and schema validity; see the [base-control methodology correction](docs/qwen3_0_6b_base_control_methodology_correction_v1.md).
+## Engineering highlights
 
-| Area | Status |
-| --- | --- |
-| Major sick-child clinical rule set and provenance | Implemented and versioned |
-| Whole-encounter schema | Implemented |
-| Mechanical completeness oracle | Implemented and deterministic |
-| Integrated classification/action oracle | Deterministic oracle v3; technical/source verification passes |
-| Clinical/policy review | All 13 original questions plus the source-literal oxygen-referral disposition are resolved and versioned |
-| Automated verification | Full deterministic suite maintained in `tests/` |
-| Archived selected-v0 14-case component slice | Frozen historical/component-regression artifact; product-ineligible |
-| Product-level holistic golden semantic set | 78 cases approved and hash-frozen for bounded hackathon use; never direct training data |
-| Golden language renderings | Preserved as product-language references and downstream presentation artifacts |
-| Model-facing encounter contract | v1 schema, deterministic frozen-source projection and engine adapter implemented for review |
-| Structured-extraction evaluation | Schema, exact/field/UNKNOWN and downstream decision-equivalence metrics implemented for review |
-| Extraction dataset policy | Parent-case split inheritance and scope/acquisition/reassessment/contradiction decisions approved and versioned; separate scoped release authorizes the first exploratory SFT while TEST and deployment remain blocked |
-| Structured-extraction canary | Three reviewed existing PHC submissions paired with deterministic JSON targets; validated for review, not training-authorized |
-| Experiment/run registry infrastructure | Implemented with versioned registry, immutable run sidecars, accounting, and profiling support |
-| Bulk corpus generation | First structured-extraction campaign reconciled: 1,497 approved records across parent-derived splits |
-| SFT/model training | First Qwen3-0.6B LoRA completed successfully on Modal; adapter and merged checkpoint retained |
-| Reserved structured-extraction TEST | Closed after one frozen three-candidate comparison on 143 records; selected SFT reached 97.20% exact match, 99.89% field accuracy, 100% schema validity, 97.20% decision equivalence, 98.60% urgent-action equivalence, and 99.30% referral equivalence; failed six preregistered thresholds. The original paired base comparison is confounded by an under-specified prompt. One explicitly authorized post-hoc schema-informed base use also reached 0% JSON parse/schema validity and is closed; it is supplementary evidence, not a new untouched TEST. Reports: [`original`](experiments/evaluation/qwen3-0.6b-one-shot-test-v1/aggregate_report_final_v2.json), [`post-hoc base`](experiments/evaluation/qwen3-0.6b-posthoc-base-control-v1/aggregate_report.json) |
-| Pre-fine-tuning ASUS candidate model-runtime admission | Planned; protocol defined, exact candidates/runtime/checksums/thresholds unresolved |
-| Provisional product/submission candidate | Selected Qwen3-0.6B SFT run `251039a3-4adc-4e74-8c30-069eb8aca6de`; used by the current Modal product inference path and designated as the ADTC/submission placeholder. This is provisional and does not override the six TEST threshold failures. |
-| Post-training ASUS deployment-artifact requalification | Selected source checkpoint is pinned; GGUF conversion and exact-artifact qualification remain pending and must reuse the frozen admission harness for paired evidence. |
+- **Hybrid safety-oriented architecture:** learned language normalization is separated from deterministic clinical logic.
+- **Machine-readable clinical provenance:** encoded rules link back to the WHO IMCI source material and versioned review decisions.
+- **Explicit completeness policy:** incomplete assessments are distinguished from complete encounters, while known urgent findings can still trigger immediate source-backed actions.
+- **Controlled data lifecycle:** semantic parents govern dataset splits so paraphrases cannot cross TRAIN, VALIDATION, and TEST boundaries.
+- **Frozen evaluation assets:** golden cases, schemas, approval records, hashes, and historical test authorizations are retained for reproducibility.
+- **Experiment operations:** provider-neutral run registries, immutable sidecars, telemetry, accounting, and profiling distinguish scientific results from execution metadata.
+- **Edge delivery:** the model-development line includes LoRA fine-tuning, GGUF conversion, quantization, public artifact verification, and CPU profiling.
+- **Failure-aware reporting:** threshold failures, confounded comparisons, scope limits, and unresolved review work are recorded rather than hidden.
 
-The approved review decisions are canonical in [`imci_major_sick_child_review_decisions_v1.json`](configs/information_policy/imci_major_sick_child_review_decisions_v1.json), with a generated YAML mirror. This approval is limited to the project’s hackathon representation and is not production clinical authorization.
+The implementation spans Python, JSON Schema, pytest, React, TypeScript, and Vite. Model and experiment workflows include MLX, Modal, Azure OpenAI, Hugging Face, and `llama.cpp`, with immutable revisions and checksums recorded where they affect reproducibility.
 
-The later oxygen-referral disposition is canonical in [`imci_major_sick_child_oxygen_referral_disposition_v1.json`](configs/information_policy/imci_major_sick_child_oxygen_referral_disposition_v1.json). It preserves the source wording as non-urgent referral: saturation below 90% does not independently activate `IP-CQ-004` or suppress other applicable actions.
+## Current evidence
+
+This repository contains the deterministic clinical foundation, product semantics, data/evaluation infrastructure, prototype application, and the original 0.6B model-development line. The latest standalone 4B model, immutable download, provenance packet, and profiling evidence are maintained in the public [EdgeIMCI ADTC submission](https://github.com/Nini0la/edgeIMCI-adtc-2026-submission).
+
+| Workstream | Evidence |
+|---|---|
+| Clinical engine | Versioned major sick-child rule set, whole-encounter schema, deterministic completeness policy, integrated evaluator, and source-linked review decisions |
+| Product semantics | 78 hash-frozen holistic cases covering complete, incomplete, urgent, contradictory, boundary, and out-of-scope encounters; not authorized as direct training data |
+| Data engineering | Parent-aware split controls, deterministic target export, synthetic-language review, corpus accounting, and frozen artifact identities |
+| 0.6B research line | 1,497-record extraction corpus and one authorized 143-record reserved TEST comparison; 97.20% exact-record and decision equivalence, 99.89% field accuracy, and 100% schema validity, with six preregistered thresholds missed |
+| 4B release line | Enriched 2,258-row fine-tune, public Q4_K_M GGUF and adapter, reproducible provenance, CPU profiling, and retained official participant report in the separate submission repository |
+
+The 0.6B TEST result is historical evidence, not a production-readiness claim. Its original base comparison was methodologically confounded by an under-specified prompt; a separately authorized schema-informed base run is retained as supplementary evidence. See the [methodology correction](docs/qwen3_0_6b_base_control_methodology_correction_v1.md).
+
+The current 4B Q4_K_M participant profile reports 5.03 generation tokens/s, 4,288.94 MiB peak RSS, and ARC-Easy `acc_norm` 0.78 on 50 questions on an Intel Core i5-4210U. These are participant measurements, not an organizer audit, an official 8 GB qualification, or evidence of clinical accuracy. The complete limitations and original files are in the [4B profiling packet](https://github.com/Nini0la/edgeIMCI-adtc-2026-submission/tree/main/provenance/4B-alpha-second/profiling/2026-09-22-ubuntu-adtc).
 
 ## Supported encounter scope
 
-`imci-major-sick-child-v1` covers the initial sick-child assessment for children aged 2 completed months to under 5 years across:
+`imci-major-sick-child-v1` covers initial sick-child assessment for children aged 2 completed months to under 5 years across:
 
 - general danger signs;
 - cough or difficult breathing;
 - diarrhoea;
 - fever, including measles; and
-- ear problem.
+- ear problems.
 
-It is paired with `imci-major-sick-child-holistic-completeness-v2`. Omitted findings remain `UNKNOWN`; silence is never treated as a negative finding.
-
-The product-level behavior is:
+It is paired with `imci-major-sick-child-holistic-completeness-v2`. The product-level behavior is:
 
 ```text
 COMPLETE SUPPORTED ENCOUNTER
-→ emit integrated classifications and management
+-> emit integrated classifications and management
 
 INCOMPLETE, NO KNOWN URGENT FINDING
-→ report grouped missing assessment elements
-→ withhold final holistic synthesis
+-> report grouped missing assessment elements
+-> withhold final holistic synthesis
 
 INCOMPLETE, KNOWN URGENT FINDING
-→ emit source-backed urgent/pre-referral actions immediately
-→ report the remaining rapid assessment
-→ withhold final holistic synthesis
+-> emit source-backed urgent/pre-referral actions immediately
+-> report the remaining rapid assessment
+-> withhold final holistic synthesis
 ```
 
-Urgency does not make the encounter complete. The remaining supported assessment must be completed rapidly without delaying referral or pre-referral treatment. When urgent referral is triggered, routine home-care courses and scheduled follow-up are deferred from the immediate workflow unless the source explicitly makes them pre-referral or transfer actions.
+Urgency does not make an encounter complete. The remaining supported assessment must be completed rapidly without delaying referral or pre-referral treatment. The current scope is initial assessment only; it does not execute later IMCI follow-up-visit algorithms.
 
-The current scope is the **initial assessment only**. It may state source-backed follow-up timing, but it does not execute later IMCI follow-up-visit algorithms.
-
-## Clinical source and provenance
-
-The EdgeIMCI rule sets are machine-readable artifacts derived from **WHO — Integrated Management of Childhood Illness, Chart Booklet, March 2014**. They are not WHO-authored machine-readable rule sets.
-
-The expanded rule set uses PDF viewer pages 5–9 and linked treatment/reassessment pages. Every encoded logic unit records source provenance. The WHO PDF is not redistributed; obtain it separately and place it at:
-
-```text
-data/sources/IMCI chartbooklet 2014.pdf
-```
-
-See [`data/sources/README.md`](data/sources/README.md), [`major_sick_child_expansion_map_v1.md`](docs/major_sick_child_expansion_map_v1.md), and [`clinical_questions.md`](docs/clinical_questions.md).
-
-The older `imci-selected-v0` rule set remains frozen as a historical development/regression substrate. It covers only general danger signs, selected cough/difficult-breathing logic, and dehydration classification. It must not be described as the complete IMCI respiratory or diarrhoea algorithm.
-
-## Learned/deterministic architecture
-
-The model owns language interpretation, not clinical decision authority:
-
-```text
-free-form PHC findings
-        |
-        v
-EdgeIMCI extractor
-        |
-        v
-model-facing encounter JSON
-        |
-        +-- schema / validity checks
-        +-- deterministic completeness policy
-        +-- deterministic IMCI evaluator
-        +-- deterministic classifications and actions
-        +-- worker-facing presentation
-```
-
-The model-facing target excludes classifications, urgency, referral, treatments, rule IDs, evaluator traces, provenance and presentation text. `null` means `UNKNOWN`, never negative. See the [architecture impact note](docs/structured_extraction_architecture_impact_v1.md) and versioned [model-facing JSON Schema](configs/model_io/model_facing_encounter_v1.schema.json).
-
-## Install and test
+## Run locally
 
 Python 3.10 or newer is required.
 
@@ -130,181 +109,66 @@ python -m pip install -e ".[dev]"
 python -m pytest
 ```
 
-The canonical clinical and policy artifacts are JSON. Their YAML files are generated, human-readable mirrors. Regenerate the expanded mirrors with:
+The prototype can run with a deterministic fixture extractor, without model credentials:
+
+```bash
+cd web
+npm ci
+npm run build
+cd ..
+PYTHONPATH="src:." python -m app --extractor stub
+```
+
+Open `http://127.0.0.1:8000`. Stub mode recognizes only the frozen demonstration fixtures. See [`app/README.md`](app/README.md) for frontend development and the historical Modal-backed path.
+
+The canonical clinical and policy artifacts are JSON; YAML siblings are generated human-readable mirrors. Regenerate and verify them with:
 
 ```bash
 python scripts/sync_holistic_artifacts.py
+python -m pytest
 ```
 
 Tests reject JSON/YAML drift, unknown evaluator rule IDs, invalid scope pins, incomplete decision sets, and relevant clinical/completeness regressions.
 
-## Current data gate: structured-extraction corpus calibration
+## Clinical source and provenance
 
-The frozen `edge-imci-holistic-product-golden-v1` suite contains 78 structured cases using `corpus_role=HOLISTIC_PRODUCT_GOLDEN`. It is canonical as JSONL with a YAML mirror, pins the approved clinical/policy/oracle identities, and is mechanically recomputed by `edge-imci-holistic-golden-validator-v4`.
+The machine-readable rule sets are derived from the **WHO Integrated Management of Childhood Illness Chart Booklet, March 2014**. They are project-authored software artifacts, not WHO-authored machine-readable rules.
 
-Each structured golden case should pin:
+The WHO PDF is not redistributed. Obtain it separately and place it at:
 
-- complete encounter observations and explicit unknowns;
-- supported-encounter completeness;
-- simultaneous classifications across pathways;
-- urgent, intermediate, deferred, and final actions;
-- grouped missing elements for incomplete cases;
-- exact rule/action traces and provenance; and
-- any applicable approved review decision.
-
-The proposed set includes complete encounters, every encoded classification family, multiple simultaneous conditions, explicit-negative/omission twins, urgent-incomplete cases, respiratory reassessment, initial Plan B/C behavior, malaria contexts, HIV/chest-indrawing, cholera, measles, ear boundaries, contradictions, and schema-rejected out-of-scope cases.
-
-`HPG-GAP-REASSESS-001` is resolved by the versioned product-scope disposition `edge-imci-holistic-golden-scope-dispositions-v1`. Holistic golden v1 covers the initial dehydration classification, Plan B/C action, and timed-reassessment instruction. It does not execute longitudinal treatment state or automatic plan loops; a later full updated assessment may be submitted and evaluated afresh. This is an interaction/product-scope decision, not a new clinical rule.
-
-The first review’s four findings and the second review’s three respiratory findings are closed in oracle v3. The reviewed semantic hash was explicitly accepted by the project domain owner and transformed into a frozen v4 record envelope without changing any clinical expectations. The approval record preserves both hashes and authorizes the frozen suite for golden-language generation, product evaluation, and teacher bake-off—not direct training or production clinical use.
-
-The frozen language layer remains useful, but it is no longer the primary SFT label. The teacher continues to generate only semantically faithful PHC-worker submissions and fact-evidence annotations. Each accepted submission is paired with a model-facing target exported deterministically from the same frozen semantic case. Existing valid language is therefore reusable without another teacher call; frozen assistant responses remain presentation references.
-
-Dataset variants are split by parent semantic encounter under [`structured_extraction_dataset_policy_v1.json`](configs/training/structured_extraction_dataset_policy_v1.json). Every paraphrase inherits its parent's partition. Cases 77 and 78 remain out-of-scope TEST parents. The distinct TRAIN parents `oos-extract-young-respiratory-001` and `oos-extract-older-fever-001` are ready as extraction-only structured sources; their language generation/review has not started.
-
-## Experimental campaign
-
-The hackathon critical path is evidence-driven:
-
-1. approve the golden-language rendering contract and a small manually reviewed calibration set;
-2. render and review the complete 78-case golden language layer;
-3. run 4–6 teacher/prompt bake-off runs over the same frozen semantic cases;
-4. select a stable generation recipe with high semantic acceptance and no systematic corruption;
-5. generate a fast corpus of approximately 500–1,000 accepted examples;
-6. freeze candidate, runtime, checksum, ASUS, workload, scoring and admission-threshold identities, then qualify each base candidate-runtime combination on the ASUS;
-7. assemble and authorize canonical language-to-JSON records, run the selected Qwen3-0.6B exploratory SFT on Modal in parallel with formal target-device admission, and preserve the distinction between training evidence and deployment authorization;
-8. launch the larger Azure Batch data lane in parallel when justified;
-9. run structured-extraction metrics plus downstream deterministic decision-equivalence evaluations;
-10. convert or quantize the selected fine-tuned checkpoint and rerun the same frozen qualification on the same ASUS; and
-11. select/submit or take only the branch justified by the paired before-and-after evidence.
-
-SFT-v2, Qwen3-4B, Qwen3.5/Tinker, preference optimization or RL, SVD/compression, expanded quantization comparisons, and Lundin evaluation are conditional branches. They are not prerequisites for the first submission.
-
-The operating plans are:
-
-- [`experimental_campaign_map.md`](docs/experimental_campaign_map.md)
-- [`synthetic_data_generation_experiment_plan.md`](docs/synthetic_data_generation_experiment_plan.md)
-- [`experiment_operations_and_tracking_plan.md`](docs/experiment_operations_and_tracking_plan.md)
-- [`target_device_model_runtime_qualification_plan.md`](docs/target_device_model_runtime_qualification_plan.md)
-- [`adtc_submission_and_asus_profiling_handoff_v1.md`](docs/adtc_submission_and_asus_profiling_handoff_v1.md) — current execution handoff for the selected Qwen3-0.6B fine-tune
-- [`experiments/README.md`](experiments/README.md)
-
-The current Modal fine-tuning runner and first-run handoff are documented in
-[`modal_finetuning_pipeline_v1.md`](docs/modal_finetuning_pipeline_v1.md). Its
-preflight verifies the dataset release, hashes, parent-derived partitions,
-model/tokenizer revision, target schema, and the complete absence of TEST
-records from the trainer before allocating a GPU.
-
-Before the campaign expands, each generation, training, evaluation, and profile runner should automatically create a versioned run sidecar containing configuration identity, inputs, outputs, hashes, telemetry, status, and raw provider usage. Scientific results must remain distinguishable from execution time and derived cost.
-
-## Historical v0 regression assets
-
-The committed `data/benchmark/imci_v0.jsonl` is an exposed 82-case development/regression set. It is not an untouched final benchmark and must never be used as future training data. Regenerate it deterministically with:
-
-```bash
-python scripts/generate_benchmark.py \
-  --output data/benchmark/imci_v0.jsonl \
-  --seed 20240301
+```text
+data/sources/IMCI chartbooklet 2014.pdf
 ```
 
-The historical 14-case `LEGACY_SELECTED_V0_COMPONENT_REGRESSION` slice remains fixed as an archived component regression suite for selected-v0 semantics, information states, acquisition modes, and controlled semantic-to-language conversion. It is not the new product-level holistic golden set and is mechanically ineligible for training, holistic generation, product evaluation, and new teacher selection.
+Every encoded logic unit records source provenance. Start with:
 
-The committed split demonstration proves group-aware leakage controls, but is not the eventual training, validation, or benchmark corpus:
+- [`data/sources/README.md`](data/sources/README.md) for source handling;
+- [`major_sick_child_expansion_map_v1.md`](docs/major_sick_child_expansion_map_v1.md) for the source-to-rule map;
+- [`clinical_questions.md`](docs/clinical_questions.md) for reviewed clinical questions; and
+- [`docs/README.md`](docs/README.md) for document authority, lifecycle, and supersession.
 
-```bash
-python scripts/generate_splits.py
-```
+The older `imci-selected-v0` rule set and its evaluation assets remain frozen as historical regression material. They must not be represented as the complete respiratory or diarrhoea algorithm or reused as product training data.
 
-## Baseline and external-evaluation tooling
+## Repository guide
 
-The mock runner exercises serialization, prompting, strict scoring, and run-artifact generation without invoking a model:
+| Path | Purpose |
+|---|---|
+| [`src/edge_imci/`](src/edge_imci) | Schemas, deterministic evaluation, generation, review, experiment tracking, and CLI infrastructure |
+| [`app/`](app) | Python API and extraction adapters for the prototype application |
+| [`web/`](web) | React worker interface |
+| [`data/rules/`](data/rules) | Versioned clinical rules and provenance |
+| [`data/golden/`](data/golden) | Frozen semantic and language evaluation assets |
+| [`configs/`](configs) | Information policy, schemas, review decisions, experiment definitions, and rendering contracts |
+| [`experiments/`](experiments) | Run registry and retained model, generation, evaluation, and profiling evidence |
+| [`tests/`](tests) | Clinical boundaries, provenance, completeness, synthesis, artifact, and pipeline verification |
+| [`docs/`](docs) | Architecture, methodology, audit history, operating plans, and document-control index |
 
-```bash
-python scripts/run_baseline.py \
-  --benchmark data/benchmark/imci_v0.jsonl \
-  --output experiments/baselines/mock-run/
-```
+## Project history
 
-Pinned local MLX Qwen baselines remain useful historical/component evidence. Install the optional model dependencies and run, for example:
+EdgeIMCI was developed through the Africa Deep Tech Challenge, which supplied a concrete external target for laptop deployment, reproducibility, and evidence packaging. The competition is one milestone in the project rather than its technical scope: the repository remains a case study in constrained clinical NLP, safety-oriented system architecture, data governance, evaluation design, and edge-model operations.
 
-```bash
-python -m pip install -e ".[models]"
+## Safety and license
 
-python scripts/run_model_baseline.py qwen3-0.6b \
-  --output experiments/baselines/qwen3-0.6b/internal-v0
-```
+Independent clinical review remains incomplete. EdgeIMCI must not be used for autonomous diagnosis, treatment, referral, or production clinical care. The encoded scope and review decisions are bounded research representations and do not replace current clinical guidance, professional judgment, local policy, or regulatory review.
 
-`configs/external_benchmarks.json` pins two Lundin IMCI benchmark revisions without redistributing them. Lundin is now optional external/generalization evidence and is intentionally off the hackathon critical path. Fetch a pinned revision with:
-
-```bash
-python scripts/fetch_external_benchmark.py lundin_current_07c6f0f
-```
-
-External results must identify the pinned revision and one of the repository’s separated strict or upstream-compatibility scoring policies. Do not merge Lundin scores with EdgeIMCI product metrics into a single accuracy figure.
-
-## Repository map
-
-Documentation authority and lifecycle are defined in [`docs/README.md`](docs/README.md). Working plans, exploratory notes, review evidence, approved policy, and historical records must not be treated as interchangeable.
-
-### Clinical semantics and completeness
-
-- [`data/rules/imci_major_sick_child_v1.json`](data/rules/imci_major_sick_child_v1.json): canonical expanded clinical rule set and provenance.
-- [`configs/information_policy/imci_major_sick_child_holistic_completeness_v2.json`](configs/information_policy/imci_major_sick_child_holistic_completeness_v2.json): whole-encounter completeness and synthesis policy.
-- [`configs/information_policy/imci_major_sick_child_review_decisions_v1.json`](configs/information_policy/imci_major_sick_child_review_decisions_v1.json): the 13 approved hackathon-scope review decisions.
-- [`src/edge_imci/schemas/holistic.py`](src/edge_imci/schemas/holistic.py): whole-encounter schema.
-- [`src/edge_imci/evaluation/holistic.py`](src/edge_imci/evaluation/holistic.py): deterministic integrated evaluator.
-- [`docs/system_level_clinical_audit_v2.md`](docs/system_level_clinical_audit_v2.md): verification record and readiness decision.
-
-### Golden semantics and language work
-
-- [`data/golden/holistic_product_v1/`](data/golden/holistic_product_v1): approved, hash-frozen 78-case product-level holistic semantic suite, canonical manifest, and YAML mirror.
-- [`configs/golden/holistic_product_golden_approval_v1.json`](configs/golden/holistic_product_golden_approval_v1.json): canonical approval/freeze record, including reviewed and frozen hashes and bounded-use permissions.
-- [`docs/product_holistic_golden_approval_v1.md`](docs/product_holistic_golden_approval_v1.md): human-readable approval, freeze, and change-control record.
-- [`docs/golden_language_rendering_contract_v1.md`](docs/golden_language_rendering_contract_v1.md): approved bounded-hackathon language contract and calibration boundary.
-- [`configs/rendering/edgeimci_response_grammar_v1.json`](configs/rendering/edgeimci_response_grammar_v1.json): canonical project-owner-approved state templates, exact delimiters, and formatting change control.
-- [`docs/edgeimci_response_grammar_v1.md`](docs/edgeimci_response_grammar_v1.md): human-readable deterministic response grammar.
-- [`data/golden/holistic_product_v1/language_calibration_v1.jsonl`](data/golden/holistic_product_v1/language_calibration_v1.jsonl): canonical, project-owner-approved 16-case style calibration; frozen and not training-eligible.
-- [`docs/product_holistic_golden_language_calibration_review_v1.md`](docs/product_holistic_golden_language_calibration_review_v1.md): reviewer-facing presentation of the 16 frozen calibration conversations.
-- [`docs/product_holistic_golden_language_technical_review_v1.md`](docs/product_holistic_golden_language_technical_review_v1.md): same-agent alignment/editorial review and remediated findings used as an approval input.
-- [`docs/product_holistic_golden_language_independent_review_v1.md`](docs/product_holistic_golden_language_independent_review_v1.md): independent coding-agent review of the pinned pre-freeze calibration and its two subsequently remediated language findings.
-- [`configs/rendering/holistic_golden_language_approval_v1.json`](configs/rendering/holistic_golden_language_approval_v1.json): canonical project-owner approval, freeze hashes, permissions, and validation limitations.
-- [`docs/product_holistic_golden_language_approval_v1.md`](docs/product_holistic_golden_language_approval_v1.md): human-readable language approval and controlled-freeze record.
-- [`data/golden/holistic_product_v1/language_renderings_v1.jsonl`](data/golden/holistic_product_v1/language_renderings_v1.jsonl): complete 78-case grammar-normalized language layer; all records pending re-review.
-- [`docs/product_holistic_golden_language_review_v1_report.md`](docs/product_holistic_golden_language_review_v1_report.md): hash-pinned pre-format review that passed semantics and motivated the stable grammar.
-- [`docs/product_holistic_golden_language_review_v1.md`](docs/product_holistic_golden_language_review_v1.md): reviewer-facing grammar-normalized complete language layer.
-- [`docs/holistic_golden_language_format_re_review_agent_instructions.md`](docs/holistic_golden_language_format_re_review_agent_instructions.md): hash-pinned instructions for independent re-review of the formatted 78-case layer.
-- [`docs/holistic_golden_language_independent_review_agent_instructions.md`](docs/holistic_golden_language_independent_review_agent_instructions.md): executed, superseded pre-freeze review handoff retained for history.
-- [`docs/product_holistic_golden_suite_requirements_v1.md`](docs/product_holistic_golden_suite_requirements_v1.md): product-level semantic-suite contract.
-- [`configs/golden/holistic_product_golden_scope_dispositions_v1.json`](configs/golden/holistic_product_golden_scope_dispositions_v1.json): versioned product-scope resolution for later Plan B/C treatment-stage execution.
-- [`docs/product_holistic_golden_review_v1.md`](docs/product_holistic_golden_review_v1.md): case index, pinned substrate, review instructions, and resolved scope disposition.
-- [`docs/product_holistic_golden_domain_review_v1.md`](docs/product_holistic_golden_domain_review_v1.md): superseded technical/source review of the pre-remediation hash and its four findings.
-- [`docs/product_holistic_golden_domain_re_review_v1.md`](docs/product_holistic_golden_domain_re_review_v1.md): superseded oracle-v2 independent review and respiratory finding record.
-- [`docs/product_holistic_golden_domain_re_review_v2.md`](docs/product_holistic_golden_domain_re_review_v2.md): oracle-v3 technical/source verification used as the basis for human/domain approval.
-- [`docs/interaction_design_retrieval_assessment_bundles.md`](docs/interaction_design_retrieval_assessment_bundles.md): current holistic interaction framing.
-- [`docs/synthetic_data_generation_experiment_notes.md`](docs/synthetic_data_generation_experiment_notes.md): structured-first language-generation hypotheses and experiments.
-- [`data/archive/selected_v0/`](data/archive/selected_v0): quarantined historical 14-case selected-v0 component semantics and proposed renderings; lifecycle restrictions are machine-readable in its archive manifest.
-- [`experiments/rendering_bakeoff_v1/`](experiments/rendering_bakeoff_v1): historical component rendering candidates and metrics.
-
-### Infrastructure
-
-- [`scripts/sync_holistic_artifacts.py`](scripts/sync_holistic_artifacts.py): deterministic expanded JSON-to-YAML synchronization.
-- [`scripts/generate_holistic_golden_suite.py`](scripts/generate_holistic_golden_suite.py): deterministic proposed holistic semantic-suite generation and review package.
-- [`scripts/generate_holistic_language_calibration.py`](scripts/generate_holistic_language_calibration.py): deterministic materialization and validation of the approved and frozen 16-case language calibration.
-- [`scripts/generate_holistic_golden_language_suite.py`](scripts/generate_holistic_golden_language_suite.py): deterministic grammar-normalized complete-language generation from frozen semantics and preserved calibration inputs.
-- [`experiments/registry/`](experiments/registry): versioned planned experiment definitions, campaign branches, schemas, generated YAML mirror, and generated run index.
-- [`src/edge_imci/experiments/`](src/edge_imci/experiments): provider-neutral automatic run tracking, provenance, telemetry, accounting, profiling, and CLI infrastructure.
-- [`experiments/README.md`](experiments/README.md): implemented experiment operations, immutable sidecar, accounting, and ADTC profiling conventions.
-- [`src/edge_imci/information_policy/`](src/edge_imci/information_policy): policy artifact validation and legacy selected-v0 information-policy machinery.
-- [`src/edge_imci/generation/`](src/edge_imci/generation): deterministic case, split, and historical golden-slice utilities.
-- [`src/edge_imci/evaluation/`](src/edge_imci/evaluation): clinical, parsing, scoring, external-evaluation, and reporting logic.
-- [`tests/`](tests): scope boundaries, source/provenance, completeness, action synthesis, artifact mirrors, and pipeline behavior.
-
-## Change-control boundaries
-
-- Do not modify the frozen `imci-selected-v0` clinical semantics to make the expanded product model easier to implement.
-- Do not treat `UNKNOWN` as negative or manufacture missing observations.
-- Do not let language-generation code create or alter clinical truth.
-- Do not use the historical 82-case benchmark or archived 14-case selected-v0 slice as training data or as product-level holistic semantics.
-- Do not silently convert generic source actions into invented drug names, doses, durations, or regimens.
-- Do not call the hackathon review decision set production clinical approval.
-- Preserve immutable raw run evidence; derive summaries and cost without overwriting it.
+The repository is licensed under [GNU GPL v3](LICENSE). Third-party models, datasets, source publications, and hosted artifacts retain their own terms; the repository license is not a blanket license determination for those materials.
